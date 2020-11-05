@@ -3,20 +3,27 @@ using System.Collections.Generic;
 using UnityEngine;
 using CodeMonkey.Utils;
 
-public class MapControl : Singleton<MonoBehaviour> {
+public class MapControl : Singleton<MapControl> {
 
     public Map map;
+    public List<MapCell> StorageList;
+
     private float mouseMoveTimer;
     private float mouseMoveTimerMax = .01f;
 
     public GameObject forest;
     public GameObject player;
+    public GameObject building_storage;
 
     private void Start() {
         //Example of the world
+        StorageList = new List<MapCell>();
         map = new Map(32, 18, 10f, new Vector3(0, 0));
-        GameObject test=CreateGameObject(0, 0, player);
-        test.GetComponent<Unit>().StartCoroutine(test.GetComponent<Unit>().MoveUnitToNextPosition(map.cells[0][0], map.cells[5][5]));
+        GameObject testUnit = CreateGameObject(0, 0, player);
+        CreateGameObject(5, 5, building_storage);
+        GameObject testForest = CreateGameObject(9, 4, forest);
+
+        testUnit.GetComponent<Unit>().SetActivity(new ActivityStateWoodcutting(map.Grid[9][4], testUnit.GetComponent<Unit>()));
     }
 
     private void Update() {
@@ -47,7 +54,7 @@ public class MapControl : Singleton<MonoBehaviour> {
             {
                 GameObject g = Instantiate(toBeCreatedGO);
                 map.CenterObject(x, y, g);
-                map.SetValue(x, y, forest);
+                map.SetValue(x, y, g);
                 return g;
             }
             else

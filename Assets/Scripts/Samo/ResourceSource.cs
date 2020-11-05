@@ -4,25 +4,24 @@ using UnityEngine;
 
 public class ResourceSource : CellObject
 {
-    public List<Resource> resources;
-    
-    //Adding few resources as en example
+    public List<Resource> Resources;
+
+    //Adding few Resources as en example
     override protected  void Awake()
     {
         base.Awake();
-        resources = new List<Resource>();
-        resources.Add(new Resource("Wood", "temp"));
-        resources.Add(new Resource("Wood", "temp"));
-        resources.Add(new Resource("Wood", "temp"));
+        Resources = new List<Resource>();
+        Resources.Add(new Resource("Wood", "temp", ResourceType.Wood, 500));
     }
-    public Resource Gather()
+    //TODO
+    /*public Resource Gather()
     {
-        if (resources.Count > 1)
+        if (Resources.Count > 1)
         {
             Flash();
-            int random = Random.Range(0, resources.Count);
-            Resource itemToGive = resources[random];
-            resources.Remove(itemToGive);
+            /*int random = Random.Range(0, Resources.Count);
+            Resource itemToGive = Resources[random];
+            Resources.Remove(itemToGive);
             return itemToGive;
         }
         else
@@ -31,7 +30,5 @@ public class ResourceSource : CellObject
             Destroy(this.gameObject);
             return null;
         }
-    }
-
-
+    }*/
 }

@@ -16,7 +16,7 @@ public class Map {
     private int height;
     private float cellSize;
     private Vector3 originPosition;
-    public List<List<Cell>> cells;
+    public List<List<MapCell>> Grid { get; set; }
 
     public Map(int width, int height, float cellSize, Vector3 originPosition) {
         this.width = width;
@@ -38,15 +38,15 @@ public class Map {
         return cellSize;
     }
 
-    public void InitializeCellArray(int width, int height,bool debugLines)
+    private void InitializeCellArray(int width, int height,bool debugLines)
     {
-        cells = new List<List<Cell>>();
+        Grid = new List<List<MapCell>>();
         for (int x = 0; x < width; x++)
         {
-            cells.Add(new List<Cell>());
+            Grid.Add(new List<MapCell>());
             for (int y = 0; y < height; y++)
             {
-                cells[x].Add(new Cell(GetWorldPosition(x, y) + new Vector3(cellSize, cellSize) * .5f, null));
+                Grid[x].Add(new MapCell(GetWorldPosition(x, y) + new Vector3(cellSize, cellSize) * .5f, null, this, x, y));
                 if (debugLines)
                 {
                     Debug.DrawLine(GetWorldPosition(x, y), GetWorldPosition(x, y + 1), Color.white, 100f);
@@ -72,7 +72,7 @@ public class Map {
 
     public void SetValue(int x, int y, GameObject o) {
         if (x >= 0 && y >= 0 && x < width && y < height) {
-            cells[x][y].SetCellObject(o);
+            Grid[x][y].SetCellObject(o);
             if (OnGridValueChanged != null) OnGridValueChanged(this, new OnGridValueChangedEventArgs { x = x, y = y });
         }
     }
@@ -85,7 +85,7 @@ public class Map {
 
     public GameObject GetValue(int x, int y) {
         if (x >= 0 && y >= 0 && x < width && y < height) {
-            return cells[x][y].GetCellObject();
+            return Grid[x][y].GetCellObject();
         } else {
             return null;
         }
@@ -99,7 +99,7 @@ public class Map {
 
     public void CenterObject(int x, int y,GameObject g)
     {
-        g.transform.position = new Vector3 (cells[x][y].position.x, cells[x][y].position.y,0);
+        g.transform.position = new Vector3 (Grid[x][y].position.x, Grid[x][y].position.y,0);
     }
     public bool IsInBounds(Vector3 worldPosition)
     {
@@ -116,4 +116,43 @@ public class Map {
         Debug.Log("Target outside of bounds.");
         return false;
     }
+
+    public List<List<PathSearchNode>> ProducePathSearchMatrix(PathSearchStartFinishWrapper StartFinishWrapper, PathSearchNode VisitSourceNode = null, List<List<PathSearchNode>> VisitSourceMap = null)
+    {
+        List<List<PathSearchNode>> PathSearchMatrix = new List<List<PathSearchNode>>();
+        foreach (List<MapCell> Row in this.Grid)
+        {
+            List<PathSearchNode> NewRow = new List<PathSearchNode>();
+            foreach (MapCell Cell in Row)
+            {
+                if (Cell is MapCellComposite)
+                {
+                    PathSearchNode WrappedCell = Cell.ProducePathSearchNode(PathSearchMatrix);
+                    if (((MapCellComposite)Cell).EntryPoint == VisitSourceNode.WrappedCell)
+                    {
+                        ((PathSearchNodeComposite)VisitSourceNode).EntryPoint = ((PathSearchNodeComposite)WrappedCell);
+                        ((PathSearchNodeComposite)WrappedCell).InnerMap = VisitSourceMap;
+                        ((PathSearchNodeComposite)WrappedCell).EntryPoint = ((PathSearchNodeComposite)VisitSourceNode);
+                    }
+                    else
+                    {
+                        ((PathSearchNodeComposite)WrappedCell).InnerMap = ((MapCellComposite)Cell).InnerMap.ProducePathSearchMatrix(StartFinishWrapper, WrappedCell, PathSearchMatrix);
+                    }
+                    NewRow.Add(WrappedCell);
+                    StartFinishWrapper.TryAddNode(WrappedCell);
+                }
+                else
+                {
+                    PathSearchNode WrappedNode = Cell.ProducePathSearchNode(PathSearchMatrix);
+                    NewRow.Add(WrappedNode);
+                    StartFinishWrapper.TryAddNode(WrappedNode);
+                }
+
+            }
+            PathSearchMatrix.Add(NewRow);
+        }
+
+        return PathSearchMatrix;
+    }
+
 }

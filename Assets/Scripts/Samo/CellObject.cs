@@ -24,6 +24,8 @@ public class CellObject : MonoBehaviour
     protected SpriteRenderer sr;
     Vector3 basicScale;
     Quaternion basicRotation;
+
+    public MapCell CurrentCell { get; private set; }
     virtual protected void Awake()
     {
         sr = GetComponent<SpriteRenderer>();
@@ -32,11 +34,18 @@ public class CellObject : MonoBehaviour
         originalColor = sr.color;
     }
 
+    virtual protected void Start()
+    {
 
+    }
     // Update is called once per frame
     virtual protected void Update()
     {
         
+    }
+    public virtual void SetCurrentCell(MapCell Cell)
+    {
+        this.CurrentCell = Cell;
     }
     public void ScalingAnim(bool toStart)
     {
