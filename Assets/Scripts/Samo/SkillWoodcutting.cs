@@ -45,5 +45,4 @@ public class SkillWoodcutting : Skill
 
         return true;
     }
-
 }

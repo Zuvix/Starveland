@@ -11,12 +11,12 @@ public class UnitCommandDrop : UnitCommand
     {
     }
 
-    public override bool IsDone(Unit Unit, Skill Skill)
+    public override bool IsDone(Unit Unit)
     {
         return Unit.CarriedResource.IsDepleted();
     }
 
-    public override IEnumerator PerformAction(Unit Unit, Skill skill)
+    public override IEnumerator PerformAction(Unit Unit)
     {
         // TODO This might be moved to Mišo's Skill classes, Miso: nevidim dovod preco by to muselo byt v skille
         Resource DroppedResource = Unit.CarriedResource.Deplete();

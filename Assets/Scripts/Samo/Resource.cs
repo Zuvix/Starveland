@@ -82,6 +82,7 @@ public class Resource
             if (this.Amount <= 0)
             {
                 this.Type = ResourceType.None;
+                this.Amount = 0;
             }
         }
         return Result;

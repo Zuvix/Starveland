@@ -12,7 +12,7 @@ public class UnitCommandMove : UnitCommand
         this.Targets = Path;
         this.UsedTargets = new List<MapCell>();
     }
-    public override bool IsDone(Unit Unit, Skill Skill)
+    public override bool IsDone(Unit Unit)
     {
         bool Result = false;
         if (this.Targets.Count == 0)
@@ -30,7 +30,7 @@ public class UnitCommandMove : UnitCommand
         }
         return Result;
     }
-    public override IEnumerator PerformAction(Unit Unit, Skill Skill)
+    public override IEnumerator PerformAction(Unit Unit)
     {
         // TODO - Animation here
         yield return Unit.StartCoroutine(Unit.MoveUnitToNextPosition(this.Targets.First()));

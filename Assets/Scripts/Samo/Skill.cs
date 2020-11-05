@@ -14,7 +14,7 @@ public abstract class Skill
 
     // talents variables
     public float ChanceToGetExtraResource;
-    public float ActionSpeedBonus;
+    public float gatheringSpeed;
     public int CarryingCapacity;
 
     public Skill()
@@ -23,7 +23,7 @@ public abstract class Skill
         this.Level = 1;
         this.SkillAppliedTalents = new List<TalentSkillSpecific>();
         this.ChanceToGetExtraResource = 0;
-        this.ActionSpeedBonus = 0;
+        this.gatheringSpeed = 1.5f;
         this.CarryingCapacity = 2;
     }
 

@@ -101,7 +101,6 @@ MonoBehaviour:
   rotationFactor: 5
   scalingTime: 0.2
   rotationTime: 0.2
-  rotationSpeed: 30
+  rotationSpeed: 20
   flashTime: 0.2
-  movementSpeed: 20
-  gatheringSpeed: 1
+  movementSpeed: 40

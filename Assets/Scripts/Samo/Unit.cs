@@ -5,7 +5,6 @@ using UnityEngine;
 public class Unit : CellObject
 {
     public float movementSpeed=2f;
-    public float gatheringSpeed = 1.5f;
 
     public UnitCommand CurrentCommand { get; set; }
     public Resource CarriedResource = new Resource();
@@ -76,12 +75,12 @@ public class Unit : CellObject
         //center units position to cells position
         transform.position = TargetCell.position;
     }
-    public IEnumerator GatherResource(ResourceSource target)
+    public IEnumerator GatherResource(ResourceSource target, float GatheringTime)
     {
        /* if (itemInHand == null)
         {*/
             Debug.Log("Preparing the axe");
-            yield return new WaitForSeconds(gatheringSpeed);
+            yield return new WaitForSeconds(GatheringTime);
             Debug.Log("Gathering object");
             //itemInHand = target.Gather();
             target.Flash();
@@ -103,7 +102,7 @@ public class Unit : CellObject
             return storedResource;
         }*/
         Debug.Log("About to drop");
-        yield return new WaitForSeconds(gatheringSpeed);
+        yield return new WaitForSeconds(1.0f);
         Debug.Log("Dropping resources");
         //itemInHand = target.Gather();
         target.Flash();
@@ -119,7 +118,7 @@ public class Unit : CellObject
             return storedResource;
         }*/
         Debug.Log("About to do idle fun");
-        yield return new WaitForSeconds(gatheringSpeed);
+        yield return new WaitForSeconds(1.0f);
         Debug.Log("I'm idling");
         //itemInHand = target.Gather();
         yield return new WaitForSeconds(0.2f);

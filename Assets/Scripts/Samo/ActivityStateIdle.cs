@@ -11,6 +11,8 @@ class ActivityStateIdle : ActivityState
 
     public override IEnumerator PerformAction(Unit Unit)
     {
-        yield return Unit.StartCoroutine(Unit.CurrentCommand.PerformAction(Unit, null));
+        yield return Unit.StartCoroutine(Unit.CurrentCommand.PerformAction(Unit));
+
+        //TODO add to idle list
     }
 }

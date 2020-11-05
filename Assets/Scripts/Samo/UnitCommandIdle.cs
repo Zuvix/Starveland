@@ -10,11 +10,11 @@ public class UnitCommandIdle : UnitCommand
     public UnitCommandIdle() : base(null)
     {
     }
-    public override bool IsDone(Unit Unit, Skill Skill)
+    public override bool IsDone(Unit Unit)
     {
         return false;
     }
-    public override IEnumerator PerformAction(Unit Unit, Skill Skill)
+    public override IEnumerator PerformAction(Unit Unit)
     {
         yield return Unit.StartCoroutine(Unit.BeIdle());
     }

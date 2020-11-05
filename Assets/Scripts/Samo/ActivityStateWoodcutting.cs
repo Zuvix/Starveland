@@ -16,13 +16,13 @@ class ActivityStateWoodcutting : ActivityState
 
         this.CommandMove2Resource = new UnitCommandMove(Target, Path2Resource);
 
-        this.CommandGatherFromResource = new UnitCommandGather(Target);
+        this.CommandGatherFromResource = new UnitCommandGather(Target, Unit.SkillWoodcutting);
         this.CommandMove2Storage = null;
         this.CommandDrop2Storage = null;
     }
     public override IEnumerator PerformAction(Unit Unit)
     {
-        if (Unit.CurrentCommand.IsDone(Unit, Unit.SkillWoodcutting))
+        if (Unit.CurrentCommand.IsDone(Unit))
         {
             // If Unit arrived next to resource, let's command it to gather
             if (Unit.CurrentCommand == this.CommandMove2Resource)
@@ -99,7 +99,7 @@ class ActivityStateWoodcutting : ActivityState
         }
         else
         {
-            yield return Unit.StartCoroutine(Unit.CurrentCommand.PerformAction(Unit, Unit.SkillWoodcutting));
+            yield return Unit.StartCoroutine(Unit.CurrentCommand.PerformAction(Unit));
         }
     }
     public override void InitializeCommand(Unit Unit)

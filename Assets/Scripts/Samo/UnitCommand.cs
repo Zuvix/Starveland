@@ -12,8 +12,8 @@ public abstract class UnitCommand
     {
         this.Target = Target;
     }
-    public abstract IEnumerator PerformAction(Unit Unit, Skill Skill);
-    public virtual bool IsDone(Unit Unit, Skill Skill)
+    public abstract IEnumerator PerformAction(Unit Unit);
+    public virtual bool IsDone(Unit Unit)
     {
         return false;
     }

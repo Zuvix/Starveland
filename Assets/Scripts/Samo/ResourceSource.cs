@@ -11,7 +11,20 @@ public class ResourceSource : CellObject
     {
         base.Awake();
         Resources = new List<Resource>();
-        Resources.Add(new Resource("Wood", "temp", ResourceType.Wood, 500));
+        Resources.Add(new Resource("Wood", "temp", ResourceType.Wood, 4));
+    }
+
+    public Resource GatherResource(int amount)
+    {
+        Resource Result = this.Resources[0].Subtract(amount);
+
+        if (this.Resources[0].Type == ResourceType.None)
+        {
+            this.CurrentCell.SetCellObject(null);
+            Destroy(this);
+        }
+
+        return Result;
     }
     //TODO
     /*public Resource Gather()
