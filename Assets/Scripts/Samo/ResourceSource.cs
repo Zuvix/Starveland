@@ -26,6 +26,19 @@ public class ResourceSource : CellObject
 
         return Result;
     }
+
+    private void OnMouseOver()
+     {
+         if (Input.GetMouseButtonDown(1))
+         {
+             UnitManager.Instance.AddActionToQueue(this.tag, this.CurrentCell.x, this.CurrentCell.y);
+         }
+     }
+    /*private void OnMouseDown()
+    {
+        UnitManager.Instance.AddActionToQueue(this.tag, this.CurrentCell.x, this.CurrentCell.y);
+    }*/
+
     //TODO
     /*public Resource Gather()
     {

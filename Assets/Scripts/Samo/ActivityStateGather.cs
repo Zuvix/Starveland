@@ -3,23 +3,24 @@ using System.Collections.Generic;
 using System.Collections;
 using UnityEngine;
 
-class ActivityStateWoodcutting : ActivityState
+class ActivityStateGather : ActivityState
 {
     private UnitCommandMove CommandMove2Resource;
     private UnitCommandGather CommandGatherFromResource;
     private UnitCommandMove CommandMove2Storage;
     private UnitCommandDrop CommandDrop2Storage;
 
-    public ActivityStateWoodcutting(MapCell Target, Unit Unit) : base()
+    public ActivityStateGather(MapCell Target, Unit Unit, Skill Skill) : base()
     {
         List<MapCell> Path2Resource = PathFinding.Instance.FindPath(Unit.CurrentCell, Target, PathFinding.EXCLUDE_LAST);
 
         this.CommandMove2Resource = new UnitCommandMove(Target, Path2Resource);
 
-        this.CommandGatherFromResource = new UnitCommandGather(Target, Unit.SkillWoodcutting);
+        this.CommandGatherFromResource = new UnitCommandGather(Target, Skill);
         this.CommandMove2Storage = null;
         this.CommandDrop2Storage = null;
     }
+
     public override IEnumerator PerformAction(Unit Unit)
     {
         if (Unit.CurrentCommand.IsDone(Unit))
@@ -39,6 +40,7 @@ class ActivityStateWoodcutting : ActivityState
                 // Oh no, it's not possible to get to any Storage?
                 if (Path == null)
                 {
+                    Debug.Log("Neviem najst cestu nastavujem sa na idle!");
                     Unit.SetActivity(new ActivityStateIdle());
                 }
                 // We found a path to Storage

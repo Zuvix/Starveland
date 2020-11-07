@@ -12,6 +12,10 @@ public class Unit : CellObject
     public SkillWoodcutting SkillWoodcutting = new SkillWoodcutting();
     public void SetActivity(ActivityState Activity)
     {
+        if (Activity is ActivityStateIdle)
+        {
+            UnitManager.Instance.AddUnitToIdleList(this);
+        }
         this.CurrentActivity = Activity;
         Activity.InitializeCommand(this);
     }

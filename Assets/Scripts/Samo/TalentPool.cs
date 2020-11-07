@@ -23,21 +23,27 @@ public class TalentPool : Singleton<TalentPool>
     // generate random new skill specific talent
     public TalentSkillSpecific GetNewSkillSpecificTalent(List<TalentSkillSpecific> SkillAppliedTalents, int Level)
     {
-        // create copy to delete from
+        // create empty talent pool
         List<TalentSkillSpecific> SkillSpecificTalentsFree = new List<TalentSkillSpecific>();
 
-        // iterate through all talents and those which aren't already applied add to free pool
+        // iterate through all talents and those which aren't already applied add to the free pool
         if (SkillAppliedTalents.Count > 0)
         {
             foreach (var talentAll in this.SkillSpecificTalents)
             {
+                bool IsThere = false;
                 foreach (var talentApplied in SkillAppliedTalents)
                 {
-                    if (talentAll.GetType() != talentApplied.GetType())
+                    if (talentAll.GetType() == talentApplied.GetType())
                     {
-                        SkillSpecificTalentsFree.Add(talentAll);
+                        // talent of this effect is already applied, skip
+                        IsThere = true;
                         break;
                     }
+                }
+                if (!IsThere) 
+                {
+                    SkillSpecificTalentsFree.Add(talentAll);
                 }
             }
         }
@@ -54,7 +60,7 @@ public class TalentPool : Singleton<TalentPool>
             ChoosenTalent = SkillSpecificTalentsFree.ElementAt(Random.Range(0, SkillSpecificTalentsFree.Count()));
         }
 
-        return ChoosenTalent == null ? null : ChoosenTalent.CreateNewInstanceOfSelf(Level);
+        return ChoosenTalent?.CreateNewInstanceOfSelf(Level);
     }
 
 }

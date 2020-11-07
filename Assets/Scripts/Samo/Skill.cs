@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 public abstract class Skill
 {
-    protected int CurrentExperience;
+    public int CurrentExperience { get; set; }
     public int Level;
     protected const int ExperienceNeededToLevelUp = 40; //TODO zmenit na 1000
     protected int ExperiencePerAction;

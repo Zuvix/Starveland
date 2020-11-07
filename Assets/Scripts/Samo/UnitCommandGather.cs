@@ -11,7 +11,7 @@ public class UnitCommandGather : UnitCommand
     {
         this.Skill = Skill;
     }
-    //Miso: konkretny ActivityState musi poslat unitov skill, aby sa tu dala rozoznat kedze gather command je vseobecne pre vsetko
+
     public override bool IsDone(Unit Unit) 
     {
         //return Unit.CarriedResource.Amount >= Unit.CarryingCapacity;

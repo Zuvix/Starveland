@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using UnityEngine;
 using System.Linq;
-using UnityEngine;
 using System.Threading.Tasks;
 
 public class PathFinding : Singleton<PathFinding>
@@ -76,7 +75,7 @@ public class PathFinding : Singleton<PathFinding>
                     {
                         continue;
                     }
-                    if (!Neighbour.WrappedCell.CanBeEntered())
+                    if (!Neighbour.WrappedCell.CanBeEntered() && Neighbour != StartFinishWrapper.FinishWrapper)
                     {
                         ListAlreadySearched.Add(Neighbour);
                         continue;
@@ -98,7 +97,7 @@ public class PathFinding : Singleton<PathFinding>
             }
 
             ReconstructPath(Path, StartFinishWrapper.FinishWrapper);
-            if (ExcludeLast)
+            if (ExcludeLast && Path.Count > 0)
             {
                 Path.RemoveAt(Path.Count - 1);
             }
