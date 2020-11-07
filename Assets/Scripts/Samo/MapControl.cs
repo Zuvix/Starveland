@@ -18,7 +18,7 @@ public class MapControl : Singleton<MapControl> {
     private void Start() {
         //Example of the world
         StorageList = new List<MapCell>();
-        map = new Map(32, 18, 10f, new Vector3(0, 0));
+        map = new Map(33, 21, 10f, new Vector3(0, 0));
         GameObject testUnit = CreateGameObject(0, 0, player);
         CreateGameObject(5, 5, building_storage);
         GameObject testForest = CreateGameObject(9, 4, forest);

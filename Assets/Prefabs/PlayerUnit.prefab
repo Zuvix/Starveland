@@ -103,4 +103,4 @@ MonoBehaviour:
   rotationTime: 0.2
   rotationSpeed: 20
   flashTime: 0.2
-  movementSpeed: 40
+  movementSpeed: 20

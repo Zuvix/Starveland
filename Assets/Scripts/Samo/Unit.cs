@@ -27,7 +27,7 @@ public class Unit : CellObject
     public IEnumerator ControlUnit()
     {
         while(true)
-        {
+        { 
             yield return StartCoroutine(this.CurrentActivity.PerformAction(this));
             yield return new WaitForFixedUpdate();
         }
