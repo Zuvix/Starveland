@@ -14,7 +14,8 @@ public class TalentPool : Singleton<TalentPool>
         // Add skill specific talents to the pool
         SkillSpecificTalents = new List<TalentSkillSpecific>
         {
-            new TalentCarryingCapacity("Increased carrying capacity talent", 5)
+            new TalentCarryingCapacity("Increased carrying capacity talent", 5),
+            new TalentGatheringSpeed("Increased gathering speed talent", 0.5f)
         };
 
         // Add unit specific talents to the pool TODO
