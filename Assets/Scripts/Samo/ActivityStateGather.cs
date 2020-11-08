@@ -9,16 +9,24 @@ class ActivityStateGather : ActivityState
     private UnitCommandGather CommandGatherFromResource;
     private UnitCommandMove CommandMove2Storage;
     private UnitCommandDrop CommandDrop2Storage;
+    private MapCell Target;
 
-    public ActivityStateGather(MapCell Target, Unit Unit, Skill Skill) : base()
+    public ActivityStateGather(MapCell Target) : base()
     {
-        List<MapCell> Path2Resource = PathFinding.Instance.FindPath(Unit.CurrentCell, Target, PathFinding.EXCLUDE_LAST);
+        this.Target = Target;
+    }
 
-        this.CommandMove2Resource = new UnitCommandMove(Target, Path2Resource);
+    public override ActivityState SetCommands(Unit Unit, Skill Skill)
+    {
+        List<MapCell> Path2Resource = PathFinding.Instance.FindPath(Unit.CurrentCell, this.Target, PathFinding.EXCLUDE_LAST);
 
-        this.CommandGatherFromResource = new UnitCommandGather(Target, Skill);
+        this.CommandMove2Resource = new UnitCommandMove(this.Target, Path2Resource);
+
+        this.CommandGatherFromResource = new UnitCommandGather(this.Target, Skill);
         this.CommandMove2Storage = null;
         this.CommandDrop2Storage = null;
+
+        return this;
     }
 
     public override IEnumerator PerformAction(Unit Unit)
