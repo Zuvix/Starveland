@@ -7,13 +7,18 @@ using UnityEngine;
 
 public class UnitManager : Singleton<UnitManager>
 {
-    public Queue<Tuple<string, int, int>> ActionQueue; //tag, x, y
+    public Queue<CellObject> ActionQueue;
     public List<Unit> IdleUnits;
+    public Dictionary<string, SkillType> GetSkillDictionary;
 
     public UnitManager()
     {
-        this.ActionQueue = new Queue<Tuple<string, int, int>>();
+        this.ActionQueue = new Queue<CellObject>();
         this.IdleUnits = new List<Unit>();
+        this.GetSkillDictionary = new Dictionary<string, SkillType> //todo add another skills
+        {
+            {"Forest", SkillType.woodcutting }
+        };
     }
 
     // main scheduling algorithm TODO
@@ -21,49 +26,44 @@ public class UnitManager : Singleton<UnitManager>
     {
         if (IdleUnits.Count > 0)
         {
-            foreach (Tuple<string, int, int> action in ActionQueue.ToList())
+            foreach (CellObject action in ActionQueue.ToList())
             {
                 //todo discard units that cant do the action
 
-                //woodcutting
-                if (action.Item1.Equals("Forest"))
+                SkillType skillType = GetSkillDictionary[action.tag];
+            
+                Unit bestUnit = IdleUnits[0];
+                foreach (Unit unit in IdleUnits)
                 {
-
-                    Unit bestWoodcuttingUnit = IdleUnits[0];
-                    foreach (Unit unit in IdleUnits)
+                    if (unit.Skills[skillType].CurrentExperience > bestUnit.Skills[skillType].CurrentExperience)
                     {
-                        if (unit.SkillWoodcutting.CurrentExperience > bestWoodcuttingUnit.SkillWoodcutting.CurrentExperience)
-                        {
-                            bestWoodcuttingUnit = unit;
-                        }
+                        bestUnit = unit;
                     }
-
-                    IdleUnits.Remove(bestWoodcuttingUnit);
-                    
-                    bestWoodcuttingUnit.GetComponent<Unit>().SetActivity(
-                            new ActivityStateGather(
-                            MapControl.Instance.map.Grid[action.Item2][action.Item3], bestWoodcuttingUnit,
-                            bestWoodcuttingUnit.SkillWoodcutting));
-
-                    Debug.Log("Pocet idle unitov: " + IdleUnits.Count());
-                    ActionQueue.Dequeue();
-                    Debug.Log("Velkost queue: " + ActionQueue.Count);
-
                 }
 
+                IdleUnits.Remove(bestUnit);
+                    
+                bestUnit.GetComponent<Unit>().SetActivity(
+                        new ActivityStateGather(
+                        MapControl.Instance.map.Grid[action.CurrentCell.x][action.CurrentCell.y], bestUnit,
+                        bestUnit.Skills[skillType]));
+
+                Debug.Log("Pocet idle unitov: " + IdleUnits.Count());
+                ActionQueue.Dequeue();
+                Debug.Log("Velkost queue: " + ActionQueue.Count);
+             
             }
 
         }
 
     }
 
-    public bool AddActionToQueue(string tag, int x, int y)
+    public bool AddActionToQueue(CellObject CellObject)
     {
         // add new action to the queue only if there is not same one already
-        Tuple<string, int, int> NewAction = new Tuple<string, int, int>(tag, x, y);
-        if (!ActionQueue.Contains(NewAction)) {
+        if (!ActionQueue.Contains(CellObject)) {
             Debug.Log("Adding to queue");
-            ActionQueue.Enqueue(NewAction);
+            ActionQueue.Enqueue(CellObject);
         }
         // call the main scheduling loop 
         this.ActionSchedulingLoop();

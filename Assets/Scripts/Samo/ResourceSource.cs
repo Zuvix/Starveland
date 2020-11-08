@@ -31,7 +31,7 @@ public class ResourceSource : CellObject
      {
          if (Input.GetMouseButtonDown(1))
          {
-             UnitManager.Instance.AddActionToQueue(this.tag, this.CurrentCell.x, this.CurrentCell.y);
+             UnitManager.Instance.AddActionToQueue(this);
          }
      }
     /*private void OnMouseDown()
