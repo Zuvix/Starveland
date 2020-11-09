@@ -5,10 +5,9 @@ using UnityEngine;
 public class Unit : CellObject
 {
     public float movementSpeed=2f;
-
     public UnitCommand CurrentCommand { get; set; }
     public Resource CarriedResource = new Resource();
-    private ActivityState CurrentActivity;
+    public ActivityState CurrentActivity;
     public SkillWoodcutting SkillWoodcutting = new SkillWoodcutting();
     public void SetActivity(ActivityState Activity)
     {
@@ -18,6 +17,7 @@ public class Unit : CellObject
     protected override void Awake()
     {
         base.Awake();
+        objectName=NameGenerator.GetRandomName();
         this.SetActivity(new ActivityStateIdle());
     }
     protected override void Start()

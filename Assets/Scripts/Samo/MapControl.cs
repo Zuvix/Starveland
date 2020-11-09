@@ -8,12 +8,10 @@ public class MapControl : Singleton<MapControl> {
     public Map map;
     public List<MapCell> StorageList;
 
-    private float mouseMoveTimer;
-    private float mouseMoveTimerMax = .01f;
-
     public GameObject forest;
     public GameObject player;
     public GameObject building_storage;
+
 
     private void Start() {
         //Example of the world
@@ -33,16 +31,6 @@ public class MapControl : Singleton<MapControl> {
     private void HandleClickToModifymap() {
         if (Input.GetMouseButtonDown(0)) {
             CreateGameObject(UtilsClass.GetMouseWorldPosition(), forest);
-        }
-    }
-
-    private void HandleMouseMove() {
-        mouseMoveTimer -= Time.deltaTime;
-        if (mouseMoveTimer < 0f) {
-            mouseMoveTimer += mouseMoveTimerMax;
-            GameObject mapValue = map.GetValue(UtilsClass.GetMouseWorldPosition());
-            if(mapValue!=null)
-                Debug.Log(mapValue.name);
         }
     }
 

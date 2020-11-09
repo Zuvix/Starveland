@@ -10,7 +10,7 @@ public class MapCell
     public Map Map { get; }
 
     public Vector3 position;
-    GameObject cellGameObject = null;
+    public GameObject cellGameObject = null;
     public MapCell(Vector3 position, GameObject g, Map Map, int x, int y)
     {
         this.position = position;
