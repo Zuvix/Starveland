@@ -103,3 +103,6 @@ MonoBehaviour:
   rotationTime: 0.5
   rotationSpeed: 1
   flashTime: 0.1
+  sr: {fileID: 0}
+  objectName: Tree
+  tip: Primary source of wood.

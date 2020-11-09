@@ -103,3 +103,6 @@ MonoBehaviour:
   rotationTime: 0.5
   rotationSpeed: 1
   flashTime: 0.2
+  sr: {fileID: 0}
+  objectName: Storage
+  tip: Your units store harvested resources here.

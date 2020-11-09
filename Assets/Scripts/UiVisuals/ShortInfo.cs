@@ -8,6 +8,7 @@ public class ShortInfo : MonoBehaviour
     public GameObject topContent;
     public TMP_Text nameTxt;
     public Image img;
+    public TMP_Text tipTxt;
 
     public GameObject unitContent;
     public TMP_Text unitHP;
@@ -56,6 +57,7 @@ public class ShortInfo : MonoBehaviour
             Unit unit = go.GetComponent<Unit>();
             unitHP.text = "TODO";
             unitAction.text = "TODO";
+            tipTxt.text = unit.tip;
         }
         if (go.GetComponent<ResourceSource>()!=null)
         {

@@ -103,4 +103,7 @@ MonoBehaviour:
   rotationTime: 0.2
   rotationSpeed: 20
   flashTime: 0.2
+  sr: {fileID: 0}
+  objectName: Pipik
+  tip: One of your precious humans.
   movementSpeed: 20
