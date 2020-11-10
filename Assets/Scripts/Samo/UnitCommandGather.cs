@@ -29,7 +29,10 @@ public class UnitCommandGather : UnitCommand
         //Console.WriteLine("I'm cutting wood {0}/{1}", Unit.CarriedResource.Amount, Skill.CarryingCapacity);
         yield return Unit.StartCoroutine(Unit.GatherResource(this.Target.GetCellObject().GetComponent<ResourceSource>(), Skill.GatheringSpeed));
 
-        Skill.DoAction(Unit, (ResourceSource)Target.CurrentObject);
+        if (Target.CurrentObject != null && Target.CurrentObject is ResourceSource)
+        {
+            Skill.DoAction(Unit, (ResourceSource)Target.CurrentObject);
+        }
     }
     public override bool CanBePerformed(Unit Unit)
     {

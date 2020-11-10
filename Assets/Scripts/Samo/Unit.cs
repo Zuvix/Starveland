@@ -6,9 +6,10 @@ public class Unit : CellObject
 {
     public float movementSpeed=2f;
 
-    public UnitCommand CurrentCommand { get; set; }
+    public UnitCommand CurrentCommand { get; private set; }
     public Resource CarriedResource = new Resource();
     private ActivityState CurrentActivity;
+    public UnitMovementConflictManager MovementConflictManager;
 
     // Used for movement collisions
     private static readonly System.Random WaitTimeGenerator = new System.Random();
@@ -20,7 +21,15 @@ public class Unit : CellObject
         { SkillType.woodcutting, new SkillWoodcutting() }
     };
 
-
+    public void SetCommand(UnitCommand Command)
+    {
+        this.CurrentCommand = Command;
+        if (this.CurrentCommand != null)
+        {
+            this.MovementConflictManager
+                .RefreshRemainingRetryCounts();
+        }
+    }
     public void SetActivity(ActivityState Activity)
     {
         this.CurrentActivity = Activity;
@@ -33,6 +42,7 @@ public class Unit : CellObject
     protected override void Awake()
     {
         base.Awake();
+        this.MovementConflictManager = new UnitMovementConflictManager();
         this.SetActivity(new ActivityStateIdle());
     }
     protected override void Start()
