@@ -14,6 +14,7 @@ public class MapControl : Singleton<MapControl> {
     public GameObject forest;
     public GameObject player;
     public GameObject building_storage;
+    public GameObject animal;
 
     private void Start() {
         //Example of the world
@@ -28,6 +29,9 @@ public class MapControl : Singleton<MapControl> {
         GameObject testForest3 = CreateGameObject(11, 4, forest);
         GameObject testForest4 = CreateGameObject(9, 5, forest);
         GameObject testForest5 = CreateGameObject(15, 15, forest);
+
+        //animal test
+        GameObject testAnimal1 = CreateGameObject(14, 14, animal);
 
  
         //testUnit1.GetComponent<Unit>().SetActivity(new ActivityStateWoodcutting(map.Grid[11][4], testUnit1.GetComponent<Unit>(), testUnit1.GetComponent<Unit>().SkillWoodcutting));

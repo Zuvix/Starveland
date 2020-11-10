@@ -30,7 +30,7 @@ public abstract class Skill
     protected bool AddExperience(int Amount)
     {
         this.CurrentExperience += Amount;
-        Console.WriteLine($"Gained {Amount} experience, total {this.CurrentExperience}");
+        //Console.WriteLine($"Gained {Amount} experience, total {this.CurrentExperience}");
 
         //if i have enough experience to level up
         if(CurrentExperience >= ExperienceNeededToLevelUp*Level)

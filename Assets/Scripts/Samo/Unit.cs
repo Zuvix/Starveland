@@ -4,17 +4,18 @@ using UnityEngine;
 
 public class Unit : CellObject
 {
-    public float movementSpeed=2f;
+    [HideInInspector]
+    public float MovementSpeed { get; set; }
 
     public UnitCommand CurrentCommand { get; set; }
     public Resource CarriedResource = new Resource();
-    private ActivityState CurrentActivity;
+    protected ActivityState CurrentActivity;
 
     public Dictionary<SkillType, Skill> Skills = new Dictionary<SkillType, Skill> {
         { SkillType.woodcutting, new SkillWoodcutting() } };
 
 
-    public void SetActivity(ActivityState Activity)
+    public virtual void SetActivity(ActivityState Activity)
     {
         if (Activity is ActivityStateIdle)
         {
@@ -25,6 +26,7 @@ public class Unit : CellObject
     }
     protected override void Awake()
     {
+        this.MovementSpeed = 20.0f;
         base.Awake();
         this.SetActivity(new ActivityStateIdle());
     }
@@ -73,7 +75,7 @@ public class Unit : CellObject
         //initiate ingame movement process
         while (distance > 0.5f)
         {
-            transform.position += movementVector * movementSpeed * Time.deltaTime;
+            transform.position += movementVector * MovementSpeed * Time.deltaTime;
             yield return new WaitForFixedUpdate();
             distance = Vector3.Distance(transform.position, TargetCell.position);
         }

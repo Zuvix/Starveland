@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-public class TalentSkillSpecific : Talent
+public abstract class TalentSkillSpecific : Talent
 {
 
     public TalentSkillSpecific(string Name) :base(Name)
@@ -12,18 +12,10 @@ public class TalentSkillSpecific : Talent
 
     }
 
-    public virtual bool Apply(Skill Skill)
-    {
-        throw new NotImplementedException();
-    }
-    public virtual bool Remove(Skill Skill)
-    {
-        throw new NotImplementedException();
-    }
+    public abstract bool Apply(Skill Skill);
 
-    public virtual TalentSkillSpecific CreateNewInstanceOfSelf(int Level)
-    {
-        throw new NotImplementedException();
-    }
+    public abstract bool Remove(Skill Skill);
+
+    public abstract TalentSkillSpecific CreateNewInstanceOfSelf(int Level);
 
 }
