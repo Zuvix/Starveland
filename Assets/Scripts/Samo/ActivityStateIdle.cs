@@ -19,6 +19,7 @@ class ActivityStateIdle : ActivityState
     }
     public override IEnumerator PerformAction(Unit Unit)
     {
+        //TODO perhaps if i have something in inventory, I should go drop it?
         if (Unit.CurrentCommand.IsDone(Unit))
         {
             // If Unit arrived next house, command it to stay idle
