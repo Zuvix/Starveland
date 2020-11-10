@@ -31,4 +31,17 @@ public class UnitCommandGather : UnitCommand
 
         Skill.DoAction(Unit, (ResourceSource)Target.CurrentObject);
     }
+    public override bool CanBePerformed(Unit Unit)
+    {
+        bool Result = false;
+        if (this.Target.CurrentObject == null)
+        {
+            Result = false;
+        }
+        else if (this.Target.CurrentObject is ResourceSource)
+        {
+            Result = !((ResourceSource)this.Target.CurrentObject).Resources[0].IsDepleted();
+        }
+        return Result;
+    }
 }

@@ -17,7 +17,6 @@ public class MouseEvents : Singleton<MouseEvents>
         {
             mouseMoveTimer += mouseMoveTimerMax;
             GameObject mapValue = MapControl.Instance.map.GetValue(UtilsClass.GetMouseWorldPosition());
-            Debug.Log(mapValue);
             if (mapValue != null)
             {
                 if (!mapValue.Equals(viewedObject))

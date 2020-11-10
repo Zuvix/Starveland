@@ -41,22 +41,7 @@ class ActivityStateGather : ActivityState
             // If Unit is finished gathering (full inventory), let's command it to move to storage
             else if (Unit.CurrentCommand == this.CommandGatherFromResource)
             {
-                (List<MapCell>, MapCell) Temp = PathFinding.Instance.FindPath(Unit.CurrentCell, MapControl.Instance.StorageList, PathFinding.EXCLUDE_LAST);
-                List<MapCell> Path = Temp.Item1;
-                MapCell ClosestStorage = Temp.Item2;
-
-                // Oh no, it's not possible to get to any Storage?
-                if (Path == null)
-                {
-                    Debug.Log("Neviem najst cestu nastavujem sa na idle!");
-                    Unit.SetActivity(new ActivityStateIdle());
-                }
-                // We found a path to Storage
-                else
-                {
-                    this.CommandMove2Storage = new UnitCommandMove(ClosestStorage, Path);
-                    Unit.CurrentCommand = this.CommandMove2Storage;
-                }
+                this.CommandToMoveResourcesToStorage(Unit);
             }
             // If unit has walked next to the storage, let's command it to drop resources to it
             else if (Unit.CurrentCommand == this.CommandMove2Storage)
@@ -67,8 +52,17 @@ class ActivityStateGather : ActivityState
             // If unit has dropped resources to the storage, let's command it to move to the resource source again
             else if (Unit.CurrentCommand == this.CommandDrop2Storage)
             {
-                this.CommandMove2Resource = new UnitCommandMove(this.CommandMove2Resource.Target, PathFinding.Instance.FindPath(Unit.CurrentCell, this.CommandMove2Resource.Target, PathFinding.EXCLUDE_LAST));
-                Unit.CurrentCommand = this.CommandMove2Resource;
+                // If target resource is depleted, there is no reason to move to it
+                if (this.Target.CurrentObject == null || ((ResourceSource)this.Target.CurrentObject).Resources[0].IsDepleted())
+                {
+                    Unit.SetActivity(new ActivityStateIdle());
+                }
+                // The target unit is not depleted, let's move to it
+                else
+                {
+                    this.CommandMove2Resource = new UnitCommandMove(this.CommandMove2Resource.Target, PathFinding.Instance.FindPath(Unit.CurrentCell, this.CommandMove2Resource.Target, PathFinding.EXCLUDE_LAST));
+                    Unit.CurrentCommand = this.CommandMove2Resource;
+                }
             }
             else
             {
@@ -90,6 +84,15 @@ class ActivityStateGather : ActivityState
             else if (Unit.CurrentCommand == this.CommandGatherFromResource)
             {
                 //TODO
+                Debug.Log("Gathering from this Resource Source is not possible because it is depleted");
+                if (Unit.CarriedResource.IsDepleted())
+                {
+                    Unit.SetActivity(new ActivityStateIdle());
+                }
+                else
+                {
+                    this.CommandToMoveResourcesToStorage(Unit);
+                }
             }
             // If moving to storage is not possible
             else if (Unit.CurrentCommand == this.CommandMove2Storage)
@@ -117,5 +120,24 @@ class ActivityStateGather : ActivityState
         // TODO if carrying capacity is full, first move to storage
 
         Unit.CurrentCommand = this.CommandMove2Resource;
+    }
+    private void CommandToMoveResourcesToStorage(Unit Unit)
+    {
+        (List<MapCell>, MapCell) Temp = PathFinding.Instance.FindPath(Unit.CurrentCell, MapControl.Instance.StorageList, PathFinding.EXCLUDE_LAST);
+        List<MapCell> Path = Temp.Item1;
+        MapCell ClosestStorage = Temp.Item2;
+
+        // Oh no, it's not possible to get to any Storage?
+        if (Path == null)
+        {
+            Debug.Log("Neviem najst cestu nastavujem sa na idle!");
+            Unit.SetActivity(new ActivityStateIdle());
+        }
+        // We found a path to Storage
+        else
+        {
+            this.CommandMove2Storage = new UnitCommandMove(ClosestStorage, Path);
+            Unit.CurrentCommand = this.CommandMove2Storage;
+        }
     }
 }

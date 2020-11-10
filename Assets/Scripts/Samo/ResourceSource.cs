@@ -18,10 +18,11 @@ public class ResourceSource : CellObject
     {
         Resource Result = this.Resources[0].Subtract(amount);
 
-        if (this.Resources[0].Type == ResourceType.None)
+        if (this.Resources[0].Amount <= 0)
         {
+            Debug.Log("Destroying Resource Source");
             this.CurrentCell.SetCellObject(null);
-            Destroy(this);
+            Destroy(this.gameObject);
         }
 
         return Result;
