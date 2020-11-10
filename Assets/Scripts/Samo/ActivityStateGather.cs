@@ -11,15 +11,20 @@ class ActivityStateGather : ActivityState
     private UnitCommandDrop CommandDrop2Storage;
     private MapCell Target;
 
-    private int MaxMovementTries;
     private int RemainingMovementTries;
+    private int RemainingNewPathFindTries;
 
-    private static readonly int MovementTriesCap = 3;
+    private static readonly int MovementTriesMaxCap = 3;
+    private static readonly int MovementTriesMinCap = 2;
+    private static readonly int NewPathFindTriesMaxCap = 4;
+    private static readonly int NewPathFindTriesMinCap = 2;
+
+    private static readonly System.Random RandomNumberGenerator = new System.Random();
 
     public ActivityStateGather(MapCell Target) : base()
     {
         this.Target = Target;
-        this.MaxMovementTries = this.RemainingMovementTries = MovementTriesCap;
+        this.RefreshRemainingRetryCounts();
     }
 
     public override ActivityState SetCommands(Unit Unit, Skill Skill)
@@ -48,7 +53,7 @@ class ActivityStateGather : ActivityState
             else if (Unit.CurrentCommand == this.CommandGatherFromResource)
             {
                 this.CommandToMoveResourcesToStorage(Unit);
-                this.RemainingMovementTries = this.MaxMovementTries;
+                this.RefreshRemainingRetryCounts();
             }
             // If unit has walked next to the storage, let's command it to drop resources to it
             else if (Unit.CurrentCommand == this.CommandMove2Storage)
@@ -60,7 +65,7 @@ class ActivityStateGather : ActivityState
             else if (Unit.CurrentCommand == this.CommandDrop2Storage)
             {
                 // If target resource is depleted, there is no reason to move to it
-                if (this.Target.CurrentObject == null || ((ResourceSource)this.Target.CurrentObject).Resources[0].IsDepleted())
+                if (this.Target.CurrentObject == null || (this.Target.CurrentObject is ResourceSource && ((ResourceSource)this.Target.CurrentObject).Resources[0].IsDepleted()))
                 {
                     Unit.SetActivity(new ActivityStateIdle());
                 }
@@ -69,7 +74,7 @@ class ActivityStateGather : ActivityState
                 {
                     this.CommandMove2Resource = new UnitCommandMove(this.CommandMove2Resource.Target, PathFinding.Instance.FindPath(Unit.CurrentCell, this.CommandMove2Resource.Target, PathFinding.EXCLUDE_LAST));
                     Unit.CurrentCommand = this.CommandMove2Resource;
-                    this.RemainingMovementTries = this.MaxMovementTries;
+                    this.RefreshRemainingRetryCounts();
                 }
             }
             else
@@ -131,9 +136,14 @@ class ActivityStateGather : ActivityState
     }
     public override void InitializeCommand(Unit Unit)
     {
-        // TODO if carrying capacity is full, first move to storage
-
-        Unit.CurrentCommand = this.CommandMove2Resource;
+        if (Unit.CarriedResource.IsDepleted())
+        {
+            Unit.CurrentCommand = this.CommandMove2Resource;
+        }
+        else
+        {
+            this.CommandToMoveResourcesToStorage(Unit);
+        }
     }
     private void CommandToMoveResourcesToStorage(Unit Unit)
     {
@@ -158,12 +168,30 @@ class ActivityStateGather : ActivityState
     {
         if (this.RemainingMovementTries <= 0)
         {
-            Unit.SetActivity(new ActivityStateIdle());
+            if (this.RemainingNewPathFindTries <= 0)
+            {
+                Unit.SetActivity(new ActivityStateIdle());
+            }
+            else
+            {
+                this.RemainingNewPathFindTries--;
+                ((UnitCommandMove)Unit.CurrentCommand).Targets.Clear();
+                ((UnitCommandMove)Unit.CurrentCommand).Targets.AddRange(PathFinding.Instance.FindPath(Unit.CurrentCell, Unit.CurrentCommand.Target, PathFinding.EXCLUDE_LAST));
+            }
         }
         else
         {
             this.RemainingMovementTries--;
-            yield return Unit.StartCoroutine(Unit.BeIdle());
+            yield return Unit.StartCoroutine(Unit.WaitToRetryMove());
         }
+    }
+    private void RefreshRemainingRetryCounts()
+    {
+        this.RefreshRemainingMovementRetryCounts();
+        this.RemainingNewPathFindTries = RandomNumberGenerator.Next(NewPathFindTriesMinCap, NewPathFindTriesMaxCap + 1);
+    }
+    private void RefreshRemainingMovementRetryCounts()
+    {
+        this.RemainingMovementTries = RandomNumberGenerator.Next(MovementTriesMinCap, MovementTriesMaxCap + 1);
     }
 }

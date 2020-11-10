@@ -10,6 +10,12 @@ public class Unit : CellObject
     public Resource CarriedResource = new Resource();
     private ActivityState CurrentActivity;
 
+    // Used for movement collisions
+    private static readonly System.Random WaitTimeGenerator = new System.Random();
+    private static readonly float MinWaitTime = 0.1f;
+    private static readonly float MaxWaitTime = 0.3f;
+    private static readonly float WaitTimeRange = MaxWaitTime - MinWaitTime;
+
     public Dictionary<SkillType, Skill> Skills = new Dictionary<SkillType, Skill> {
         { SkillType.woodcutting, new SkillWoodcutting() }
     };
@@ -93,7 +99,11 @@ public class Unit : CellObject
             yield return new WaitForSeconds(GatheringTime);
             Debug.Log("Gathering object");
             //itemInHand = target.Gather();
-            target.Flash();
+            if (target != null)
+            {
+                target.Flash();
+            }
+            
             yield return new WaitForSeconds(0.2f);
        /* }
         else
@@ -132,5 +142,9 @@ public class Unit : CellObject
         Debug.Log("I'm idling");
         //itemInHand = target.Gather();
         yield return new WaitForSeconds(0.2f);
+    }
+    public IEnumerator WaitToRetryMove()
+    {
+        yield return new WaitForSeconds((float) (MinWaitTime + WaitTimeGenerator.NextDouble() * WaitTimeRange));
     }
 }
