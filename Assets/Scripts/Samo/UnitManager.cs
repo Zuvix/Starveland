@@ -7,13 +7,13 @@ using UnityEngine;
 
 public class UnitManager : Singleton<UnitManager>
 {
-    public Queue<Tuple<SkillType, ActivityState>> ActionQueue;
+    public Queue<Tuple<SkillType, ActivityState, int>> ActionQueue;
     public List<Unit> IdleUnits;
     public Dictionary<string, SkillType> GetSkillDictionary;
 
     public UnitManager()
     {
-        this.ActionQueue = new Queue<Tuple<SkillType, ActivityState>>();
+        this.ActionQueue = new Queue<Tuple<SkillType, ActivityState, int>>();
         this.IdleUnits = new List<Unit>();
         this.GetSkillDictionary = new Dictionary<string, SkillType> //todo add another skills
         {
@@ -25,7 +25,7 @@ public class UnitManager : Singleton<UnitManager>
     // main scheduling algorithm TODO
     public void ActionSchedulingLoop()
     {
-        foreach (Tuple<SkillType, ActivityState> action in ActionQueue.ToList())
+        foreach (var action in ActionQueue.ToList())
         {
             if (IdleUnits.Count > 0)
             {
@@ -62,27 +62,40 @@ public class UnitManager : Singleton<UnitManager>
 
     public bool AddActionToQueue(CellObject CellObject)
     {
-        Tuple<SkillType, ActivityState> newAction = null;
-
+        Tuple<SkillType, ActivityState, int> newAction = null;
+        
         //todo rozlisovat medzi roznymi activity states, vsetko nebude gather
         if (CellObject is ResourceSource)
         {
-            newAction = new Tuple<SkillType, ActivityState>(this.GetSkillDictionary[CellObject.tag],
-                new ActivityStateGather(CellObject.CurrentCell));
+            newAction = new Tuple<SkillType, ActivityState, int>(this.GetSkillDictionary[CellObject.tag],
+                new ActivityStateGather(CellObject.CurrentCell), CellObject.GetInstanceID());
         }
 
         if (newAction != null)
         {
             // add new action to the queue only if there is not same one already
-            if (!ActionQueue.Contains(newAction))
+            bool exists = false;
+            foreach (var action in ActionQueue) 
+            {
+                if (action.Item3 == CellObject.GetInstanceID())
+                {
+                    exists = true;
+                    break;
+                }
+            }
+            if (!exists)
             {
                 Debug.Log("Adding to queue");
                 ActionQueue.Enqueue(newAction);
-            }
-            // call the main scheduling loop 
-            this.ActionSchedulingLoop();
 
-            return true;
+                // call the main scheduling loop 
+                this.ActionSchedulingLoop();
+                return true;
+            }
+            else
+            {
+                return false;
+            }
         }
         else
         {
