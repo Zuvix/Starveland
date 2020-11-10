@@ -15,7 +15,7 @@ public class UnitCommandGather : UnitCommand
     public override bool IsDone(Unit Unit) 
     {
         //return Unit.CarriedResource.Amount >= Unit.CarryingCapacity;
-        return Unit.CarriedResource.Amount >= Skill.CarryingCapacity;
+        return Unit.InventoryFull(Skill);
     }
 
     public override IEnumerator PerformAction(Unit Unit)

@@ -39,6 +39,20 @@ public class Unit : CellObject
             UnitManager.Instance.AddUnitToIdleList(this);
         }
     }
+    public bool InventoryFull()
+    {
+        if (this.CarriedResource.IsDepleted())
+        {
+            return false;
+        }
+
+        SkillType CurrentResourceSkill = Unit.ResourceType2SkillType(this.CarriedResource.Type);
+        return this.InventoryFull(this.Skills[CurrentResourceSkill]);
+    }
+    public bool InventoryFull(Skill Skill)
+    {
+        return this.CarriedResource.Amount >= Skill.CarryingCapacity;
+    }
     protected override void Awake()
     {
         base.Awake();
@@ -156,5 +170,23 @@ public class Unit : CellObject
     public IEnumerator WaitToRetryMove()
     {
         yield return new WaitForSeconds((float) (MinWaitTime + WaitTimeGenerator.NextDouble() * WaitTimeRange));
+    }
+    public static SkillType ResourceType2SkillType(ResourceType ResourceType)
+    {
+        SkillType Result;
+        switch (ResourceType)
+        {
+            case ResourceType.Wood:
+                Result = SkillType.woodcutting;
+                break;
+            case ResourceType.Stone:
+            case ResourceType.Iron:
+                Result = SkillType.mining;
+                break;
+            default:
+                Result = SkillType.none;
+                break;
+        }
+        return Result;
     }
 }

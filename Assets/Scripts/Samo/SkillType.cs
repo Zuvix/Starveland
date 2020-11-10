@@ -8,6 +8,6 @@ public enum SkillType
 {
     woodcutting,
     mining,
-    hunting
+    hunting,
+    none
 }
-
