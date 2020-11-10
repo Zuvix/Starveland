@@ -38,9 +38,10 @@ public class MapCell
     }
     public bool CanBeEntered()
     {
+        return this.CurrentObject == null;
         //TODO
-        if (x == 1 && y == 0) return false;
-        return true;
+        //if (x == 1 && y == 0) return false;
+        //return true;
     }
     public virtual PathSearchNode ProducePathSearchNode(List<List<PathSearchNode>> Map)
     {

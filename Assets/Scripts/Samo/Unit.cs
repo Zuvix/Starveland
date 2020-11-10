@@ -9,9 +9,17 @@ public class Unit : CellObject
     public UnitCommand CurrentCommand { get; set; }
     public Resource CarriedResource = new Resource();
     private ActivityState CurrentActivity;
-    public SkillWoodcutting SkillWoodcutting = new SkillWoodcutting();
+
+    public Dictionary<SkillType, Skill> Skills = new Dictionary<SkillType, Skill> {
+        { SkillType.woodcutting, new SkillWoodcutting() } };
+
+
     public void SetActivity(ActivityState Activity)
     {
+        if (Activity is ActivityStateIdle)
+        {
+            UnitManager.Instance.AddUnitToIdleList(this);
+        }
         this.CurrentActivity = Activity;
         Activity.InitializeCommand(this);
     }
