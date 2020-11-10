@@ -111,7 +111,7 @@ class ActivityStateGather : ActivityState
             {
                 if (MapControl.Instance.StorageList.Count > 0)
                 {
-
+                    this.CommandToMoveResourcesToStorage(Unit);
                 }
                 else
                 {

@@ -17,12 +17,12 @@ public class Unit : CellObject
 
     public void SetActivity(ActivityState Activity)
     {
+        this.CurrentActivity = Activity;
+        Activity.InitializeCommand(this);
         if (Activity is ActivityStateIdle)
         {
             UnitManager.Instance.AddUnitToIdleList(this);
         }
-        this.CurrentActivity = Activity;
-        Activity.InitializeCommand(this);
     }
     protected override void Awake()
     {
