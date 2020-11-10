@@ -8,20 +8,32 @@ public class MapControl : Singleton<MapControl> {
     public Map map;
     public List<MapCell> StorageList;
 
+    private float mouseMoveTimer;
+    private float mouseMoveTimerMax = .01f;
+
     public GameObject forest;
     public GameObject player;
     public GameObject building_storage;
 
-
     private void Start() {
         //Example of the world
         StorageList = new List<MapCell>();
-        map = new Map(33, 21, 10f, new Vector3(0, 0));
-        GameObject testUnit = CreateGameObject(0, 0, player);
+        map = new Map(32, 18, 10f, new Vector3(0, 0));
+        GameObject testUnit1 = CreateGameObject(0, 0, player);
+        GameObject testUnit2 = CreateGameObject(0, 1, player);
+        GameObject testUnit3 = CreateGameObject(0, 2, player);
         CreateGameObject(5, 5, building_storage);
-        GameObject testForest = CreateGameObject(9, 4, forest);
+        GameObject testForest1 = CreateGameObject(9, 4, forest);
+        GameObject testForest2 = CreateGameObject(10, 4, forest);
+        GameObject testForest3 = CreateGameObject(11, 4, forest);
+        GameObject testForest4 = CreateGameObject(9, 5, forest);
+        GameObject testForest5 = CreateGameObject(15, 15, forest);
 
-        testUnit.GetComponent<Unit>().SetActivity(new ActivityStateWoodcutting(map.Grid[9][4], testUnit.GetComponent<Unit>()));
+ 
+        //testUnit1.GetComponent<Unit>().SetActivity(new ActivityStateWoodcutting(map.Grid[11][4], testUnit1.GetComponent<Unit>(), testUnit1.GetComponent<Unit>().SkillWoodcutting));
+        //testUnit1.GetComponent<Unit>().SetActivity(new ActivityStateIdle());
+       // testUnit2.GetComponent<Unit>().SetActivity(new ActivityStateIdle());
+
     }
 
     private void Update() {
@@ -30,7 +42,21 @@ public class MapControl : Singleton<MapControl> {
 
     private void HandleClickToModifymap() {
         if (Input.GetMouseButtonDown(0)) {
-            CreateGameObject(UtilsClass.GetMouseWorldPosition(), forest);
+            //CreateGameObject(UtilsClass.GetMouseWorldPosition(), forest);
+            
+            //Debug.Log(map.GetValue(UtilsClass.GetMouseWorldPosition()));
+            //TODO asi prerobit inak, overit ci neni null a ci je kliknuty objekt gatherovatelny... potom spravit cez UI button gather
+            //UnitManager.Instance.AddActionToQueue(new ActivityStateWoodcutting());
+        }
+    }
+
+    private void HandleMouseMove() {
+        mouseMoveTimer -= Time.deltaTime;
+        if (mouseMoveTimer < 0f) {
+            mouseMoveTimer += mouseMoveTimerMax;
+            GameObject mapValue = map.GetValue(UtilsClass.GetMouseWorldPosition());
+            if(mapValue!=null)
+                Debug.Log(mapValue.name);
         }
     }
 

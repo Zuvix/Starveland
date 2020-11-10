@@ -13,6 +13,7 @@ class ActivityStateIdle : ActivityState
     {
         yield return Unit.StartCoroutine(Unit.CurrentCommand.PerformAction(Unit));
 
-        //TODO add to idle list
+        //TODO add to idle list, nemoze to tu byt kvoli tomu ze je to corutina
+        //UnitManager.Instance.AddUnitToIdleList(Unit);
     }
 }

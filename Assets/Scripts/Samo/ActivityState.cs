@@ -7,4 +7,8 @@ public abstract class ActivityState
     {
         Unit.CurrentCommand = null;
     }
+    public virtual ActivityState SetCommands(Unit Unit, Skill Skill)
+    {
+        return null;
+    }
 }
