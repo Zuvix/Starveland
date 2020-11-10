@@ -11,9 +11,15 @@ class ActivityStateGather : ActivityState
     private UnitCommandDrop CommandDrop2Storage;
     private MapCell Target;
 
+    private int MaxMovementTries;
+    private int RemainingMovementTries;
+
+    private static readonly int MovementTriesCap = 3;
+
     public ActivityStateGather(MapCell Target) : base()
     {
         this.Target = Target;
+        this.MaxMovementTries = this.RemainingMovementTries = MovementTriesCap;
     }
 
     public override ActivityState SetCommands(Unit Unit, Skill Skill)
@@ -42,6 +48,7 @@ class ActivityStateGather : ActivityState
             else if (Unit.CurrentCommand == this.CommandGatherFromResource)
             {
                 this.CommandToMoveResourcesToStorage(Unit);
+                this.RemainingMovementTries = this.MaxMovementTries;
             }
             // If unit has walked next to the storage, let's command it to drop resources to it
             else if (Unit.CurrentCommand == this.CommandMove2Storage)
@@ -57,11 +64,12 @@ class ActivityStateGather : ActivityState
                 {
                     Unit.SetActivity(new ActivityStateIdle());
                 }
-                // The target unit is not depleted, let's move to it
+                // The target resource is not depleted, let's move to it
                 else
                 {
                     this.CommandMove2Resource = new UnitCommandMove(this.CommandMove2Resource.Target, PathFinding.Instance.FindPath(Unit.CurrentCell, this.CommandMove2Resource.Target, PathFinding.EXCLUDE_LAST));
                     Unit.CurrentCommand = this.CommandMove2Resource;
+                    this.RemainingMovementTries = this.MaxMovementTries;
                 }
             }
             else
@@ -78,12 +86,11 @@ class ActivityStateGather : ActivityState
             // If moving to resource is not possible
             if (Unit.CurrentCommand == this.CommandMove2Resource)
             {
-                //TODO
+                yield return Unit.StartCoroutine(UnableToMoveRoutine(Unit));
             }
             // If gathering from resource is not possible
             else if (Unit.CurrentCommand == this.CommandGatherFromResource)
             {
-                //TODO
                 Debug.Log("Gathering from this Resource Source is not possible because it is depleted");
                 if (Unit.CarriedResource.IsDepleted())
                 {
@@ -97,12 +104,19 @@ class ActivityStateGather : ActivityState
             // If moving to storage is not possible
             else if (Unit.CurrentCommand == this.CommandMove2Storage)
             {
-                //TODO
+                yield return Unit.StartCoroutine(UnableToMoveRoutine(Unit));
             }
             // If dropping resources at storage is not possible
             else if (Unit.CurrentCommand == this.CommandDrop2Storage)
             {
-                //TODO
+                if (MapControl.Instance.StorageList.Count > 0)
+                {
+
+                }
+                else
+                {
+                    Unit.SetActivity(new ActivityStateIdle());
+                }
             }
             else
             {
@@ -138,6 +152,18 @@ class ActivityStateGather : ActivityState
         {
             this.CommandMove2Storage = new UnitCommandMove(ClosestStorage, Path);
             Unit.CurrentCommand = this.CommandMove2Storage;
+        }
+    }
+    private IEnumerator UnableToMoveRoutine(Unit Unit)
+    {
+        if (this.RemainingMovementTries <= 0)
+        {
+            Unit.SetActivity(new ActivityStateIdle());
+        }
+        else
+        {
+            this.RemainingMovementTries--;
+            yield return Unit.StartCoroutine(Unit.BeIdle());
         }
     }
 }

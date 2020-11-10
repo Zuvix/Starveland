@@ -11,7 +11,8 @@ public class Unit : CellObject
     private ActivityState CurrentActivity;
 
     public Dictionary<SkillType, Skill> Skills = new Dictionary<SkillType, Skill> {
-        { SkillType.woodcutting, new SkillWoodcutting() } };
+        { SkillType.woodcutting, new SkillWoodcutting() }
+    };
 
 
     public void SetActivity(ActivityState Activity)
