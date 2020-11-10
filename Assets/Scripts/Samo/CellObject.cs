@@ -21,9 +21,12 @@ public class CellObject : MonoBehaviour
     float flashTime=0.2f;
 
     Color originalColor;
-    protected SpriteRenderer sr;
+    public SpriteRenderer sr;
     Vector3 basicScale;
     Quaternion basicRotation;
+    public string objectName;
+    public string tip;
+
 
     public MapCell CurrentCell { get; private set; }
     virtual protected void Awake()

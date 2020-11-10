@@ -31,6 +31,7 @@ public class Unit : CellObject
     protected override void Start()
     {
         StartCoroutine("ControlUnit");
+        objectName = NameGenerator.GetRandomName();
     }
     public IEnumerator ControlUnit()
     {

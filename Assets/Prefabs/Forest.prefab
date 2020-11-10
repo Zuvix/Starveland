@@ -104,6 +104,9 @@ MonoBehaviour:
   rotationTime: 0.5
   rotationSpeed: 1
   flashTime: 0.1
+  sr: {fileID: 0}
+  objectName: Tree
+  tip: Main source of wood.
 --- !u!61 &8841977509073851376
 BoxCollider2D:
   m_ObjectHideFlags: 0
