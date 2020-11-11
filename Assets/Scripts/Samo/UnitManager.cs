@@ -8,13 +8,13 @@ using UnityEngine;
 public class UnitManager : Singleton<UnitManager>
 {
     public Queue<Tuple<SkillType, ActivityState, int>> ActionQueue;
-    public List<Unit> IdleUnits;
+    public List<UnitPlayer> IdleUnits;
     public Dictionary<string, SkillType> GetSkillDictionary;
 
     public UnitManager()
     {
         this.ActionQueue = new Queue<Tuple<SkillType, ActivityState, int>>();
-        this.IdleUnits = new List<Unit>();
+        this.IdleUnits = new List<UnitPlayer>();
         this.GetSkillDictionary = new Dictionary<string, SkillType> //todo add another skills
         {
             {"Forest", SkillType.woodcutting },
@@ -31,8 +31,9 @@ public class UnitManager : Singleton<UnitManager>
             {
                 //todo discard units that cant do the action
 
-                Unit bestUnit = IdleUnits[0];
-                foreach (Unit unit in IdleUnits)
+                UnitPlayer bestUnit = IdleUnits[0];
+
+                foreach (UnitPlayer unit in IdleUnits)
                 {
                     if (unit.Skills[action.Item1].CurrentExperience > bestUnit.Skills[action.Item1].CurrentExperience)
                     {
@@ -42,7 +43,7 @@ public class UnitManager : Singleton<UnitManager>
 
                 IdleUnits.Remove(bestUnit);
 
-                bestUnit.GetComponent<Unit>().SetActivity(action.Item2.SetCommands(bestUnit, bestUnit.Skills[action.Item1]));
+                bestUnit.GetComponent<UnitPlayer>().SetActivity(action.Item2.SetCommands(bestUnit, bestUnit.Skills[action.Item1]));
                 /*bestUnit.GetComponent<Unit>().SetActivity(
                         new ActivityStateGather(
                         MapControl.Instance.map.Grid[action.CurrentCell.x][action.CurrentCell.y], bestUnit,
@@ -104,7 +105,7 @@ public class UnitManager : Singleton<UnitManager>
 
     }
 
-    public bool AddUnitToIdleList(Unit Unit)
+    public bool AddUnitToIdleList(UnitPlayer Unit)
     {
         if (!IdleUnits.Contains(Unit))
         {

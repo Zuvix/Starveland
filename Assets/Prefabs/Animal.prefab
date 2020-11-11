@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 817605181625652430}
   - component: {fileID: 7076689595390830340}
   - component: {fileID: 6813496909135561650}
+  - component: {fileID: 1880159630408921298}
   m_Layer: 0
   m_Name: Animal
   m_TagString: Animal
@@ -110,3 +111,25 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 1.125, y: 1.125}
   m_EdgeRadius: 0
+--- !u!114 &1880159630408921298
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1407401077263290619}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3ae2484905f78d04496da8fa291dfae0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  xScalingFactor: 1.5
+  yScalingFactor: 1.5
+  rotationFactor: 5
+  scalingTime: 0.2
+  rotationTime: 0.5
+  rotationSpeed: 20
+  flashTime: 0.2
+  sr: {fileID: 0}
+  objectName: Unicorn
+  tip: Food source
