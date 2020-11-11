@@ -78,7 +78,7 @@ public class CellObject : MonoBehaviour
             transform.rotation = basicRotation;
         }
     }
-    public void Flip(string side)
+    public virtual void Flip(string side)
     {
         if (side.Equals("right"))
         {

@@ -19,6 +19,7 @@ public class MouseEvents : Singleton<MouseEvents>
             GameObject mapValue = MapControl.Instance.map.GetValue(UtilsClass.GetMouseWorldPosition());
             if (mapValue != null)
             {
+                Debug.Log(mapValue);
                 if (!mapValue.Equals(viewedObject))
                 {
                     viewedObject = mapValue;
