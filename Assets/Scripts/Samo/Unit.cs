@@ -56,13 +56,16 @@ public class Unit : CellObject
     protected override void Awake()
     {
         base.Awake();
-        this.MovementConflictManager = new UnitMovementConflictManager();
-        this.SetActivity(new ActivityStateIdle());
+        /*this.MovementConflictManager = new UnitMovementConflictManager();
+        this.SetActivity(new ActivityStateIdle());*/
     }
     protected override void Start()
     {
-        StartCoroutine("ControlUnit");
         objectName = NameGenerator.GetRandomName();
+        this.MovementConflictManager = new UnitMovementConflictManager();
+        this.SetActivity(new ActivityStateIdle());
+
+        StartCoroutine("ControlUnit");
     }
     public IEnumerator ControlUnit()
     {

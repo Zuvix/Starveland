@@ -75,6 +75,7 @@ class ActivityStateIdle : ActivityState
         // Oh no, it's not possible to get to any Storage?
         if (Path == null)
         {
+            Debug.LogWarning("Initial path to storage not found");
             Unit.SetCommand(this.IdleCommand);
         }
         // We found a path to Storage
