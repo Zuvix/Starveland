@@ -28,6 +28,22 @@ public class UnitPlayer : Unit
         objectName = NameGenerator.GetRandomName();
     }
 
+    public override bool InventoryFull()
+    {
+         if (this.CarriedResource.IsDepleted())
+         {
+             return false;
+         }
+
+         SkillType CurrentResourceSkill = Unit.ResourceType2SkillType(this.CarriedResource.Type);
+         return this.InventoryFull(this.Skills[CurrentResourceSkill]);
+    }
+
+    public override bool InventoryFull(Skill Skill)
+    {
+        return this.CarriedResource.Amount >= Skill.CarryingCapacity;
+    }
+
     public override IEnumerator StoreResource(BuildingStorage target)
     {
         /*if (itemInHand != null)

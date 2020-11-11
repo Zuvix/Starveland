@@ -14,9 +14,9 @@ public class Unit : CellObject
     public int MaxHealth { get; set; }
 
     public UnitCommand CurrentCommand { get; private set; }
-    public Resource CarriedResource = new Resource();
-    private ActivityState CurrentActivity;
+    protected ActivityState CurrentActivity;
     public UnitMovementConflictManager MovementConflictManager;
+    public Resource CarriedResource = new Resource();
 
     // Used for movement collisions
     private static readonly System.Random WaitTimeGenerator = new System.Random();
@@ -24,41 +24,28 @@ public class Unit : CellObject
     private static readonly float MaxWaitTime = 0.3f;
     private static readonly float WaitTimeRange = MaxWaitTime - MinWaitTime;
 
-    public Dictionary<SkillType, Skill> Skills = new Dictionary<SkillType, Skill> {
-        { SkillType.woodcutting, new SkillWoodcutting() }
-    };
-
     public void SetCommand(UnitCommand Command)
     {
         this.CurrentCommand = Command;
         if (this.CurrentCommand != null)
         {
-            this.MovementConflictManager
-                .RefreshRemainingRetryCounts();
+            this.MovementConflictManager.RefreshRemainingRetryCounts();
         }
     }
-    public void SetActivity(ActivityState Activity)
+
+    public virtual void SetActivity(ActivityState Activity)
     {
         this.CurrentActivity = Activity;
         Activity.InitializeCommand(this);
-        if (Activity is ActivityStateIdle)
-        {
-            UnitManager.Instance.AddUnitToIdleList(this);
-        }
     }
-    public bool InventoryFull()
-    {
-        if (this.CarriedResource.IsDepleted())
-        {
-            return false;
-        }
 
-        SkillType CurrentResourceSkill = Unit.ResourceType2SkillType(this.CarriedResource.Type);
-        return this.InventoryFull(this.Skills[CurrentResourceSkill]);
-    }
-    public bool InventoryFull(Skill Skill)
+    public virtual bool InventoryFull()
     {
-        return this.CarriedResource.Amount >= Skill.CarryingCapacity;
+        return true;
+    }
+    public virtual bool InventoryFull(Skill Skill)
+    {
+        return true;
     }
     protected override void Awake()
     {
