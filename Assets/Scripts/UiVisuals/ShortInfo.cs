@@ -55,8 +55,8 @@ public class ShortInfo : MonoBehaviour
         {
             unitContent.SetActive(true);
             Unit unit = go.GetComponent<Unit>();
-            unitHP.text = "TODO";
-            unitAction.text = "TODO";
+            unitHP.text = $"{unit.Health}/{unit.MaxHealth}";
+            unitAction.text = unit.CurrentAction;
             tipTxt.text = unit.tip;
         }
         if (go.GetComponent<ResourceSource>()!=null)

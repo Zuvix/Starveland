@@ -13,7 +13,6 @@ public abstract class Talent
         this.Name = Name;
     }
 
-    //TODO implement
     public virtual void Display()
     {
         throw new NotImplementedException();
