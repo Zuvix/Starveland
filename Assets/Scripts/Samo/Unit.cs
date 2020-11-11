@@ -13,19 +13,57 @@ public class Unit : CellObject
     [HideInInspector]
     public int MaxHealth { get; set; }
 
-    public UnitCommand CurrentCommand { get; set; }
+    public UnitCommand CurrentCommand { get; private set; }
     public Resource CarriedResource = new Resource();
-    protected ActivityState CurrentActivity;
+    private ActivityState CurrentActivity;
+    public UnitMovementConflictManager MovementConflictManager;
 
+    // Used for movement collisions
+    private static readonly System.Random WaitTimeGenerator = new System.Random();
+    private static readonly float MinWaitTime = 0.1f;
+    private static readonly float MaxWaitTime = 0.3f;
+    private static readonly float WaitTimeRange = MaxWaitTime - MinWaitTime;
 
-    public virtual void SetActivity(ActivityState Activity)
+    public Dictionary<SkillType, Skill> Skills = new Dictionary<SkillType, Skill> {
+        { SkillType.woodcutting, new SkillWoodcutting() }
+    };
+
+    public void SetCommand(UnitCommand Command)
+    {
+        this.CurrentCommand = Command;
+        if (this.CurrentCommand != null)
+        {
+            this.MovementConflictManager
+                .RefreshRemainingRetryCounts();
+        }
+    }
+    public void SetActivity(ActivityState Activity)
     {
         this.CurrentActivity = Activity;
         Activity.InitializeCommand(this);
+        if (Activity is ActivityStateIdle)
+        {
+            UnitManager.Instance.AddUnitToIdleList(this);
+        }
+    }
+    public bool InventoryFull()
+    {
+        if (this.CarriedResource.IsDepleted())
+        {
+            return false;
+        }
+
+        SkillType CurrentResourceSkill = Unit.ResourceType2SkillType(this.CarriedResource.Type);
+        return this.InventoryFull(this.Skills[CurrentResourceSkill]);
+    }
+    public bool InventoryFull(Skill Skill)
+    {
+        return this.CarriedResource.Amount >= Skill.CarryingCapacity;
     }
     protected override void Awake()
     {
         base.Awake();
+        this.MovementConflictManager = new UnitMovementConflictManager();
         this.SetActivity(new ActivityStateIdle());
     }
     protected override void Start()
@@ -92,7 +130,11 @@ public class Unit : CellObject
             yield return new WaitForSeconds(GatheringTime);
            // Debug.Log("Gathering object");
             //itemInHand = target.Gather();
-            target.Flash();
+            if (target != null)
+            {
+                target.Flash();
+            }
+            
             yield return new WaitForSeconds(0.2f);
        /* }
         else
@@ -121,5 +163,27 @@ public class Unit : CellObject
        // Debug.Log("I'm idling");
         //itemInHand = target.Gather();
         yield return new WaitForSeconds(0.2f);
+    }
+    public IEnumerator WaitToRetryMove()
+    {
+        yield return new WaitForSeconds((float) (MinWaitTime + WaitTimeGenerator.NextDouble() * WaitTimeRange));
+    }
+    public static SkillType ResourceType2SkillType(ResourceType ResourceType)
+    {
+        SkillType Result;
+        switch (ResourceType)
+        {
+            case ResourceType.Wood:
+                Result = SkillType.woodcutting;
+                break;
+            case ResourceType.Stone:
+            case ResourceType.Iron:
+                Result = SkillType.mining;
+                break;
+            default:
+                Result = SkillType.none;
+                break;
+        }
+        return Result;
     }
 }
