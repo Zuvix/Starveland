@@ -39,6 +39,8 @@ public class UnitCommandMove : UnitCommand
         // Keep this at the bottom of the method unless you know better.
         this.UsedTargets.Add(this.Targets.First());
         this.Targets.RemoveAt(0);
+
+        Unit.MovementConflictManager.RefreshRemainingRetryCounts();
     }
     public void RestoreTargets()
     {
