@@ -4,12 +4,19 @@ using UnityEngine;
 
 public class Unit : CellObject
 {
-    public float movementSpeed=2f;
+    [HideInInspector]
+    public string CurrentAction { get; set; }
+    [HideInInspector]
+    public float MovementSpeed { get; set; }
+    [HideInInspector]
+    public int Health { get; set; }
+    [HideInInspector]
+    public int MaxHealth { get; set; }
 
     public UnitCommand CurrentCommand { get; private set; }
-    public Resource CarriedResource = new Resource();
-    private ActivityState CurrentActivity;
+    protected ActivityState CurrentActivity;
     public UnitMovementConflictManager MovementConflictManager;
+    public Resource CarriedResource = new Resource();
 
     // Used for movement collisions
     private static readonly System.Random WaitTimeGenerator = new System.Random();
@@ -17,67 +24,51 @@ public class Unit : CellObject
     private static readonly float MaxWaitTime = 0.3f;
     private static readonly float WaitTimeRange = MaxWaitTime - MinWaitTime;
 
-    public Dictionary<SkillType, Skill> Skills = new Dictionary<SkillType, Skill> {
-        { SkillType.woodcutting, new SkillWoodcutting() }
-    };
-
     public void SetCommand(UnitCommand Command)
     {
         this.CurrentCommand = Command;
         if (this.CurrentCommand != null)
         {
-            this.MovementConflictManager
-                .RefreshRemainingRetryCounts();
+            this.MovementConflictManager.RefreshRemainingRetryCounts();
         }
     }
-    public void SetActivity(ActivityState Activity)
+
+    public virtual void SetActivity(ActivityState Activity)
     {
         this.CurrentActivity = Activity;
         Activity.InitializeCommand(this);
-        if (Activity is ActivityStateIdle)
-        {
-            UnitManager.Instance.AddUnitToIdleList(this);
-        }
     }
-    public bool InventoryFull()
-    {
-        if (this.CarriedResource.IsDepleted())
-        {
-            return false;
-        }
 
-        SkillType CurrentResourceSkill = Unit.ResourceType2SkillType(this.CarriedResource.Type);
-        return this.InventoryFull(this.Skills[CurrentResourceSkill]);
-    }
-    public bool InventoryFull(Skill Skill)
+    public virtual bool InventoryFull()
     {
-        return this.CarriedResource.Amount >= Skill.CarryingCapacity;
+        return true;
+    }
+    public virtual bool InventoryFull(Skill Skill)
+    {
+        return true;
     }
     protected override void Awake()
     {
         base.Awake();
-        /*this.MovementConflictManager = new UnitMovementConflictManager();
-        this.SetActivity(new ActivityStateIdle());*/
     }
     protected override void Start()
     {
-        objectName = NameGenerator.GetRandomName();
         this.MovementConflictManager = new UnitMovementConflictManager();
         this.SetActivity(new ActivityStateIdle());
 
         StartCoroutine("ControlUnit");
     }
-    public IEnumerator ControlUnit()
+    public virtual IEnumerator ControlUnit()
     {
-        while(true)
+        while (true)
         {
             yield return StartCoroutine(this.CurrentActivity.PerformAction(this));
             yield return new WaitForFixedUpdate();
         }
     }
-    public IEnumerator MoveUnitToNextPosition(MapCell TargetCell)
+    public virtual IEnumerator MoveUnitToNextPosition(MapCell TargetCell)
     {
-
+        this.CurrentAction = "Moving";
         // TODO - Will have to be more sophisticated
         //set cell to be used by unit, free the old cell
         MapCell PreviousCell = this.CurrentCell;
@@ -107,7 +98,7 @@ public class Unit : CellObject
         //initiate ingame movement process
         while (distance > 0.5f)
         {
-            transform.position += movementVector * movementSpeed * Time.deltaTime;
+            transform.position += movementVector * MovementSpeed * Time.deltaTime;
             yield return new WaitForFixedUpdate();
             distance = Vector3.Distance(transform.position, TargetCell.position);
         }
@@ -120,43 +111,34 @@ public class Unit : CellObject
     }
     public IEnumerator GatherResource(ResourceSource target, float GatheringTime)
     {
-       /* if (itemInHand == null)
-        {*/
-            Debug.Log("Preparing the axe");
-            yield return new WaitForSeconds(GatheringTime);
-            Debug.Log("Gathering object");
-            //itemInHand = target.Gather();
-            if (target != null)
-            {
-                target.Flash();
-            }
-            
-            yield return new WaitForSeconds(0.2f);
-       /* }
-        else
-        {
-            Debug.Log("my hand is full");
-        }*/
-    }
-    
-    public IEnumerator StoreResource(BuildingStorage target)
-    {
-        /*if (itemInHand != null)
-        {
-            Debug.Log("Storing resource with name:" + itemInHand.name);
-            Resource storedResource=itemInHand;
-            itemInHand = null;
-            return storedResource;
-        }*/
-        Debug.Log("About to drop");
-        yield return new WaitForSeconds(1.0f);
-        Debug.Log("Dropping resources");
+        /* if (itemInHand == null)
+         {*/
+        this.CurrentAction = "Gathering";
+        // Debug.Log("Preparing the axe");
+        yield return new WaitForSeconds(GatheringTime);
+        // Debug.Log("Gathering object");
         //itemInHand = target.Gather();
-        target.Flash();
+        if (target != null)
+        {
+            target.Flash();
+        }
+
         yield return new WaitForSeconds(0.2f);
+        /* }
+         else
+         {
+             Debug.Log("my hand is full");
+         }*/
     }
+
+    public virtual IEnumerator StoreResource(BuildingStorage target)
+    {
+        return null;
+    }
+
     public IEnumerator BeIdle()
     {
+        this.CurrentAction = "Idling";
         /*if (itemInHand != null)
         {
             Debug.Log("Storing resource with name:" + itemInHand.name);
@@ -164,15 +146,15 @@ public class Unit : CellObject
             itemInHand = null;
             return storedResource;
         }*/
-        Debug.Log("About to do idle fun");
+        //Debug.Log("About to do idle fun");
         yield return new WaitForSeconds(1.0f);
-        Debug.Log("I'm idling");
+        // Debug.Log("I'm idling");
         //itemInHand = target.Gather();
         yield return new WaitForSeconds(0.2f);
     }
     public IEnumerator WaitToRetryMove()
     {
-        yield return new WaitForSeconds((float) (MinWaitTime + WaitTimeGenerator.NextDouble() * WaitTimeRange));
+        yield return new WaitForSeconds((float)(MinWaitTime + WaitTimeGenerator.NextDouble() * WaitTimeRange));
     }
     public static SkillType ResourceType2SkillType(ResourceType ResourceType)
     {
