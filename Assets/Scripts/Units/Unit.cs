@@ -50,16 +50,17 @@ public class Unit : CellObject
     protected override void Awake()
     {
         base.Awake();
-        this.MovementConflictManager = new UnitMovementConflictManager();
-        this.SetActivity(new ActivityStateIdle());
     }
     protected override void Start()
     {
+        this.MovementConflictManager = new UnitMovementConflictManager();
+        this.SetActivity(new ActivityStateIdle());
+
         StartCoroutine("ControlUnit");
     }
     public virtual IEnumerator ControlUnit()
     {
-        while(true)
+        while (true)
         {
             yield return StartCoroutine(this.CurrentActivity.PerformAction(this));
             yield return new WaitForFixedUpdate();
@@ -112,24 +113,24 @@ public class Unit : CellObject
     {
         /* if (itemInHand == null)
          {*/
-            this.CurrentAction = "Gathering";
-           // Debug.Log("Preparing the axe");
-            yield return new WaitForSeconds(GatheringTime);
-           // Debug.Log("Gathering object");
-            //itemInHand = target.Gather();
-            if (target != null)
-            {
-                target.Flash();
-            }
-            
-            yield return new WaitForSeconds(0.2f);
-       /* }
-        else
+        this.CurrentAction = "Gathering";
+        // Debug.Log("Preparing the axe");
+        yield return new WaitForSeconds(GatheringTime);
+        // Debug.Log("Gathering object");
+        //itemInHand = target.Gather();
+        if (target != null)
         {
-            Debug.Log("my hand is full");
-        }*/
+            target.Flash();
+        }
+
+        yield return new WaitForSeconds(0.2f);
+        /* }
+         else
+         {
+             Debug.Log("my hand is full");
+         }*/
     }
-    
+
     public virtual IEnumerator StoreResource(BuildingStorage target)
     {
         return null;
@@ -147,13 +148,13 @@ public class Unit : CellObject
         }*/
         //Debug.Log("About to do idle fun");
         yield return new WaitForSeconds(1.0f);
-       // Debug.Log("I'm idling");
+        // Debug.Log("I'm idling");
         //itemInHand = target.Gather();
         yield return new WaitForSeconds(0.2f);
     }
     public IEnumerator WaitToRetryMove()
     {
-        yield return new WaitForSeconds((float) (MinWaitTime + WaitTimeGenerator.NextDouble() * WaitTimeRange));
+        yield return new WaitForSeconds((float)(MinWaitTime + WaitTimeGenerator.NextDouble() * WaitTimeRange));
     }
     public static SkillType ResourceType2SkillType(ResourceType ResourceType)
     {
