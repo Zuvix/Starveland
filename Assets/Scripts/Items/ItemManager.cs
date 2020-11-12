@@ -32,4 +32,17 @@ public class ItemManager : Singleton<ItemManager>
             Resources.UnloadAsset(ass);
         }
     }
+    public Item GetItem(string item)
+    {
+        if (items.ContainsKey(item))
+        {
+            return items[item];
+        }
+        else
+        {
+            Debug.LogWarning("item with key " + item + " doesnt exist");
+            return null;
+        }
+    }
+
 }
