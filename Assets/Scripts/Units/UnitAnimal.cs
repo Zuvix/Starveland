@@ -67,9 +67,12 @@ public class UnitAnimal : Unit
 
     private void OnMouseOver()
     {
-        if (Input.GetMouseButtonDown(1))
+        if (GlobalGameState.Instance.InGameInputAllowed)
         {
-            UnitManager.Instance.AddActionToQueue(this);
+            if (Input.GetMouseButtonDown(1))
+            {
+                UnitManager.Instance.AddActionToQueue(this);
+            }
         }
     }
 

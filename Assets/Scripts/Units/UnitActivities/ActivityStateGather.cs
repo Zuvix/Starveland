@@ -41,7 +41,7 @@ class ActivityStateGather : ActivityState
             // If Unit is finished gathering (full inventory), let's command it to move to storage
             else if (Unit.CurrentCommand == this.CommandGatherFromResource)
             {
-                this.CommandToMoveResourcesToStorage(Unit);
+                this.CommandMove2Storage = this.CommandToMoveToStorage(Unit);
                 Unit.MovementConflictManager.RefreshRemainingRetryCounts();
             }
             // If unit has walked next to the storage, let's command it to drop resources to it
@@ -92,7 +92,7 @@ class ActivityStateGather : ActivityState
                 }
                 else
                 {
-                    this.CommandToMoveResourcesToStorage(Unit);
+                    this.CommandMove2Storage = this.CommandToMoveToStorage(Unit);
                 }
             }
             // If moving to storage is not possible
@@ -105,7 +105,7 @@ class ActivityStateGather : ActivityState
             {
                 if (MapControl.Instance.StorageList.Count > 0)
                 {
-                    this.CommandToMoveResourcesToStorage(Unit);
+                    this.CommandMove2Storage = this.CommandToMoveToStorage(Unit);
                 }
                 else
                 {
@@ -135,26 +135,7 @@ class ActivityStateGather : ActivityState
         }
         else
         {
-            this.CommandToMoveResourcesToStorage(Unit);
-        }
-    }
-    private void CommandToMoveResourcesToStorage(Unit Unit)
-    {
-        (List<MapCell>, MapCell) Temp = PathFinding.Instance.FindPath(Unit.CurrentCell, MapControl.Instance.StorageList, PathFinding.EXCLUDE_LAST);
-        List<MapCell> Path = Temp.Item1;
-        MapCell ClosestStorage = Temp.Item2;
-
-        // Oh no, it's not possible to get to any Storage?
-        if (Path == null)
-        {
-            Debug.Log("Neviem najst cestu nastavujem sa na idle!");
-            Unit.SetActivity(new ActivityStateIdle());
-        }
-        // We found a path to Storage
-        else
-        {
-            this.CommandMove2Storage = new UnitCommandMove(ClosestStorage, Path);
-            Unit.SetCommand(this.CommandMove2Storage);
+            this.CommandMove2Storage = this.CommandToMoveToStorage(Unit);
         }
     }
 }

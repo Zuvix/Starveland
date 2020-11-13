@@ -52,13 +52,18 @@ public class MapControl : Singleton<MapControl> {
         HandleClickToModifymap();
     }
 
-    private void HandleClickToModifymap() {
-        if (Input.GetMouseButtonDown(0)) {
-            //CreateGameObject(UtilsClass.GetMouseWorldPosition(), forest);
-            
-            //Debug.Log(map.GetValue(UtilsClass.GetMouseWorldPosition()));
-            //TODO asi prerobit inak, overit ci neni null a ci je kliknuty objekt gatherovatelny... potom spravit cez UI button gather
-            //UnitManager.Instance.AddActionToQueue(new ActivityStateWoodcutting());
+    private void HandleClickToModifymap()
+    {
+        if (GlobalGameState.Instance.InGameInputAllowed)
+        {
+            if (Input.GetMouseButtonDown(0))
+            {
+                //CreateGameObject(UtilsClass.GetMouseWorldPosition(), forest);
+
+                //Debug.Log(map.GetValue(UtilsClass.GetMouseWorldPosition()));
+                //TODO asi prerobit inak, overit ci neni null a ci je kliknuty objekt gatherovatelny... potom spravit cez UI button gather
+                //UnitManager.Instance.AddActionToQueue(new ActivityStateWoodcutting());
+            }
         }
     }
 

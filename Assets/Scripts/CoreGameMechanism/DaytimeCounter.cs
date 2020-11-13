@@ -13,7 +13,7 @@ public class DaytimeCounter : Singleton<DaytimeCounter>
     //public GameObject PanelFlanel;
     //setActive(false/true)
 
-    public readonly float dayLength=180f;
+    public readonly float dayLength=10f;
     private float dayTimeLeft;
     private int dayCount = 0;
     private bool dayOver;
@@ -34,6 +34,7 @@ public class DaytimeCounter : Singleton<DaytimeCounter>
         if (!dayOver)
         {
             dayTimeLeft -= Time.deltaTime;
+            dayTimeLeft = Mathf.Max(0, dayTimeLeft);
             OnTimeChanged.Invoke(dayTimeLeft);
             if (dayTimeLeft <= 0)
             {

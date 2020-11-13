@@ -13,6 +13,8 @@ public class Unit : CellObject
     [HideInInspector]
     public int MaxHealth { get; set; }
 
+    public static readonly List<Unit> UnitPool = new List<Unit>();
+
     public UnitCommand CurrentCommand { get; private set; }
     protected ActivityState CurrentActivity;
     public UnitMovementConflictManager MovementConflictManager;
@@ -50,13 +52,14 @@ public class Unit : CellObject
     protected override void Awake()
     {
         base.Awake();
+        Unit.UnitPool.Add(this);
     }
     protected override void Start()
     {
         this.MovementConflictManager = new UnitMovementConflictManager();
         this.SetActivity(new ActivityStateIdle());
 
-        StartCoroutine("ControlUnit");
+        StartCoroutine(ControlUnit());
     }
     public virtual IEnumerator ControlUnit()
     {
@@ -155,6 +158,10 @@ public class Unit : CellObject
     public IEnumerator WaitToRetryMove()
     {
         yield return new WaitForSeconds((float)(MinWaitTime + WaitTimeGenerator.NextDouble() * WaitTimeRange));
+    }
+    public IEnumerator WaitEmpty()
+    {
+        yield return new WaitForSeconds(1f);
     }
     public static SkillType ResourceType2SkillType(ResourceType ResourceType)
     {

@@ -15,7 +15,7 @@ class ActivityStateIdle : ActivityState
     public override void InitializeCommand(Unit Unit)
     {
         base.InitializeCommand(Unit);
-        this.CommandToMoveToIdleHouse(Unit);
+        this.MoveToHouseCommand = this.CommandToMoveToStorage(Unit);
     }
     public override IEnumerator PerformAction(Unit Unit)
     {
@@ -30,7 +30,7 @@ class ActivityStateIdle : ActivityState
             // If Unit is finished idling for whatever reason, try to move it to nearest house again
             else if (Unit.CurrentCommand == this.IdleCommand)
             {
-                this.CommandToMoveToIdleHouse(Unit);
+                this.MoveToHouseCommand = this.CommandToMoveToStorage(Unit);
             }
             else
             {
@@ -64,25 +64,6 @@ class ActivityStateIdle : ActivityState
         else
         {
             yield return Unit.StartCoroutine(Unit.CurrentCommand.PerformAction(Unit));
-        }
-    }
-    private void CommandToMoveToIdleHouse(Unit Unit)
-    {
-        (List<MapCell>, MapCell) Temp = PathFinding.Instance.FindPath(Unit.CurrentCell, MapControl.Instance.StorageList, PathFinding.EXCLUDE_LAST);
-        List<MapCell> Path = Temp.Item1;
-        MapCell ClosestStorage = Temp.Item2;
-
-        // Oh no, it's not possible to get to any Storage?
-        if (Path == null)
-        {
-            Debug.LogWarning("Initial path to storage not found");
-            Unit.SetCommand(this.IdleCommand);
-        }
-        // We found a path to Storage
-        else
-        {
-            this.MoveToHouseCommand = new UnitCommandMove(ClosestStorage, Path);
-            Unit.SetCommand(this.MoveToHouseCommand);
         }
     }
 }
