@@ -8,6 +8,8 @@ public class Draggable : MonoBehaviour, IDragHandler, IPointerDownHandler, IPoin
     RectTransform m_transform = null;
     public Vector3 OriginalPosition;
 
+    public readonly float IconMovementSpeedFactor = 0.65f;
+
     // Use this for initialization
     void Start()
     {
@@ -16,8 +18,9 @@ public class Draggable : MonoBehaviour, IDragHandler, IPointerDownHandler, IPoin
     }
     public void OnDrag(PointerEventData eventData)
     {
-        m_transform.position += new Vector3(eventData.delta.x, eventData.delta.y);
-        OriginalPosition += new Vector3(eventData.delta.x, eventData.delta.y);
+        Vector3 DeltaMovement = new Vector3(eventData.delta.x * IconMovementSpeedFactor, eventData.delta.y * IconMovementSpeedFactor);
+        m_transform.position += DeltaMovement;
+        OriginalPosition += DeltaMovement;
         /* Debug.Log(OriginalPosition);
          Debug.Log(m_transform.position);*/
         // magic : add zone clamping if's here.
