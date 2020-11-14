@@ -128,7 +128,7 @@ class ActivityStateGather : ActivityState
         if (
             Unit.CarriedResource.IsDepleted()
                 ||
-            (!Unit.InventoryFull() && this.Target.CurrentObject!=null && this.Target.CurrentObject is ResourceSource && Unit.CarriedResource.Type == ((ResourceSource) this.Target.CurrentObject).Resources[0].Type)
+            (!Unit.InventoryFull() && this.Target.CurrentObject!=null && this.Target.CurrentObject is ResourceSource && Unit.CarriedResource.itemInfo.type.Equals(Target.CurrentObject.GetComponent<ResourceSource>().Resources[0].itemInfo.type))
            )
         {
             Unit.SetCommand(this.CommandMove2Resource);

@@ -1426,6 +1426,8 @@ MonoBehaviour:
   unitContent: {fileID: 442662138}
   unitHP: {fileID: 1378667114}
   unitAction: {fileID: 1211706433}
+  itemInHandImg: {fileID: 1207683874}
+  itemAmountTxt: {fileID: 1647113855}
 --- !u!4 &655650594
 Transform:
   m_ObjectHideFlags: 0

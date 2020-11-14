@@ -38,7 +38,7 @@ public class UnitPlayer : Unit
              return false;
          }
 
-         SkillType CurrentResourceSkill = Unit.ResourceType2SkillType(this.CarriedResource.Type);
+         SkillType CurrentResourceSkill = Unit.ResourceType2SkillType(this.CarriedResource.itemInfo);
          return this.InventoryFull(this.Skills[CurrentResourceSkill]);
     }
 

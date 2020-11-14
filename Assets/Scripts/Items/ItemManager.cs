@@ -26,10 +26,18 @@ public class ItemManager : Singleton<ItemManager>
                 items.Add(item.name,item);
             }
         }
-
-        foreach (Object ass in assets)
+    }
+    public Item GetItem(string item)
+    {
+        if (items.ContainsKey(item))
         {
-            Resources.UnloadAsset(ass);
+            return items[item];
+        }
+        else
+        {
+            Debug.LogWarning("item with key " + item + " doesnt exist");
+            return null;
         }
     }
+
 }

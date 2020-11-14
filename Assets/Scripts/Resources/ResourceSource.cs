@@ -16,14 +16,17 @@ public class ResourceSource : CellObject
     public Resource GatherResource(int amount)
     {
         Resource Result = this.Resources[0].Subtract(amount);
-
+        //Debug.LogWarning(Result.itemInfo.name);
         if (this.Resources[0].Amount <= 0)
         {
             Debug.Log("Destroying Resource Source");
             this.CurrentCell.SetCellObject(null);
             Destroy(this.gameObject);
         }
-
+        if (Result == null)
+        {
+            Debug.LogWarning("Result=null v Gather resource");
+        }
         return Result;
     }
 
