@@ -7,11 +7,8 @@ using TMPro;
 public class DaytimeCounter : Singleton<DaytimeCounter>
 {
     public readonly UnityEvent OnDayOver = new UnityEvent();
-    public readonly UnityEvent OnDayStarted = new UnityEvent();
+    public readonly UnityEvent<int> OnDayStarted = new UnityEvent<int>();
     public readonly UnityEvent<float> OnTimeChanged = new UnityEvent<float>();
-
-    //public GameObject PanelFlanel;
-    //setActive(false/true)
 
     public readonly float dayLength=10f;
     private float dayTimeLeft;
@@ -26,7 +23,7 @@ public class DaytimeCounter : Singleton<DaytimeCounter>
     {
         dayCount++;
         dayTimeLeft = dayLength;
-        OnDayStarted.Invoke();
+        OnDayStarted.Invoke(dayCount);
         dayOver = false;
     }
     private void Update()
@@ -39,8 +36,7 @@ public class DaytimeCounter : Singleton<DaytimeCounter>
             if (dayTimeLeft <= 0)
             {
                 dayOver = true;
-                //OnDayOver.Invoke();
-                EndDayManager.Instance.EndDay();
+                OnDayOver.Invoke();
             }
         }
     }

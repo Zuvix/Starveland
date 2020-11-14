@@ -17,7 +17,7 @@ public class UnitPlayer : Unit
     }
     protected override void Awake()
     {
-        Debug.LogError("UnitPlayer Instantiated");
+        //Debug.LogError("UnitPlayer Instantiated");
         this.MovementSpeed = 20.0f;
         this.MaxHealth = 100;
         this.Health = this.MaxHealth;

@@ -56,7 +56,7 @@ public class Unit : CellObject
     }
     protected override void Awake()
     {
-        Debug.LogError("Unit instantiated");
+        //Debug.LogError("Unit instantiated");
         base.Awake();
         this.NextActivity = null;
     }

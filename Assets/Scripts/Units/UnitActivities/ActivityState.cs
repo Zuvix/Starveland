@@ -5,21 +5,8 @@ public abstract class ActivityState
 {
     public IEnumerator PerformAction(Unit Unit)
     {
-        Debug.LogWarning("ActivityState.PerformAction Invoked, unit's NextActivity is ");
-                
-        if (Unit == null)
-        {
-            Debug.LogWarning("Unit is NUll");
-        } else if (Unit.NextActivity == null) {
-            Debug.LogWarning("Unit.Next activity is null");
-        }
-        else {
-            Debug.LogWarning(Unit.NextActivity.GetType().Name);
-        }
-
         if (Unit.ChangeActivity())
         {
-            Debug.LogError("ActivityState.PerformAction Changed Activity");
             yield return null;
         }
         else

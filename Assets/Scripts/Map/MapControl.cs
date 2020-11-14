@@ -39,7 +39,7 @@ public class MapControl : Singleton<MapControl> {
         }
 
         //animal test
-        GameObject testAnimal1 = CreateGameObject(14, 14, animal);
+        //GameObject testAnimal1 = CreateGameObject(14, 14, animal);
 
  
         //testUnit1.GetComponent<Unit>().SetActivity(new ActivityStateWoodcutting(map.Grid[11][4], testUnit1.GetComponent<Unit>(), testUnit1.GetComponent<Unit>().SkillWoodcutting));
@@ -83,9 +83,9 @@ public class MapControl : Singleton<MapControl> {
         {
             if (map.GetValue(x, y) == null)
             {
-                Debug.LogError("GameObject is going to be instantiated in MapControl");
+                //Debug.LogError("GameObject is going to be instantiated in MapControl");
                 GameObject g = Instantiate(toBeCreatedGO);
-                Debug.LogError("GameObject instantiated in MapControl");
+                //Debug.LogError("GameObject instantiated in MapControl");
                 map.CenterObject(x, y, g);
                 map.SetValue(x, y, g);
                 return g;

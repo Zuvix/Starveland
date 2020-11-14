@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-class EndDayManager : Singleton<EndDayManager>
+class DayCycleManager : Singleton<DayCycleManager>
 {
     private int FinishedUnitCounter;
     private void Start()
@@ -19,18 +19,14 @@ class EndDayManager : Singleton<EndDayManager>
         {
             Unit.SetActivity(new ActivityStateEndDayRoutine());
         }
-        /*Unit.UnitPool[0].SetActivity(new ActivityStateEndDayRoutine());
-        Unit.UnitPool[1].SetActivity(new ActivityStateEndDayRoutine());
-        Unit.UnitPool[2].SetActivity(new ActivityStateEndDayRoutine());*/
     }
-    private void StartDay()
+    public void StartDay()
     {
         foreach (Unit Unit in Unit.PlayerUnitPool)
         {
             Unit.SetActivity(new ActivityStateIdle());
         }
         DaytimeCounter.Instance.StartDay();
-        //TODO hide the GUI
         GlobalGameState.Instance.InGameInputAllowed = true;
     }
     private void IndicateEndDayRoutineEnd()
@@ -42,6 +38,7 @@ class EndDayManager : Singleton<EndDayManager>
         {
             //TODO visualise GUI for feeding
             Debug.LogWarning("Units are done preparing for night");
+            FeedingManager.Instance.InitiateDayEnd();
         }
     }
     public void RegisterUnit(ActivityStateEndDayRoutine Activity)

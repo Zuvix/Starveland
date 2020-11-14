@@ -10,7 +10,7 @@ class ActivityStateEndDayRoutine : ActivityState
     public readonly UnityEvent OnActivityFinished = new UnityEvent();
     public ActivityStateEndDayRoutine()
     {
-        EndDayManager.Instance.RegisterUnit(this);
+        DayCycleManager.Instance.RegisterUnit(this);
     }
     public override void InitializeCommand(Unit Unit)
     {
