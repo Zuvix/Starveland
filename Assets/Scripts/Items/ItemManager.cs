@@ -26,11 +26,6 @@ public class ItemManager : Singleton<ItemManager>
                 items.Add(item.name,item);
             }
         }
-
-        foreach (Object ass in assets)
-        {
-            Resources.UnloadAsset(ass);
-        }
     }
     public Item GetItem(string item)
     {

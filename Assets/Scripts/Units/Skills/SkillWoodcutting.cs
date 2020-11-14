@@ -43,7 +43,6 @@ public class SkillWoodcutting : Skill
             return false;
         }
 
-
         Unit.CarriedResource.AddDestructive(Target.GatherResource(1));
         // TODO mozno riesit ci naozaj bola surovina vytazena...? AddDestructive by mohla vraciat bool
         this.AddExperience(this.ExperiencePerAction);

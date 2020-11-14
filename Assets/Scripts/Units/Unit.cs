@@ -16,7 +16,7 @@ public class Unit : CellObject
     public UnitCommand CurrentCommand { get; private set; }
     protected ActivityState CurrentActivity;
     public UnitMovementConflictManager MovementConflictManager;
-    public Resource CarriedResource = new Resource();
+    public Resource CarriedResource = new Resource(null,0);
 
     // Used for movement collisions
     private static readonly System.Random WaitTimeGenerator = new System.Random();
@@ -156,16 +156,16 @@ public class Unit : CellObject
     {
         yield return new WaitForSeconds((float)(MinWaitTime + WaitTimeGenerator.NextDouble() * WaitTimeRange));
     }
-    public static SkillType ResourceType2SkillType(ResourceType ResourceType)
+    public static SkillType ResourceType2SkillType(Item itemInfo)
     {
         SkillType Result;
-        switch (ResourceType)
+        switch (itemInfo.name)
         {
-            case ResourceType.Wood:
+            case "Wood":
                 Result = SkillType.woodcutting;
                 break;
-            case ResourceType.Stone:
-            case ResourceType.Iron:
+            case "Stone":
+            case "Iron":
                 Result = SkillType.mining;
                 break;
             default:

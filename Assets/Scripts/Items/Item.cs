@@ -5,8 +5,7 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "newItem", menuName= "Item")] 
 public class Item : ScriptableObject
 {
-    public string itemName;
-    [StringInList("resource","food")]
+    [StringInList("Resource","Food")]
     public string type;
     public Sprite icon;
     

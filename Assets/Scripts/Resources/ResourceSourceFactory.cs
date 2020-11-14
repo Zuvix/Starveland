@@ -7,14 +7,15 @@ using UnityEngine;
 
 class ResourceSourceFactory : Singleton<ResourceSourceFactory>
 {
-    public GameObject ProduceResourceSource(int x, int y, ResourceType ResourceType)
+    public GameObject ProduceResourceSource(int x, int y, String name)
     {
         GameObject Result = null;
-        switch(ResourceType)
+        switch(name)
         {
-            case ResourceType.Wood:
+            case "Wood":
                 Result = MapControl.Instance.CreateGameObject(x, y, MapControl.Instance.forest);
-                Result.GetComponent<ResourceSource>().Resources.Add(new Resource("Wood", "temp", ResourceType.Wood, 4));
+                Result.GetComponent<ResourceSource>().Resources = new List<Resource>();
+                Result.GetComponent<ResourceSource>().Resources.Add(new Resource(ItemManager.Instance.GetItem("Wood"), 4));
                 break;
             default:
                 break;
