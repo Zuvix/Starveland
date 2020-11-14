@@ -13,10 +13,11 @@ public class Unit : CellObject
     [HideInInspector]
     public int MaxHealth { get; set; }
 
-    public static readonly List<Unit> UnitPool = new List<Unit>();
+    public static readonly List<Unit> PlayerUnitPool = new List<Unit>();
 
     public UnitCommand CurrentCommand { get; private set; }
     protected ActivityState CurrentActivity;
+    public ActivityState NextActivity { get; private set; }
     public UnitMovementConflictManager MovementConflictManager;
     public Resource CarriedResource = new Resource();
 
@@ -37,8 +38,12 @@ public class Unit : CellObject
 
     public virtual void SetActivity(ActivityState Activity)
     {
-        this.CurrentActivity = Activity;
-        Activity.InitializeCommand(this);
+        /*this.CurrentActivity = Activity;
+        Activity.InitializeCommand(this);*/
+        this.NextActivity = Activity;
+
+
+        Debug.LogWarning("Unit enqueueing activity " + this.NextActivity.GetType().Name);
     }
 
     public virtual bool InventoryFull()
@@ -51,15 +56,30 @@ public class Unit : CellObject
     }
     protected override void Awake()
     {
+        Debug.LogError("Unit instantiated");
         base.Awake();
-        Unit.UnitPool.Add(this);
+        this.NextActivity = null;
     }
     protected override void Start()
     {
         this.MovementConflictManager = new UnitMovementConflictManager();
         this.SetActivity(new ActivityStateIdle());
+        this.ChangeActivity();
 
         StartCoroutine(ControlUnit());
+    }
+    public bool ChangeActivity()
+    {
+        bool Result = false; 
+        if (this.NextActivity != null)
+        {
+            this.CurrentActivity = this.NextActivity;
+            this.NextActivity = null;
+            this.CurrentActivity.InitializeCommand(this);
+            Result = true;
+            Debug.LogWarning("Unit setting activity to " + this.CurrentActivity.GetType().Name);
+        }
+        return Result;
     }
     public virtual IEnumerator ControlUnit()
     {

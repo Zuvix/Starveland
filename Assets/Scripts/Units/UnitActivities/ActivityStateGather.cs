@@ -29,7 +29,7 @@ class ActivityStateGather : ActivityState
         return this;
     }
 
-    public override IEnumerator PerformAction(Unit Unit)
+    public override IEnumerator PerformSpecificAction(Unit Unit)
     {
         if (Unit.CurrentCommand.IsDone(Unit))
         {
@@ -73,7 +73,7 @@ class ActivityStateGather : ActivityState
             }
             // If Unit is done doing something, we set new command to queue.
             // However, we were expected to do something because PerformAction was called, so we need to retry
-            this.PerformAction(Unit);
+            //this.PerformAction(Unit);
         }
         else if (!Unit.CurrentCommand.CanBePerformed(Unit))
         {

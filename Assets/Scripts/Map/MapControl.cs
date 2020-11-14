@@ -83,7 +83,9 @@ public class MapControl : Singleton<MapControl> {
         {
             if (map.GetValue(x, y) == null)
             {
+                Debug.LogError("GameObject is going to be instantiated in MapControl");
                 GameObject g = Instantiate(toBeCreatedGO);
+                Debug.LogError("GameObject instantiated in MapControl");
                 map.CenterObject(x, y, g);
                 map.SetValue(x, y, g);
                 return g;

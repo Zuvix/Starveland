@@ -39,7 +39,8 @@ public class DaytimeCounter : Singleton<DaytimeCounter>
             if (dayTimeLeft <= 0)
             {
                 dayOver = true;
-                OnDayOver.Invoke();
+                //OnDayOver.Invoke();
+                EndDayManager.Instance.EndDay();
             }
         }
     }

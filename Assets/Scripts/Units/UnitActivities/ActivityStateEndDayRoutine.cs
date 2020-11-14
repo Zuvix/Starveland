@@ -10,15 +10,15 @@ class ActivityStateEndDayRoutine : ActivityState
     public readonly UnityEvent OnActivityFinished = new UnityEvent();
     public ActivityStateEndDayRoutine()
     {
-        //EndDayManager.Instance.RegisterUnit(this);
-        Debug.LogWarning("ActivityStateEndDayRoutine instantiated");
+        EndDayManager.Instance.RegisterUnit(this);
     }
     public override void InitializeCommand(Unit Unit)
     {
         this.CommandMove2Storage = this.CommandToMoveToStorage(Unit);
+        Unit.SetCommand(this.CommandMove2Storage);
     }
 
-    public override IEnumerator PerformAction(Unit Unit)
+    public override IEnumerator PerformSpecificAction(Unit Unit)
     {
          if (Unit.CurrentCommand.IsDone(Unit))
          {

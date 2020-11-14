@@ -17,7 +17,7 @@ class ActivityStateIdle : ActivityState
         base.InitializeCommand(Unit);
         this.MoveToHouseCommand = this.CommandToMoveToStorage(Unit);
     }
-    public override IEnumerator PerformAction(Unit Unit)
+    public override IEnumerator PerformSpecificAction(Unit Unit)
     {
         //TODO perhaps if i have something in inventory, I should go drop it?
         if (Unit.CurrentCommand.IsDone(Unit))
@@ -39,7 +39,7 @@ class ActivityStateIdle : ActivityState
             }
             // If Unit is done doing something, we set new command to queue.
             // However, we were expected to do something because PerformAction was called, so we need to retry
-            this.PerformAction(Unit);
+            //this.PerformSpecificAction(Unit);
         }
         else if (!Unit.CurrentCommand.CanBePerformed(Unit))
         {

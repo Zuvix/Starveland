@@ -3,7 +3,31 @@ using System.Collections;
 using System.Collections.Generic;
 public abstract class ActivityState
 {
-    public abstract IEnumerator PerformAction(Unit Unit);
+    public IEnumerator PerformAction(Unit Unit)
+    {
+        Debug.LogWarning("ActivityState.PerformAction Invoked, unit's NextActivity is ");
+                
+        if (Unit == null)
+        {
+            Debug.LogWarning("Unit is NUll");
+        } else if (Unit.NextActivity == null) {
+            Debug.LogWarning("Unit.Next activity is null");
+        }
+        else {
+            Debug.LogWarning(Unit.NextActivity.GetType().Name);
+        }
+
+        if (Unit.ChangeActivity())
+        {
+            Debug.LogError("ActivityState.PerformAction Changed Activity");
+            yield return null;
+        }
+        else
+        {
+            yield return PerformSpecificAction(Unit);
+        }
+    }
+    public abstract IEnumerator PerformSpecificAction(Unit Unit);
     public virtual void InitializeCommand(Unit Unit)
     {
         Unit.SetCommand(null);

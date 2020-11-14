@@ -7,25 +7,25 @@ class EndDayManager : Singleton<EndDayManager>
     {
         DaytimeCounter.Instance.OnDayOver.AddListener(EndDay);
     }
-    private void EndDay()
+    public void EndDay()
     {
         GlobalGameState.Instance.InGameInputAllowed = false;
 
         UnitManager.Instance.ActionQueue.Clear();
         UnitManager.Instance.IdleUnits.Clear();
-        this.FinishedUnitCounter = Unit.UnitPool.Count;
-        /*foreach (Unit Unit in Unit.UnitPool)
+        this.FinishedUnitCounter = Unit.PlayerUnitPool.Count;
+
+        foreach (Unit Unit in Unit.PlayerUnitPool)
         {
-            Unit.SetActivity(new ActivityStateIdle());
-        }*/
-        Unit.UnitPool[0].SetActivity(new ActivityStateEndDayRoutine());
-        /*Unit.UnitPool[1].SetActivity(new ActivityStateEndDayRoutine());*/
-        /*Unit.UnitPool[2].SetActivity(new ActivityStateEndDayRoutine());*/
-        Debug.LogWarning("Units are all assigned to end their daily tasks");
+            Unit.SetActivity(new ActivityStateEndDayRoutine());
+        }
+        /*Unit.UnitPool[0].SetActivity(new ActivityStateEndDayRoutine());
+        Unit.UnitPool[1].SetActivity(new ActivityStateEndDayRoutine());
+        Unit.UnitPool[2].SetActivity(new ActivityStateEndDayRoutine());*/
     }
     private void StartDay()
     {
-        foreach (Unit Unit in Unit.UnitPool)
+        foreach (Unit Unit in Unit.PlayerUnitPool)
         {
             Unit.SetActivity(new ActivityStateIdle());
         }
@@ -36,6 +36,7 @@ class EndDayManager : Singleton<EndDayManager>
     private void IndicateEndDayRoutineEnd()
     {
         this.FinishedUnitCounter--;
+        Debug.LogWarning("Unit finishedCounter decremented");
 
         if (this.FinishedUnitCounter <= 0)
         {

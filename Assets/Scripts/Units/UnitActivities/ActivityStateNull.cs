@@ -15,7 +15,7 @@ class ActivityStateNull : ActivityState
             return Inst;
         }
     }
-    public override IEnumerator PerformAction(Unit Unit)
+    public override IEnumerator PerformSpecificAction(Unit Unit)
     {
         yield return Unit.StartCoroutine(Unit.WaitEmpty());
     }
