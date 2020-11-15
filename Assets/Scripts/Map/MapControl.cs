@@ -35,7 +35,7 @@ public class MapControl : Singleton<MapControl> {
         });
         foreach ((int, int) Coord in ForestCoords)
         {
-            ResourceSourceFactory.Instance.ProduceResourceSource(Coord.Item1, Coord.Item2, ResourceType.Wood);
+            ResourceSourceFactory.Instance.ProduceResourceSource(Coord.Item1, Coord.Item2, "Wood");
         }
 
         //animal test

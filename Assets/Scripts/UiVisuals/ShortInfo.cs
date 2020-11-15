@@ -13,6 +13,8 @@ public class ShortInfo : MonoBehaviour
     public GameObject unitContent;
     public TMP_Text unitHP;
     public TMP_Text unitAction;
+    public Image itemInHandImg;
+    public TMP_Text itemAmountTxt;
 
     List<GameObject> contentPanels;
     private void Awake()
@@ -58,6 +60,23 @@ public class ShortInfo : MonoBehaviour
             unitHP.text = $"{unit.Health}/{unit.MaxHealth}";
             unitAction.text = unit.CurrentAction;
             tipTxt.text = unit.tip;
+            Resource unitResource = unit.CarriedResource;
+            if (unitResource.itemInfo != null)
+            {
+                if (unitResource.Amount >= 1)
+                {
+                    itemInHandImg.gameObject.SetActive(true);
+                    itemAmountTxt.gameObject.SetActive(true);
+                    itemInHandImg.sprite = unitResource.itemInfo.icon;
+                    itemAmountTxt.text = unitResource.Amount.ToString();
+                }
+                
+            }
+            else
+            {
+                itemInHandImg.gameObject.SetActive(false);
+                itemAmountTxt.gameObject.SetActive(false);
+            }
         }
         if (go.GetComponent<ResourceSource>()!=null)
         {
