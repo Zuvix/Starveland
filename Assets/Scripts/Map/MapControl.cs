@@ -40,11 +40,14 @@ public class MapControl : Singleton<MapControl> {
 
         //animal test
         GameObject testAnimal1 = CreateGameObject(14, 14, animal);
+        GameObject testAnimal2 = CreateGameObject(13, 13, animal);
+        GameObject testAnimal3 = CreateGameObject(15, 12, animal);
+        GameObject testAnimal4 = CreateGameObject(16, 14, animal);
 
- 
+
         //testUnit1.GetComponent<Unit>().SetActivity(new ActivityStateWoodcutting(map.Grid[11][4], testUnit1.GetComponent<Unit>(), testUnit1.GetComponent<Unit>().SkillWoodcutting));
         //testUnit1.GetComponent<Unit>().SetActivity(new ActivityStateIdle());
-       // testUnit2.GetComponent<Unit>().SetActivity(new ActivityStateIdle());
+        // testUnit2.GetComponent<Unit>().SetActivity(new ActivityStateIdle());
 
     }
 

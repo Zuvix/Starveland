@@ -7,9 +7,7 @@ using UnityEngine;
 
 public class UnitAnimal : Unit
 {
-    private readonly int WanderingRadius = 3;
-    private int SpawnX;
-    private int SpawnY;
+    public readonly int WanderingRadius = 2;
 
     protected override void Awake()
     {
@@ -21,13 +19,12 @@ public class UnitAnimal : Unit
     protected override void Start()
     {
         base.Start();
-        this.SpawnX = this.CurrentCell.x;
-        this.SpawnY = this.CurrentCell.y;
-        StartCoroutine("RandomBehaviour");
+        //StartCoroutine("RandomBehaviour");
         objectName = "Unicorn";
+        this.SetActivity(new ActivityStateWander(this.WanderingRadius, this.CurrentCell));
     }
 
-    protected IEnumerator RandomBehaviour()
+    /*protected IEnumerator RandomBehaviour()
     {
         while (true)
         {
@@ -51,7 +48,7 @@ public class UnitAnimal : Unit
                 yield return new WaitForSeconds(1);
             }
         }
-    }
+    }*/
 
     public override void Flip(string side)
     {

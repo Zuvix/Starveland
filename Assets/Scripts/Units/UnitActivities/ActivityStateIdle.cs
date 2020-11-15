@@ -30,7 +30,7 @@ class ActivityStateIdle : ActivityState
             // If Unit is finished idling for whatever reason, try to move it to nearest house again
             else if (Unit.CurrentCommand == this.IdleCommand)
             {
-                Debug.LogWarning("bol som idle a znova hladam cestu do skladu");
+                //Debug.LogWarning("bol som idle a znova hladam cestu do skladu");
                 this.CommandToMoveToIdleHouse(Unit);
             }
             else

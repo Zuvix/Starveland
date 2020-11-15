@@ -7,19 +7,15 @@ using System.Threading.Tasks;
 
 public class UnitCommandIdle : UnitCommand
 {
-    private bool isIdling = false;
     public UnitCommandIdle() : base(null)
     {
     }
     public override bool IsDone(Unit Unit)
     {
-        //return false;
-        return isIdling;
+        return false;
     }
     public override IEnumerator PerformAction(Unit Unit)
     {
-        isIdling = true;
         yield return Unit.StartCoroutine(Unit.BeIdle());
-        isIdling = false;
     }
 }
