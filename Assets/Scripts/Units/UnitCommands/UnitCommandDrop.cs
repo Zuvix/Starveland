@@ -20,7 +20,7 @@ public class UnitCommandDrop : UnitCommand
     {
         // TODO This might be moved to Mišo's Skill classes, Miso: nevidim dovod preco by to muselo byt v skille
         Resource DroppedResource = Unit.CarriedResource.Deplete();
-        // TODO Add DroppedResource to storage, i.e. global inventory
+        GlobalInventory.Instance.AddItem(DroppedResource);
 
         // TODO Animation here
         //Console.WriteLine("I'm dropping wood");
