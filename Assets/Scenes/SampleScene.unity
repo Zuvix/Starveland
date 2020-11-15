@@ -574,6 +574,8 @@ MonoBehaviour:
   building_storage: {fileID: 5161994218835401504, guid: 17f8e5c93356e8343904c07d6e52001c,
     type: 3}
   animal: {fileID: 1407401077263290619, guid: 5217e69090006a14e8c8884a5ef242df, type: 3}
+  animal_dead: {fileID: 1468059033923470519, guid: 304421dfea88f024696532745427d45f,
+    type: 3}
 --- !u!4 &253511558
 Transform:
   m_ObjectHideFlags: 0

@@ -6,10 +6,10 @@ using UnityEngine;
 public class ActivityStateWander : ActivityState
 {
     private UnitCommandMove MoveCommand;
-    private UnitCommandIdle IdleCommand;
-    private int WanderingRadius;
-    private MapCell StartPosition;
-    private int chanceToMove = 10;
+    private readonly UnitCommandIdle IdleCommand;
+    private readonly int WanderingRadius;
+    private readonly MapCell StartPosition;
+    private readonly int chanceToMove = 10;
 
     public ActivityStateWander(int WanderingRadius, MapCell StartPosition) : base()
     {
@@ -66,8 +66,12 @@ public class ActivityStateWander : ActivityState
     private void MoveToRandomPosition(Unit Unit)
     {
         // generate random position to move on based on spawn and wandering radius
-        int rx = UnityEngine.Random.Range(this.StartPosition.x - this.WanderingRadius, this.StartPosition.x + this.WanderingRadius);
-        int ry = UnityEngine.Random.Range(this.StartPosition.y - this.WanderingRadius, this.StartPosition.y + this.WanderingRadius);
+        int rx = Unit.CurrentCell.x, ry = Unit.CurrentCell.y;
+        while (rx == Unit.CurrentCell.x && ry == Unit.CurrentCell.y)
+        {
+            rx = UnityEngine.Random.Range(this.StartPosition.x - this.WanderingRadius, this.StartPosition.x + this.WanderingRadius);
+            ry = UnityEngine.Random.Range(this.StartPosition.y - this.WanderingRadius, this.StartPosition.y + this.WanderingRadius);
+        }
      
         List<MapCell> path = PathFinding.Instance.FindPath(Unit.CurrentCell, MapControl.Instance.map.Grid[rx][ry]);
 

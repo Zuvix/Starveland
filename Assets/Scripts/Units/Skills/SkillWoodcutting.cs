@@ -12,7 +12,7 @@ public class SkillWoodcutting : Skill
         this.ExperiencePerAction = 10;
     }
 
-    protected override bool LevelUp()
+    protected override bool LevelUp(Unit Unit)
     {
         //Console.WriteLine($"Woodcutting leveled up! (current level:{this.Level})");
         this.Level++;
@@ -45,7 +45,7 @@ public class SkillWoodcutting : Skill
 
         Unit.CarriedResource.AddDestructive(Target.GatherResource(1));
         // TODO mozno riesit ci naozaj bola surovina vytazena...? AddDestructive by mohla vraciat bool
-        this.AddExperience(this.ExperiencePerAction);
+        this.AddExperience(this.ExperiencePerAction, Unit);
 
         //Console.WriteLine("I'm cutting wood {0}/{1}", Unit.CarriedResource.Amount, this.CarryingCapacity);
 
