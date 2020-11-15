@@ -9,7 +9,7 @@ public class ActivityStateWander : ActivityState
     private readonly UnitCommandIdle IdleCommand;
     private readonly int WanderingRadius;
     private readonly MapCell StartPosition;
-    private readonly int chanceToMove = 10;
+    private readonly int chanceToMove = 33;
 
     public ActivityStateWander(int WanderingRadius, MapCell StartPosition) : base()
     {
@@ -67,7 +67,7 @@ public class ActivityStateWander : ActivityState
     {
         // generate random position to move on based on spawn and wandering radius
         int rx = Unit.CurrentCell.x, ry = Unit.CurrentCell.y;
-        while (rx == Unit.CurrentCell.x && ry == Unit.CurrentCell.y)
+        while (!MapControl.Instance.map.Grid[rx][ry].CanBeEntered())
         {
             rx = UnityEngine.Random.Range(this.StartPosition.x - this.WanderingRadius, this.StartPosition.x + this.WanderingRadius);
             ry = UnityEngine.Random.Range(this.StartPosition.y - this.WanderingRadius, this.StartPosition.y + this.WanderingRadius);

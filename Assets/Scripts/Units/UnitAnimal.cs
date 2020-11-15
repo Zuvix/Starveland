@@ -8,6 +8,8 @@ using UnityEngine;
 public class UnitAnimal : Unit
 {
     public readonly int WanderingRadius = 2;
+    private int spawnX;
+    private int spawnY;
 
     protected override void Awake()
     {
@@ -21,6 +23,8 @@ public class UnitAnimal : Unit
     {
         base.Start();
         objectName = "Unicorn";
+        this.spawnX = this.CurrentCell.x;
+        this.spawnY = this.CurrentCell.y;
         this.SetActivity(new ActivityStateWander(this.WanderingRadius, this.CurrentCell));
     }
 
@@ -49,7 +53,7 @@ public class UnitAnimal : Unit
     {
         if (!(this.CurrentActivity is ActivityStateUnderAttack))
         {
-            this.SetActivity(new ActivityStateUnderAttack(AttackingUnit, this));
+            this.SetActivity(new ActivityStateUnderAttack(AttackingUnit, this, this.spawnX, this.spawnY, this.WanderingRadius));
         }
         this.Health -= Amount;
         if (this.Health <= 0) //handle death

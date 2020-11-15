@@ -11,13 +11,19 @@ public class ActivityStateUnderAttack : ActivityState
     private UnitCommandMove CommandMoveToTarget;
     private UnitCommandCombatMelee CommandCombat;
     private Unit UnitTarget;
+    private readonly int originalX;
+    private readonly int originalY;
+    private readonly int waderingRadius;
 
-    public ActivityStateUnderAttack(Unit UnitTarget, Unit Unit) : base()
+    public ActivityStateUnderAttack(Unit UnitTarget, Unit Unit, int originalX = -1, int originalY = -1, int wanderingRadius = 2) : base()
     {
         this.UnitTarget = UnitTarget;
         List<MapCell> path = PathFinding.Instance.FindPath(Unit.CurrentCell, this.UnitTarget.CurrentCell);
         this.CommandMoveToTarget = new UnitCommandMove(this.UnitTarget.CurrentCell, path);
         this.CommandCombat = new UnitCommandCombatMelee(this.UnitTarget);
+        this.originalX = originalX;
+        this.originalY = originalY;
+        this.waderingRadius = wanderingRadius;
     }
 
     public override void InitializeCommand(Unit Unit)
@@ -36,7 +42,14 @@ public class ActivityStateUnderAttack : ActivityState
             }
             else if (Unit.CurrentCommand == CommandCombat)
             {
-                Unit.SetActivity(new ActivityStateIdle()); 
+                if (this.originalX == -1 || this.originalY == -1)
+                {
+                    Unit.SetActivity(new ActivityStateIdle());
+                }
+                else
+                {
+                    Unit.SetActivity(new ActivityStateWander(this.waderingRadius, MapControl.Instance.map.Grid[originalX][originalY]));
+                }
             }
         }
         else if (!Unit.CurrentCommand.CanBePerformed(Unit))

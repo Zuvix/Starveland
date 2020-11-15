@@ -32,7 +32,7 @@ public class MapControl : Singleton<MapControl> {
         GameObject testForest5 = CreateGameObject(15, 15, forest);*/
         List<(int, int)> ForestCoords = new List<(int, int)>(new (int, int)[]
         { 
-            (9, 4), (10, 4), (11, 4), (9, 5), (15, 15)  
+            (9, 4), (10, 4), (11, 4), (9, 5), (15, 15), (15,14), (14,15), (11,11), (10,10), (10,11), (11,10), (12,13)
         });
         foreach ((int, int) Coord in ForestCoords)
         {
