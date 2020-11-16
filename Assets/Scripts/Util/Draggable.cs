@@ -18,6 +18,7 @@ public class Draggable : MonoBehaviour, IDragHandler, IPointerDownHandler, IPoin
     }
     public void OnDrag(PointerEventData eventData)
     {
+        Debug.Log("Dragging");
         Vector3 DeltaMovement = new Vector3(eventData.delta.x * IconMovementSpeedFactor, eventData.delta.y * IconMovementSpeedFactor);
         m_transform.position += DeltaMovement;
         OriginalPosition += DeltaMovement;

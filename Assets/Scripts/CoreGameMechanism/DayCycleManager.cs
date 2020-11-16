@@ -19,6 +19,11 @@ class DayCycleManager : Singleton<DayCycleManager>
         {
             Unit.SetActivity(new ActivityStateEndDayRoutine());
         }
+
+        if (this.FinishedUnitCounter == 0)
+        {
+            IndicateEndDayRoutineEnd();
+        }
     }
     public void StartDay()
     {

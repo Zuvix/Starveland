@@ -6,24 +6,20 @@ class FeedingManager : Singleton<FeedingManager>
 {
     public GameObject FeedingPanel;
     public GameObject FoodInventoryPanel;
+    public GameObject UnitListPanel;
+    public List<GameObject> UnitPanels;
 
-    public GameObject IconUR;
-    public GameObject IconUL;
-    public GameObject IconLR;
-    public GameObject IconLL;
 
     public GameObject InventoryItem;
 
     public readonly int InventoryGridSizeRows = 4;
     public readonly int InventoryGridSizeColumns = 10;
 
+    private Queue<UnitPlayer> PlayerUnits;
+
     private void Awake()
     {
-        //FeedingPanel.SetActive(false);
-    }
-    private void Start()
-    {
-        
+        FeedingPanel.SetActive(false);
     }
     private void FillGrid()
     {
@@ -51,13 +47,23 @@ class FeedingManager : Singleton<FeedingManager>
     }
     public void InitiateDayEnd()
     {
-        //FeedingPanel.SetActive(true);
+        FeedingPanel.SetActive(true);
+        Debug.Log("Showing Day End");
+        FillGrid();
+
+        foreach (GameObject UnitPanel in UnitPanels)
+        {
+            UnitPanel.GetComponent<Droppable>().DroppedInArea.AddListener(DroppedInArea);
+        }
+    }
+    public void DroppedInArea()
+    {
+        Debug.LogError("Dropped into this area");
     }
     public void InitiateDayStart(string _)
     {
-        FillGrid();
-        /*FeedingPanel.SetActive(false);
-        DayCycleManager.Instance.StartDay();*/
+        FeedingPanel.SetActive(false);
+        DayCycleManager.Instance.StartDay();
 
         /* List<GameObject> Icons = new List<GameObject>();
          Icons.Add(IconUL);
