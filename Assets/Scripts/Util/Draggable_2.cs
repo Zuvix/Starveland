@@ -14,9 +14,9 @@ public class Draggable_2 : MonoBehaviour, IDragHandler, IBeginDragHandler, IEndD
         Moving = false;
         m_transform = GetComponent<RectTransform>();
         OriginalPosition = new Vector3();
-        OriginalPosition.x = m_transform.position.x;
+        /*OriginalPosition.x = m_transform.position.x;
         OriginalPosition.y = m_transform.position.y;
-        OriginalPosition.z = m_transform.position.z;
+        OriginalPosition.z = m_transform.position.z;*/
     }
 
     public void OnDrag(PointerEventData eventData)
@@ -28,7 +28,7 @@ public class Draggable_2 : MonoBehaviour, IDragHandler, IBeginDragHandler, IEndD
 
         Vector3 DeltaMovement = new Vector3(eventData.delta.x, eventData.delta.y);
         m_transform.position += DeltaMovement;
-        //OriginalPosition += DeltaMovement;
+        OriginalPosition += DeltaMovement;
     }
 
     public void OnBeginDrag(PointerEventData eventData)
@@ -42,6 +42,6 @@ public class Draggable_2 : MonoBehaviour, IDragHandler, IBeginDragHandler, IEndD
     {
         Moving = false;
         Debug.Log("Dropped 2");
-        m_transform.position = OriginalPosition;
+        m_transform.position -= OriginalPosition;
     }
 }

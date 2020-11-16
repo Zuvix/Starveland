@@ -20,6 +20,7 @@ class FeedingManager : Singleton<FeedingManager>
     private void Awake()
     {
         FeedingPanel.SetActive(false);
+
     }
     private void FillGrid()
     {

@@ -13,13 +13,13 @@ public class ProgressBar : MonoBehaviour
     }
     void Update()
     {
-      /*  if (CurrentProgress < 1)
+        if (CurrentProgress < 1)
         {
             CurrentProgress += Time.deltaTime * 0.05f;
             CurrentProgress = Mathf.Min(CurrentProgress, 1);
             ChangeFullBarWidth();
             Debug.Log("Changing width " + CurrentProgress);
-        }*/
+        }
     }
     void ChangeFullBarWidth()
     {
