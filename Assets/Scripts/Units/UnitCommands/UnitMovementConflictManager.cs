@@ -21,13 +21,13 @@ public class UnitMovementConflictManager
     {
         this.RefreshRemainingRetryCounts();
     }
-    public IEnumerator UnableToMoveRoutine(Unit Unit)
+    public IEnumerator UnableToMoveRoutine(Unit Unit, ActivityState NewActivity = null)
     {
         if (this.RemainingMovementTries <= 0)
         {
             if (this.RemainingNewPathFindTries <= 0)
             {
-                Unit.SetActivity(new ActivityStateIdle());
+                Unit.SetActivity(NewActivity ?? new ActivityStateIdle());
             }
             else
             {
