@@ -17,6 +17,8 @@ public class Draggable_4 : MonoBehaviour, IDragHandler, IBeginDragHandler, IEndD
         FeedingManager.Instance.DraggedObject.SetActive(true);
         OriginalColour = this.GetComponent<Image>().color;
         this.GetComponent<Image>().color = new Color(0, 0, 0, 0);
+
+        FeedingManager.Instance.DraggedObject.GetComponent<Image>().sprite = this.GetComponent<Image>().sprite;
     }
 
     public void OnEndDrag(PointerEventData eventData)

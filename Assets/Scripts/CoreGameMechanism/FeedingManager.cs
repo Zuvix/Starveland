@@ -40,7 +40,9 @@ class FeedingManager : Singleton<FeedingManager>
                 GameObject InventoryItem = Instantiate(this.InventoryItem);
                 Item Apple = ItemManager.Instance.GetItem("Apple");
                 InventoryItem.GetComponent<Image>().sprite = Apple.icon;
-                
+                //InventoryItem.GetComponent<Image>().color = new Color(0, 0, 0, 1);
+
+
                 InventoryItem.transform.SetParent(FoodInventoryPanel.transform, false);
                 //InventoryItem.GetComponent<Draggable>().OriginalPosition = InventoryItem.transform.position;
             }
