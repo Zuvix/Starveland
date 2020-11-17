@@ -6,8 +6,8 @@ using UnityEngine.EventSystems;
 public class Draggable_2 : MonoBehaviour, IDragHandler, IBeginDragHandler, IEndDragHandler
 {
     private bool Moving;
-    public Vector3 OriginalPosition;
-    RectTransform m_transform = null;
+    private Vector3 OriginalPosition;
+    private RectTransform m_transform;
     void Start()
     {
         Debug.Log("Initialized 2");
@@ -33,9 +33,8 @@ public class Draggable_2 : MonoBehaviour, IDragHandler, IBeginDragHandler, IEndD
 
     public void OnBeginDrag(PointerEventData eventData)
     {
-        Debug.Log("Picked up 2");
-
-        Moving = true;
+        Debug.Log("Grabbed 2");
+        //Moving = true;
     }
 
     public void OnEndDrag(PointerEventData eventData)

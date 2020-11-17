@@ -18,7 +18,7 @@ public class ProgressBar : MonoBehaviour
             CurrentProgress += Time.deltaTime * 0.05f;
             CurrentProgress = Mathf.Min(CurrentProgress, 1);
             ChangeFullBarWidth();
-            Debug.Log("Changing width " + CurrentProgress);
+            //Debug.Log("Changing width " + CurrentProgress);
         }
     }
     void ChangeFullBarWidth()
