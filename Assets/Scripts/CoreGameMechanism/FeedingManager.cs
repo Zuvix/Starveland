@@ -21,6 +21,7 @@ class FeedingManager : Singleton<FeedingManager>
     {
         FeedingPanel.SetActive(false);
         DraggedObject.SetActive(false);
+        DraggedObject.GetComponent<Image>().color = new Color(1, 1, 1, 1);
     }
     private void FillGrid()
     {
@@ -40,7 +41,7 @@ class FeedingManager : Singleton<FeedingManager>
                 GameObject InventoryItem = Instantiate(this.InventoryItem);
                 Item Apple = ItemManager.Instance.GetItem("Apple");
                 InventoryItem.GetComponent<Image>().sprite = Apple.icon;
-                //InventoryItem.GetComponent<Image>().color = new Color(0, 0, 0, 1);
+                InventoryItem.GetComponent<Image>().color = new Color(1, 1, 1, 1);
 
 
                 InventoryItem.transform.SetParent(FoodInventoryPanel.transform, false);
