@@ -12,6 +12,10 @@ public class GlobalInventory :Singleton<GlobalInventory>
     {
         return playerInventory;
     }
+    private void Start()
+    {
+        Debug.Log(playerInventory.Count);
+    }
     public bool AddItem(Resource itemToAdd)
     {
         Debug.LogWarning("Adding item " + itemToAdd.itemInfo.name);
@@ -54,6 +58,25 @@ public class GlobalInventory :Singleton<GlobalInventory>
             }
             OnInventoryUpdate.Invoke();
             return true;
+        }
+
+        return false;
+    }
+    public bool RemoveItem(Resource item)
+    {
+        if (item != null)
+        {
+            string itemKey = item.itemInfo.name;
+            if (CheckAvaliableItem(item.itemInfo.name, item.Amount))
+            {
+                playerInventory[item.itemInfo.name].Subtract(item.Amount);
+                if (playerInventory[itemKey].Amount == 0)
+                {
+                    playerInventory.Remove(itemKey);
+                }
+                OnInventoryUpdate.Invoke();
+                return true;
+            }
         }
 
         return false;
