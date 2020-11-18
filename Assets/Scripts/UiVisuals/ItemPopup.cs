@@ -1,4 +1,4 @@
-﻿using System.Collections;
+﻿using System;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
@@ -19,11 +19,11 @@ public class ItemPopup : MonoBehaviour
     public void CreatePopup(Sprite icon, int value)
     {
         img.sprite = icon;
-        valueTxt.text = "+"+value;
-        if (value == 1)
+        valueTxt.text = (value >= 0 ? "+" : "-") + (Math.Abs(value) == 1 && value >= 0 ? "" : Math.Abs(value).ToString());
+        /*if (value == 1)
         {
             valueTxt.text = "+";
-        }
+        }*/
         // Vector3 startPos = this.transform.position;
 
     }

@@ -16,6 +16,8 @@ public class Unit : CellObject
 
     public static readonly List<UnitPlayer> PlayerUnitPool = new List<UnitPlayer>();
 
+    public Sprite ReceiveDamageIcon;
+
     public UnitCommand CurrentCommand { get; private set; }
     protected ActivityState CurrentActivity;
     public ActivityState NextActivity { get; private set; }
@@ -161,7 +163,9 @@ public class Unit : CellObject
         this.CurrentAction = "In combat!";
         yield return new WaitForSeconds(AttackTime);
         if (UnitTarget != null)
+        {
             UnitTarget.Flash();
+        }
         yield return new WaitForSeconds(0.2f);
     }
 
@@ -195,13 +199,17 @@ public class Unit : CellObject
     public virtual void DealDamage(int Amount, Unit AttackingUnit)
     {
         this.Health -= Amount;
+        DisplayReceivedDamage(Amount);
         if (this.Health <= 0) //handle death
         {
             this.CurrentCell.SetCellObject(null);
             Destroy(this.gameObject); 
         }
     }
-
+    public void DisplayReceivedDamage(int Amount)
+    {
+        CreatePopup(ReceiveDamageIcon, -Amount);
+    }
 
     public IEnumerator WaitEmpty()
     {
