@@ -34,7 +34,7 @@ public class ActivityStateHunt : ActivityState
         Unit.SetCommand(this.CommandCombat);
     }
 
-    public override IEnumerator PerformAction(Unit Unit)
+    public override IEnumerator PerformSpecificAction(Unit Unit)
     {
         if (Unit.CurrentCommand.IsDone(Unit))
         {

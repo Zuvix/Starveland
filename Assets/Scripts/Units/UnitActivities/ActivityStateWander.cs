@@ -24,7 +24,7 @@ public class ActivityStateWander : ActivityState
         Unit.SetCommand(this.IdleCommand);
     }
 
-    public override IEnumerator PerformAction(Unit Unit)
+    public override IEnumerator PerformSpecificAction(Unit Unit)
     {
         if (Unit.CurrentCommand.IsDone(Unit))
         {
