@@ -17,7 +17,7 @@ public class GlobalInventory :Singleton<GlobalInventory>
         Debug.LogWarning("Adding item " + itemToAdd.itemInfo.name);
         if (CheckAvaliableItem(itemToAdd.itemInfo.name,1))
         {
-            playerInventory[itemToAdd.itemInfo.name].Amount += itemToAdd.Amount;
+            playerInventory[itemToAdd.itemInfo.name].AddDestructive(itemToAdd);
             OnInventoryUpdate.Invoke();
             return true;
         }
@@ -47,11 +47,12 @@ public class GlobalInventory :Singleton<GlobalInventory>
     {
         if (CheckAvaliableItem(itemName, amountToRemove))
         {
-            playerInventory[itemName].Amount -= amountToRemove;
+            playerInventory[itemName].Subtract(amountToRemove);
             if (playerInventory[itemName].Amount == 0)
             {
                 playerInventory.Remove(itemName);
             }
+            OnInventoryUpdate.Invoke();
             return true;
         }
 
