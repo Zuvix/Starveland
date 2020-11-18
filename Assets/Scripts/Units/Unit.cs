@@ -65,7 +65,6 @@ public class Unit : CellObject
         this.MovementConflictManager = new UnitMovementConflictManager();
         this.SetActivity(new ActivityStateIdle());
         this.ChangeActivity();
-
         StartCoroutine(ControlUnit());
     }
     public bool ChangeActivity()
@@ -138,12 +137,17 @@ public class Unit : CellObject
          {*/
         this.CurrentAction = "Gathering";
         // Debug.Log("Preparing the axe");
+
         yield return new WaitForSeconds(GatheringTime);
         // Debug.Log("Gathering object");
         //itemInHand = target.Gather();
+
+        //TEST
+        CreatePopup(ItemManager.Instance.GetItem("Wood").icon, 1);
         if (target != null)
         {
             target.Flash();
+            
         }
 
         yield return new WaitForSeconds(0.2f);

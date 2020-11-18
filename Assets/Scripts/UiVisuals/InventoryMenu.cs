@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
+using System.Linq;
 
 public class InventoryMenu : MonoBehaviour
 {
@@ -21,7 +22,7 @@ public class InventoryMenu : MonoBehaviour
     public void AssignItems()
     {
         Debug.LogWarning("Assigining items");
-        List<Resource> resources = GlobalInventory.Instance.GetInventory();
+        List<Resource> resources = GlobalInventory.Instance.GetInventory().Values.ToList();
         int i = 0;
         foreach(ItemShow panel in itemList)
         {
