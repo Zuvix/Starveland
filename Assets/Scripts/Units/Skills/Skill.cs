@@ -42,7 +42,19 @@ public abstract class Skill
     }
 
     protected abstract bool LevelUp(Unit Unit);
-    public abstract bool DoAction(Unit Unit, ResourceSource Target);
+    public bool DoAction(Unit Unit, ResourceSource Target, out Resource Resource)
+    {
+        if (Target == null)
+        {
+            Resource = null;
+            return false;
+        }
+
+        Resource = Target.GatherResource(1);
+        Unit.CarriedResource.AddDestructive(Resource);
+        this.AddExperience(this.ExperiencePerAction, Unit);
+        return true;
+    }
     public virtual bool DoAction(Unit Unit, Unit TargetUnit)
     {
         return false;

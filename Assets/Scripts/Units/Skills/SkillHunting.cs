@@ -29,16 +29,6 @@ public class SkillHunting : Skill
         return true;
     }
 
-    public override bool DoAction(Unit Unit, ResourceSource Target)
-    {
-        if (Target == null)
-        {
-            return false;
-        }
-        this.SkinDeadTarget(Unit, Target); //todo gather pre suroviny ktore vypadnu po zabiti nepriatela
-        return true;
-    }
-
     public override bool DoAction(Unit Unit, Unit TargetUnit)
     {
         if (TargetUnit == null)
@@ -46,13 +36,6 @@ public class SkillHunting : Skill
             return false;
         }
         this.Attack(Unit, TargetUnit);
-        return true;
-    }
-
-    private bool SkinDeadTarget(Unit Unit, ResourceSource Target)
-    {
-        Unit.CarriedResource.AddDestructive(Target.GatherResource(1));
-        this.AddExperience(this.ExperiencePerAction, Unit);
         return true;
     }
     

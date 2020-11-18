@@ -32,7 +32,9 @@ public class UnitCommandGather : UnitCommand
 
         if (Target.CurrentObject != null && Target.CurrentObject is ResourceSource)
         {
-            Skill.DoAction(Unit, (ResourceSource)Target.CurrentObject);
+            Resource GatheredResource;
+            Skill.DoAction(Unit, (ResourceSource)Target.CurrentObject, out GatheredResource);
+            Unit.CreatePopup(GatheredResource.itemInfo.icon, GatheredResource.Amount);
         }
     }
     public override bool CanBePerformed(Unit Unit)
