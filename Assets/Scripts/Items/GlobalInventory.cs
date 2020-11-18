@@ -14,8 +14,6 @@ public class GlobalInventory :Singleton<GlobalInventory>
     }
     private void Start()
     {
-        AddItem(new Resource(ItemManager.Instance.GetItem("Wood"),5));
-        AddItem(new Resource(ItemManager.Instance.GetItem("Apple"), 10));
         Debug.Log(playerInventory.Count);
     }
     public bool AddItem(Resource itemToAdd)
@@ -60,6 +58,25 @@ public class GlobalInventory :Singleton<GlobalInventory>
             }
             OnInventoryUpdate.Invoke();
             return true;
+        }
+
+        return false;
+    }
+    public bool RemoveItem(Resource item)
+    {
+        if (item != null)
+        {
+            string itemKey = item.itemInfo.name;
+            if (CheckAvaliableItem(item.itemInfo.name, item.Amount))
+            {
+                playerInventory[item.itemInfo.name].Subtract(item.Amount);
+                if (playerInventory[itemKey].Amount == 0)
+                {
+                    playerInventory.Remove(itemKey);
+                }
+                OnInventoryUpdate.Invoke();
+                return true;
+            }
         }
 
         return false;
