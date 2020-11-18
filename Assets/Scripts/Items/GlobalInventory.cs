@@ -12,10 +12,6 @@ public class GlobalInventory :Singleton<GlobalInventory>
     {
         return playerInventory;
     }
-    private void Start()
-    {
-        Debug.Log(playerInventory.Count);
-    }
     public bool AddItem(Resource itemToAdd)
     {
         Debug.LogWarning("Adding item " + itemToAdd.itemInfo.name);
