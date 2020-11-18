@@ -3875,5 +3875,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: FeedingPanel
       objectReference: {fileID: 0}
+    - target: {fileID: 980149089357214859, guid: a80b39235721f124e93bbbfbd7427c16,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: a80b39235721f124e93bbbfbd7427c16, type: 3}
