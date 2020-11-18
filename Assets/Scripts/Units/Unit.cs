@@ -64,7 +64,6 @@ public class Unit : CellObject
     protected override void Start()
     {
         this.MovementConflictManager = new UnitMovementConflictManager();
-        this.SetActivity(new ActivityStateIdle());
         this.ChangeActivity();
         StartCoroutine(ControlUnit());
     }
@@ -77,7 +76,7 @@ public class Unit : CellObject
             this.NextActivity = null;
             this.CurrentActivity.InitializeCommand(this);
             Result = true;
-            Debug.LogWarning("Unit setting activity to " + this.CurrentActivity.GetType().Name);
+            Debug.LogWarning($"Unit {this} setting activity to " + this.CurrentActivity.GetType().Name);
         }
         return Result;
     }
