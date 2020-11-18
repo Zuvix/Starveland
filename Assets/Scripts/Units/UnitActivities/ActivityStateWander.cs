@@ -9,7 +9,7 @@ public class ActivityStateWander : ActivityState
     private readonly UnitCommandIdle IdleCommand;
     private readonly int WanderingRadius;
     private readonly MapCell StartPosition;
-    private readonly int chanceToMove = 33;
+    private readonly int chanceToMove = 10;
 
     public ActivityStateWander(int WanderingRadius, MapCell StartPosition) : base()
     {

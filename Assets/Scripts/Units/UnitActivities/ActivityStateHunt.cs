@@ -10,10 +10,8 @@ public class ActivityStateHunt : ActivityState
 {
     private UnitCommandMove CommandMoveToTarget;
     private UnitCommandCombatMelee CommandCombat;
-    private Unit UnitTarget;
+    private readonly Unit UnitTarget;
     private Skill Skill;
-    private int lastKnownX;
-    private int lastKnownY;
 
     public ActivityStateHunt(Unit UnitTarget) : base()
     {
@@ -25,8 +23,6 @@ public class ActivityStateHunt : ActivityState
         List<MapCell> path = PathFinding.Instance.FindPath(Unit.CurrentCell, this.UnitTarget.CurrentCell);
         this.CommandMoveToTarget = new UnitCommandMove(this.UnitTarget.CurrentCell, path);
         this.CommandCombat = new UnitCommandCombatMelee(this.UnitTarget, Skill);
-        this.lastKnownX = this.UnitTarget.CurrentCell.x;
-        this.lastKnownY = this.UnitTarget.CurrentCell.y;
         this.Skill = Skill;
 
         return this;
@@ -48,8 +44,7 @@ public class ActivityStateHunt : ActivityState
             }
             else if (Unit.CurrentCommand == CommandCombat)
             {
-                Unit.SetActivity(new ActivityStateGather(MapControl.Instance.map.Grid[lastKnownX][lastKnownY]).SetCommands(
-                    Unit, this.Skill));
+                Unit.SetActivity(new ActivityStateGather(this.UnitTarget.CurrentCell).SetCommands(Unit, this.Skill));
             }
         }
         else if (!Unit.CurrentCommand.CanBePerformed(Unit))
@@ -62,8 +57,6 @@ public class ActivityStateHunt : ActivityState
             {
                 List<MapCell> path = PathFinding.Instance.FindPath(Unit.CurrentCell, this.UnitTarget.CurrentCell);
                 this.CommandMoveToTarget = new UnitCommandMove(this.UnitTarget.CurrentCell, path);
-                this.lastKnownX = this.UnitTarget.CurrentCell.x;
-                this.lastKnownY = this.UnitTarget.CurrentCell.y;
                 Unit.SetCommand(this.CommandMoveToTarget);
             }
         }
@@ -73,7 +66,6 @@ public class ActivityStateHunt : ActivityState
         }
         
     }
-
 
 }
 
