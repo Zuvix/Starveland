@@ -15,6 +15,7 @@ public class MapControl : Singleton<MapControl> {
     public GameObject player;
     public GameObject building_storage;
     public GameObject animal;
+    public GameObject animal_dead;
 
     private void Start() {
         //Example of the world
@@ -27,7 +28,7 @@ public class MapControl : Singleton<MapControl> {
 
         List<(int, int)> ForestCoords = new List<(int, int)>(new (int, int)[]
         { 
-            (9, 4), (10, 4), (11, 4), (9, 5), (15, 15)  
+            (9, 4), (10, 4), (11, 4), (9, 5), (15, 15), (15,14), (14,15), (11,11), (10,10), (10,11), (11,10), (12,13)
         });
         foreach ((int, int) Coord in ForestCoords)
         {
@@ -35,12 +36,16 @@ public class MapControl : Singleton<MapControl> {
         }
 
         //animal test
-        //GameObject testAnimal1 = CreateGameObject(14, 14, animal);
+        GameObject testAnimal1 = CreateGameObject(14, 14, animal);
+        GameObject testAnimal2 = CreateGameObject(13, 13, animal);
+        GameObject testAnimal3 = CreateGameObject(15, 12, animal);
+        GameObject testAnimal4 = CreateGameObject(16, 14, animal);
 
- 
+
+
         //testUnit1.GetComponent<Unit>().SetActivity(new ActivityStateWoodcutting(map.Grid[11][4], testUnit1.GetComponent<Unit>(), testUnit1.GetComponent<Unit>().SkillWoodcutting));
         //testUnit1.GetComponent<Unit>().SetActivity(new ActivityStateIdle());
-       // testUnit2.GetComponent<Unit>().SetActivity(new ActivityStateIdle());
+        // testUnit2.GetComponent<Unit>().SetActivity(new ActivityStateIdle());
 
     }
 

@@ -27,7 +27,7 @@ public abstract class Skill
         this.CarryingCapacity = 2;
     }
 
-    protected bool AddExperience(int Amount)
+    protected bool AddExperience(int Amount, Unit Unit)
     {
         this.CurrentExperience += Amount;
         //Console.WriteLine($"Gained {Amount} experience, total {this.CurrentExperience}");
@@ -35,13 +35,17 @@ public abstract class Skill
         //if i have enough experience to level up
         if(CurrentExperience >= ExperienceNeededToLevelUp*Level)
         {
-            this.LevelUp();
+            this.LevelUp(Unit);
         }
 
         return true;
     }
 
-    protected abstract bool LevelUp();
+    protected abstract bool LevelUp(Unit Unit);
     public abstract bool DoAction(Unit Unit, ResourceSource Target);
+    public virtual bool DoAction(Unit Unit, Unit TargetUnit)
+    {
+        return false;
+    }
 
 }

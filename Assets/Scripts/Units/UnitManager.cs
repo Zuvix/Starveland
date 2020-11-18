@@ -18,7 +18,8 @@ public class UnitManager : Singleton<UnitManager>
         this.GetSkillDictionary = new Dictionary<string, SkillType> //todo add another skills
         {
             {"Forest", SkillType.woodcutting },
-            {"Animal", SkillType.hunting }
+            {"Animal", SkillType.hunting },
+            {"Animal_Dead", SkillType.hunting }
         };
     }
 
@@ -70,6 +71,11 @@ public class UnitManager : Singleton<UnitManager>
         {
             newAction = new Tuple<SkillType, ActivityState, int>(this.GetSkillDictionary[CellObject.tag],
                 new ActivityStateGather(CellObject.CurrentCell), CellObject.GetInstanceID());
+        }
+        else if (CellObject is UnitAnimal)
+        {
+            newAction = new Tuple<SkillType, ActivityState, int>(this.GetSkillDictionary[CellObject.tag],
+                new ActivityStateHunt((UnitAnimal)CellObject), CellObject.GetInstanceID());
         }
 
         if (newAction != null)

@@ -7,50 +7,25 @@ using UnityEngine;
 
 public class UnitAnimal : Unit
 {
-    private readonly int WanderingRadius = 3;
-    private int SpawnX;
-    private int SpawnY;
+    public readonly int WanderingRadius = 2;
+    private int spawnX;
+    private int spawnY;
 
     protected override void Awake()
     {
         this.MovementSpeed = 5.0f;
         this.MaxHealth = 100;
         this.Health = this.MaxHealth;
+        this.BaseDamage = 10;
         base.Awake();
     }
     protected override void Start()
     {
         base.Start();
-        this.SpawnX = this.CurrentCell.x;
-        this.SpawnY = this.CurrentCell.y;
-        StartCoroutine("RandomBehaviour");
         objectName = "Unicorn";
-    }
-
-    protected IEnumerator RandomBehaviour()
-    {
-        while (true)
-        {
-            if (this.CurrentActivity is ActivityStateIdle)
-            {
-
-                float t = Random.Range(5, 10);
-                yield return new WaitForSeconds(t);
-
-                int rx = Random.Range(SpawnX - this.WanderingRadius, this.SpawnX + this.WanderingRadius);
-                int ry = Random.Range(this.SpawnY - this.WanderingRadius, this.SpawnY + this.WanderingRadius);
-
-                Debug.LogWarning($"{rx}, {ry}");
-
-                SetActivity(new ActivityStateGather(MapControl.Instance.map.Grid[rx][ry]).SetCommands(this, null));
-
-                yield return new WaitForFixedUpdate();
-            }
-            else
-            {
-                yield return new WaitForSeconds(1);
-            }
-        }
+        this.spawnX = this.CurrentCell.x;
+        this.spawnY = this.CurrentCell.y;
+        this.SetActivity(new ActivityStateWander(this.WanderingRadius, this.CurrentCell));
     }
 
     public override void Flip(string side)
@@ -62,6 +37,32 @@ public class UnitAnimal : Unit
         if (side.Equals("left"))
         {
             sr.flipX = false;
+        }
+    }
+
+    public override IEnumerator Fight(Unit UnitTarget, float AttackTime = 1.0f)
+    {
+        this.CurrentAction = "In combat!";
+        yield return new WaitForSeconds(AttackTime);
+        UnitTarget.DealDamage(this.BaseDamage, this);
+        UnitTarget.Flash();
+        yield return new WaitForSeconds(0.2f);
+    }
+
+    public override void DealDamage(int Amount, Unit AttackingUnit)
+    {
+        if (!(this.CurrentActivity is ActivityStateUnderAttack))
+        {
+            this.SetActivity(new ActivityStateUnderAttack(AttackingUnit, this, this.spawnX, this.spawnY, this.WanderingRadius));
+        }
+        this.Health -= Amount;
+        if (this.Health <= 0) //handle death
+        {
+            int x = this.CurrentCell.x;
+            int y = this.CurrentCell.y;
+            this.CurrentCell.SetCellObject(null);
+            Destroy(this.gameObject);
+            ResourceSourceFactory.Instance.ProduceResourceSource(x, y, "DeadAnimal");
         }
     }
 

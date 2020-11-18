@@ -6,6 +6,7 @@ TagManager:
   tags:
   - Forest
   - Animal
+  - Animal_Dead
   layers:
   - Default
   - TransparentFX

@@ -5,7 +5,9 @@ using UnityEngine;
 public class UnitPlayer : Unit
 {
     public Dictionary<SkillType, Skill> Skills = new Dictionary<SkillType, Skill> {
-        { SkillType.woodcutting, new SkillWoodcutting() } };
+        { SkillType.woodcutting, new SkillWoodcutting() },
+        { SkillType.hunting, new SkillHunting() } };
+    public List<TalentUnitSpecific> UnitAppliedTalents = new List<TalentUnitSpecific>();
 
     public override void SetActivity(ActivityState Activity)
     {
@@ -21,8 +23,10 @@ public class UnitPlayer : Unit
         this.MovementSpeed = 20.0f;
         this.MaxHealth = 100;
         this.Health = this.MaxHealth;
+        this.BaseDamage = 10;
 
         Unit.PlayerUnitPool.Add(this);
+
         base.Awake();
     }
     protected override void Start()
@@ -63,6 +67,15 @@ public class UnitPlayer : Unit
         //itemInHand = target.Gather();
         target.Flash();
         yield return new WaitForSeconds(0.2f);
+    }
+
+    public override void DealDamage(int Amount, Unit AttackingUnit)
+    {
+        if (!(this.CurrentActivity is ActivityStateUnderAttack) && !(this.CurrentActivity is ActivityStateHunt))
+        {
+            this.SetActivity(new ActivityStateUnderAttack(AttackingUnit, this));
+        }
+        base.DealDamage(Amount, AttackingUnit);
     }
 
 

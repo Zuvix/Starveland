@@ -12,6 +12,7 @@ public class Unit : CellObject
     public int Health { get; set; }
     [HideInInspector]
     public int MaxHealth { get; set; }
+    public int BaseDamage { get; set; }
 
     public static readonly List<UnitPlayer> PlayerUnitPool = new List<UnitPlayer>();
 
@@ -158,6 +159,15 @@ public class Unit : CellObject
          }*/
     }
 
+    public virtual IEnumerator Fight(Unit UnitTarget, float AttackTime = 1.0f)
+    {
+        this.CurrentAction = "In combat!";
+        yield return new WaitForSeconds(AttackTime);
+        if (UnitTarget != null)
+            UnitTarget.Flash();
+        yield return new WaitForSeconds(0.2f);
+    }
+
     public virtual IEnumerator StoreResource(BuildingStorage target)
     {
         return null;
@@ -183,10 +193,24 @@ public class Unit : CellObject
     {
         yield return new WaitForSeconds((float)(MinWaitTime + WaitTimeGenerator.NextDouble() * WaitTimeRange));
     }
+
+
+    public virtual void DealDamage(int Amount, Unit AttackingUnit)
+    {
+        this.Health -= Amount;
+        if (this.Health <= 0) //handle death
+        {
+            this.CurrentCell.SetCellObject(null);
+            Destroy(this.gameObject); 
+        }
+    }
+
+
     public IEnumerator WaitEmpty()
     {
         yield return new WaitForSeconds(1f);
     }
+
     public static SkillType ResourceType2SkillType(Item itemInfo)
     {
         SkillType Result;
