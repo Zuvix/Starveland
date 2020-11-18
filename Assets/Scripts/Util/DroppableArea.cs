@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.EventSystems;
 
-public class Droppable : MonoBehaviour, IPointerUpHandler
+public class DroppableArea : MonoBehaviour, IPointerUpHandler
 {
     public UnityEvent DroppedInArea = new UnityEvent();
 

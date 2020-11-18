@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.EventSystems;
 
-public class Draggable_4 : MonoBehaviour, IDragHandler, IBeginDragHandler, IEndDragHandler
+public class DraggableIcon : MonoBehaviour, IDragHandler, IBeginDragHandler, IEndDragHandler
 {
     private Color OriginalColour;
     // https://dev.to/matthewodle/simple-ui-element-dragging-script-in-unity-c-450p
@@ -26,5 +26,19 @@ public class Draggable_4 : MonoBehaviour, IDragHandler, IBeginDragHandler, IEndD
     {
         FeedingManager.Instance.DraggedObject.SetActive(false);
         this.GetComponent<Image>().color = OriginalColour;
+
+        // https://answers.unity.com/questions/884262/catch-pointer-events-by-multiple-gameobjects.html
+        List<RaycastResult> raycastResults = new List<RaycastResult>();
+        EventSystem.current.RaycastAll(eventData, raycastResults);
+        foreach (RaycastResult raycastResult in raycastResults)
+        {
+            GameObject newTarget = raycastResult.gameObject; //Array item 1 should be the one next underneath, handy to implement for-loop with check here if necessary.
+            //print($"Passing on click to {newTarget}"); //Just make sure you caught the right object
+            if (FeedingManager.Instance.UnitPanels.Contains(newTarget))
+            {
+                ExecuteEvents.Execute(newTarget, eventData, ExecuteEvents.pointerUpHandler);
+                print($"Passing on click to {newTarget}");
+            }
+        }
     }
 }
