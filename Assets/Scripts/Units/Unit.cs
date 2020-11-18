@@ -13,7 +13,7 @@ public class Unit : CellObject
     [HideInInspector]
     public int MaxHealth { get; set; }
 
-    public static readonly List<Unit> PlayerUnitPool = new List<Unit>();
+    public static readonly List<UnitPlayer> PlayerUnitPool = new List<UnitPlayer>();
 
     public UnitCommand CurrentCommand { get; private set; }
     protected ActivityState CurrentActivity;

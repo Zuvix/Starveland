@@ -24,11 +24,7 @@ public class MapControl : Singleton<MapControl> {
         GameObject testUnit2 = CreateGameObject(0, 1, player);
         GameObject testUnit3 = CreateGameObject(0, 2, player);
         CreateGameObject(5, 5, building_storage);
-        /*GameObject testForest1 = CreateGameObject(9, 4, forest);
-        GameObject testForest2 = CreateGameObject(10, 4, forest);
-        GameObject testForest3 = CreateGameObject(11, 4, forest);
-        GameObject testForest4 = CreateGameObject(9, 5, forest);
-        GameObject testForest5 = CreateGameObject(15, 15, forest);*/
+
         List<(int, int)> ForestCoords = new List<(int, int)>(new (int, int)[]
         { 
             (9, 4), (10, 4), (11, 4), (9, 5), (15, 15)  

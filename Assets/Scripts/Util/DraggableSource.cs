@@ -2,7 +2,7 @@
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
-public class Draggable_3 : EventTrigger
+public class DraggableSource : EventTrigger
 {
     private bool dragging;
 
