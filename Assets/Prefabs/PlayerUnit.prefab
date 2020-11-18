@@ -11,7 +11,6 @@ GameObject:
   - component: {fileID: 3607116211974803599}
   - component: {fileID: 3607116211974803598}
   - component: {fileID: 883225433098291899}
-  - component: {fileID: 3607116211974803596}
   m_Layer: 0
   m_Name: PlayerUnit
   m_TagString: Untagged
@@ -107,25 +106,4 @@ MonoBehaviour:
   sr: {fileID: 0}
   objectName: Pipik
   tip: One of your precious humans.
---- !u!114 &3607116211974803596
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3607116211974803593}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c8e058aaff2f9da44aa5ab5ffa6643fb, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  xScalingFactor: 1.5
-  yScalingFactor: 1.5
-  rotationFactor: 5
-  scalingTime: 0.2
-  rotationTime: 0.2
-  rotationSpeed: 20
-  flashTime: 0.2
-  sr: {fileID: 0}
-  objectName: Pipik
-  tip: One of your precious humans.
+  popup: {fileID: 7964957230971447603, guid: 950b028d3cbc148489079960954f13fc, type: 3}
