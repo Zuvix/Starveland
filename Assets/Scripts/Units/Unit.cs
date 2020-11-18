@@ -143,8 +143,6 @@ public class Unit : CellObject
         // Debug.Log("Gathering object");
         //itemInHand = target.Gather();
 
-        //TEST
-        CreatePopup(ItemManager.Instance.GetItem("Wood").icon, 1);
         if (target != null)
         {
             target.Flash();
