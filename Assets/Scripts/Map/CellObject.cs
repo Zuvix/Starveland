@@ -27,6 +27,8 @@ public class CellObject : MonoBehaviour
     public string objectName;
     public string tip;
 
+    public GameObject popup;
+
 
     public MapCell CurrentCell { get; private set; }
     virtual protected void Awake()
@@ -144,6 +146,11 @@ public class CellObject : MonoBehaviour
     private void ResetColor()
     {
         sr.color = originalColor;
+    }
+    public void CreatePopup(Sprite icon, int value)
+    {
+        GameObject g= Instantiate(popup,this.transform);
+        g.GetComponentInChildren<ItemPopup>()?.CreatePopup(icon, value);
     }
 
 }

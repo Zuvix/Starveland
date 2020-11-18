@@ -19,10 +19,14 @@ public class UnitPlayer : Unit
     }
     protected override void Awake()
     {
+        //Debug.LogError("UnitPlayer Instantiated");
         this.MovementSpeed = 20.0f;
         this.MaxHealth = 100;
         this.Health = this.MaxHealth;
         this.BaseDamage = 10;
+
+        Unit.PlayerUnitPool.Add(this);
+
         base.Awake();
     }
     protected override void Start()

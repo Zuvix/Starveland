@@ -31,12 +31,15 @@ public class ResourceSource : CellObject
     }
 
     private void OnMouseOver()
-     {
-         if (Input.GetMouseButtonDown(1))
-         {
-             UnitManager.Instance.AddActionToQueue(this);
-         }
-     }
+    {
+        if (GlobalGameState.Instance.InGameInputAllowed)
+        {
+            if (Input.GetMouseButtonDown(1))
+            {
+                UnitManager.Instance.AddActionToQueue(this);
+            }
+        }
+    }
     /*private void OnMouseDown()
     {
         UnitManager.Instance.AddActionToQueue(this.tag, this.CurrentCell.x, this.CurrentCell.y);

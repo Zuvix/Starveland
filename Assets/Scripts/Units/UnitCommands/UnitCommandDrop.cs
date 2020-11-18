@@ -18,12 +18,12 @@ public class UnitCommandDrop : UnitCommand
 
     public override IEnumerator PerformAction(Unit Unit)
     {
-        // TODO This might be moved to Mišo's Skill classes, Miso: nevidim dovod preco by to muselo byt v skille
-        Resource DroppedResource = Unit.CarriedResource.Deplete();
-        // TODO Add DroppedResource to storage, i.e. global inventory
 
         // TODO Animation here
         //Console.WriteLine("I'm dropping wood");
         yield return Unit.StartCoroutine(Unit.StoreResource(this.Target.CurrentObject.GetComponent<BuildingStorage>()));
+        // TODO This might be moved to Mišo's Skill classes, Miso: nevidim dovod preco by to muselo byt v skille
+        Resource DroppedResource = Unit.CarriedResource.Deplete();
+        GlobalInventory.Instance.AddItem(DroppedResource);
     }
 }
