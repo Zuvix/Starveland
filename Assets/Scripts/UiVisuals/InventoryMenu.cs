@@ -31,6 +31,7 @@ public class InventoryMenu : MonoBehaviour
         foreach(Resource r in resources)
         {
             itemList[i].ShowItem(r);
+            i++;
         }
     }
 }

@@ -12,6 +12,12 @@ public class GlobalInventory :Singleton<GlobalInventory>
     {
         return playerInventory;
     }
+    private void Start()
+    {
+        AddItem(new Resource(ItemManager.Instance.GetItem("Wood"),5));
+        AddItem(new Resource(ItemManager.Instance.GetItem("Apple"), 10));
+        Debug.Log(playerInventory.Count);
+    }
     public bool AddItem(Resource itemToAdd)
     {
         Debug.LogWarning("Adding item " + itemToAdd.itemInfo.name);
