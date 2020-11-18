@@ -57,6 +57,7 @@ public class UnitAnimal : Unit
             this.SetActivity(new ActivityStateUnderAttack(AttackingUnit, this, this.spawnX, this.spawnY, this.WanderingRadius));
         }
         this.Health -= Amount;
+        DisplayReceivedDamage(Amount);
         if (this.Health <= 0) //handle death
         {
             int x = this.CurrentCell.x;
