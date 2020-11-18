@@ -31,8 +31,10 @@ public class UnitPlayer : Unit
     }
     protected override void Start()
     {
-        base.Start();
+        
         objectName = NameGenerator.GetRandomName();
+        this.SetActivity(new ActivityStateIdle());
+        base.Start();
     }
 
     public override bool InventoryFull()
