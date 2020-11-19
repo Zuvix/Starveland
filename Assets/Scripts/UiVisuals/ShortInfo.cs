@@ -16,16 +16,25 @@ public class ShortInfo : MonoBehaviour
     public Image itemInHandImg;
     public TMP_Text itemAmountTxt;
 
+    public GameObject resourcePanel;
+    private ResourceShortInfo resourcePanelItemsInfo;
+    public TMP_Text resourceSourcTipTxt;
+
+    public GameObject buildingPanel;
+    public TMP_Text buildingTxt;
+
     List<GameObject> contentPanels;
     private void Awake()
     {
         contentPanels = new List<GameObject>()
         {
             topContent,
-            unitContent
+            unitContent,
+            resourcePanel,
+            buildingPanel
         };
         HideTopContent();
-
+        resourcePanelItemsInfo = resourcePanel.GetComponent<ResourceShortInfo>();
     }
     private void Start()
     {
@@ -46,17 +55,17 @@ public class ShortInfo : MonoBehaviour
             HideTopContent();
             return;
         }
-        if (go.GetComponent<CellObject>() != null)
+        CellObject visibleObject = go.GetComponent<CellObject>();
+        if (visibleObject!=null)
         {
             topContent.SetActive(true);
-            CellObject co = go.GetComponent<CellObject>();
-            img.sprite = co.sr.sprite;
-            nameTxt.text = co.objectName;
+            img.sprite = visibleObject.sr.sprite;
+            nameTxt.text = visibleObject.objectName;
         }
-        if (go.GetComponent<Unit>() != null)
+        if (visibleObject is Unit)
         {
             unitContent.SetActive(true);
-            Unit unit = go.GetComponent<Unit>();
+            Unit unit = (Unit)visibleObject;
             unitHP.text = $"{unit.Health}/{unit.MaxHealth}";
             unitAction.text = unit.CurrentAction;
             tipTxt.text = unit.tip;
@@ -78,9 +87,18 @@ public class ShortInfo : MonoBehaviour
                 itemAmountTxt.gameObject.SetActive(false);
             }
         }
-        if (go.GetComponent<ResourceSource>()!=null)
+        if (visibleObject is ResourceSource)
         {
+            ResourceSource rs = (ResourceSource)visibleObject;
+            resourcePanel.SetActive(true);
+            resourcePanelItemsInfo.ShowInfo(rs.Resources);
+            resourceSourcTipTxt.text = visibleObject.tip;
 
+        }
+        if(visibleObject is Building)
+        {
+            buildingPanel.SetActive(true);
+            buildingTxt.text = visibleObject.tip;
         }
     }
 }

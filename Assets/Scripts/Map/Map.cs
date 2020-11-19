@@ -99,7 +99,10 @@ public class Map {
 
     public void CenterObject(int x, int y,GameObject g)
     {
-        g.transform.position = new Vector3 (Grid[x][y].position.x, Grid[x][y].position.y,0);
+        if(x>=0 &&x<width &&y>=0 && y < height)
+        {
+            g.transform.position = new Vector3(Grid[x][y].position.x, Grid[x][y].position.y, 0);
+        }
     }
     public bool IsInBounds(Vector3 worldPosition)
     {

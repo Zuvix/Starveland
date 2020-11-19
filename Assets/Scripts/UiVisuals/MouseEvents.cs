@@ -12,6 +12,8 @@ public class MouseEvents : Singleton<MouseEvents>
     private float objectChangedTimer=0f;
     private float objectChangedTimerMax = .2f;
     private GameObject viewedObject=null;
+    private GameObject selectedObject = null;
+    public GameObject frame;
     private void HandleMouseMove()
     {
         mouseMoveTimer -= Time.deltaTime;
@@ -20,8 +22,22 @@ public class MouseEvents : Singleton<MouseEvents>
         {
             mouseMoveTimer += mouseMoveTimerMax;
             GameObject mapValue = MapControl.Instance.map.GetValue(UtilsClass.GetMouseWorldPosition());
-            if (mapValue != null)
+            //object coordinates
+            int x, y;
+            MapControl.Instance.map.GetXY(UtilsClass.GetMouseWorldPosition(), out x, out y);
+
+            if (selectedObject != null)
             {
+                frame.transform.position = selectedObject.transform.position;
+                if (objectChangedTimer < 0f)
+                {
+                    viewObjectChanged.Invoke(selectedObject);
+                    objectChangedTimer = objectChangedTimerMax;
+                }
+            }
+            else if (mapValue != null)
+            {
+                frame.transform.position = mapValue.transform.position;
                 if (!mapValue.Equals(viewedObject))
                 {
                     viewedObject = mapValue;
@@ -36,6 +52,7 @@ public class MouseEvents : Singleton<MouseEvents>
             }
             else
             {
+                MapControl.Instance.map.CenterObject(x, y, frame);
                 if (viewedObject != null)
                 {
                     viewObjectChanged.Invoke(null);
@@ -46,10 +63,22 @@ public class MouseEvents : Singleton<MouseEvents>
             }
         }
     }
+    public void HandleMouseClick()
+    {
+        if(GlobalGameState.Instance.InGameInputAllowed)
+        {
+            if (Input.GetMouseButtonDown(0))
+            {
+                GameObject mapValue = MapControl.Instance.map.GetValue(UtilsClass.GetMouseWorldPosition());
+                selectedObject = mapValue;
+            }
+        }
+    }
 
     // Update is called once per frame
     void Update()
     {
         HandleMouseMove();
+        HandleMouseClick();
     }
 }

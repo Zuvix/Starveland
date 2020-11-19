@@ -14,6 +14,20 @@ public class Unit : CellObject
     public int MaxHealth { get; set; }
     public int BaseDamage { get; set; }
 
+    [SerializeField]
+    float xScalingFactor = 2f;
+    [SerializeField]
+    float yScalingFactor = 2f;
+    [SerializeField]
+    float rotationFactor = 5f;
+    [SerializeField]
+    float scalingTime = 0.2f;
+    [SerializeField]
+    float rotationTime = 0.5f;
+    [SerializeField]
+    float rotationSpeed = 1f;
+    protected bool animateMovement = false;
+
     public static readonly List<UnitPlayer> PlayerUnitPool = new List<UnitPlayer>();
 
     public Sprite ReceiveDamageIcon;
@@ -57,6 +71,67 @@ public class Unit : CellObject
     {
         return true;
     }
+    IEnumerator RotatingAnimation()
+    {
+        float roatatingIntesity = 0.02f;
+        float dR = rotationSpeed * roatatingIntesity;
+        float timeRotated = 0f;
+        while (true)
+        {
+            if (animateMovement)
+            {
+                while (timeRotated < rotationTime)
+                {
+                    transform.Rotate(Vector3.forward * dR);
+                    yield return new WaitForSeconds(roatatingIntesity);
+                    timeRotated += roatatingIntesity;
+                }
+                timeRotated = -rotationTime;
+                while (timeRotated < rotationTime)
+                {
+                    transform.Rotate(Vector3.back * dR);
+                    yield return new WaitForSeconds(roatatingIntesity);
+                    timeRotated += roatatingIntesity;
+                }
+                timeRotated = 0;
+                while (timeRotated < rotationTime)
+                {
+                    transform.Rotate(Vector3.forward * dR);
+                    yield return new WaitForSeconds(roatatingIntesity);
+                    timeRotated += roatatingIntesity;
+                }
+            }
+            timeRotated = 0;
+            transform.rotation = basicRotation;
+            yield return new WaitForFixedUpdate();
+        }
+
+    }
+    IEnumerator ScalingAnimation()
+    {
+        float scalingIntesity = 0.015f;
+        float dX = xScalingFactor * scalingIntesity / scalingTime;
+        float dY = yScalingFactor * scalingIntesity / scalingTime;
+        while (true)
+        {
+            if (animateMovement)
+            {
+                while (transform.localScale.x > basicScale.x - xScalingFactor)
+                {
+                    transform.localScale = new Vector3(transform.localScale.x - dX, transform.localScale.y - dY);
+                    yield return new WaitForSeconds(scalingIntesity);
+                }
+                while (transform.localScale.x < basicScale.x)
+                {
+                    transform.localScale = new Vector3(transform.localScale.x + dX, transform.localScale.y + dY);
+                    yield return new WaitForSeconds(scalingIntesity);
+                }
+            }
+            transform.localScale = basicScale;
+            yield return new WaitForFixedUpdate();
+        }
+    }
+
     protected override void Awake()
     {
         //Debug.LogError("Unit instantiated");
@@ -68,6 +143,8 @@ public class Unit : CellObject
         this.MovementConflictManager = new UnitMovementConflictManager();
         this.ChangeActivity();
         StartCoroutine(ControlUnit());
+        StartCoroutine(ScalingAnimation());
+        StartCoroutine(RotatingAnimation());
     }
     public bool ChangeActivity()
     {
@@ -93,6 +170,7 @@ public class Unit : CellObject
     public virtual IEnumerator MoveUnitToNextPosition(MapCell TargetCell)
     {
         this.CurrentAction = "Moving";
+        animateMovement = true;
         // TODO - Will have to be more sophisticated
         //set cell to be used by unit, free the old cell
         MapCell PreviousCell = this.CurrentCell;
@@ -104,10 +182,6 @@ public class Unit : CellObject
         distance = Vector3.Distance(transform.position, TargetCell.position);
         Vector3 movementVector = TargetCell.position - transform.position;
         movementVector = movementVector.normalized;
-
-        //turn on animations
-        ScalingAnim(true);
-        RotationAnim(true);
 
         //Flip unit towards position
         if (TargetCell.position.x > transform.position.x)
@@ -127,8 +201,7 @@ public class Unit : CellObject
             distance = Vector3.Distance(transform.position, TargetCell.position);
         }
         //turn off animations
-        ScalingAnim(false);
-        RotationAnim(false);
+        animateMovement = false;
 
         //center units position to cells position
         transform.position = TargetCell.position;

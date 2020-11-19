@@ -123,16 +123,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3ae2484905f78d04496da8fa291dfae0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  xScalingFactor: 1.5
-  yScalingFactor: 1.5
-  rotationFactor: 5
-  scalingTime: 0.2
-  rotationTime: 0.5
-  rotationSpeed: 20
   flashTime: 0.2
   sr: {fileID: 0}
   objectName: Unicorn
   tip: Food source
   popup: {fileID: 7964957230971447603, guid: 950b028d3cbc148489079960954f13fc, type: 3}
+  xScalingFactor: 1.5
+  yScalingFactor: 1.5
+  rotationFactor: 5
+  scalingTime: 0.2
+  rotationTime: 0.2
+  rotationSpeed: 20
   ReceiveDamageIcon: {fileID: 9122268959118044443, guid: b81d09a574bb33a4ea1b7acc8221604e,
     type: 3}

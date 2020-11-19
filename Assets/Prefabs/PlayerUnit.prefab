@@ -96,16 +96,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 263f3f4930cf328479c12548d3bbc75b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  xScalingFactor: 1.5
-  yScalingFactor: 1.5
-  rotationFactor: 5
-  scalingTime: 0.2
-  rotationTime: 0.5
-  rotationSpeed: 20
   flashTime: 0.2
   sr: {fileID: 0}
   objectName: Pipik
   tip: One of your precious humans.
   popup: {fileID: 7964957230971447603, guid: 950b028d3cbc148489079960954f13fc, type: 3}
+  xScalingFactor: 1.5
+  yScalingFactor: 1.5
+  rotationFactor: 5
+  scalingTime: 0.2
+  rotationTime: 0.1
+  rotationSpeed: 20
   ReceiveDamageIcon: {fileID: 9122268959118044443, guid: b81d09a574bb33a4ea1b7acc8221604e,
     type: 3}
