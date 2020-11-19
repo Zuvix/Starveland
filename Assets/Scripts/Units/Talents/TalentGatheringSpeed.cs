@@ -15,13 +15,13 @@ public class TalentGatheringSpeed : TalentSkillSpecific
 
     public override bool Apply(Skill Skill)
     {
-        Skill.GatheringSpeed -= this.GatheringSpeed;
+        Skill.GatheringTime -= this.GatheringSpeed;
         return true;
     }
 
     public override bool Remove(Skill Skill)
     {
-        Skill.GatheringSpeed += this.GatheringSpeed;
+        Skill.GatheringTime += this.GatheringSpeed;
         return true;
     }
 

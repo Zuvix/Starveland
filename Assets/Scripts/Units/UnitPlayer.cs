@@ -4,9 +4,7 @@ using UnityEngine;
 
 public class UnitPlayer : Unit
 {
-    public Dictionary<SkillType, Skill> Skills = new Dictionary<SkillType, Skill> {
-        { SkillType.woodcutting, new SkillWoodcutting() },
-        { SkillType.hunting, new SkillHunting() } };
+    public Dictionary<SkillType, Skill> Skills;
     public List<TalentUnitSpecific> UnitAppliedTalents = new List<TalentUnitSpecific>();
 
     public override void SetActivity(ActivityState Activity)
@@ -20,10 +18,16 @@ public class UnitPlayer : Unit
     protected override void Awake()
     {
         //Debug.LogError("UnitPlayer Instantiated");
-        this.MovementSpeed = 20.0f;
-        this.MaxHealth = 100;
+        this.Skills = new Dictionary<SkillType, Skill> 
+        {
+            { SkillType.woodcutting, new SkillWoodcutting() },
+            { SkillType.hunting, new SkillHunting() } 
+        };
+
+        this.MovementSpeed = GameConfigManager.Instance.GameConfig.MovementSpeedPlayer;
+        this.MaxHealth = GameConfigManager.Instance.GameConfig.MaxHealthPlayer;
         this.Health = this.MaxHealth;
-        this.BaseDamage = 10;
+        this.BaseDamage = GameConfigManager.Instance.GameConfig.BaseDamagePlayer;
 
         Unit.PlayerUnitPool.Add(this);
 
@@ -77,7 +81,16 @@ public class UnitPlayer : Unit
         {
             this.SetActivity(new ActivityStateUnderAttack(AttackingUnit, this));
         }
-        base.DealDamage(Amount, AttackingUnit);
+        this.Health -= Amount;
+        DisplayReceivedDamage(Amount);
+        if (this.Health <= 0) //handle death
+        {
+            int x = this.CurrentCell.x;
+            int y = this.CurrentCell.y;
+            this.CurrentCell.SetCellObject(null);
+            Destroy(this.gameObject);
+            MapControl.Instance.CreateGameObject(x, y, MapControl.Instance.tombstone);
+        }
     }
 
 
