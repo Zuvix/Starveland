@@ -10,11 +10,19 @@ public class SkillWoodcutting : Skill
     public SkillWoodcutting() : base()
     {
         this.ExperiencePerAction = 10;
+
+        //this.ExperienceNeededToLevelUp = GameConfigManager.Instance.GameConfig.ExperienceNeededToLevelUp;
+        //this.ExperienceNeededToLevelUp = 50;
+        /*this.CurrentExperience = 0;
+        this.Level = 1;
+        this.SkillAppliedTalents = new List<TalentSkillSpecific>();
+        this.ChanceToGetExtraResource = 0;
+        this.GatheringTime = 1.5f;
+        this.CarryingCapacity = 2;*/
     }
 
     protected override bool LevelUp(Unit Unit)
     {
-        //Console.WriteLine($"Woodcutting leveled up! (current level:{this.Level})");
         this.Level++;
         TalentSkillSpecific NewTalent = TalentPool.Instance.GetNewSkillSpecificTalent(this.SkillAppliedTalents, this.Level);
         if (NewTalent != null)
@@ -23,9 +31,9 @@ public class SkillWoodcutting : Skill
             this.SkillAppliedTalents.Add(NewTalent);
             Debug.Log("Getting new talent: " + NewTalent.Name);
         }
+        // all possible talents are already active, todo show a message or whatever..
         else
-        {
-            //Console.WriteLine("All possible talents are already active!");
+        {         
         }
         return true; 
     }

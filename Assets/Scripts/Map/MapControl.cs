@@ -16,6 +16,7 @@ public class MapControl : Singleton<MapControl> {
     public GameObject building_storage;
     public GameObject animal;
     public GameObject animal_dead;
+    public GameObject tombstone;
 
     private void Start() {
         //Example of the world
