@@ -7,6 +7,8 @@ using UnityEngine.EventSystems;
 public class DraggableIcon : MonoBehaviour, IDragHandler, IBeginDragHandler, IEndDragHandler
 {
     private Color OriginalColour;
+    public Resource Resource;
+
     // https://dev.to/matthewodle/simple-ui-element-dragging-script-in-unity-c-450p
     public void OnDrag(PointerEventData eventData)
     {
@@ -20,6 +22,7 @@ public class DraggableIcon : MonoBehaviour, IDragHandler, IBeginDragHandler, IEn
         this.GetComponent<Image>().color = new Color(0, 0, 0, 0);
 
         FeedingManager.Instance.DraggedObject.GetComponent<Image>().sprite = this.GetComponent<Image>().sprite;
+        FeedingManager.Instance.SelectedFoodIcon = this.gameObject;
     }
 
     public void OnEndDrag(PointerEventData eventData)
@@ -40,5 +43,7 @@ public class DraggableIcon : MonoBehaviour, IDragHandler, IBeginDragHandler, IEn
                 print($"Passing on click to {newTarget}");
             }
         }
+
+        FeedingManager.Instance.SelectedFoodIcon = null;
     }
 }

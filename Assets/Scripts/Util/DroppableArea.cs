@@ -6,10 +6,10 @@ using UnityEngine.EventSystems;
 
 public class DroppableArea : MonoBehaviour, IPointerUpHandler
 {
-    public UnityEvent DroppedInArea = new UnityEvent();
+    public UnityEvent<UnitPanel> DroppedInArea = new UnityEvent<UnitPanel>();
 
     public void OnPointerUp(PointerEventData eventData)
     {
-        DroppedInArea.Invoke();
+        DroppedInArea.Invoke(this.gameObject.GetComponent<UnitPanel>());
     }
 }

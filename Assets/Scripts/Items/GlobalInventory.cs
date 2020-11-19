@@ -15,6 +15,11 @@ public class GlobalInventory :Singleton<GlobalInventory>
     private void Start()
     {
         Debug.Log(playerInventory.Count);
+
+        AddItem(new Resource(ItemManager.Instance.GetItem("Apple"), 8));
+        AddItem(new Resource(ItemManager.Instance.GetItem("Carrot"), 4));
+        AddItem(new Resource(ItemManager.Instance.GetItem("Mushroom"), 3));
+        AddItem(new Resource(ItemManager.Instance.GetItem("Steak"), 6));
     }
     public bool AddItem(Resource itemToAdd)
     {
@@ -38,9 +43,10 @@ public class GlobalInventory :Singleton<GlobalInventory>
     }
     public bool CheckAvaliableItem(string itemName,int amountNeeded)
     {
+        Debug.Log("Checking item availability");
         if (playerInventory.ContainsKey(itemName))
         {
-            if(playerInventory[itemName].Amount>= amountNeeded)
+            if(playerInventory[itemName].Amount >= amountNeeded)
             {
                 return true;
             }
@@ -80,5 +86,18 @@ public class GlobalInventory :Singleton<GlobalInventory>
         }
 
         return false;
+    }
+    public List<Resource> AvailableFood()
+    {
+        List<Resource> Result = new List<Resource>();
+        foreach (KeyValuePair<string, Resource> entry in playerInventory)
+        {
+            if (entry.Value.itemInfo.type == "Food")
+            {
+                Result.Add(entry.Value.Duplicate());
+                Debug.Log($"Added available food {entry.Key}");
+            }
+        }
+        return Result;
     }
 }
