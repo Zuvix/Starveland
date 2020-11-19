@@ -7,16 +7,17 @@ using UnityEngine;
 
 public class UnitAnimal : Unit
 {
-    public readonly int WanderingRadius = 2;
+    private int WanderingRadius;
     private int spawnX;
     private int spawnY;
 
     protected override void Awake()
     {
-        this.MovementSpeed = 5.0f;
-        this.MaxHealth = 100;
+        this.MovementSpeed = GameConfigManager.Instance.GameConfig.MovementSpeedAnimal;
+        this.MaxHealth = GameConfigManager.Instance.GameConfig.MaxHealthAnimal;
         this.Health = this.MaxHealth;
-        this.BaseDamage = 10;
+        this.BaseDamage = GameConfigManager.Instance.GameConfig.BaseDamageAnimal;
+        this.WanderingRadius = GameConfigManager.Instance.GameConfig.WanderingRadius;
         base.Awake();
     }
     protected override void Start()
