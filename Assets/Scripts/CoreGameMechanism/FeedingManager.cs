@@ -79,6 +79,7 @@ class FeedingManager : Singleton<FeedingManager>
         {
             UnitPanels[i].SetActive(true);
             UnitPanels[i].GetComponent<UnitPanel>().Unit = PlayerUnits[i];
+            UnitPanels[i].GetComponent<UnitPanel>().Unit.OnEatUpgrade.RemoveAllListeners();
             UnitPanels[i].GetComponent<UnitPanel>().Unit.OnEatUpgrade.AddListener(UnitPanels[i].GetComponent<UnitPanel>().UpdateSlider);
             PlayerUnits[i].Eat(0);
             for (int j = 0; j < UnitPanels[i].transform.childCount; j++)
@@ -93,6 +94,8 @@ class FeedingManager : Singleton<FeedingManager>
         for (int i = PlayerUnits.Count; i < UnitPanels.Count; i++)
         {
             UnitPanels[i].SetActive(false);
+            UnitPanels[i].GetComponent<UnitPanel>().Unit = null;
+            UnitPanels[i].GetComponent<UnitPanel>().UpdateSlider(0);
         }
     }
     private void RefreshGrid()
@@ -112,6 +115,8 @@ class FeedingManager : Singleton<FeedingManager>
 
             FoodInventoryItemPanels.Add(InventoryItem);
             AvailableItems.RemoveAt(0);
+
+            InventoryItem.SetActive(true);
         }
     }
     private void FillGrid()

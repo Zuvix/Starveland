@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 6408363596328954929}
   - component: {fileID: 2224281974294603821}
   - component: {fileID: 5251238391922525830}
-  - component: {fileID: 7663508321462022342}
+  - component: {fileID: -625047944657205316}
   m_Layer: 5
   m_Name: Food_Mock_Mushroom
   m_TagString: Untagged
@@ -91,7 +91,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Delegates: []
---- !u!114 &7663508321462022342
+--- !u!114 &-625047944657205316
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}

@@ -10,6 +10,10 @@ public class DraggableIcon : MonoBehaviour, IDragHandler, IBeginDragHandler, IEn
     public Resource Resource;
 
     // https://dev.to/matthewodle/simple-ui-element-dragging-script-in-unity-c-450p
+    public void Awake()
+    {
+        this.gameObject.SetActive(true);
+    }
     public void OnDrag(PointerEventData eventData)
     {
         FeedingManager.Instance.DraggedObject.transform.position = new Vector2(Input.mousePosition.x, Input.mousePosition.y);
