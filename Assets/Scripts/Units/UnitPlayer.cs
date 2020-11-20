@@ -75,7 +75,7 @@ public class UnitPlayer : Unit
         yield return new WaitForSeconds(0.2f);
     }
 
-    public override void DealDamage(int Amount, Unit AttackingUnit)
+   /* public override void DealDamage(int Amount, Unit AttackingUnit)
     {
         if (!(this.CurrentActivity is ActivityStateUnderAttack) && !(this.CurrentActivity is ActivityStateHunt))
         {
@@ -91,7 +91,24 @@ public class UnitPlayer : Unit
             Destroy(this.gameObject);
             MapControl.Instance.CreateGameObject(x, y, MapControl.Instance.tombstone);
         }
+    }*/
+    public override void DealDamageStateRoutine(int Amount, Unit AttackingUnit)
+    {
+        if (!(this.CurrentActivity is ActivityStateUnderAttack) && !(this.CurrentActivity is ActivityStateHunt))
+        {
+            this.SetActivity(new ActivityStateUnderAttack(AttackingUnit, this));
+        }
     }
-
-
+    public override void SpawnOnDeath(int x, int y)
+    {
+        MapControl.Instance.CreateGameObject(x, y, MapControl.Instance.tombstone);
+    }
+    public override void ActionOnDeath()
+    {
+        Unit.PlayerUnitPool.Remove(this);
+        if (DayCycleManager.Instance.FinishedUnitCounter > 0)
+        {
+            DayCycleManager.Instance.IndicateEndDayRoutineEnd();
+        }
+    }
 }

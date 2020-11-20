@@ -2,7 +2,7 @@
 
 class DayCycleManager : Singleton<DayCycleManager>
 {
-    private int FinishedUnitCounter;
+    public int FinishedUnitCounter { get; private set; }
     private void Start()
     {
         DaytimeCounter.Instance.OnDayOver.AddListener(EndDay);
@@ -34,7 +34,7 @@ class DayCycleManager : Singleton<DayCycleManager>
         DaytimeCounter.Instance.StartDay();
         GlobalGameState.Instance.InGameInputAllowed = true;
     }
-    private void IndicateEndDayRoutineEnd()
+    public void IndicateEndDayRoutineEnd()
     {
         this.FinishedUnitCounter--;
         Debug.Log($"Unit finishedCounter decremented to {this.FinishedUnitCounter}");
