@@ -40,18 +40,14 @@ class FeedingManager : Singleton<FeedingManager>
         FillGrid();
 
         PlayerUnits = Unit.PlayerUnitPool.Select(unit => new UnitHungry(unit)).ToList();
-        Debug.Log($"There are {PlayerUnits.Count} hungry units");
         FillUnitPanels();
     }
     public void DroppedInConsumationArea(UnitPanel UnitPanel)
     {
-        Debug.LogError($"Dropped {SelectedFoodIcon.GetComponent<DraggableIcon>().Resource.itemInfo.name} into + {UnitPanel}");
-
         Resource ConsumedResource = SelectedFoodIcon.GetComponent<DraggableIcon>().Resource;
         UnitHungry ConsumingUnit = UnitPanel.Unit;
         if (GlobalInventory.Instance.RemoveItem(ConsumedResource.itemInfo.name, ConsumedResource.Amount))
         {
-            Debug.Log($"Unit about to eat {ConsumedResource.itemInfo.name} of nutrition value {ConsumedResource.itemInfo.NutritionValue}");
             ConsumingUnit.Eat(ConsumedResource.itemInfo.NutritionValue);
             if (ConsumingUnit.IsFed())
             {

@@ -40,7 +40,6 @@ public class DraggableIcon : MonoBehaviour, IDragHandler, IBeginDragHandler, IEn
             if (FeedingManager.Instance.UnitPanels.Contains(newTarget))
             {
                 ExecuteEvents.Execute(newTarget, eventData, ExecuteEvents.pointerUpHandler);
-                print($"Passing on click to {newTarget}");
             }
         }
 

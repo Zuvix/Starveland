@@ -115,7 +115,6 @@ public class UnitManager : Singleton<UnitManager>
     {
         if (!IdleUnits.Contains(Unit))
         {
-            Debug.Log("Pridavam sa do idle listu");
             this.IdleUnits.Add(Unit);
         }
         this.ActionSchedulingLoop();

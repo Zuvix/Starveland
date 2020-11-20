@@ -20,7 +20,6 @@ public class ProgressBar : MonoBehaviour
         {
             currentProgress = Math.Min(value, maxProgress);
             Slider.value = currentProgress;
-            Debug.Log($"Slider values: {currentProgress}, {Slider.value}");
             if (currentProgress > 0)
             {
                 Fill.SetActive(true);
@@ -33,7 +32,6 @@ public class ProgressBar : MonoBehaviour
     }
     void Start()
     {
-        Debug.Log("Progress bar start called");
         Fill.SetActive(false);
         Slider.value = 0;
     }

@@ -46,7 +46,7 @@ public class Unit : CellObject
         this.NextActivity = Activity;
 
 
-        Debug.LogWarning("Unit enqueueing activity " + this.NextActivity.GetType().Name);
+        //Debug.LogWarning("Unit enqueueing activity " + this.NextActivity.GetType().Name);
     }
 
     public virtual bool InventoryFull()
@@ -78,7 +78,7 @@ public class Unit : CellObject
             this.NextActivity = null;
             this.CurrentActivity.InitializeCommand(this);
             Result = true;
-            Debug.LogWarning($"Unit {this} setting activity to " + this.CurrentActivity.GetType().Name);
+            //Debug.LogWarning($"Unit {this} setting activity to " + this.CurrentActivity.GetType().Name);
         }
         return Result;
     }
