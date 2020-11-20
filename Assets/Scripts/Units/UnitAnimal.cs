@@ -51,7 +51,7 @@ public class UnitAnimal : Unit
         yield return new WaitForSeconds(0.2f);
     }
 
-    public override void DealDamage(int Amount, Unit AttackingUnit)
+    /*public override void DealDamage(int Amount, Unit AttackingUnit)
     {
         if (!(this.CurrentActivity is ActivityStateUnderAttack))
         {
@@ -67,6 +67,17 @@ public class UnitAnimal : Unit
             Destroy(this.gameObject);
             ResourceSourceFactory.Instance.ProduceResourceSource(x, y, "DeadAnimal");
         }
+    }*/
+    public override void DealDamageStateRoutine(int Amount, Unit AttackingUnit)
+    {
+        if (!(this.CurrentActivity is ActivityStateUnderAttack))
+        {
+            this.SetActivity(new ActivityStateUnderAttack(AttackingUnit, this, this.spawnX, this.spawnY, this.WanderingRadius));
+        }
+    }
+    public override void SpawnOnDeath(int x, int y)
+    {
+        ResourceSourceFactory.Instance.ProduceResourceSource(x, y, "DeadAnimal");
     }
 
     private void OnMouseOver()

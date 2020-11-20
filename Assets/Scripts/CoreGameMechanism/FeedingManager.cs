@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -16,11 +17,12 @@ class FeedingManager : Singleton<FeedingManager>
 
     public GameObject InventoryItem;
     public GameObject DraggedObject;
+    public GameObject SelectedFoodIcon; 
 
     public readonly int InventoryGridSizeRows = 4;
     public readonly int InventoryGridSizeColumns = 10;
 
-    private List<UnitPlayer> PlayerUnits;
+    private List<UnitHungry> PlayerUnits;
 
     private void Awake()
     {
@@ -31,19 +33,38 @@ class FeedingManager : Singleton<FeedingManager>
         {
             UnitPanel.GetComponent<DroppableArea>().DroppedInArea.AddListener(DroppedInConsumationArea);
         }
-        PlayerUnits = Unit.PlayerUnitPool.GetRange(0, Unit.PlayerUnitPool.Count);
     }
     public void InitiateDayEnd()
     {
         FeedingPanel.SetActive(true);
         FillGrid();
 
-        PlayerUnits = Unit.PlayerUnitPool.GetRange(0, Unit.PlayerUnitPool.Count);
+        PlayerUnits = Unit.PlayerUnitPool.Select(unit => new UnitHungry(unit)).ToList();
         FillUnitPanels();
     }
-    public void DroppedInConsumationArea()
+    public void DroppedInConsumationArea(UnitPanel UnitPanel)
     {
-        Debug.LogError("Dropped into this area");
+        Resource ConsumedResource = SelectedFoodIcon.GetComponent<DraggableIcon>().Resource;
+        UnitHungry ConsumingUnit = UnitPanel.Unit;
+        if (GlobalInventory.Instance.RemoveItem(ConsumedResource.itemInfo.name, ConsumedResource.Amount))
+        {
+            ConsumingUnit.Eat(ConsumedResource.itemInfo.NutritionValue);
+            if (ConsumingUnit.IsFed())
+            {
+                PlayerUnits.Remove(ConsumingUnit);
+                FillUnitPanels();
+            }
+
+            FoodInventoryItemPanels.Remove(SelectedFoodIcon);
+            Destroy(SelectedFoodIcon);
+            SelectedFoodIcon = null;
+
+            RefreshGrid();
+        }
+        else
+        {
+            Debug.LogError($"Tried to consume item that's not available: {ConsumedResource.Amount} of {ConsumedResource.itemInfo.name}");
+        }
     }
     public void InitiateDayStart()
     {
@@ -57,18 +78,45 @@ class FeedingManager : Singleton<FeedingManager>
         for (int i = 0; i < UnitPanels.Count && i < PlayerUnits.Count; i++)
         {
             UnitPanels[i].SetActive(true);
+            UnitPanels[i].GetComponent<UnitPanel>().Unit = PlayerUnits[i];
+            UnitPanels[i].GetComponent<UnitPanel>().Unit.OnEatUpgrade.RemoveAllListeners();
+            UnitPanels[i].GetComponent<UnitPanel>().Unit.OnEatUpgrade.AddListener(UnitPanels[i].GetComponent<UnitPanel>().UpdateSlider);
+            PlayerUnits[i].Eat(0);
             for (int j = 0; j < UnitPanels[i].transform.childCount; j++)
             {
                 Child = UnitPanels[i].transform.GetChild(j).gameObject;
                 if (Child.name == "UnitName")
                 {
-                    Child.GetComponent<TextMeshProUGUI>().text = PlayerUnits[i].objectName;
+                    Child.GetComponent<TextMeshProUGUI>().text = PlayerUnits[i].Unit.objectName;
                 }
             }
         }
         for (int i = PlayerUnits.Count; i < UnitPanels.Count; i++)
         {
             UnitPanels[i].SetActive(false);
+            UnitPanels[i].GetComponent<UnitPanel>().Unit = null;
+            UnitPanels[i].GetComponent<UnitPanel>().UpdateSlider(0);
+        }
+    }
+    private void RefreshGrid()
+    {
+        AddToGrid();
+    }
+    private void AddToGrid()
+    {
+        if (AvailableItems.Count > 0)
+        {
+            GameObject InventoryItem = Instantiate(this.InventoryItem);
+            InventoryItem.GetComponent<UnityEngine.UI.Image>().sprite = AvailableItems[0].itemInfo.icon;
+            InventoryItem.GetComponent<UnityEngine.UI.Image>().color = new Color(1, 1, 1, 1);
+            InventoryItem.GetComponent<DraggableIcon>().Resource = AvailableItems[0];
+
+            InventoryItem.transform.SetParent(FoodInventoryPanel.transform, false);
+
+            FoodInventoryItemPanels.Add(InventoryItem);
+            AvailableItems.RemoveAt(0);
+
+            InventoryItem.SetActive(true);
         }
     }
     private void FillGrid()
@@ -80,24 +128,16 @@ class FeedingManager : Singleton<FeedingManager>
         AvailableItems = PrepareFoodList();
 
         gridLayout.cellSize = new Vector2(parentRect.rect.width / InventoryGridSizeColumns, parentRect.rect.height / InventoryGridSizeRows);
-        int FoodListIndex;
         for (int i = 0; i < InventoryGridSizeRows; i++)
         {
             for (int j = 0; j < InventoryGridSizeColumns; j++)
             {
-                FoodListIndex = i * InventoryGridSizeRows + j;
-                if (FoodListIndex >= AvailableItems.Count)
+                if (AvailableItems.Count <= 0)
                 {
                     break;
                 }
 
-                GameObject InventoryItem = Instantiate(this.InventoryItem);
-                InventoryItem.GetComponent<UnityEngine.UI.Image>().sprite = AvailableItems[FoodListIndex].itemInfo.icon;
-                InventoryItem.GetComponent<UnityEngine.UI.Image>().color = new Color(1, 1, 1, 1);
-
-                InventoryItem.transform.SetParent(FoodInventoryPanel.transform, false);
-
-                FoodInventoryItemPanels.Add(InventoryItem);
+                AddToGrid();
             }
         }
     }
@@ -114,6 +154,7 @@ class FeedingManager : Singleton<FeedingManager>
     {
         List<Resource> Result = new List<Resource>();
         List<Resource> AvailableResources = RetrieveAvailableFood();
+        //Cannot deplete resources
         foreach (Resource Resource in AvailableResources)
         {
             while (!Resource.IsDepleted())
@@ -126,12 +167,7 @@ class FeedingManager : Singleton<FeedingManager>
     }
     private List<Resource> RetrieveAvailableFood()
     {
-        List<Resource> Result = new List<Resource>();
-
-        Result.Add(new Resource(ItemManager.Instance.GetItem("Apple"), 8));
-        Result.Add(new Resource(ItemManager.Instance.GetItem("Carrot"), 4));
-        Result.Add(new Resource(ItemManager.Instance.GetItem("Mushroom"), 3));
-        Result.Add(new Resource(ItemManager.Instance.GetItem("Steak"), 6));
+        List<Resource> Result = GlobalInventory.Instance.AvailableFood();
 
         return Result;
     }

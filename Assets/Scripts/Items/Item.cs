@@ -8,4 +8,5 @@ public class Item : ScriptableObject
     [StringInList("Resource","Food")]
     public string type;
     public Sprite icon;
+    public int NutritionValue;
 }

@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Unit : CellObject
+public abstract class Unit : CellObject
 {
     [HideInInspector]
     public string CurrentAction { get; set; }
@@ -60,7 +60,7 @@ public class Unit : CellObject
         this.NextActivity = Activity;
 
 
-        Debug.LogWarning("Unit enqueueing activity " + this.NextActivity.GetType().Name);
+        //Debug.LogWarning("Unit enqueueing activity " + this.NextActivity.GetType().Name);
     }
 
     public virtual bool InventoryFull()
@@ -155,7 +155,7 @@ public class Unit : CellObject
             this.NextActivity = null;
             this.CurrentActivity.InitializeCommand(this);
             Result = true;
-            Debug.LogWarning($"Unit {this} setting activity to " + this.CurrentActivity.GetType().Name);
+            //Debug.LogWarning($"Unit {this} setting activity to " + this.CurrentActivity.GetType().Name);
         }
         return Result;
     }
@@ -269,16 +269,31 @@ public class Unit : CellObject
     }
 
 
-    public virtual void DealDamage(int Amount, Unit AttackingUnit)
+    public void DealDamage(int Amount, Unit AttackingUnit)
     {
+        DealDamageStateRoutine(Amount, AttackingUnit);
+
         this.Health -= Amount;
         DisplayReceivedDamage(Amount);
+
         if (this.Health <= 0) //handle death
         {
-            this.CurrentCell.SetCellObject(null);
-            Destroy(this.gameObject); 
+            Die();
         }
     }
+    public abstract void DealDamageStateRoutine(int Amount, Unit AttackingUnit);
+    private void Die()
+    {
+        int x = this.CurrentCell.x;
+        int y = this.CurrentCell.y;
+        this.CurrentCell.SetCellObject(null);
+        Destroy(this.gameObject);
+
+        SpawnOnDeath(x, y);
+        ActionOnDeath();
+    }
+    public virtual void SpawnOnDeath(int x, int y) { }
+    public virtual void ActionOnDeath() { }
     public void DisplayReceivedDamage(int Amount)
     {
         CreatePopup(ReceiveDamageIcon, -Amount);
