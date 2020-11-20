@@ -66,7 +66,6 @@ class ActivityStateEndDayRoutine : ActivityState
     private void FinishedRoutine(Unit Unit)
     {
         OnActivityFinished.Invoke();
-        Debug.LogWarning("Unit finished End day routine");
         Unit.SetActivity(ActivityStateNull.Instance);
     }
 }

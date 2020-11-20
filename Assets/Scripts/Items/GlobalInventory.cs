@@ -12,9 +12,15 @@ public class GlobalInventory :Singleton<GlobalInventory>
     {
         return playerInventory;
     }
+    private void Start()
+    {
+        AddItem(new Resource(ItemManager.Instance.GetItem("Apple"), 8));
+        AddItem(new Resource(ItemManager.Instance.GetItem("Carrot"), 4));
+        AddItem(new Resource(ItemManager.Instance.GetItem("Mushroom"), 3));
+        AddItem(new Resource(ItemManager.Instance.GetItem("Steak"), 6));
+    }
     public bool AddItem(Resource itemToAdd)
     {
-        Debug.LogWarning("Adding item " + itemToAdd.itemInfo.name);
         if (CheckAvaliableItem(itemToAdd.itemInfo.name,1))
         {
             playerInventory[itemToAdd.itemInfo.name].AddDestructive(itemToAdd);
@@ -29,14 +35,14 @@ public class GlobalInventory :Singleton<GlobalInventory>
             OnInventoryUpdate.Invoke();
             return true;
         }
-        Debug.LogWarning("Inventory was full, item failed to be added.");
+        Debug.LogError("Inventory was full, item failed to be added.");
         return false;
     }
     public bool CheckAvaliableItem(string itemName,int amountNeeded)
     {
         if (playerInventory.ContainsKey(itemName))
         {
-            if(playerInventory[itemName].Amount>= amountNeeded)
+            if(playerInventory[itemName].Amount >= amountNeeded)
             {
                 return true;
             }
@@ -76,5 +82,17 @@ public class GlobalInventory :Singleton<GlobalInventory>
         }
 
         return false;
+    }
+    public List<Resource> AvailableFood()
+    {
+        List<Resource> Result = new List<Resource>();
+        foreach (KeyValuePair<string, Resource> entry in playerInventory)
+        {
+            if (entry.Value.itemInfo.type == "Food")
+            {
+                Result.Add(entry.Value.Duplicate());
+            }
+        }
+        return Result;
     }
 }

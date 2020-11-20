@@ -14,3 +14,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   type: Food
   icon: {fileID: -4135575320781265683, guid: ddf4a4e6ec245864fbfb72f96ebb7d3d, type: 3}
+  NutritionValue: 1

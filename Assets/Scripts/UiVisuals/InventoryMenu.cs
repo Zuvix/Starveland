@@ -21,7 +21,6 @@ public class InventoryMenu : MonoBehaviour
     }
     public void AssignItems()
     {
-        Debug.LogWarning("Assigining items");
         List<Resource> resources = GlobalInventory.Instance.GetInventory().Values.ToList();
         int i = 0;
         foreach(ItemShow panel in itemList)
