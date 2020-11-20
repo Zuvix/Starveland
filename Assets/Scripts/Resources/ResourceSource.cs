@@ -4,13 +4,11 @@ using UnityEngine;
 
 public class ResourceSource : CellObject
 {
-    public List<Resource> Resources;
-
-    //Adding few Resources as en example
+    [HideInInspector]
+    public List<Resource> Resources=new List<Resource>();
     override protected  void Awake()
     {
         base.Awake();
-        Resources = new List<Resource>();
     }
 
     public Resource GatherResource(int amount)
@@ -40,27 +38,39 @@ public class ResourceSource : CellObject
             }
         }
     }
-    /*private void OnMouseDown()
-    {
-        UnitManager.Instance.AddActionToQueue(this.tag, this.CurrentCell.x, this.CurrentCell.y);
-    }*/
 
-    //TODO
-    /*public Resource Gather()
+    public List<ResourcePack> ResourcePacks;
+
+    public void GenerateResources()
     {
-        if (Resources.Count > 1)
+        List<Resource> generatedResources = new List<Resource>();
+        foreach (ResourcePack rp in ResourcePacks)
         {
-            Flash();
-            /*int random = Random.Range(0, Resources.Count);
-            Resource itemToGive = Resources[random];
-            Resources.Remove(itemToGive);
-            return itemToGive;
+            Resource toAddResource = rp.UnpackPack();
+            if (toAddResource != null)
+            {
+                generatedResources.Add(rp.resource);
+            }
+                
         }
-        else
+        this.Resources = generatedResources;
+    }
+
+    public void AddResource(Resource toAddResource)
+    {
+        bool added = false;
+        for (int i = 0; i < Resources.Count; i++)
         {
-            Debug.Log("Resource source delpeted");
-            Destroy(this.gameObject);
-            return null;
+            if (Resources[i].itemInfo.name.Equals(toAddResource.itemInfo.name))
+            {
+                Resources[i].AddDestructive(toAddResource);
+                added = true;
+                break;
+            }
         }
-    }*/
+        if (!added)
+        {
+            Resources.Add(toAddResource);
+        }
+    }
 }

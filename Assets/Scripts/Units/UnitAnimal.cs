@@ -10,6 +10,7 @@ public class UnitAnimal : Unit
     private int WanderingRadius;
     private int spawnX;
     private int spawnY;
+    public List<ResourcePack> inventory;
 
     protected override void Awake()
     {
@@ -64,9 +65,25 @@ public class UnitAnimal : Unit
             int x = this.CurrentCell.x;
             int y = this.CurrentCell.y;
             this.CurrentCell.SetCellObject(null);
-            Destroy(this.gameObject);
-            ResourceSourceFactory.Instance.ProduceResourceSource(x, y, "DeadAnimal");
+            Die();
         }
+    }
+    public void Die()
+    {
+        int x = this.CurrentCell.x;
+        int y = this.CurrentCell.y;
+        List<Resource> drops=new List<Resource>();
+        foreach (ResourcePack rp in inventory)
+        {
+            Resource toAddResource = rp.UnpackPack();
+            if (toAddResource != null)
+            {
+                drops.Add(rp.resource);
+            }
+
+        }
+        Destroy(this.gameObject);
+        ResourceSourceFactory.Instance.ProduceResourceSource(x, y, RSObjects.DeadAnimal, drops);
     }
 
     private void OnMouseOver()

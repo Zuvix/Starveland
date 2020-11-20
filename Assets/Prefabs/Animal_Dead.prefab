@@ -123,13 +123,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b10766576e1129b41bebd07ace1af4a5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  xScalingFactor: 2
-  yScalingFactor: 2
-  rotationFactor: 5
-  scalingTime: 0.2
-  rotationTime: 0.5
-  rotationSpeed: 1
   flashTime: 0.2
   sr: {fileID: 0}
-  objectName: Food
+  objectName: Dead Animal
   tip: Dead animal
+  popup: {fileID: 0}
+  Resources:
+  - itemInfo: {fileID: 11400000, guid: c93d34b92e6a8fc4a8d0a87e19513844, type: 2}
+    Amount: 5
+  ResourcePacks:
+  - resource:
+      itemInfo: {fileID: 11400000, guid: c93d34b92e6a8fc4a8d0a87e19513844, type: 2}
+      Amount: 1
+    chance: 100
+    variationPercentage: 0
