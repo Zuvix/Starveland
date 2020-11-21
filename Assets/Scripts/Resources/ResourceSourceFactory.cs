@@ -20,7 +20,7 @@ class ResourceSourceFactory : Singleton<ResourceSourceFactory>
             case "DeadAnimal":
                 Result = MapControl.Instance.CreateGameObject(x, y, MapControl.Instance.animal_dead);
                 Result.GetComponent<ResourceSource>().Resources = new List<Resource>();
-                Result.GetComponent<ResourceSource>().Resources.Add(new Resource(ItemManager.Instance.GetItem("Food"), 4));
+                Result.GetComponent<ResourceSource>().Resources.Add(new Resource(ItemManager.Instance.GetItem("Steak"), 4));
                 break;
             default:
                 break;
