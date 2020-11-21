@@ -14,6 +14,10 @@ public class UnitPlayer : Unit
         {
             UnitManager.Instance.AddUnitToIdleList(this);
         }
+        else
+        {
+            UnitManager.Instance.IdleUnits.Remove(this);
+        }
     }
     protected override void Awake()
     {
@@ -106,9 +110,10 @@ public class UnitPlayer : Unit
     public override void ActionOnDeath()
     {
         Unit.PlayerUnitPool.Remove(this);
-        if (DayCycleManager.Instance.FinishedUnitCounter > 0)
+        if (DayCycleManager.Instance.GameIsWaitingForPlayerUnits2GoEat())
         {
             DayCycleManager.Instance.IndicateEndDayRoutineEnd();
         }
+        GameOver.Instance.IndicatePlayerUnitDeath();
     }
 }

@@ -29,6 +29,7 @@ public abstract class Unit : CellObject
     protected bool animateMovement = false;
 
     public static readonly List<UnitPlayer> PlayerUnitPool = new List<UnitPlayer>();
+    public static readonly List<Unit> UnitPool = new List<Unit>();
 
     public Sprite ReceiveDamageIcon;
 
@@ -137,6 +138,7 @@ public abstract class Unit : CellObject
         //Debug.LogError("Unit instantiated");
         base.Awake();
         this.NextActivity = null;
+        Unit.UnitPool.Add(this);
     }
     protected override void Start()
     {
@@ -291,6 +293,7 @@ public abstract class Unit : CellObject
 
         SpawnOnDeath(x, y);
         ActionOnDeath();
+        Unit.UnitPool.Remove(this);
     }
     public virtual void SpawnOnDeath(int x, int y) { }
     public virtual void ActionOnDeath() { }

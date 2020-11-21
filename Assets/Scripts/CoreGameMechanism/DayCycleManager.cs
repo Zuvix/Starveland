@@ -2,11 +2,12 @@
 
 class DayCycleManager : Singleton<DayCycleManager>
 {
-    public int FinishedUnitCounter { get; private set; }
+    private int FinishedUnitCounter { get; set; }
     private void Start()
     {
         DaytimeCounter.Instance.OnDayOver.AddListener(EndDay);
     }
+
     public void EndDay()
     {
         GlobalGameState.Instance.InGameInputAllowed = false;
@@ -49,5 +50,9 @@ class DayCycleManager : Singleton<DayCycleManager>
     public void RegisterUnit(ActivityStateEndDayRoutine Activity)
     {
         Activity.OnActivityFinished.AddListener(IndicateEndDayRoutineEnd);
+    }
+    public bool GameIsWaitingForPlayerUnits2GoEat()
+    {
+        return FinishedUnitCounter > 0;
     }
 }
