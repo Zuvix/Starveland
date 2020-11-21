@@ -12,8 +12,11 @@ public class MapControl : Singleton<MapControl> {
     private float mouseMoveTimerMax = .01f;
 
     public GameObject forest;
-    public GameObject player;
+    public GameObject carrot_field;
+
     public GameObject building_storage;
+
+    public GameObject player;
     public GameObject animal;
     public GameObject animal_dead;
     public GameObject tombstone;
@@ -41,6 +44,9 @@ public class MapControl : Singleton<MapControl> {
         GameObject testAnimal2 = CreateGameObject(13, 13, animal);
         GameObject testAnimal3 = CreateGameObject(15, 12, animal);
         GameObject testAnimal4 = CreateGameObject(16, 14, animal);
+
+        //Additional resource
+        GameObject carrot_field_1 = ResourceSourceFactory.Instance.ProduceResourceSource(7, 5, "Carrot");
 
 
 
