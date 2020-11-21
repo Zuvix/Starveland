@@ -7,6 +7,11 @@ using UnityEngine.Events;
 
 class GameOver : Singleton<GameOver>
 {
+    public bool GameIsOver { get; private set; }
+    public void Awake()
+    {
+        GameIsOver = false;
+    }
     public void IndicatePlayerUnitDeath()
     {
         if (Unit.PlayerUnitPool.Count <= 0)
@@ -16,6 +21,7 @@ class GameOver : Singleton<GameOver>
     }
     public void InitiateNegativeGameOver()
     {
+        GameIsOver = true;
         Destroy(DayCycleManager.Instance);
         FeedingManager.Instance.FeedingPanel.SetActive(false);
         GlobalGameState.Instance.InGameInputAllowed = false;

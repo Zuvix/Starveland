@@ -284,7 +284,7 @@ public abstract class Unit : CellObject
         }
     }
     public abstract void DealDamageStateRoutine(int Amount, Unit AttackingUnit);
-    private void Die()
+    public void Die()
     {
         int x = this.CurrentCell.x;
         int y = this.CurrentCell.y;
