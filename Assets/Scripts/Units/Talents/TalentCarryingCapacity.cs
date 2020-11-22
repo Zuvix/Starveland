@@ -3,31 +3,30 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using UnityEngine;
 
 public class TalentCarryingCapacity : TalentSkillSpecific
 {
-    public int CarryingCapacity;
-
-    public TalentCarryingCapacity(string Name, int CarryingCapacity) : base(Name)
+    public TalentCarryingCapacity(string Name, int CarryingCapacity, Sprite icon) : base(Name, icon)
     {
-        this.CarryingCapacity = CarryingCapacity;
+        this.Effect = CarryingCapacity;
     }
 
     public override bool Apply(Skill Skill)
     {
-        Skill.CarryingCapacity += this.CarryingCapacity;
+        Skill.CarryingCapacity *= Mathf.RoundToInt((((float)this.Effect / 100f) + 1f));
         return true;
     }
 
     public override bool Remove(Skill Skill)
     {
-        Skill.CarryingCapacity -= this.CarryingCapacity;
+        Skill.CarryingCapacity /= Mathf.RoundToInt((((float)this.Effect / 100f) + 1f));
         return true;
     }
 
     public override TalentSkillSpecific CreateNewInstanceOfSelf(int Level)
     {
-        return new TalentCarryingCapacity(this.Name, this.CarryingCapacity*(Level-1));
+        return new TalentCarryingCapacity(this.Name, this.Effect * (Level-1), this.icon);
     }
 
 }

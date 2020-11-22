@@ -17,9 +17,9 @@ public class UnitManager : Singleton<UnitManager>
         this.IdleUnits = new List<UnitPlayer>();
         this.GetSkillDictionary = new Dictionary<string, SkillType> //todo add another skills
         {
-            {"Forest", SkillType.woodcutting },
-            {"Animal", SkillType.hunting },
-            {"Animal_Dead", SkillType.hunting }
+            {"Forest", SkillType.Woodcutting },
+            {"Animal", SkillType.Hunting },
+            {"Animal_Dead", SkillType.Hunting }
         };
     }
 

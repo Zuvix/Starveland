@@ -9,16 +9,9 @@ public class SkillWoodcutting : Skill
 {
     public SkillWoodcutting() : base()
     {
-        this.ExperiencePerAction = 10;
-
-        //this.ExperienceNeededToLevelUp = GameConfigManager.Instance.GameConfig.ExperienceNeededToLevelUp;
-        //this.ExperienceNeededToLevelUp = 50;
-        /*this.CurrentExperience = 0;
-        this.Level = 1;
-        this.SkillAppliedTalents = new List<TalentSkillSpecific>();
-        this.ChanceToGetExtraResource = 0;
-        this.GatheringTime = 1.5f;
-        this.CarryingCapacity = 2;*/
+        this.ExperienceNeededToLevelUp = GameConfigManager.Instance.GameConfig.WoodcuttingExperienceNeededToLevelUp;
+        this.ExperiencePerAction = GameConfigManager.Instance.GameConfig.WoodcuttingExperiencePerAction;
+        this.icon = GameConfigManager.Instance.GameConfig.WoodcuttingIcon;
     }
 
     protected override bool LevelUp(Unit Unit)
@@ -30,6 +23,8 @@ public class SkillWoodcutting : Skill
             NewTalent.Apply(this);
             this.SkillAppliedTalents.Add(NewTalent);
             Debug.Log("Getting new talent: " + NewTalent.Name);
+            //Unit.CreatePopup(NewTalent.icon, $"New talent {NewTalent.Name}");
+            Unit.CreatePopup(this.icon, $"Level Up!");
         }
         // all possible talents are already active, todo show a message or whatever..
         else
