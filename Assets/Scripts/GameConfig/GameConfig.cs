@@ -32,6 +32,8 @@ public class GameConfig : ScriptableObject
     [Min(1)]
     public int StartingLevelOfSkills = 1;
     [Min(1)]
+    public int ExperienceNeededToLevelUp = 50;
+    [Min(1)]
     public int StartingCarryingCapacityOfSkills = 2;
     [Min(0)]
     public float StartingGatheringTimeOfSkills = 1.5f;
@@ -39,15 +41,11 @@ public class GameConfig : ScriptableObject
     public int StartingChanceToGetExtraResource = 5;
 
     [Header("Woodcutting skill")]
-    [Min(1)]
-    public int WoodcuttingExperienceNeededToLevelUp = 50;
     [Min(0)]
     public int WoodcuttingExperiencePerAction = 10;
     public Sprite WoodcuttingIcon;
 
     [Header("Hunting skill")]
-    [Min(1)]
-    public int HuntingExperienceNeededToLevelUp = 50;
     [Min(0)]
     public int HuntingExperiencePerAction = 10;
     [Min(0)]

@@ -13,6 +13,7 @@ public abstract class Skill
     protected int ExperiencePerAction;
     public List<TalentSkillSpecific> SkillAppliedTalents;
     public Sprite icon;
+    public bool Allowed { get; private set; }
 
     // talents variables
     public float ChanceToGetExtraResource;
@@ -23,10 +24,12 @@ public abstract class Skill
     {
         this.CurrentExperience = 0;
         this.Level = GameConfigManager.Instance.GameConfig.StartingLevelOfSkills;
+        this.ExperienceNeededToLevelUp = GameConfigManager.Instance.GameConfig.ExperienceNeededToLevelUp;
         this.SkillAppliedTalents = new List<TalentSkillSpecific>();
         this.ChanceToGetExtraResource = GameConfigManager.Instance.GameConfig.StartingChanceToGetExtraResource;
         this.GatheringTime = GameConfigManager.Instance.GameConfig.StartingGatheringTimeOfSkills;
         this.CarryingCapacity = GameConfigManager.Instance.GameConfig.StartingCarryingCapacityOfSkills;
+        this.Allowed = true;
     }
 
     protected bool AddExperience(int Amount, Unit Unit)
@@ -37,8 +40,13 @@ public abstract class Skill
         {
             this.LevelUp(Unit);
         }
-
         return true;
+    }
+
+    public void SetAllowed(bool value)
+    {
+        this.Allowed = value;
+        UnitManager.Instance.ActionSchedulingLoop();
     }
 
     protected abstract bool LevelUp(Unit Unit);

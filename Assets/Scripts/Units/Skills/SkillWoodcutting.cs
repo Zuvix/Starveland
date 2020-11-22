@@ -9,7 +9,6 @@ public class SkillWoodcutting : Skill
 {
     public SkillWoodcutting() : base()
     {
-        this.ExperienceNeededToLevelUp = GameConfigManager.Instance.GameConfig.WoodcuttingExperienceNeededToLevelUp;
         this.ExperiencePerAction = GameConfigManager.Instance.GameConfig.WoodcuttingExperiencePerAction;
         this.icon = GameConfigManager.Instance.GameConfig.WoodcuttingIcon;
     }

@@ -1363,6 +1363,8 @@ MonoBehaviour:
   skillName: {fileID: 464522757}
   skillLevel: {fileID: 693008225}
   skillIcon: {fileID: 1375541463}
+  skillIconBlocked: {fileID: 4447744039371359980, guid: ddf4a4e6ec245864fbfb72f96ebb7d3d,
+    type: 3}
   experienceBar: {fileID: 542611535}
   TalentsLayout: {fileID: 1097009076}
   TalentsUI: {fileID: 1483686147}

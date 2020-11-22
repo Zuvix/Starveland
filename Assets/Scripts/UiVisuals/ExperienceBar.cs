@@ -35,7 +35,7 @@ public class ExperienceBar : MonoBehaviour
     }
     void Awake()
     {
-        this.maxProgress = GameConfigManager.Instance.GameConfig.WoodcuttingExperienceNeededToLevelUp;
+        this.maxProgress = GameConfigManager.Instance.GameConfig.ExperienceNeededToLevelUp;
         this.experienceText.text = $"{0}/{maxProgress}";
         Fill.SetActive(false);
         Slider.value = 0f;

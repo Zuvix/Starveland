@@ -70,5 +70,4 @@ public class SkillTalentPanel : MonoBehaviour
             ui.SetActive(false);
         }
     }
-
 }

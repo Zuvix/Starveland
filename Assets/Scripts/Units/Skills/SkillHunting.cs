@@ -10,7 +10,6 @@ public class SkillHunting : Skill
     private int ExperiencePerKill;
     public SkillHunting() : base()
     {
-        this.ExperienceNeededToLevelUp = GameConfigManager.Instance.GameConfig.HuntingExperienceNeededToLevelUp;
         this.ExperiencePerAction = GameConfigManager.Instance.GameConfig.HuntingExperiencePerAction;
         this.ExperiencePerKill = GameConfigManager.Instance.GameConfig.HuntingKillExperience;
         this.icon = GameConfigManager.Instance.GameConfig.HuntingIcon;

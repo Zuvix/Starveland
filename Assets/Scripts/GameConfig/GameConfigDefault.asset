@@ -19,14 +19,13 @@ MonoBehaviour:
   MovementSpeedAnimal: 5
   BaseDamageAnimal: 10
   StartingLevelOfSkills: 1
+  ExperienceNeededToLevelUp: 50
   StartingCarryingCapacityOfSkills: 2
   StartingGatheringTimeOfSkills: 1.5
   StartingChanceToGetExtraResource: 5
-  WoodcuttingExperienceNeededToLevelUp: 20
   WoodcuttingExperiencePerAction: 10
   WoodcuttingIcon: {fileID: 6566697938281827825, guid: b81d09a574bb33a4ea1b7acc8221604e,
     type: 3}
-  HuntingExperienceNeededToLevelUp: 20
   HuntingExperiencePerAction: 10
   HuntingKillExperience: 30
   HuntingIcon: {fileID: -2267467025370889615, guid: b81d09a574bb33a4ea1b7acc8221604e,
