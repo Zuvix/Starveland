@@ -17,10 +17,15 @@ class ResourceSourceFactory : Singleton<ResourceSourceFactory>
                 Result.GetComponent<ResourceSource>().Resources = new List<Resource>();
                 Result.GetComponent<ResourceSource>().Resources.Add(new Resource(ItemManager.Instance.GetItem("Wood"), 4));
                 break;
+            case "Carrot":
+                Result = MapControl.Instance.CreateGameObject(x, y, MapControl.Instance.carrot_field);
+                Result.GetComponent<ResourceSource>().Resources = new List<Resource>();
+                Result.GetComponent<ResourceSource>().Resources.Add(new Resource(ItemManager.Instance.GetItem("Carrot"), 4));
+                break;
             case "DeadAnimal":
                 Result = MapControl.Instance.CreateGameObject(x, y, MapControl.Instance.animal_dead);
                 Result.GetComponent<ResourceSource>().Resources = new List<Resource>();
-                Result.GetComponent<ResourceSource>().Resources.Add(new Resource(ItemManager.Instance.GetItem("Food"), 4));
+                Result.GetComponent<ResourceSource>().Resources.Add(new Resource(ItemManager.Instance.GetItem("Steak"), 4));
                 break;
             default:
                 break;

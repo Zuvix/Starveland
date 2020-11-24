@@ -44,7 +44,14 @@ public class ActivityStateHunt : ActivityState
             }
             else if (Unit.CurrentCommand == CommandCombat)
             {
-                Unit.SetActivity(new ActivityStateGather(this.UnitTarget.CurrentCell).SetCommands(Unit, this.Skill));
+                if (!DayCycleManager.Instance.GameIsWaitingForPlayerUnits2GoEat())
+                {
+                    Unit.SetActivity(new ActivityStateGather(this.UnitTarget.CurrentCell).SetCommands(Unit, this.Skill));
+                }
+                else
+                {
+                    Unit.SetActivity(new ActivityStateEndDayRoutine());
+                }
             }
         }
         else if (!Unit.CurrentCommand.CanBePerformed(Unit))

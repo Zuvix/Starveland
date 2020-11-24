@@ -68,9 +68,17 @@ class FeedingManager : Singleton<FeedingManager>
     }
     public void InitiateDayStart()
     {
-        FeedingPanel.SetActive(false);
-        DayCycleManager.Instance.StartDay();
-        ClearGrid();
+        foreach (UnitHungry Unit in PlayerUnits)
+        {
+            Unit.Unit.Die();
+        }
+
+        if (!GameOver.Instance.GameIsOver)
+        {
+            FeedingPanel.SetActive(false);
+            DayCycleManager.Instance.StartDay();
+            ClearGrid();
+        }
     }
     private void FillUnitPanels()
     {
