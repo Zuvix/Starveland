@@ -23,7 +23,6 @@ public class UnitAnimal : Unit
     }
     protected override void Start()
     {
-        objectName = "Unicorn";
         this.spawnX = this.CurrentCell.x;
         this.spawnY = this.CurrentCell.y;
         this.SetActivity(new ActivityStateWander(this.WanderingRadius, this.CurrentCell));
