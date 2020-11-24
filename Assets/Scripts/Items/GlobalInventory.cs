@@ -17,7 +17,6 @@ public class GlobalInventory :Singleton<GlobalInventory>
         AddItem(new Resource(ItemManager.Instance.GetItem("Apple"), 8));
         AddItem(new Resource(ItemManager.Instance.GetItem("Carrot"), 4));
         AddItem(new Resource(ItemManager.Instance.GetItem("Mushroom"), 3));
-        AddItem(new Resource(ItemManager.Instance.GetItem("Steak"), 6));
     }
     public bool AddItem(Resource itemToAdd)
     {

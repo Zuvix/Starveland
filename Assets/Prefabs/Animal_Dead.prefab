@@ -129,11 +129,11 @@ MonoBehaviour:
   tip: Dead animal
   popup: {fileID: 0}
   Resources:
-  - itemInfo: {fileID: 11400000, guid: c93d34b92e6a8fc4a8d0a87e19513844, type: 2}
+  - itemInfo: {fileID: 0}
     Amount: 5
   ResourcePacks:
   - resource:
-      itemInfo: {fileID: 11400000, guid: c93d34b92e6a8fc4a8d0a87e19513844, type: 2}
+      itemInfo: {fileID: 11400000, guid: 756d6da29aa825645a10985bc585f9d3, type: 2}
       Amount: 1
     chance: 100
     variationPercentage: 0

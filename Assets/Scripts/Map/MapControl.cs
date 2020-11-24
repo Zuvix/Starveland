@@ -44,9 +44,6 @@ public class MapControl : Singleton<MapControl> {
         GameObject testAnimal3 = CreateGameObject(15, 12, animal);
         GameObject testAnimal4 = CreateGameObject(16, 14, animal);
 
-        //Additional resource
-        GameObject carrot_field_1 = ResourceSourceFactory.Instance.ProduceResourceSource(7, 5, "Carrot");
-
 
 
         //testUnit1.GetComponent<Unit>().SetActivity(new ActivityStateWoodcutting(map.Grid[11][4], testUnit1.GetComponent<Unit>(), testUnit1.GetComponent<Unit>().SkillWoodcutting));

@@ -139,9 +139,18 @@ MonoBehaviour:
   CarriedResource:
     itemInfo: {fileID: 0}
     Amount: 0
+  Accuracy: 0
+  Dodge: 0
+  CritChance: 0
+  CritMultiplier: 0
   inventory:
   - resource:
-      itemInfo: {fileID: 11400000, guid: c93d34b92e6a8fc4a8d0a87e19513844, type: 2}
+      itemInfo: {fileID: 11400000, guid: 756d6da29aa825645a10985bc585f9d3, type: 2}
       Amount: 5
     chance: 100
     variationPercentage: 20
+  - resource:
+      itemInfo: {fileID: 11400000, guid: 76fc393010725694fb30ffb90421bf55, type: 2}
+      Amount: 3
+    chance: 50
+    variationPercentage: 0

@@ -76,13 +76,7 @@ public class UnitAnimal : Unit
     }
     public override void SpawnOnDeath(int x, int y)
     {
-        ResourceSourceFactory.Instance.ProduceResourceSource(x, y, "DeadAnimal");
-    }
-    public void Die()
-    {
-        int x = this.CurrentCell.x;
-        int y = this.CurrentCell.y;
-        List<Resource> drops=new List<Resource>();
+        List<Resource> drops = new List<Resource>();
         foreach (ResourcePack rp in inventory)
         {
             Resource toAddResource = rp.UnpackPack();
@@ -92,7 +86,6 @@ public class UnitAnimal : Unit
             }
 
         }
-        Destroy(this.gameObject);
         ResourceSourceFactory.Instance.ProduceResourceSource(x, y, RSObjects.DeadAnimal, drops);
     }
 
