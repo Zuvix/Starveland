@@ -69,8 +69,11 @@ public class MouseEvents : Singleton<MouseEvents>
         {
             if (Input.GetMouseButtonDown(0))
             {
-                GameObject mapValue = MapControl.Instance.map.GetValue(UtilsClass.GetMouseWorldPosition());
-                selectedObject = mapValue;
+                if (MapControl.Instance.map.IsInBounds(UtilsClass.GetMouseWorldPosition()))
+                {
+                    GameObject mapValue = MapControl.Instance.map.GetValue(UtilsClass.GetMouseWorldPosition());
+                    selectedObject = mapValue;
+                }
             }
         }
     }

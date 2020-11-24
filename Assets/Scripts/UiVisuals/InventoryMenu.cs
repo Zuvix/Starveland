@@ -21,16 +21,19 @@ public class InventoryMenu : MonoBehaviour
     }
     public void AssignItems()
     {
-        List<Resource> resources = GlobalInventory.Instance.GetInventory().Values.ToList();
-        int i = 0;
-        foreach(ItemShow panel in itemList)
+        if (PanelControl.Instance.GetActivePanelID() == 0)
         {
-            panel.gameObject.SetActive(false);
-        }
-        foreach(Resource r in resources)
-        {
-            itemList[i].ShowItem(r);
-            i++;
+            List<Resource> resources = GlobalInventory.Instance.GetInventory().Values.ToList();
+            int i = 0;
+            foreach (ItemShow panel in itemList)
+            {
+                panel.gameObject.SetActive(false);
+            }
+            foreach (Resource r in resources)
+            {
+                itemList[i].ShowItem(r);
+                i++;
+            }
         }
     }
 }
