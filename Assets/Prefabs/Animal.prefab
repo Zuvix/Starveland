@@ -136,3 +136,21 @@ MonoBehaviour:
   rotationSpeed: 20
   ReceiveDamageIcon: {fileID: 9122268959118044443, guid: b81d09a574bb33a4ea1b7acc8221604e,
     type: 3}
+  CarriedResource:
+    itemInfo: {fileID: 0}
+    Amount: 0
+  Accuracy: 0
+  Dodge: 0
+  CritChance: 0
+  CritMultiplier: 0
+  inventory:
+  - resource:
+      itemInfo: {fileID: 11400000, guid: 756d6da29aa825645a10985bc585f9d3, type: 2}
+      Amount: 5
+    chance: 100
+    variationPercentage: 20
+  - resource:
+      itemInfo: {fileID: 11400000, guid: 76fc393010725694fb30ffb90421bf55, type: 2}
+      Amount: 3
+    chance: 50
+    variationPercentage: 0

@@ -18,7 +18,6 @@ public class MapControl : Singleton<MapControl> {
 
     public GameObject player;
     public GameObject animal;
-    public GameObject animal_dead;
     public GameObject tombstone;
 
     private void Start() {
@@ -36,7 +35,7 @@ public class MapControl : Singleton<MapControl> {
         });
         foreach ((int, int) Coord in ForestCoords)
         {
-            ResourceSourceFactory.Instance.ProduceResourceSource(Coord.Item1, Coord.Item2, "Wood");
+            ResourceSourceFactory.Instance.ProduceResourceSource(Coord.Item1, Coord.Item2, RSObjects.Forest);
         }
 
         //animal test
@@ -45,44 +44,12 @@ public class MapControl : Singleton<MapControl> {
         GameObject testAnimal3 = CreateGameObject(15, 12, animal);
         GameObject testAnimal4 = CreateGameObject(16, 14, animal);
 
-        //Additional resource
-        GameObject carrot_field_1 = ResourceSourceFactory.Instance.ProduceResourceSource(7, 5, "Carrot");
-
 
 
         //testUnit1.GetComponent<Unit>().SetActivity(new ActivityStateWoodcutting(map.Grid[11][4], testUnit1.GetComponent<Unit>(), testUnit1.GetComponent<Unit>().SkillWoodcutting));
         //testUnit1.GetComponent<Unit>().SetActivity(new ActivityStateIdle());
         // testUnit2.GetComponent<Unit>().SetActivity(new ActivityStateIdle());
 
-    }
-
-    private void Update() {
-        HandleClickToModifymap();
-    }
-
-    private void HandleClickToModifymap()
-    {
-        if (GlobalGameState.Instance.InGameInputAllowed)
-        {
-            if (Input.GetMouseButtonDown(0))
-            {
-                //CreateGameObject(UtilsClass.GetMouseWorldPosition(), forest);
-
-                //Debug.Log(map.GetValue(UtilsClass.GetMouseWorldPosition()));
-                //TODO asi prerobit inak, overit ci neni null a ci je kliknuty objekt gatherovatelny... potom spravit cez UI button gather
-                //UnitManager.Instance.AddActionToQueue(new ActivityStateWoodcutting());
-            }
-        }
-    }
-
-    private void HandleMouseMove() {
-        mouseMoveTimer -= Time.deltaTime;
-        if (mouseMoveTimer < 0f) {
-            mouseMoveTimer += mouseMoveTimerMax;
-            GameObject mapValue = map.GetValue(UtilsClass.GetMouseWorldPosition());
-            if(mapValue!=null)
-                Debug.Log(mapValue.name);
-        }
     }
 
     public GameObject CreateGameObject(int x, int y, GameObject toBeCreatedGO)

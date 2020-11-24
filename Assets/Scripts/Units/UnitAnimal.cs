@@ -10,6 +10,7 @@ public class UnitAnimal : Unit
     private int WanderingRadius;
     private int spawnX;
     private int spawnY;
+    public List<ResourcePack> inventory;
 
     protected override void Awake()
     {
@@ -22,7 +23,6 @@ public class UnitAnimal : Unit
     }
     protected override void Start()
     {
-        objectName = "Unicorn";
         this.spawnX = this.CurrentCell.x;
         this.spawnY = this.CurrentCell.y;
         this.SetActivity(new ActivityStateWander(this.WanderingRadius, this.CurrentCell));
@@ -64,8 +64,7 @@ public class UnitAnimal : Unit
             int x = this.CurrentCell.x;
             int y = this.CurrentCell.y;
             this.CurrentCell.SetCellObject(null);
-            Destroy(this.gameObject);
-            ResourceSourceFactory.Instance.ProduceResourceSource(x, y, "DeadAnimal");
+            Die();
         }
     }*/
     public override void DealDamageStateRoutine(int Amount, Unit AttackingUnit)
@@ -77,7 +76,17 @@ public class UnitAnimal : Unit
     }
     public override void SpawnOnDeath(int x, int y)
     {
-        ResourceSourceFactory.Instance.ProduceResourceSource(x, y, "DeadAnimal");
+        List<Resource> drops = new List<Resource>();
+        foreach (ResourcePack rp in inventory)
+        {
+            Resource toAddResource = rp.UnpackPack();
+            if (toAddResource != null)
+            {
+                drops.Add(rp.resource);
+            }
+
+        }
+        ResourceSourceFactory.Instance.ProduceResourceSource(x, y, RSObjects.DeadAnimal, drops);
     }
 
     private void OnMouseOver()
