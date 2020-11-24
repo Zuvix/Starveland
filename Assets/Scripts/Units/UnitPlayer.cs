@@ -14,14 +14,18 @@ public class UnitPlayer : Unit
         {
             UnitManager.Instance.AddUnitToIdleList(this);
         }
+        else
+        {
+            UnitManager.Instance.IdleUnits.Remove(this);
+        }
     }
     protected override void Awake()
     {
         //Debug.LogError("UnitPlayer Instantiated");
         this.Skills = new Dictionary<SkillType, Skill> 
         {
-            { SkillType.woodcutting, new SkillWoodcutting() },
-            { SkillType.hunting, new SkillHunting() } 
+            { SkillType.Woodcutting, new SkillWoodcutting() },
+            { SkillType.Hunting, new SkillHunting() } 
         };
 
         this.MovementSpeed = GameConfigManager.Instance.GameConfig.MovementSpeedPlayer;
@@ -75,7 +79,7 @@ public class UnitPlayer : Unit
         yield return new WaitForSeconds(0.2f);
     }
 
-    public override void DealDamage(int Amount, Unit AttackingUnit)
+   /* public override void DealDamage(int Amount, Unit AttackingUnit)
     {
         if (!(this.CurrentActivity is ActivityStateUnderAttack) && !(this.CurrentActivity is ActivityStateHunt))
         {
@@ -91,7 +95,25 @@ public class UnitPlayer : Unit
             Destroy(this.gameObject);
             MapControl.Instance.CreateGameObject(x, y, MapControl.Instance.tombstone);
         }
+    }*/
+    public override void DealDamageStateRoutine(int Amount, Unit AttackingUnit)
+    {
+        if (!(this.CurrentActivity is ActivityStateUnderAttack) && !(this.CurrentActivity is ActivityStateHunt))
+        {
+            this.SetActivity(new ActivityStateUnderAttack(AttackingUnit, this));
+        }
     }
-
-
+    public override void SpawnOnDeath(int x, int y)
+    {
+        MapControl.Instance.CreateGameObject(x, y, MapControl.Instance.tombstone);
+    }
+    public override void ActionOnDeath()
+    {
+        Unit.PlayerUnitPool.Remove(this);
+        if (DayCycleManager.Instance.GameIsWaitingForPlayerUnits2GoEat())
+        {
+            DayCycleManager.Instance.IndicateEndDayRoutineEnd();
+        }
+        GameOver.Instance.IndicatePlayerUnitDeath();
+    }
 }

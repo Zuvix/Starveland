@@ -66,4 +66,10 @@ public class CellObject : MonoBehaviour
         g.GetComponentInChildren<ItemPopup>()?.CreatePopup(icon, value);
     }
 
+    public void CreatePopup(Sprite icon, string text)
+    {
+        GameObject g = Instantiate(popup, this.transform);
+        g.GetComponentInChildren<ItemPopup>()?.CreatePopup(icon, text);
+    }
+
 }

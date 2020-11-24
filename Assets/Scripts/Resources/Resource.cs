@@ -13,6 +13,11 @@ public class Resource
         this.Amount = Amount;
         itemInfo = item;
     }
+
+    public Resource Duplicate()
+    {
+        return new Resource(this.itemInfo, this.Amount);
+    }
     public void AddDestructive(Resource Resource)
     {
         if (this.itemInfo == null)

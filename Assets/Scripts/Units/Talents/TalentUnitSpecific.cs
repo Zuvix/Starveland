@@ -3,11 +3,12 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using UnityEngine;
 
 public abstract class TalentUnitSpecific : Talent
 {
 
-    public TalentUnitSpecific(string Name) : base(Name)
+    public TalentUnitSpecific(string Name, Sprite icon) : base(Name, icon)
     {
 
     }

@@ -6,7 +6,7 @@ using CodeMonkey.Utils;
 
 public class MouseEvents : Singleton<MouseEvents>
 {
-    public UnityEvent<GameObject> viewObjectChanged=new UnityEvent<GameObject>();
+    public UnityEvent<GameObject, bool> viewObjectChanged=new UnityEvent<GameObject, bool>();
     private float mouseMoveTimer;
     private float mouseMoveTimerMax = .02f;
     private float objectChangedTimer=0f;
@@ -31,7 +31,7 @@ public class MouseEvents : Singleton<MouseEvents>
                 frame.transform.position = selectedObject.transform.position;
                 if (objectChangedTimer < 0f)
                 {
-                    viewObjectChanged.Invoke(selectedObject);
+                    viewObjectChanged.Invoke(selectedObject, true);
                     objectChangedTimer = objectChangedTimerMax;
                 }
             }
@@ -41,12 +41,12 @@ public class MouseEvents : Singleton<MouseEvents>
                 if (!mapValue.Equals(viewedObject))
                 {
                     viewedObject = mapValue;
-                    viewObjectChanged.Invoke(viewedObject);
+                    viewObjectChanged.Invoke(viewedObject, false);
                     objectChangedTimer = objectChangedTimerMax;
                 }
                 if (objectChangedTimer < 0f)
                 {
-                    viewObjectChanged.Invoke(viewedObject);
+                    viewObjectChanged.Invoke(viewedObject, false);
                     objectChangedTimer = objectChangedTimerMax;
                 }
             }
@@ -55,7 +55,7 @@ public class MouseEvents : Singleton<MouseEvents>
                 MapControl.Instance.map.CenterObject(x, y, frame);
                 if (viewedObject != null)
                 {
-                    viewObjectChanged.Invoke(null);
+                    viewObjectChanged.Invoke(null, false);
                     objectChangedTimer = objectChangedTimerMax;
                     viewedObject = null;
                 }

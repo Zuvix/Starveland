@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Unit : CellObject
+public abstract class Unit : CellObject
 {
     [HideInInspector]
     public string CurrentAction { get; set; }
@@ -29,6 +29,7 @@ public class Unit : CellObject
     protected bool animateMovement = false;
 
     public static readonly List<UnitPlayer> PlayerUnitPool = new List<UnitPlayer>();
+    public static readonly List<Unit> UnitPool = new List<Unit>();
 
     public Sprite ReceiveDamageIcon;
 
@@ -43,6 +44,13 @@ public class Unit : CellObject
     private static readonly float MinWaitTime = 0.1f;
     private static readonly float MaxWaitTime = 0.3f;
     private static readonly float WaitTimeRange = MaxWaitTime - MinWaitTime;
+
+    //future combat stats
+    [Header("Future combat stats")]
+    public int Accuracy;
+    public int Dodge;
+    public int CritChance;
+    public int CritMultiplier;
 
     public void SetCommand(UnitCommand Command)
     {
@@ -60,7 +68,7 @@ public class Unit : CellObject
         this.NextActivity = Activity;
 
 
-        Debug.LogWarning("Unit enqueueing activity " + this.NextActivity.GetType().Name);
+        //Debug.LogWarning("Unit enqueueing activity " + this.NextActivity.GetType().Name);
     }
 
     public virtual bool InventoryFull()
@@ -137,6 +145,7 @@ public class Unit : CellObject
         //Debug.LogError("Unit instantiated");
         base.Awake();
         this.NextActivity = null;
+        Unit.UnitPool.Add(this);
     }
     protected override void Start()
     {
@@ -155,7 +164,7 @@ public class Unit : CellObject
             this.NextActivity = null;
             this.CurrentActivity.InitializeCommand(this);
             Result = true;
-            Debug.LogWarning($"Unit {this} setting activity to " + this.CurrentActivity.GetType().Name);
+            //Debug.LogWarning($"Unit {this} setting activity to " + this.CurrentActivity.GetType().Name);
         }
         return Result;
     }
@@ -234,6 +243,16 @@ public class Unit : CellObject
     public virtual IEnumerator Fight(Unit UnitTarget, float AttackTime = 1.0f)
     {
         this.CurrentAction = "In combat!";
+
+        if (UnitTarget.CurrentCell.position.x > transform.position.x)
+        {
+            Flip("right");
+        }
+        else if (UnitTarget.CurrentCell.position.x < transform.position.x)
+        {
+            Flip("left");
+        }
+
         yield return new WaitForSeconds(AttackTime);
         if (UnitTarget != null)
         {
@@ -269,16 +288,32 @@ public class Unit : CellObject
     }
 
 
-    public virtual void DealDamage(int Amount, Unit AttackingUnit)
+    public void DealDamage(int Amount, Unit AttackingUnit)
     {
+        DealDamageStateRoutine(Amount, AttackingUnit);
+
         this.Health -= Amount;
         DisplayReceivedDamage(Amount);
+
         if (this.Health <= 0) //handle death
         {
-            this.CurrentCell.SetCellObject(null);
-            Destroy(this.gameObject); 
+            Die();
         }
     }
+    public abstract void DealDamageStateRoutine(int Amount, Unit AttackingUnit);
+    public void Die()
+    {
+        int x = this.CurrentCell.x;
+        int y = this.CurrentCell.y;
+        this.CurrentCell.SetCellObject(null);
+        Destroy(this.gameObject);
+
+        SpawnOnDeath(x, y);
+        ActionOnDeath();
+        Unit.UnitPool.Remove(this);
+    }
+    public virtual void SpawnOnDeath(int x, int y) { }
+    public virtual void ActionOnDeath() { }
     public void DisplayReceivedDamage(int Amount)
     {
         CreatePopup(ReceiveDamageIcon, -Amount);
@@ -295,7 +330,7 @@ public class Unit : CellObject
         switch (itemInfo.name)
         {
             case "Wood":
-                Result = SkillType.woodcutting;
+                Result = SkillType.Woodcutting;
                 break;
             case "Stone":
             case "Iron":

@@ -17,9 +17,9 @@ public class UnitManager : Singleton<UnitManager>
         this.IdleUnits = new List<UnitPlayer>();
         this.GetSkillDictionary = new Dictionary<string, SkillType> //todo add another skills
         {
-            {"Forest", SkillType.woodcutting },
-            {"Animal", SkillType.hunting },
-            {"Animal_Dead", SkillType.hunting }
+            {"Forest", SkillType.Woodcutting },
+            {"Animal", SkillType.Hunting },
+            {"Animal_Dead", SkillType.Hunting }
         };
     }
 
@@ -30,29 +30,41 @@ public class UnitManager : Singleton<UnitManager>
         {
             if (IdleUnits.Count > 0)
             {
-                //todo discard units that cant do the action
-
-                UnitPlayer bestUnit = IdleUnits[0];
-
+                //discard units that cant do the action
+                List<UnitPlayer> IdleUnitsFiltered = new List<UnitPlayer>();
                 foreach (UnitPlayer unit in IdleUnits)
                 {
-                    if (unit.Skills[action.Item1].CurrentExperience > bestUnit.Skills[action.Item1].CurrentExperience)
+                    if (unit.Skills[action.Item1].Allowed)
                     {
-                        bestUnit = unit;
+                        IdleUnitsFiltered.Add(unit);
                     }
                 }
 
-                IdleUnits.Remove(bestUnit);
+                if (IdleUnitsFiltered.Count > 0)
+                {
+                    UnitPlayer bestUnit = IdleUnitsFiltered[0];
+                    foreach (UnitPlayer unit in IdleUnitsFiltered)
+                    {
+                        if (unit.Skills[action.Item1].CurrentExperience > bestUnit.Skills[action.Item1].CurrentExperience)
+                        {
+                            bestUnit = unit;
+                        }
+                    }
 
-                bestUnit.GetComponent<UnitPlayer>().SetActivity(action.Item2.SetCommands(bestUnit, bestUnit.Skills[action.Item1]));
-                /*bestUnit.GetComponent<Unit>().SetActivity(
-                        new ActivityStateGather(
-                        MapControl.Instance.map.Grid[action.CurrentCell.x][action.CurrentCell.y], bestUnit,
-                        bestUnit.Skills[skillType]));*/
+                    IdleUnits.Remove(bestUnit);
 
-                Debug.Log("Pocet idle unitov: " + IdleUnits.Count());
-                ActionQueue.Dequeue();
-                Debug.Log("Velkost queue: " + ActionQueue.Count);
+                    bestUnit.GetComponent<UnitPlayer>().SetActivity(action.Item2.SetCommands(bestUnit, bestUnit.Skills[action.Item1]));
+                    /*bestUnit.GetComponent<Unit>().SetActivity(
+                            new ActivityStateGather(
+                            MapControl.Instance.map.Grid[action.CurrentCell.x][action.CurrentCell.y], bestUnit,
+                            bestUnit.Skills[skillType]));*/
+
+                    Debug.Log("Pocet idle unitov: " + IdleUnits.Count());
+                    ActionQueue.Dequeue();
+                    Debug.Log("Velkost queue: " + ActionQueue.Count);
+
+                    IdleUnitsFiltered.Clear();
+                }
             }
             else
             {
@@ -115,7 +127,6 @@ public class UnitManager : Singleton<UnitManager>
     {
         if (!IdleUnits.Contains(Unit))
         {
-            Debug.Log("Pridavam sa do idle listu");
             this.IdleUnits.Add(Unit);
         }
         this.ActionSchedulingLoop();
