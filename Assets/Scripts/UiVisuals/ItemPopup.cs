@@ -20,6 +20,7 @@ public class ItemPopup : MonoBehaviour
     {
         img.sprite = icon;
         valueTxt.text = (value >= 0 ? "+" : "-") + (Math.Abs(value) == 1 && value >= 0 ? "" : Math.Abs(value).ToString());
+        timeToLive = .85f;
         /*if (value == 1)
         {
             valueTxt.text = "+";
@@ -27,10 +28,17 @@ public class ItemPopup : MonoBehaviour
         // Vector3 startPos = this.transform.position;
 
     }
+    public void CreatePopup(Sprite icon, string text)
+    {
+        img.sprite = icon;
+        valueTxt.text = text;
+        timeToLive = 3.0f;
+    }
     public void CreatePopup(Sprite icon)
     {
         img.sprite = icon;
         valueTxt.text = "+";
+        timeToLive = .85f;
         // Vector3 startPos = this.transform.position;
 
     }

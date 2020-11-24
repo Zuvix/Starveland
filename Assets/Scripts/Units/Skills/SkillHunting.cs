@@ -7,9 +7,12 @@ using UnityEngine;
 
 public class SkillHunting : Skill
 {
+    private int ExperiencePerKill;
     public SkillHunting() : base()
     {
-        this.ExperiencePerAction = 10;
+        this.ExperiencePerAction = GameConfigManager.Instance.GameConfig.HuntingExperiencePerAction;
+        this.ExperiencePerKill = GameConfigManager.Instance.GameConfig.HuntingKillExperience;
+        this.icon = GameConfigManager.Instance.GameConfig.HuntingIcon;
     }
 
     protected override bool LevelUp(Unit Unit) 
@@ -21,6 +24,7 @@ public class SkillHunting : Skill
             NewTalent.Apply(Unit);
             ((UnitPlayer)Unit).UnitAppliedTalents.Add(NewTalent);
             Debug.Log("Unit getting new talent: " + NewTalent.Name);
+            Unit.CreatePopup(this.icon, $"Level Up!");
         }
         else
         {
@@ -48,7 +52,7 @@ public class SkillHunting : Skill
         if (TargetUnit.Health <= 0)
         {
             Debug.Log("Target killed! Getting experience!");
-            this.AddExperience(this.ExperiencePerAction * 3, Unit);
+            this.AddExperience(this.ExperiencePerKill, Unit);
         }
 
         return true;

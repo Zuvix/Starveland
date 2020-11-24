@@ -47,7 +47,7 @@ public class ShortInfo : MonoBehaviour
             contentPanel.SetActive(false);
         }
     }
-    public void UpdateTextInfo(GameObject go)
+    public void UpdateTextInfo(GameObject go, bool isSelected)
     {
         HideTopContent();
         if (go==null)

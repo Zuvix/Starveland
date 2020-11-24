@@ -33,14 +33,17 @@ public class UnitCommandMove : UnitCommand
     public override IEnumerator PerformAction(Unit Unit)
     {
         // TODO - Animation here
-        yield return Unit.StartCoroutine(Unit.MoveUnitToNextPosition(this.Targets.First()));
+        if (this.Targets != null)
+        {
+            yield return Unit.StartCoroutine(Unit.MoveUnitToNextPosition(this.Targets.First()));
 
-        // Remove the currently performed action from the command list.
-        // Keep this at the bottom of the method unless you know better.
-        this.UsedTargets.Add(this.Targets.First());
-        this.Targets.RemoveAt(0);
+            // Remove the currently performed action from the command list.
+            // Keep this at the bottom of the method unless you know better.
+            this.UsedTargets.Add(this.Targets.First());
+            this.Targets.RemoveAt(0);
 
-        Unit.MovementConflictManager.RefreshRemainingRetryCounts();
+            Unit.MovementConflictManager.RefreshRemainingRetryCounts();
+        }
     }
     public void RestoreTargets()
     {

@@ -45,6 +45,13 @@ public abstract class Unit : CellObject
     private static readonly float MaxWaitTime = 0.3f;
     private static readonly float WaitTimeRange = MaxWaitTime - MinWaitTime;
 
+    //future combat stats
+    [Header("Future combat stats")]
+    public int Accuracy;
+    public int Dodge;
+    public int CritChance;
+    public int CritMultiplier;
+
     public void SetCommand(UnitCommand Command)
     {
         this.CurrentCommand = Command;
@@ -236,6 +243,16 @@ public abstract class Unit : CellObject
     public virtual IEnumerator Fight(Unit UnitTarget, float AttackTime = 1.0f)
     {
         this.CurrentAction = "In combat!";
+
+        if (UnitTarget.CurrentCell.position.x > transform.position.x)
+        {
+            Flip("right");
+        }
+        else if (UnitTarget.CurrentCell.position.x < transform.position.x)
+        {
+            Flip("left");
+        }
+
         yield return new WaitForSeconds(AttackTime);
         if (UnitTarget != null)
         {
@@ -313,7 +330,7 @@ public abstract class Unit : CellObject
         switch (itemInfo.name)
         {
             case "Wood":
-                Result = SkillType.woodcutting;
+                Result = SkillType.Woodcutting;
                 break;
             case "Stone":
             case "Iron":

@@ -3,31 +3,30 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using UnityEngine;
 
 public class TalentMovementSpeed : TalentUnitSpecific
 {
-    public float MovementSpeed;
-
-    public TalentMovementSpeed(string Name, float MovementSpeed) : base(Name)
+    public TalentMovementSpeed(string Name, int MovementSpeed, Sprite icon) : base(Name, icon)
     {
-        this.MovementSpeed = MovementSpeed;
+        this.Effect = MovementSpeed;
     }
 
     public override bool Apply(Unit Unit)
     {
-        Unit.MovementSpeed += this.MovementSpeed;
+        Unit.MovementSpeed *= Mathf.RoundToInt((((float)this.Effect / 100f) + 1f));
         return true;
     }
 
     public override bool Remove(Unit Unit)
     {
-        Unit.MovementSpeed -= this.MovementSpeed;
+        Unit.MovementSpeed /= Mathf.RoundToInt((((float)this.Effect / 100f) + 1f));
         return true;
     }
 
     public override TalentUnitSpecific CreateNewInstanceOfSelf(int Level)
     {
-        return new TalentMovementSpeed(this.Name, this.MovementSpeed * (float)(Level-1));
+        return new TalentMovementSpeed(this.Name, this.Effect * (Level-1), this.icon);
     }
 
 }

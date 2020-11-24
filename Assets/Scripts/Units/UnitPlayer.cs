@@ -24,8 +24,8 @@ public class UnitPlayer : Unit
         //Debug.LogError("UnitPlayer Instantiated");
         this.Skills = new Dictionary<SkillType, Skill> 
         {
-            { SkillType.woodcutting, new SkillWoodcutting() },
-            { SkillType.hunting, new SkillHunting() } 
+            { SkillType.Woodcutting, new SkillWoodcutting() },
+            { SkillType.Hunting, new SkillHunting() } 
         };
 
         this.MovementSpeed = GameConfigManager.Instance.GameConfig.MovementSpeedPlayer;
