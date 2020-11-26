@@ -6,6 +6,7 @@ public class PanelControl : Singleton<PanelControl>
 {
     private int activePanel=0;
     public GameObject[] Panels;
+
     public void DeactivatePanels()
     {
         foreach (GameObject panel in Panels)

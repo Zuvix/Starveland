@@ -23,18 +23,21 @@ public class SkillUI : MonoBehaviour, IPointerClickHandler
 
     public void OnPointerClick(PointerEventData eventData)
     {
-        if (eventData.pointerEnter == this.skillIcon.gameObject)
+        if (eventData.button == PointerEventData.InputButton.Left)
         {
-            Blocked = !Blocked;
-            if (Blocked)
+            if (eventData.pointerEnter == this.skillIcon.gameObject)
             {
-                this.skillIcon.sprite = this.skillIconBlocked;
-                this.currentUnit.Skills[this.currentSkillType].SetAllowed(false);
-            }
-            else
-            {
-                this.skillIcon.sprite = this.UnblockedIcon;
-                this.currentUnit.Skills[this.currentSkillType].SetAllowed(true);
+                Blocked = !Blocked;
+                if (Blocked)
+                {
+                    this.skillIcon.sprite = this.skillIconBlocked;
+                    this.currentUnit.Skills[this.currentSkillType].SetAllowed(false);
+                }
+                else
+                {
+                    this.skillIcon.sprite = this.UnblockedIcon;
+                    this.currentUnit.Skills[this.currentSkillType].SetAllowed(true);
+                }
             }
         }
     }
