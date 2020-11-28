@@ -33,7 +33,7 @@ public class UnitCommandMove : UnitCommand
     public override IEnumerator PerformAction(Unit Unit)
     {
         // TODO - Animation here
-        if (this.Targets != null)
+        if (this.Targets != null && this.Targets.Count > 0)
         {
             yield return Unit.StartCoroutine(Unit.MoveUnitToNextPosition(this.Targets.First()));
 

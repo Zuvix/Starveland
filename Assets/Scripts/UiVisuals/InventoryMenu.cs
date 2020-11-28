@@ -41,6 +41,8 @@ public class InventoryMenu : MonoBehaviour
     }
     public void AssignItems()
     {
+        if (PanelControl.Instance.GetActivePanelID() == 0)
+        {
             List<Resource> resources = GlobalInventory.Instance.GetInventory().Values.ToList();
             foreach (ItemShow panel in itemList)
             {
@@ -67,7 +69,7 @@ public class InventoryMenu : MonoBehaviour
             }
             //Counter for UI elements
             int ui_i = 0;
-            for(int i = pageId * maxItemCount; i< (pageId+1) * maxItemCount;i++)
+            for (int i = pageId * maxItemCount; i < (pageId + 1) * maxItemCount; i++)
             {
                 if (i < itemsToShow.Count)
                 {
@@ -77,6 +79,8 @@ public class InventoryMenu : MonoBehaviour
             }
             Debug.Log("MaxPageid" + maxPageId);
             Debug.Log("Pageid" + pageId);
+        }
+           
     }
     private void OnEnable()
     {

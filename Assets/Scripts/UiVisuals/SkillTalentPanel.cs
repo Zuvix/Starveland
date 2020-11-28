@@ -11,8 +11,8 @@ public class SkillTalentPanel : MonoBehaviour
     public GameObject skillHeader;
     public GameObject skillLayout;
     public TMP_Text damageNumber;
+    string viewUnitName = "";
     public List<(SkillUI, SkillType)> skillList;
-    public List<GameObject> UIs;
 
     private void Awake()
     {
@@ -28,29 +28,29 @@ public class SkillTalentPanel : MonoBehaviour
                 skillHeaderGO.SetActive(true);
             }
         }
-        skillTalentPanel.SetActive(false);
     }
 
     private void Start()
     {
         MouseEvents.Instance.viewObjectChanged.AddListener(UpdateSkillTalentPanel);
+        skillTalentPanel.SetActive(false);
     }
 
     public void UpdateSkillTalentPanel(GameObject go, bool isSelected)
     {
         if (go == null || !isSelected)
         {
-            this.skillTalentPanel.SetActive(false);
-            this.UIs[0].SetActive(true); // panel at index 0 is default
+            //PanelControl.Instance.SetActivePanel(0);
             return;
         }
 
         CellObject visibleObject = go.GetComponent<CellObject>();
-
         if (visibleObject is UnitPlayer)
         {
-            this.DeactivateOtherPanels();
-            this.skillTalentPanel.SetActive(true);
+            if (viewUnitName != visibleObject.objectName)
+            {
+                PanelControl.Instance.SetActivePanel(5);
+            }
             UnitPlayer unit = (UnitPlayer)visibleObject;
             // player unit stats
             this.damageNumber.text = unit.BaseDamage.ToString();
@@ -59,15 +59,7 @@ public class SkillTalentPanel : MonoBehaviour
             {
                 skills.Item1.Show(unit, skills.Item2);
             }
-
         }
-    }
-
-    private void DeactivateOtherPanels()
-    {
-        foreach (var ui in UIs)
-        {
-            ui.SetActive(false);
-        }
+        viewUnitName = visibleObject?.objectName;
     }
 }
