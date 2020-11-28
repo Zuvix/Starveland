@@ -7,8 +7,7 @@ using UnityEngine.UI;
 public class InventoryMenu : MonoBehaviour
 {
     public GameObject ItemUI;
-    List<ItemShow> itemList;
-    public int maxItems;
+    List<ItemShow> itemList;    
     [SerializeField]
     private Toggle foodToggle;
     private bool showFoodEnabled=true;

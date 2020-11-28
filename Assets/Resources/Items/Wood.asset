@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4ffc9427acd4e3e4a8fb7a6dc3cb2154, type: 3}
   m_Name: Wood
   m_EditorClassIdentifier: 
-  itemName: Wood
   type: Resource
   icon: {fileID: 3129266502073436353, guid: ddf4a4e6ec245864fbfb72f96ebb7d3d, type: 3}
+  NutritionValue: 0
+  storageType: Persevable

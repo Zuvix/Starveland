@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using UnityEngine.Events;
+using UnityEngine;
 
 public class UnitHungry
 {
@@ -12,7 +13,7 @@ public class UnitHungry
     public Unit Unit { get;  private set; }
     public UnityEvent<float> OnEatUpgrade; 
 
-    public UnitHungry(Unit Unit, int MaxSatiety = 5)
+    public UnitHungry(Unit Unit, int MaxSatiety = 10)
     {
         this.MaxSatiety = MaxSatiety;
         this.CurrentSatiety = 0;

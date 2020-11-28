@@ -14,9 +14,10 @@ public class GlobalInventory :Singleton<GlobalInventory>
     }
     private void Start()
     {
-        AddItem(new Resource(ItemManager.Instance.GetItem("Apple"), 8));
+        AddItem(new Resource(ItemManager.Instance.GetItem("Apple"), 5));
         AddItem(new Resource(ItemManager.Instance.GetItem("Carrot"), 4));
         AddItem(new Resource(ItemManager.Instance.GetItem("Mushroom"), 3));
+        AddItem(new Resource(ItemManager.Instance.GetItem("Cooked Meat"), 3));
     }
     public bool AddItem(Resource itemToAdd)
     {
@@ -86,5 +87,19 @@ public class GlobalInventory :Singleton<GlobalInventory>
             }
         }
         return Result;
+    }
+    public void RemoveUneatenFood()
+    {
+        Dictionary<string, Resource> newDict =new Dictionary<string, Resource>();
+        foreach (KeyValuePair<string, Resource> entry in playerInventory)
+        {
+            if (!entry.Value.itemInfo.type.Equals("Food") || !entry.Value.itemInfo.storageType.Equals("Raw"))
+            {
+                newDict.Add(entry.Key, entry.Value);
+                Debug.Log(entry.Value.itemInfo.type + "  " + entry.Value.itemInfo.storageType);
+            }
+        }
+        playerInventory = newDict;
+        OnInventoryUpdate.Invoke();
     }
 }
