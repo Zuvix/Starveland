@@ -26,16 +26,9 @@ public class GlobalInventory :Singleton<GlobalInventory>
             OnInventoryUpdate.Invoke();
             return true;
         }
-            
-        //TODO change 24 to smth better
-        if (playerInventory.Count <= 24)
-        {
-            playerInventory.Add(itemToAdd.itemInfo.name,itemToAdd);
-            OnInventoryUpdate.Invoke();
-            return true;
-        }
-        Debug.LogError("Inventory was full, item failed to be added.");
-        return false;
+        playerInventory.Add(itemToAdd.itemInfo.name,itemToAdd);
+        OnInventoryUpdate.Invoke();
+        return true;
     }
     public bool CheckAvaliableItem(string itemName,int amountNeeded)
     {
