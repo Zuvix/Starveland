@@ -2901,7 +2901,9 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 'Inventory:'
+  m_text: 'Inventory
+
+'
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 5a40eedb70cb3c84288d5af355a67cc7, type: 2}
   m_sharedMaterial: {fileID: -3867228763683583848, guid: 5a40eedb70cb3c84288d5af355a67cc7,
@@ -8113,7 +8115,7 @@ PrefabInstance:
     - target: {fileID: 236905561242410415, guid: 3bd2999a51d5fd148b6089f27dfe604f,
         type: 3}
       propertyPath: m_SizeDelta.y
-      value: -262.4107
+      value: -265.11523
       objectReference: {fileID: 0}
     - target: {fileID: 236905561242410415, guid: 3bd2999a51d5fd148b6089f27dfe604f,
         type: 3}
@@ -8158,7 +8160,7 @@ PrefabInstance:
     - target: {fileID: 236905561242410415, guid: 3bd2999a51d5fd148b6089f27dfe604f,
         type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: 40.15
+      value: 38.8
       objectReference: {fileID: 0}
     - target: {fileID: 236905561242410415, guid: 3bd2999a51d5fd148b6089f27dfe604f,
         type: 3}
