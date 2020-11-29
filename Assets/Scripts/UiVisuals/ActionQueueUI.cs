@@ -7,10 +7,11 @@ public class ActionQueueUI : MonoBehaviour
     public GameObject ActionUI;
     public GameObject ActionUILayout;
     List<ActionShow> actionList;
-    public int maxActions;
+    private int maxActions;
 
     private void Awake()
     {
+        this.maxActions = GameConfigManager.Instance.GameConfig.MaxQueueActions;
         actionList = new List<ActionShow>();
         for (int i = 0; i < maxActions; i++)
         {
@@ -36,7 +37,7 @@ public class ActionQueueUI : MonoBehaviour
             }
             foreach (var action in UnitManager.Instance.ActionQueue)
             {
-                actionList[i].ShowItem(action.Item4);
+                actionList[i].ShowItem(action.Item3);
                 i++;
             }
         }
