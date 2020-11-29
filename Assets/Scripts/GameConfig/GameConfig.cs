@@ -73,6 +73,10 @@ public class GameConfig : ScriptableObject
     [Tooltip("Defines how far a unit can move from its spawn position during wandering.")]
     [Min(0)]
     public int WanderingRadius = 2;
+    [Tooltip("Default size 28 is to fill full panel.")]
+    [Min(1)]
+    public int MaxQueueActions = 28;
+    public GameObject QueueFrame;
 
 }
 

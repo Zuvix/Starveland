@@ -41,3 +41,6 @@ MonoBehaviour:
     type: 3}
   ChanceToMoveDuringWandering: 10
   WanderingRadius: 2
+  MaxQueueActions: 28
+  QueueFrame: {fileID: 3575314171218851561, guid: 95a0c3fb8c9150d44bf16cc794a1ea82,
+    type: 3}

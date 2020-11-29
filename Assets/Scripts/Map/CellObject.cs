@@ -56,6 +56,11 @@ public class CellObject : MonoBehaviour
         sr.color = Color.black;
         Invoke("ResetColor", flashTime);
     }
+    public void Flash(Color color)
+    {
+        sr.color = color;
+        Invoke("ResetColor", flashTime);
+    }
     private void ResetColor()
     {
         sr.color = originalColor;
