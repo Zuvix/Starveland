@@ -96,7 +96,6 @@ public class GlobalInventory :Singleton<GlobalInventory>
             if (!entry.Value.itemInfo.type.Equals("Food") || !entry.Value.itemInfo.storageType.Equals("Raw"))
             {
                 newDict.Add(entry.Key, entry.Value);
-                Debug.Log(entry.Value.itemInfo.type + "  " + entry.Value.itemInfo.storageType);
             }
         }
         playerInventory = newDict;

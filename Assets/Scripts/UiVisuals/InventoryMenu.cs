@@ -76,8 +76,6 @@ public class InventoryMenu : MonoBehaviour
                     ui_i++;
                 }
             }
-            Debug.Log("MaxPageid" + maxPageId);
-            Debug.Log("Pageid" + pageId);
         }
            
     }
