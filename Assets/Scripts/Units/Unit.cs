@@ -256,7 +256,7 @@ public abstract class Unit : CellObject
         yield return new WaitForSeconds(AttackTime);
         if (UnitTarget != null)
         {
-            UnitTarget.Flash();
+            UnitTarget.Flash(Color.red);
         }
         yield return new WaitForSeconds(0.2f);
     }
@@ -305,6 +305,7 @@ public abstract class Unit : CellObject
     {
         int x = this.CurrentCell.x;
         int y = this.CurrentCell.y;
+        UnitManager.Instance.RemoveFromQueue(this);
         this.CurrentCell.SetCellObject(null);
         Destroy(this.gameObject);
 

@@ -47,7 +47,7 @@ public class UnitAnimal : Unit
         this.CurrentAction = "In combat!";
         yield return new WaitForSeconds(AttackTime);
         UnitTarget.DealDamage(this.BaseDamage, this);
-        UnitTarget.Flash();
+        UnitTarget.Flash(Color.red);
         yield return new WaitForSeconds(0.2f);
     }
 

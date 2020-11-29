@@ -18,6 +18,7 @@ public class ResourceSource : CellObject
         if (this.Resources[0].Amount <= 0)
         {
             Debug.Log("Destroying Resource Source");
+            UnitManager.Instance.RemoveFromQueue(this);
             this.CurrentCell.SetCellObject(null);
             Destroy(this.gameObject);
         }
