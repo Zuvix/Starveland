@@ -9,6 +9,8 @@ public class ResourceSource : CellObject
     override protected  void Awake()
     {
         base.Awake();
+        this.IsBlocking = true;
+        this.IsSelectable = true;
     }
 
     public Resource GatherResource(int amount)
@@ -19,7 +21,8 @@ public class ResourceSource : CellObject
         {
             Debug.Log("Destroying Resource Source");
             UnitManager.Instance.RemoveFromQueue(this);
-            this.CurrentCell.SetCellObject(null);
+            //this.CurrentCell.SetCellObject(null);
+            this.CurrentCell.EraseCellObject(this);
             Destroy(this.gameObject);
         }
         if (Result == null)

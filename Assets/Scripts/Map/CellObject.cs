@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [RequireComponent(typeof(SpriteRenderer))]
-public class CellObject : MonoBehaviour
+public abstract class CellObject : MonoBehaviour
 {
     [SerializeField]
     float flashTime=0.2f;
@@ -18,6 +18,10 @@ public class CellObject : MonoBehaviour
     public GameObject popup;
 
     public MapCell CurrentCell { get; private set; }
+
+    public bool IsBlocking { get; protected set; } = false;
+    public bool IsSelectable  { get; protected set; } = false;
+
     virtual protected void Awake()
     {
         sr = GetComponent<SpriteRenderer>();

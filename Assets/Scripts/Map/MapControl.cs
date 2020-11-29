@@ -59,7 +59,7 @@ public class MapControl : Singleton<MapControl> {
     {
         if (map.IsInBounds(x,y))
         {
-            if (map.GetValue(x, y) == null)
+            if (map.GetValue(x, y, toBeCreatedGO.GetComponent<CellObject>().IsBlocking) == null)
             {
                 //Debug.LogError("GameObject is going to be instantiated in MapControl");
                 GameObject g = Instantiate(toBeCreatedGO);

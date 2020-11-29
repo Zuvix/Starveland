@@ -28,25 +28,27 @@ public class UnitCommandGather : UnitCommand
         // TODO Animation might be here
 
         //Console.WriteLine("I'm cutting wood {0}/{1}", Unit.CarriedResource.Amount, Skill.CarryingCapacity);
-        yield return Unit.StartCoroutine(Unit.GatherResource(this.Target.GetCellObject().GetComponent<ResourceSource>(), Skill.GatheringTime));
+        yield return Unit.StartCoroutine(Unit.GatherResource(this.Target.GetCurrentResourceSource(), Skill.GatheringTime));
 
-        if (Target.CurrentObject != null && Target.CurrentObject is ResourceSource)
+        ResourceSource TargetResourceSource = Target.GetCurrentResourceSource();
+        if (TargetResourceSource != null)
         {
             Resource GatheredResource;
-            Skill.DoAction(Unit, (ResourceSource)Target.CurrentObject, out GatheredResource);
+            Skill.DoAction(Unit, TargetResourceSource, out GatheredResource);
             Unit.CreatePopup(GatheredResource.itemInfo.icon, GatheredResource.Amount);
         }
     }
     public override bool CanBePerformed(Unit Unit)
     {
         bool Result = false;
-        if (this.Target.CurrentObject == null)
+        ResourceSource TargetResourceSource = Target.GetCurrentResourceSource();
+        if (TargetResourceSource == null)
         {
             Result = false;
         }
-        else if (this.Target.CurrentObject is ResourceSource)
+        else if (TargetResourceSource is ResourceSource)
         {
-            Result = !((ResourceSource)this.Target.CurrentObject).Resources[0].IsDepleted();
+            Result = !TargetResourceSource.Resources[0].IsDepleted();
         }
         return Result;
     }
