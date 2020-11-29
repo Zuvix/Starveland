@@ -8,12 +8,14 @@ public enum RSObjects
 {
     Forest,
     DeadAnimal,
+    Stone,
 }
 
 class ResourceSourceFactory : Singleton<ResourceSourceFactory>
 {
     public GameObject forest;
     public GameObject deadAnimal;
+    public GameObject stone;
     public GameObject ProduceResourceSource(int x, int y, RSObjects type, List<Resource> additionalResources=null)
     {
         GameObject Result = null;
@@ -29,6 +31,11 @@ class ResourceSourceFactory : Singleton<ResourceSourceFactory>
             case RSObjects.DeadAnimal:
             {
                 selectedPrefab = deadAnimal;
+                break;
+            }
+            case RSObjects.Stone:
+            {
+                selectedPrefab = stone;
                 break;
             }
             default:
@@ -47,11 +54,14 @@ class ResourceSourceFactory : Singleton<ResourceSourceFactory>
                 createdResourceSource.AddResource(newResource);
             }
         }
-        if (createdResourceSource.Resources.Count==0)
+        if (createdResourceSource!=null)
         {
-            Destroy(Result);
-            Debug.LogWarning("Destroyed ResourceSource because it had no resources.");
-            return null;
+            if (createdResourceSource.Resources?.Count == 0)
+            {
+                Destroy(Result);
+                Debug.LogWarning("Destroyed ResourceSource because it had no resources.");
+                return null;
+            }
         }
         return Result;
     }
