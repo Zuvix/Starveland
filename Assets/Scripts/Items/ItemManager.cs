@@ -9,7 +9,8 @@ public class ItemManager : Singleton<ItemManager>
     private void Awake()
     {
         items = new Dictionary<string, Item>();
-        LoadItemsFromDirectory("Items/");
+        LoadItemsFromDirectory("Items/Materials/");
+        LoadItemsFromDirectory("Items/Food/");
     }
     void LoadItemsFromDirectory(string path)
     {

@@ -14,9 +14,10 @@ public class GlobalInventory :Singleton<GlobalInventory>
     }
     private void Start()
     {
-        AddItem(new Resource(ItemManager.Instance.GetItem("Apple"), 8));
+        AddItem(new Resource(ItemManager.Instance.GetItem("Apple"), 5));
         AddItem(new Resource(ItemManager.Instance.GetItem("Carrot"), 4));
         AddItem(new Resource(ItemManager.Instance.GetItem("Mushroom"), 3));
+        AddItem(new Resource(ItemManager.Instance.GetItem("Cooked Meat"), 3));
     }
     public bool AddItem(Resource itemToAdd)
     {
@@ -26,16 +27,9 @@ public class GlobalInventory :Singleton<GlobalInventory>
             OnInventoryUpdate.Invoke();
             return true;
         }
-            
-        //TODO change 24 to smth better
-        if (playerInventory.Count <= 24)
-        {
-            playerInventory.Add(itemToAdd.itemInfo.name,itemToAdd);
-            OnInventoryUpdate.Invoke();
-            return true;
-        }
-        Debug.LogError("Inventory was full, item failed to be added.");
-        return false;
+        playerInventory.Add(itemToAdd.itemInfo.name,itemToAdd);
+        OnInventoryUpdate.Invoke();
+        return true;
     }
     public bool CheckAvaliableItem(string itemName,int amountNeeded)
     {
@@ -93,5 +87,18 @@ public class GlobalInventory :Singleton<GlobalInventory>
             }
         }
         return Result;
+    }
+    public void RemoveUneatenFood()
+    {
+        Dictionary<string, Resource> newDict =new Dictionary<string, Resource>();
+        foreach (KeyValuePair<string, Resource> entry in playerInventory)
+        {
+            if (!entry.Value.itemInfo.type.Equals("Food") || !entry.Value.itemInfo.storageType.Equals("Raw"))
+            {
+                newDict.Add(entry.Key, entry.Value);
+            }
+        }
+        playerInventory = newDict;
+        OnInventoryUpdate.Invoke();
     }
 }

@@ -62,7 +62,6 @@ public class ResourceSource : CellObject
         bool added = false;
         for (int i = 0; i < Resources.Count; i++)
         {
-            Debug.Log(toAddResource);
             if (Resources[i].itemInfo.name.Equals(toAddResource.itemInfo.name))
             {
                 Resources[i].AddDestructive(toAddResource);

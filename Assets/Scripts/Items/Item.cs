@@ -9,4 +9,6 @@ public class Item : ScriptableObject
     public string type;
     public Sprite icon;
     public int NutritionValue;
+    [StringInList("Raw", "Cooked")]
+    public string storageType;
 }

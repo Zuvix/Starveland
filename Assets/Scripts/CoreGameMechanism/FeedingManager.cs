@@ -8,19 +8,20 @@ using UnityEngine.UIElements;
 class FeedingManager : Singleton<FeedingManager>
 {
     public GameObject FeedingPanel;
-    public GameObject FoodInventoryPanel;
+    public GameObject RawInventoryPanel;
+    public GameObject CookedInventoryPanel;
     private List<GameObject> FoodInventoryItemPanels = new List<GameObject>();
     public GameObject UnitListPanel;
     public List<GameObject> UnitPanels;
-
-    private List<Resource> AvailableItems = null;
-
+    private List<Resource> AvailableRawItems = null;
+    private List<Resource> AvailableCookedItems = null;
     public GameObject InventoryItem;
     public GameObject DraggedObject;
     public GameObject SelectedFoodIcon; 
 
-    public readonly int InventoryGridSizeRows = 4;
-    public readonly int InventoryGridSizeColumns = 10;
+    
+    public readonly int InventoryGridSizeRows = 6;
+    public readonly int InventoryGridSizeColumns = 12;
 
     private List<UnitHungry> PlayerUnits;
 
@@ -36,8 +37,9 @@ class FeedingManager : Singleton<FeedingManager>
     }
     public void InitiateDayEnd()
     {
-        FeedingPanel.SetActive(true);
-        FillGrid();
+        RetrieveAvailableFood();
+        PanelControl.Instance.SetActivePanel(6);
+        FillGrids();
 
         PlayerUnits = Unit.PlayerUnitPool.Select(unit => new UnitHungry(unit)).ToList();
         FillUnitPanels();
@@ -58,7 +60,6 @@ class FeedingManager : Singleton<FeedingManager>
             FoodInventoryItemPanels.Remove(SelectedFoodIcon);
             Destroy(SelectedFoodIcon);
             SelectedFoodIcon = null;
-
             RefreshGrid();
         }
         else
@@ -72,12 +73,12 @@ class FeedingManager : Singleton<FeedingManager>
         {
             Unit.Unit.Die();
         }
-
+        GlobalInventory.Instance.RemoveUneatenFood();
+        ClearGrid();
         if (!GameOver.Instance.GameIsOver)
         {
             FeedingPanel.SetActive(false);
             DayCycleManager.Instance.StartDay();
-            ClearGrid();
         }
     }
     private void FillUnitPanels()
@@ -97,6 +98,10 @@ class FeedingManager : Singleton<FeedingManager>
                 {
                     Child.GetComponent<TextMeshProUGUI>().text = PlayerUnits[i].Unit.objectName;
                 }
+                if (Child.name == "FillTxt")
+                {
+                    Child.GetComponent<TextMeshProUGUI>().text = "0/10";
+                }
             }
         }
         for (int i = PlayerUnits.Count; i < UnitPanels.Count; i++)
@@ -108,9 +113,10 @@ class FeedingManager : Singleton<FeedingManager>
     }
     private void RefreshGrid()
     {
-        AddToGrid();
+        AddToGrid(AvailableCookedItems,true);
+        AddToGrid(AvailableRawItems, false);
     }
-    private void AddToGrid()
+    private void AddToGrid(List<Resource> AvailableItems, bool cooked)
     {
         if (AvailableItems.Count > 0)
         {
@@ -118,36 +124,58 @@ class FeedingManager : Singleton<FeedingManager>
             InventoryItem.GetComponent<UnityEngine.UI.Image>().sprite = AvailableItems[0].itemInfo.icon;
             InventoryItem.GetComponent<UnityEngine.UI.Image>().color = new Color(1, 1, 1, 1);
             InventoryItem.GetComponent<DraggableIcon>().Resource = AvailableItems[0];
+            InventoryItem.GetComponentInChildren<TMP_Text>().SetText(AvailableItems[0].itemInfo.NutritionValue + " nv");
 
-            InventoryItem.transform.SetParent(FoodInventoryPanel.transform, false);
-
+            if (cooked)
+            {
+                InventoryItem.transform.SetParent(CookedInventoryPanel.transform, false);
+            }
+            else
+            {
+                InventoryItem.transform.SetParent(RawInventoryPanel.transform, false);
+            }
             FoodInventoryItemPanels.Add(InventoryItem);
             AvailableItems.RemoveAt(0);
 
             InventoryItem.SetActive(true);
         }
     }
-    private void FillGrid()
+    private void FillGrids()
     {
+        PrepareFoodLists();
         // https://answers.unity.com/questions/989697/grid-layout-group-scalable-content.html
-        RectTransform parentRect = FoodInventoryPanel.GetComponent<RectTransform>();
-        GridLayoutGroup gridLayout = FoodInventoryPanel.GetComponent<GridLayoutGroup>();
-
-        AvailableItems = PrepareFoodList();
-
+        RectTransform parentRect = CookedInventoryPanel.GetComponent<RectTransform>();
+        GridLayoutGroup gridLayout = CookedInventoryPanel.GetComponent<GridLayoutGroup>();
         gridLayout.cellSize = new Vector2(parentRect.rect.width / InventoryGridSizeColumns, parentRect.rect.height / InventoryGridSizeRows);
         for (int i = 0; i < InventoryGridSizeRows; i++)
         {
             for (int j = 0; j < InventoryGridSizeColumns; j++)
             {
-                if (AvailableItems.Count <= 0)
+                if (AvailableCookedItems.Count <= 0)
+                {
+                    break;
+                }
+                AddToGrid(AvailableCookedItems, true);
+            }
+        }
+        //Same for raw food
+        parentRect = RawInventoryPanel.GetComponent<RectTransform>();
+        gridLayout = RawInventoryPanel.GetComponent<GridLayoutGroup>();
+        gridLayout.cellSize = new Vector2(parentRect.rect.width / InventoryGridSizeColumns, parentRect.rect.height / InventoryGridSizeRows);
+        for (int i = 0; i < InventoryGridSizeRows; i++)
+        {
+            for (int j = 0; j < InventoryGridSizeColumns; j++)
+            {
+                if (AvailableRawItems.Count <= 0)
                 {
                     break;
                 }
 
-                AddToGrid();
+                AddToGrid(AvailableRawItems, false);
             }
         }
+
+
     }
     private void ClearGrid()
     {
@@ -156,27 +184,38 @@ class FeedingManager : Singleton<FeedingManager>
             Destroy(FoodInventoryItemPanel);
         }
         FoodInventoryItemPanels.Clear();
-        AvailableItems.Clear();
+        AvailableRawItems.Clear();
+        AvailableCookedItems.Clear();
     }
-    private List<Resource> PrepareFoodList()
+    private void PrepareFoodLists()
     {
-        List<Resource> Result = new List<Resource>();
+        AvailableCookedItems = new List<Resource>();
+        AvailableRawItems = new List<Resource>();
         List<Resource> AvailableResources = RetrieveAvailableFood();
         //Cannot deplete resources
         foreach (Resource Resource in AvailableResources)
         {
-            while (!Resource.IsDepleted())
+            if (Resource.itemInfo.storageType == "Raw")
             {
-                Result.Add(Resource.Subtract(1));
+                while (!Resource.IsDepleted())
+                {
+                    AvailableRawItems.Add(Resource.Subtract(1));
+                }
+            }
+            else if(Resource.itemInfo.storageType == "Cooked")
+            {
+                while (!Resource.IsDepleted())
+                {
+                    AvailableCookedItems.Add(Resource.Subtract(1));
+                }
             }
         }
-        ListShuffling.Shuffle<Resource>(Result);
-        return Result;
+        ListShuffling.Shuffle<Resource>(AvailableCookedItems);
+        ListShuffling.Shuffle<Resource>(AvailableRawItems);
     }
     private List<Resource> RetrieveAvailableFood()
     {
         List<Resource> Result = GlobalInventory.Instance.AvailableFood();
-
         return Result;
     }
 }
