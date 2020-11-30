@@ -49,7 +49,7 @@ public class SkillUI : MonoBehaviour, IPointerClickHandler
             this.currentUnit = Unit;
             this.currentSkillType = skillType;
             this.skillLevel.text = $"level {Unit.Skills[skillType].Level}";
-            this.experienceBar.GetComponent<ExperienceBar>().CurrentProgress = Unit.Skills[skillType].CurrentExperience;
+            this.experienceBar.GetComponent<ExperienceBar>().SetProgress(Unit.Skills[skillType].CurrentExperience, Unit.Skills[skillType].Level);
             this.UnblockedIcon = Unit.Skills[skillType].icon;
             if (Unit.Skills[skillType].Allowed)
             {
@@ -78,15 +78,6 @@ public class SkillUI : MonoBehaviour, IPointerClickHandler
                 this.ShowTalents(talent);
             }
 
-            // hunting has talents on the unit itself, so we need to iterate different list
-            if (skillType.Equals(SkillType.Hunting))
-            {
-                foreach (var talent in Unit.UnitAppliedTalents)
-                {
-                    this.ShowTalents(talent);
-                }
-            }
-
             this.LastUnitID = Unit.gameObject.GetInstanceID();
             return;
         }
@@ -101,7 +92,7 @@ public class SkillUI : MonoBehaviour, IPointerClickHandler
         TalentsUI talentUI = null;
         foreach (var tui in talentUIsList)
         {
-            if (talent.Name.Equals(tui.Item1))
+            if (talent.Description.Equals(tui.Item1))
             {
                 exists = true;
                 talentUI = tui.Item2;
@@ -113,7 +104,7 @@ public class SkillUI : MonoBehaviour, IPointerClickHandler
             GameObject talentsUIgo = Instantiate(TalentsUI, TalentsLayout.transform);
             talentsUIgo.SetActive(true);
             talentUI = talentsUIgo.GetComponent<TalentsUI>();
-            talentUIsList.Add((talent.Name, talentUI, talentsUIgo));
+            talentUIsList.Add((talent.Description, talentUI, talentsUIgo));
         }
         talentUI.Show(talent);
     }

@@ -5,30 +5,30 @@ using System.Text;
 using System.Threading.Tasks;
 using UnityEngine;
 
-public class SkillWoodcutting : Skill
+public class SkillMining : Skill
 {
-    public SkillWoodcutting() : base()
+    public SkillMining() : base()
     {
-        this.ExperiencePerAction = GameConfigManager.Instance.GameConfig.WoodcuttingExperiencePerAction;
-        this.icon = GameConfigManager.Instance.GameConfig.WoodcuttingIcon;
+        this.ExperiencePerAction = GameConfigManager.Instance.GameConfig.MiningExperiencePerAction;
+        this.icon = GameConfigManager.Instance.GameConfig.MiningIcon;
     }
 
     protected override bool LevelUp(Unit Unit)
     {
         this.Level++;
-        TalentSkillSpecific NewTalent = TalentPool.Instance.GetNewSkillSpecificTalent(this.SkillAppliedTalents, this.Level);
+        Talent NewTalent = TalentPool.Instance.RecieveNewTalent(this.SkillAppliedTalents, this.Level, this.type);
         if (NewTalent != null)
         {
-            NewTalent.Apply(this);
+            NewTalent.Apply(Unit, this);
             this.SkillAppliedTalents.Add(NewTalent);
-            Debug.Log("Getting new talent: " + NewTalent.Name);
+            Debug.Log("Getting new talent: " + NewTalent.Description);
             //Unit.CreatePopup(NewTalent.icon, $"New talent {NewTalent.Name}");
             Unit.CreatePopup(this.icon, $"Level Up!");
         }
         // all possible talents are already active, todo show a message or whatever..
         else
-        {         
+        {
         }
-        return true; 
+        return true;
     }
 }

@@ -6,50 +6,48 @@ using UnityEngine;
 
 public class TalentPool : Singleton<TalentPool>
 {
-    private readonly List<TalentSkillSpecific> SkillSpecificTalents;
-    private readonly List<TalentUnitSpecific> UnitSpecificTalents;
+    private readonly Dictionary<SkillType, Dictionary<int, List<Talent>>> Talents;
 
     private TalentPool()
     {
-
-        // Add skill specific talents to the pool
-        SkillSpecificTalents = new List<TalentSkillSpecific>
+        Talents = new Dictionary<SkillType, Dictionary<int, List<Talent>>>
         {
-            new TalentCarryingCapacity("Carrying capacity ",
-                                       GameConfigManager.Instance.GameConfig.CarryingCapacityTalent,
-                                       GameConfigManager.Instance.GameConfig.CarryingCapacityTalentIcon
-                                       ),
-            new TalentGatheringSpeed("Gathering speed ", 
-                                     GameConfigManager.Instance.GameConfig.GatheringSpeedTalent,
-                                     GameConfigManager.Instance.GameConfig.GatheringSpeedTalentIcon)
+            { SkillType.Foraging, new Dictionary<int, List<Talent>>() },
+            { SkillType.Hunting, new Dictionary<int, List<Talent>>() },
+            { SkillType.Mining, new Dictionary<int, List<Talent>>() }
         };
 
-        // Add unit specific talents to the pool
-        UnitSpecificTalents = new List<TalentUnitSpecific>
+        int i = 0;
+        foreach (int level in GameConfigManager.Instance.GameConfig.RecieveTalentLevels)
         {
-            new TalentMovementSpeed("Movement speed ", 
-                                    GameConfigManager.Instance.GameConfig.MovementSpeedTalent,
-                                    GameConfigManager.Instance.GameConfig.MovementSpeedTalentIcon)
-        };
+            Talents[SkillType.Foraging].Add(level, new List<Talent>());
+
+            if (level != GameConfigManager.Instance.GameConfig.RecieveTalentLevels.Last())
+            {
+                (string Name, string Description, int[] Effect, Sprite icon, bool Ultimate) = GameConfigManager.Instance.GameConfig.ForagingTalents[0].Unpack();
+                Talents[SkillType.Foraging][level].Add(new TalentGatheringSpeed(Name, Description, Effect[i], icon, Ultimate));
+
+                (Name, Description, Effect, icon, Ultimate) = GameConfigManager.Instance.GameConfig.ForagingTalents[1].Unpack();
+                Talents[SkillType.Foraging][level].Add(new TalentExtraResource(Name, Description, Effect[i], icon, Ultimate));
+            }
+            else
+            {
+
+            }
+            i++;
+        }
     }
 
-    public TalentSkillSpecific GetNewSkillSpecificTalent(List<TalentSkillSpecific> SkillAppliedTalents, int Level)
+    public Talent RecieveNewTalent(List<Talent> UnitAppliedTalents, int level, SkillType type)
     {
-        TalentSkillSpecific t = (TalentSkillSpecific)GetNewTalent(
-            SkillAppliedTalents.Cast<Talent>().ToList(), this.SkillSpecificTalents.Cast<Talent>().ToList());
-
-        return t?.CreateNewInstanceOfSelf(Level);
+        Talent t = null;
+        if (this.Talents[type].ContainsKey(level))
+        {
+            t = GetNewTalent(UnitAppliedTalents, this.Talents[type][level]);
+        }
+        return t?.CreateNewInstanceOfSelf();
     }
 
-    public TalentUnitSpecific GetNewUnitSpecificTalent(List<TalentUnitSpecific> UnitAppliedTalents, int Level)
-    {
-        TalentUnitSpecific t = (TalentUnitSpecific)GetNewTalent(
-            UnitAppliedTalents.Cast<Talent>().ToList(), this.UnitSpecificTalents.Cast<Talent>().ToList());
-
-        return t?.CreateNewInstanceOfSelf(Level);
-    }
-
-    // generate random new skill specific talent
     private Talent GetNewTalent(List<Talent> AppliedTalents, List<Talent> AllTalents)
     {
         // create empty talent pool
@@ -60,17 +58,17 @@ public class TalentPool : Singleton<TalentPool>
         {
             foreach (var talentAll in AllTalents)
             {
-                bool IsThere = false;
+                bool isThere = false;
                 foreach (var talentApplied in AppliedTalents)
                 {
                     if (talentAll.GetType() == talentApplied.GetType())
                     {
                         // talent of this effect is already applied, skip
-                        IsThere = true;
+                        isThere = true;
                         break;
                     }
                 }
-                if (!IsThere) 
+                if (!isThere) 
                 {
                     TalentsFree.Add(talentAll);
                 }

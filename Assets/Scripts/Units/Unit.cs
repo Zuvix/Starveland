@@ -331,11 +331,11 @@ public abstract class Unit : CellObject
         switch (itemInfo.name)
         {
             case "Wood":
-                Result = SkillType.Woodcutting;
+                Result = SkillType.Foraging;
                 break;
             case "Stone":
             case "Iron":
-                Result = SkillType.mining;
+                Result = SkillType.Mining;
                 break;
             default:
                 Result = SkillType.none;

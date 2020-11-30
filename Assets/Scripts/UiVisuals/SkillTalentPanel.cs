@@ -19,7 +19,7 @@ public class SkillTalentPanel : MonoBehaviour
         skillList = new List<(SkillUI, SkillType)>();
         foreach (SkillType skillType in Enum.GetValues(typeof(SkillType)))
         {
-            if (!skillType.ToString().Equals("mining") && !skillType.ToString().Equals("none")) //todo remove mining when implemented
+            if (!skillType.ToString().Equals("none"))
             {
                 GameObject skillHeaderGO = Instantiate(skillHeader, skillLayout.gameObject.transform);
                 SkillUI skillUI = skillHeaderGO.GetComponent<SkillUI>();

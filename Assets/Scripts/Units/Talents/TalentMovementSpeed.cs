@@ -5,28 +5,28 @@ using System.Text;
 using System.Threading.Tasks;
 using UnityEngine;
 
-public class TalentMovementSpeed : TalentUnitSpecific
+public class TalentMovementSpeed : Talent
 {
-    public TalentMovementSpeed(string Name, int MovementSpeed, Sprite icon) : base(Name, icon)
+    public TalentMovementSpeed(string Name, string Description, int MovementSpeed, Sprite icon, bool Ultimate) : base(Name, Description, icon, Ultimate)
     {
         this.Effect = MovementSpeed;
     }
 
-    public override bool Apply(Unit Unit)
+    public override bool Apply(Unit Unit, Skill Skill)
     {
         Unit.MovementSpeed *= Mathf.RoundToInt((((float)this.Effect / 100f) + 1f));
         return true;
     }
 
-    public override bool Remove(Unit Unit)
+    public override bool Remove(Unit Unit, Skill Skill)
     {
         Unit.MovementSpeed /= Mathf.RoundToInt((((float)this.Effect / 100f) + 1f));
         return true;
     }
 
-    public override TalentUnitSpecific CreateNewInstanceOfSelf(int Level)
+    public override Talent CreateNewInstanceOfSelf()
     {
-        return new TalentMovementSpeed(this.Name, this.Effect * (Level-1), this.icon);
+        return new TalentMovementSpeed(this.Name, this.Description, this.Effect, this.icon, this.Ultimate);
     }
 
 }

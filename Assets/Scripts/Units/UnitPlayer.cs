@@ -5,7 +5,6 @@ using UnityEngine;
 public class UnitPlayer : Unit
 {
     public Dictionary<SkillType, Skill> Skills;
-    public List<TalentUnitSpecific> UnitAppliedTalents = new List<TalentUnitSpecific>();
 
     public override void SetActivity(ActivityState Activity)
     {
@@ -24,8 +23,9 @@ public class UnitPlayer : Unit
         //Debug.LogError("UnitPlayer Instantiated");
         this.Skills = new Dictionary<SkillType, Skill> 
         {
-            { SkillType.Woodcutting, new SkillWoodcutting() },
-            { SkillType.Hunting, new SkillHunting() } 
+            { SkillType.Foraging, new SkillForaging() },
+            { SkillType.Hunting, new SkillHunting() },
+            { SkillType.Mining, new SkillMining() } 
         };
 
         this.MovementSpeed = GameConfigManager.Instance.GameConfig.MovementSpeedPlayer;

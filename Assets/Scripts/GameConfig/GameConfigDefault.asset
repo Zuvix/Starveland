@@ -19,12 +19,49 @@ MonoBehaviour:
   MovementSpeedAnimal: 5
   BaseDamageAnimal: 10
   StartingLevelOfSkills: 1
-  ExperienceNeededToLevelUp: 50
+  MaximumLevelOfSkills: 10
+  ExperienceToLevelUpForEachLevel: 320000006400000096000000c8000000fa0000002c0100005e01000090010000c2010000f4010000
   StartingCarryingCapacityOfSkills: 2
   StartingGatheringTimeOfSkills: 1.5
   StartingChanceToGetExtraResource: 5
-  WoodcuttingExperiencePerAction: 10
-  WoodcuttingIcon: {fileID: 6566697938281827825, guid: b81d09a574bb33a4ea1b7acc8221604e,
+  MaximumTalentsPerSkill: 3
+  RecieveTalentLevels: 03000000060000000a000000
+  ForagingExperiencePerAction: 10
+  ForagingIcon: {fileID: 6566697938281827825, guid: b81d09a574bb33a4ea1b7acc8221604e,
+    type: 3}
+  ForagingTalents:
+  - Name: Lumberjack
+    Description: Woodcutting speed
+    icon: {fileID: 0}
+    Effect: 1900000041000000
+    Ultimate: 0
+  - Name: Gatherer
+    Description: Extra food chance
+    icon: {fileID: 0}
+    Effect: 0f00000023000000
+    Ultimate: 0
+  - Name: Forest Fruits
+    Description: Foragable food nv
+    icon: {fileID: 0}
+    Effect: 0100000002000000
+    Ultimate: 0
+  - Name: Friend of the Forest
+    Description: Spawn sapling chance
+    icon: {fileID: 0}
+    Effect: 0f00000023000000
+    Ultimate: 0
+  - Name: Critical Harvest
+    Description: Cut down trees instantly
+    icon: {fileID: 0}
+    Effect: 
+    Ultimate: 1
+  - Name: Mother of Nature
+    Description: Spawn a foragable food
+    icon: {fileID: 0}
+    Effect: 
+    Ultimate: 1
+  MiningExperiencePerAction: 10
+  MiningIcon: {fileID: -2420062209741622707, guid: ddf4a4e6ec245864fbfb72f96ebb7d3d,
     type: 3}
   HuntingExperiencePerAction: 10
   HuntingKillExperience: 30

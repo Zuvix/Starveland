@@ -9,14 +9,15 @@ public abstract class Skill
 {
     public int CurrentExperience { get; set; }
     public int Level;
-    protected int ExperienceNeededToLevelUp;
+    public int ChanceToGetExtraResource;
+    protected int[] ExperienceToLevelUpForEachLevel;
     protected int ExperiencePerAction;
-    public List<TalentSkillSpecific> SkillAppliedTalents;
+    public List<Talent> SkillAppliedTalents;
     public Sprite icon;
     public bool Allowed { get; private set; }
+    public SkillType type;
 
     // talents variables
-    public float ChanceToGetExtraResource;
     public float GatheringTime;
     public int CarryingCapacity;
 
@@ -24,20 +25,20 @@ public abstract class Skill
     {
         this.CurrentExperience = 0;
         this.Level = GameConfigManager.Instance.GameConfig.StartingLevelOfSkills;
-        this.ExperienceNeededToLevelUp = GameConfigManager.Instance.GameConfig.ExperienceNeededToLevelUp;
-        this.SkillAppliedTalents = new List<TalentSkillSpecific>();
-        this.ChanceToGetExtraResource = GameConfigManager.Instance.GameConfig.StartingChanceToGetExtraResource;
-        this.GatheringTime = GameConfigManager.Instance.GameConfig.StartingGatheringTimeOfSkills;
+        this.ExperienceToLevelUpForEachLevel = GameConfigManager.Instance.GameConfig.ExperienceToLevelUpForEachLevel;
+        this.SkillAppliedTalents = new List<Talent>();
         this.CarryingCapacity = GameConfigManager.Instance.GameConfig.StartingCarryingCapacityOfSkills;
         this.Allowed = true;
+        this.ChanceToGetExtraResource = 0;
     }
 
     protected bool AddExperience(int Amount, Unit Unit)
     {
         this.CurrentExperience += Amount;
         //if i have enough experience to level up
-        if(CurrentExperience >= ExperienceNeededToLevelUp*Level)
+        if(CurrentExperience >= this.ExperienceToLevelUpForEachLevel[this.Level - 1])
         {
+            this.CurrentExperience = this.CurrentExperience - this.ExperienceToLevelUpForEachLevel[this.Level - 1];
             this.LevelUp(Unit);
         }
         return true;
@@ -50,7 +51,7 @@ public abstract class Skill
     }
 
     protected abstract bool LevelUp(Unit Unit);
-    public bool DoAction(Unit Unit, ResourceSource Target, out Resource Resource)
+    public virtual bool DoAction(Unit Unit, ResourceSource Target, out Resource Resource)
     {
         if (Target == null)
         {

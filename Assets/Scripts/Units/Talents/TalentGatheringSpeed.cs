@@ -5,9 +5,9 @@ using System.Text;
 using System.Threading.Tasks;
 using UnityEngine;
 
-public class TalentGatheringSpeed : TalentSkillSpecific
+public class TalentGatheringSpeed : Talent
 {
-    public TalentGatheringSpeed(string Name, int GatheringSpeed, Sprite icon) : base(Name, icon)
+    public TalentGatheringSpeed(string Name, string Description, int GatheringSpeed, Sprite icon, bool Ultimate) : base(Name, Description, icon, Ultimate)
     {
         if (GatheringSpeed <= 100)
         {
@@ -19,20 +19,20 @@ public class TalentGatheringSpeed : TalentSkillSpecific
         }
     }
 
-    public override bool Apply(Skill Skill)
+    public override bool Apply(Unit Unit, Skill Skill)
     {
         Skill.GatheringTime *= ((100f - (float)this.Effect) / 100f);
         return true;
     }
 
-    public override bool Remove(Skill Skill)
+    public override bool Remove(Unit Unit, Skill Skill)
     {
         Skill.GatheringTime /= ((100f - (float)this.Effect) / 100f);
         return true;
     }
 
-    public override TalentSkillSpecific CreateNewInstanceOfSelf(int Level)
+    public override Talent CreateNewInstanceOfSelf()
     {
-        return new TalentGatheringSpeed(this.Name, this.Effect * (Level - 1), this.icon);
+        return new TalentGatheringSpeed(this.Name, this.Description, this.Effect, this.icon, this.Ultimate);
     }
 }

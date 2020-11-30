@@ -8,23 +8,22 @@ using UnityEngine.Events;
 
 public class UnitManager : Singleton<UnitManager>
 {
-    public List<Tuple<SkillType, ActivityState, CellObject, GameObject>> ActionQueue;
+    public List<Tuple<SkillType, ActivityState, CellObject>> ActionQueue;
     public List<UnitPlayer> IdleUnits;
     public Dictionary<string, SkillType> GetSkillDictionary;
     public UnityEvent onActionQueueChanged;
-    private readonly GameObject frame;
 
     public UnitManager()
     {
-        this.frame = GameConfigManager.Instance.GameConfig.QueueFrame;
-        this.ActionQueue = new List<Tuple<SkillType, ActivityState, CellObject, GameObject>>();
+        this.ActionQueue = new List<Tuple<SkillType, ActivityState, CellObject>>();
         this.IdleUnits = new List<UnitPlayer>();
         this.onActionQueueChanged = new UnityEvent();
         this.GetSkillDictionary = new Dictionary<string, SkillType> //todo add another skills
         {
-            {"Forest", SkillType.Woodcutting },
+            {"Forest", SkillType.Foraging },
             {"Animal", SkillType.Hunting },
-            {"Animal_Dead", SkillType.Hunting }
+            {"Animal_Dead", SkillType.Hunting },
+            {"Stone", SkillType.Mining }
         };
     }
 
@@ -61,7 +60,6 @@ public class UnitManager : Singleton<UnitManager>
                     bestUnit.GetComponent<UnitPlayer>().SetActivity(action.Item2.SetCommands(bestUnit, bestUnit.Skills[action.Item1]));
 
                     Debug.Log("Pocet idle unitov: " + IdleUnits.Count());
-                    Destroy(ActionQueue.ElementAt(0).Item4.gameObject);
                     ActionQueue.RemoveAt(0);
                     onActionQueueChanged.Invoke();
 
@@ -97,18 +95,18 @@ public class UnitManager : Singleton<UnitManager>
 
         if (!exists)    
         {
-            Tuple<SkillType, ActivityState, CellObject, GameObject> newAction = null;
+            Tuple<SkillType, ActivityState, CellObject> newAction = null;
 
             //todo rozlisovat medzi roznymi activity states, vsetko nebude gather
             if (CellObject is ResourceSource)
             {
-                newAction = new Tuple<SkillType, ActivityState, CellObject, GameObject>(this.GetSkillDictionary[CellObject.tag],
-                    new ActivityStateGather(CellObject.CurrentCell), CellObject, Instantiate(this.frame));
+                newAction = new Tuple<SkillType, ActivityState, CellObject>(this.GetSkillDictionary[CellObject.tag],
+                    new ActivityStateGather(CellObject.CurrentCell), CellObject);
             }
             else if (CellObject is UnitAnimal)
             {
-                newAction = new Tuple<SkillType, ActivityState, CellObject, GameObject>(this.GetSkillDictionary[CellObject.tag],
-                    new ActivityStateHunt((UnitAnimal)CellObject), CellObject, Instantiate(this.frame));
+                newAction = new Tuple<SkillType, ActivityState, CellObject>(this.GetSkillDictionary[CellObject.tag],
+                    new ActivityStateHunt((UnitAnimal)CellObject), CellObject);
             }
 
             if (newAction != null)
@@ -150,21 +148,12 @@ public class UnitManager : Singleton<UnitManager>
         {
             if (action.Item3 == objectToRemove)
             {
-                Destroy(action.Item4);
                 this.ActionQueue.Remove(action);
                 onActionQueueChanged.Invoke();
                 break;
             }
         }
         return true;
-    }
-
-    private void Update()
-    {
-        foreach (var action in this.ActionQueue)
-        {
-            action.Item4.transform.position = action.Item3.transform.position;
-        }
     }
 
 }
