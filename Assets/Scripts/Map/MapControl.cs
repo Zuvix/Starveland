@@ -5,6 +5,8 @@ using CodeMonkey.Utils;
 
 public class MapControl : Singleton<MapControl> {
 
+    public GameObject GreenBackground;
+
     public Map map;
     public List<MapCell> StorageList;
 

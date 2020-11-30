@@ -5,8 +5,10 @@ using UnityEngine;
 
 public class BuildingConstructionManager : Singleton<BuildingConstructionManager>
 {
+    
     private GameObject CurrentlySelectedBuilding = null;
 
+    private GameObject CurrentBackground;
     private GameObject BuildingMock = null;
     private MapCell LastCellPointedOn = null;
     private bool LastCellHasBuildingMock = false;
@@ -28,12 +30,7 @@ public class BuildingConstructionManager : Singleton<BuildingConstructionManager
 
                 DeselectBuilding();
 
-                //Debug.LogWarning("The building is about to be constructed");
                 MapControl.Instance.CreateGameObject(CellToCreateBuildingOn.x, CellToCreateBuildingOn.y, BuildingToCreate);
-                /*string Blocking = CellToCreateBuildingOn.GetCurrentCellObject(true) == null ? "null" : CellToCreateBuildingOn.GetCurrentCellObject(true).ToString();
-                string Nonblocking = CellToCreateBuildingOn.GetCurrentCellObject(false) == null ? "null" : CellToCreateBuildingOn.GetCurrentCellObject(false).ToString();
-                Debug.LogWarning($"There is blocking object on selected cell {Blocking}");
-                Debug.LogWarning($"There is nonblocking object on selected cell {Nonblocking}");*/
             }
         }
         else if (Input.GetMouseButtonDown(1))
@@ -55,6 +52,10 @@ public class BuildingConstructionManager : Singleton<BuildingConstructionManager
                 CellObject CurrentCellObject = LastCellPointedOn.GetCurrentCellObject(CurrentlySelectedBuilding.GetComponent<Building>().IsBlocking);
                 if (CurrentCellObject == null)
                 {
+                    //Debug.LogError(MapControl.Instance.GreenBackground);
+                    CurrentBackground = Instantiate(MapControl.Instance.GreenBackground);
+                    MapControl.Instance.map.CenterObject(x, y, CurrentBackground);
+
                     BuildingMock = MapControl.Instance.CreateGameObject(x, y, CurrentlySelectedBuilding);
                     LastCellHasBuildingMock = true;
                 }
@@ -86,6 +87,9 @@ public class BuildingConstructionManager : Singleton<BuildingConstructionManager
             Destroy(BuildingMock);
             BuildingMock = null;
             LastCellHasBuildingMock = false;
+
+            Destroy(CurrentBackground);
+            CurrentBackground = null;
         }
     }
 }

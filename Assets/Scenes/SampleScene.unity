@@ -1120,6 +1120,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _persistent: 1
+  GreenBackground: {fileID: 8294826158820469398, guid: 06f757389e6134c41905395e07ba5123,
+    type: 3}
   forest: {fileID: 0}
   carrot_field: {fileID: 0}
   Grass1: {fileID: 2283220006766421666, guid: e101a147995e73a4790fca890d61a162, type: 3}
