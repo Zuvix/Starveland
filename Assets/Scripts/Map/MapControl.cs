@@ -14,6 +14,8 @@ public class MapControl : Singleton<MapControl> {
     public GameObject forest;
     public GameObject carrot_field;
 
+    public GameObject Grass1;
+
     public GameObject building_storage;
 
     public GameObject player;
@@ -47,19 +49,37 @@ public class MapControl : Singleton<MapControl> {
         GameObject testAnimal3 = CreateGameObject(15, 12, animal);
         GameObject testAnimal4 = CreateGameObject(16, 14, animal);
 
-
+        List<(int, int)> GrassCoords = new List<(int, int)>(new (int, int)[]
+        {
+            (3, 3), (3, 4), (3, 5), (3, 6), (4, 3), (4, 4), (4, 5), (4, 6), (5, 3), (5, 4), (5, 6),
+        });
+        foreach ((int, int) Coord in GrassCoords)
+        {
+            CreateGameObject(Coord.Item1, Coord.Item2, Grass1);
+        }
+        GameObject testAnimal5 = CreateGameObject(4, 4, animal);
 
         //testUnit1.GetComponent<Unit>().SetActivity(new ActivityStateWoodcutting(map.Grid[11][4], testUnit1.GetComponent<Unit>(), testUnit1.GetComponent<Unit>().SkillWoodcutting));
         //testUnit1.GetComponent<Unit>().SetActivity(new ActivityStateIdle());
         // testUnit2.GetComponent<Unit>().SetActivity(new ActivityStateIdle());
+        List<RSObjects> BushTypeList = new List<RSObjects>(new RSObjects[] { RSObjects.Bush, RSObjects.Bush_Berry_Red, RSObjects.Bush_Berry_Purple});
+        System.Random random = new System.Random();
+        List<(int, int)> BushCoords = new List<(int, int)>(new (int, int)[]
+        {
+            (9, 1), (9, 2), (10, 1), (10, 2), (11, 0), (11, 1), (11, 2),
+        });
+        foreach ((int, int) Coord in BushCoords)
+        {
 
+            ResourceSourceFactory.Instance.ProduceResourceSource(Coord.Item1, Coord.Item2, BushTypeList[random.Next(BushTypeList.Count)]);
+        }
     }
 
     public GameObject CreateGameObject(int x, int y, GameObject toBeCreatedGO)
     {
         if (map.IsInBounds(x,y))
         {
-            if (map.GetValue(x, y) == null)
+            if (map.GetValue(x, y, toBeCreatedGO.GetComponent<CellObject>().IsBlocking) == null)
             {
                 //Debug.LogError("GameObject is going to be instantiated in MapControl");
                 GameObject g = Instantiate(toBeCreatedGO);

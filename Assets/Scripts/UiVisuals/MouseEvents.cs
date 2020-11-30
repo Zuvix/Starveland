@@ -21,10 +21,14 @@ public class MouseEvents : Singleton<MouseEvents>
         if (mouseMoveTimer < 0f)
         {
             mouseMoveTimer += mouseMoveTimerMax;
-            GameObject mapValue = MapControl.Instance.map.GetValue(UtilsClass.GetMouseWorldPosition());
+
+            Vector3 MousePosition = UtilsClass.GetMouseWorldPosition();
+            GameObject mapValue = GetSelectedGameObject(MousePosition);
+
+            //error
+            //GameObject mapValue = MapControl.Instance.map.GetValue(MousePosition);
             //object coordinates
-            int x, y;
-            MapControl.Instance.map.GetXY(UtilsClass.GetMouseWorldPosition(), out x, out y);
+
 
             if (selectedObject != null)
             {
@@ -52,6 +56,7 @@ public class MouseEvents : Singleton<MouseEvents>
             }
             else
             {
+                MapControl.Instance.map.GetXY(MousePosition, out int x, out int y);
                 MapControl.Instance.map.CenterObject(x, y, frame);
                 if (viewedObject != null)
                 {
@@ -69,9 +74,14 @@ public class MouseEvents : Singleton<MouseEvents>
         {
             if (Input.GetMouseButtonDown(0))
             {
-                if (MapControl.Instance.map.IsInBounds(UtilsClass.GetMouseWorldPosition()))
+                Vector3 MousePosition = UtilsClass.GetMouseWorldPosition();
+                MapControl.Instance.map.GetXY(MousePosition, out int x, out int y);
+                bool IsInMap = MapControl.Instance.map.IsInBounds(x, y);
+                Debug.Log($"Clicked {x}, {y}. It is in map: {IsInMap}");
+                if (IsInMap)
                 {
-                    GameObject mapValue = MapControl.Instance.map.GetValue(UtilsClass.GetMouseWorldPosition());
+                    //GameObject mapValue = MapControl.Instance.map.GetValue(UtilsClass.GetMouseWorldPosition());
+                    GameObject mapValue = GetSelectedGameObject(MousePosition);
                     selectedObject = mapValue;
                 }
             }
@@ -83,5 +93,19 @@ public class MouseEvents : Singleton<MouseEvents>
     {
         HandleMouseMove();
         HandleMouseClick();
+    }
+
+    private GameObject GetSelectedGameObject(Vector3 MousePosition)
+    {
+        MapControl.Instance.map.GetXY(MousePosition, out int x, out int y);
+        bool IsInMap = MapControl.Instance.map.IsInBounds(x, y);
+        GameObject Result = null;
+        if (IsInMap)
+        {
+            CellObject TopSelectableObject = MapControl.Instance.map.Grid[x][y].GetTopSelectableObject();
+            Result = TopSelectableObject == null ? null : TopSelectableObject.gameObject;
+        }
+
+        return Result;
     }
 }

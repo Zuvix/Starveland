@@ -38,7 +38,7 @@ public class Map {
         return cellSize;
     }
 
-    private void InitializeCellArray(int width, int height,bool debugLines)
+    private void InitializeCellArray(int width, int height, bool debugLines)
     {
         Grid = new List<List<MapCell>>();
         for (int x = 0; x < width; x++)
@@ -82,24 +82,25 @@ public class Map {
         GetXY(worldPosition, out x, out y);
         SetValue(x, y, o);
     }
-
-    public GameObject GetValue(int x, int y) {
-        if (x >= 0 && y >= 0 && x < width && y < height) {
-            return Grid[x][y].GetCellObject();
-        } else {
-            return null;
+    public GameObject GetValue(int x, int y, bool Blocking) {
+        GameObject Result = null;
+        if (IsInBounds(x, y)) {
+            CellObject CellObject = Grid[x][y].GetCurrentCellObject(Blocking);
+            Result = CellObject == null ? null : CellObject.gameObject;
         }
+        return Result;
     }
 
-    public GameObject GetValue(Vector3 worldPosition) {
+    public GameObject GetValue(Vector3 worldPosition, bool Blocking)
+    {
         int x, y;
         GetXY(worldPosition, out x, out y);
-        return GetValue(x, y);
+        return GetValue(x, y, Blocking);
     }
 
     public void CenterObject(int x, int y,GameObject g)
     {
-        if(x>=0 &&x<width &&y>=0 && y < height)
+        if(IsInBounds(x, y))
         {
             g.transform.position = new Vector3(Grid[x][y].position.x, Grid[x][y].position.y, 0);
         }
@@ -112,12 +113,13 @@ public class Map {
     }
     public bool IsInBounds(int x,int y)
     {
-        if (x >= 0 && y >= 0 && x < width && y < height)
+        bool Result = x >= 0 && y >= 0 && x < width && y < height;
+        if (!Result)
         {
-            return true;
+            Debug.Log("Target outside of bounds.");
         }
-        Debug.Log("Target outside of bounds.");
-        return false;
+
+        return Result;
     }
 
     public List<List<PathSearchNode>> ProducePathSearchMatrix(PathSearchStartFinishWrapper StartFinishWrapper, PathSearchNode VisitSourceNode = null, List<List<PathSearchNode>> VisitSourceMap = null)

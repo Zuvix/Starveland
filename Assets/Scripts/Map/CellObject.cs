@@ -18,6 +18,10 @@ public class CellObject : MonoBehaviour
     public GameObject popup;
 
     public MapCell CurrentCell { get; private set; }
+
+    public bool IsBlocking = false;
+    public bool IsSelectable = false;
+
     virtual protected void Awake()
     {
         sr = GetComponent<SpriteRenderer>();

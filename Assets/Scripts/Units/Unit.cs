@@ -142,6 +142,7 @@ public abstract class Unit : CellObject
 
     protected override void Awake()
     {
+
         //Debug.LogError("Unit instantiated");
         base.Awake();
         this.NextActivity = null;
@@ -183,7 +184,8 @@ public abstract class Unit : CellObject
         // TODO - Will have to be more sophisticated
         //set cell to be used by unit, free the old cell
         MapCell PreviousCell = this.CurrentCell;
-        this.CurrentCell.SetCellObject(null);
+        //this.CurrentCell.SetCellObject(null);
+        this.CurrentCell.EraseCellObject(this);
         TargetCell.SetCellObject(this.gameObject);
 
         //calculate distance and movement vector
@@ -306,7 +308,8 @@ public abstract class Unit : CellObject
         int x = this.CurrentCell.x;
         int y = this.CurrentCell.y;
         UnitManager.Instance.RemoveFromQueue(this);
-        this.CurrentCell.SetCellObject(null);
+        //this.CurrentCell.SetCellObject(null);
+        this.CurrentCell.EraseCellObject(this);
         Destroy(this.gameObject);
 
         SpawnOnDeath(x, y);

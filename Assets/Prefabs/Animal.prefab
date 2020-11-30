@@ -128,6 +128,8 @@ MonoBehaviour:
   objectName: Unicorn
   tip: Food source
   popup: {fileID: 7964957230971447603, guid: 950b028d3cbc148489079960954f13fc, type: 3}
+  IsBlocking: 1
+  IsSelectable: 1
   xScalingFactor: 1.5
   yScalingFactor: 1.5
   rotationFactor: 5

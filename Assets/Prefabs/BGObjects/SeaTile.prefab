@@ -10,8 +10,9 @@ GameObject:
   m_Component:
   - component: {fileID: 8971999135580258471}
   - component: {fileID: 8971999135580258472}
+  - component: {fileID: 81266211527196175}
   m_Layer: 0
-  m_Name: b_299
+  m_Name: SeaTile
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -83,3 +84,22 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &81266211527196175
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8971999135580258473}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c05525034153ab946968bc0f0b5ab4a7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  flashTime: 0.2
+  sr: {fileID: 0}
+  objectName: 
+  tip: 
+  popup: {fileID: 0}
+  IsBlocking: 1
+  IsSelectable: 1
