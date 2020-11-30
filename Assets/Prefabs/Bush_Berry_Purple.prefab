@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 9141504505225892636}
   - component: {fileID: 8841977509073851376}
   m_Layer: 0
-  m_Name: Berry_Bush
+  m_Name: Bush_Berry_Purple
   m_TagString: Forest
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -73,8 +73,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 4327556855002497605, guid: ddf4a4e6ec245864fbfb72f96ebb7d3d,
-    type: 3}
+  m_Sprite: {fileID: 21300000, guid: 76359a4b50d363146b1a5b5d6baa9266, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -100,20 +99,20 @@ MonoBehaviour:
   flashTime: 0.1
   sr: {fileID: 0}
   objectName: Bush
-  tip: Some wood and some berries can gained easily here.
+  tip: Some wood and bitter purple berries can gained easily here.
   popup: {fileID: 7964957230971447603, guid: 950b028d3cbc148489079960954f13fc, type: 3}
   IsBlocking: 0
   IsSelectable: 1
   Resources: []
   ResourcePacks:
   - resource:
-      itemInfo: {fileID: 11400000, guid: 5722983080fed344796794c0aafe3131, type: 2}
+      itemInfo: {fileID: 11400000, guid: 383cd9080ffc444468babecb666fc913, type: 2}
       Amount: 5
     chance: 100
-    variationPercentage: 30
+    variationPercentage: 36
   - resource:
-      itemInfo: {fileID: 11400000, guid: c8120bbca0993b943b6378ac47c4e7bb, type: 2}
-      Amount: 8
+      itemInfo: {fileID: 11400000, guid: 5722983080fed344796794c0aafe3131, type: 2}
+      Amount: 4
     chance: 100
     variationPercentage: 20
 --- !u!61 &8841977509073851376
@@ -133,7 +132,7 @@ BoxCollider2D:
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 1.125, y: 1.125}
+    oldSize: {x: 1.28, y: 1.28}
     newSize: {x: 1.125, y: 1.125}
     adaptiveTilingThreshold: 0.5
     drawMode: 0

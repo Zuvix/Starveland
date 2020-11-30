@@ -7089,13 +7089,25 @@ PrefabInstance:
         type: 3}
       propertyPath: bush
       value: 
-      objectReference: {fileID: 2283220006766421666, guid: 7637602e43b5c13448646f2afe20763e,
+      objectReference: {fileID: 2283220006766421666, guid: bc3a6439918b4c64a922e116ae9b506f,
         type: 3}
     - target: {fileID: 3275805233410246322, guid: ce26828ea09de184f839f032dbfb0368,
         type: 3}
       propertyPath: stone
       value: 
       objectReference: {fileID: 2283220006766421666, guid: f13b2c2b4832bf546a02ae9f6330dca0,
+        type: 3}
+    - target: {fileID: 3275805233410246322, guid: ce26828ea09de184f839f032dbfb0368,
+        type: 3}
+      propertyPath: bush_berry_red
+      value: 
+      objectReference: {fileID: 2283220006766421666, guid: 7637602e43b5c13448646f2afe20763e,
+        type: 3}
+    - target: {fileID: 3275805233410246322, guid: ce26828ea09de184f839f032dbfb0368,
+        type: 3}
+      propertyPath: bush_berry_purple
+      value: 
+      objectReference: {fileID: 2283220006766421666, guid: 71472869ee9d50a4fa5cb67e0c7766c2,
         type: 3}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: ce26828ea09de184f839f032dbfb0368, type: 3}
