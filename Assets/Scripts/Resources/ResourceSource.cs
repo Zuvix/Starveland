@@ -9,8 +9,6 @@ public class ResourceSource : CellObject
     override protected  void Awake()
     {
         base.Awake();
-        this.IsBlocking = true;
-        this.IsSelectable = true;
     }
 
     public Resource GatherResource(int amount)

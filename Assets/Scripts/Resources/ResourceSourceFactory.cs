@@ -9,6 +9,7 @@ public enum RSObjects
     Forest,
     DeadAnimal,
     Stone,
+    Bush
 }
 
 class ResourceSourceFactory : Singleton<ResourceSourceFactory>
@@ -16,6 +17,7 @@ class ResourceSourceFactory : Singleton<ResourceSourceFactory>
     public GameObject forest;
     public GameObject deadAnimal;
     public GameObject stone;
+    public GameObject bush;
     public GameObject ProduceResourceSource(int x, int y, RSObjects type, List<Resource> additionalResources=null)
     {
         GameObject Result = null;
@@ -36,6 +38,11 @@ class ResourceSourceFactory : Singleton<ResourceSourceFactory>
             case RSObjects.Stone:
             {
                 selectedPrefab = stone;
+                break;
+            }
+            case RSObjects.Bush:
+            {
+                selectedPrefab = bush;
                 break;
             }
             default:

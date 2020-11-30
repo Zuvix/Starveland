@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 9141504505225892636}
   - component: {fileID: 8841977509073851376}
   m_Layer: 0
-  m_Name: Carrot
+  m_Name: Carrot_field
   m_TagString: Forest
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -101,6 +101,10 @@ MonoBehaviour:
   objectName: Carrot
   tip: Healthy addition to diet.
   popup: {fileID: 7964957230971447603, guid: 950b028d3cbc148489079960954f13fc, type: 3}
+  IsBlocking: 0
+  IsSelectable: 1
+  Resources: []
+  ResourcePacks: []
 --- !u!61 &8841977509073851376
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -118,7 +122,7 @@ BoxCollider2D:
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 0.32, y: 0.32}
+    oldSize: {x: 1.28, y: 1.28}
     newSize: {x: 1.125, y: 1.125}
     adaptiveTilingThreshold: 0.5
     drawMode: 0

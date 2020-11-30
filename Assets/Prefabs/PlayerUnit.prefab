@@ -101,6 +101,8 @@ MonoBehaviour:
   objectName: Pipik
   tip: One of your precious humans.
   popup: {fileID: 7964957230971447603, guid: 950b028d3cbc148489079960954f13fc, type: 3}
+  IsBlocking: 1
+  IsSelectable: 1
   xScalingFactor: 1.5
   yScalingFactor: 1.5
   rotationFactor: 5
@@ -109,3 +111,10 @@ MonoBehaviour:
   rotationSpeed: 20
   ReceiveDamageIcon: {fileID: 9122268959118044443, guid: b81d09a574bb33a4ea1b7acc8221604e,
     type: 3}
+  CarriedResource:
+    itemInfo: {fileID: 0}
+    Amount: 0
+  Accuracy: 0
+  Dodge: 0
+  CritChance: 0
+  CritMultiplier: 0

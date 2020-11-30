@@ -142,8 +142,6 @@ public abstract class Unit : CellObject
 
     protected override void Awake()
     {
-        this.IsBlocking = true;
-        this.IsSelectable = true;
 
         //Debug.LogError("Unit instantiated");
         base.Awake();
