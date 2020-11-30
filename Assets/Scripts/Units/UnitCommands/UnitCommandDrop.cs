@@ -18,7 +18,6 @@ public class UnitCommandDrop : UnitCommand
 
     public override IEnumerator PerformAction(Unit Unit)
     {
-
         // TODO Animation here
         //Console.WriteLine("I'm dropping wood");
         yield return Unit.StartCoroutine(Unit.StoreResource(this.Target.GetCurrentCellObject(MapCell.BLOCKING).GetComponent<BuildingStorage>()));
