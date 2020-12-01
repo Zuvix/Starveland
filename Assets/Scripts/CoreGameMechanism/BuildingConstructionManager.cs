@@ -6,7 +6,6 @@ using UnityEngine;
 
 public class BuildingConstructionManager : Singleton<BuildingConstructionManager>
 {
-    
     private GameObject CurrentlySelectedBuilding = null;
 
     private GameObject CurrentBackground;
@@ -105,9 +104,6 @@ public class BuildingConstructionManager : Singleton<BuildingConstructionManager
                 CellToCreateBuildingOn.CurrentObject.CreatePopups(
                     BuildingToCreate.GetComponent<Building>().ConstructionCost.Select(res => (res.itemInfo.icon, -res.Amount)).ToList()
                 );
-                /*CellToCreateBuildingOn.CurrentObject.CreatePopups(
-                    BuildingToCreate.GetComponent<Building>().ConstructionCost.Select(res => (res.itemInfo.icon, res.Amount)).ToList()
-                );*/
             }
         }
     }

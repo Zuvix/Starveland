@@ -99,7 +99,13 @@ MonoBehaviour:
   flashTime: 0.2
   sr: {fileID: 0}
   objectName: Fireplace
-  tip: To be cook meat on and to warm yourself.
+  tip: To cook meat on and to warm yourself.
   popup: {fileID: 0}
   IsBlocking: 1
   IsSelectable: 1
+  IsPossibleToAddToActionQueue: 0
+  ConstructionCost:
+  - itemInfo: {fileID: 11400000, guid: 5722983080fed344796794c0aafe3131, type: 2}
+    Amount: 3
+  - itemInfo: {fileID: 11400000, guid: e8182eeb5a384d44bbdda801c49fcd0b, type: 2}
+    Amount: 1
