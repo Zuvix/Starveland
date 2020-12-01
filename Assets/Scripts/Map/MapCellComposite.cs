@@ -10,7 +10,7 @@ public class MapCellComposite : MapCell
     public Map InnerMap { get; }
     public MapCellComposite EntryPoint { get; private set; }
 
-    public MapCellComposite(Vector3 position, GameObject g, Map Map, int x, int y, Map InnerMap) : base(position, g, Map, x, y)
+    public MapCellComposite(Vector3 position, Map Map, int x, int y, Map InnerMap) : base(position, Map, x, y)
     {
         this.InnerMap = InnerMap;
         this.EntryPoint = null;

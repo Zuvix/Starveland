@@ -12,4 +12,8 @@ public class BuildingStorage : Building
         base.SetCurrentCell(Cell);
         MapControl.Instance.StorageList.Add(this.CurrentCell);
     }
+    public void OnDestroy()
+    {
+        MapControl.Instance.StorageList.Remove(this.CurrentCell);
+    }
 }

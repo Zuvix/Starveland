@@ -52,6 +52,14 @@ public abstract class Unit : CellObject
     public int CritChance;
     public int CritMultiplier;
 
+    public override bool EnterCell(MapCell MapCell)
+    {
+        return MapCell.SetUnit(this);
+    }
+    public override bool CanEnterCell(MapCell MapCell)
+    {
+        return MapCell.CanBeEnteredByUnit();
+    }
     public void SetCommand(UnitCommand Command)
     {
         this.CurrentCommand = Command;
@@ -148,7 +156,7 @@ public abstract class Unit : CellObject
         this.NextActivity = null;
         Unit.UnitPool.Add(this);
     }
-    protected override void Start()
+    protected virtual void Start()
     {
         this.MovementConflictManager = new UnitMovementConflictManager();
         this.ChangeActivity();
@@ -185,8 +193,8 @@ public abstract class Unit : CellObject
         //set cell to be used by unit, free the old cell
         MapCell PreviousCell = this.CurrentCell;
         //this.CurrentCell.SetCellObject(null);
-        this.CurrentCell.EraseCellObject(this);
-        TargetCell.SetCellObject(this.gameObject);
+        this.CurrentCell.EraseUnit();
+        TargetCell.SetUnit(this);
 
         //calculate distance and movement vector
         float distance;
@@ -309,10 +317,19 @@ public abstract class Unit : CellObject
         int y = this.CurrentCell.y;
         UnitManager.Instance.RemoveFromQueue(this);
         //this.CurrentCell.SetCellObject(null);
-        this.CurrentCell.EraseCellObject(this);
+        this.CurrentCell.EraseUnit();
         Destroy(this.gameObject);
 
         SpawnOnDeath(x, y);
+        ActionOnDeath();
+        Unit.UnitPool.Remove(this);
+    }
+    public void ForcedDie()
+    {
+        int x = this.CurrentCell.x;
+        int y = this.CurrentCell.y;
+        UnitManager.Instance.RemoveFromQueue(this);
+        Destroy(this.gameObject);
         ActionOnDeath();
         Unit.UnitPool.Remove(this);
     }

@@ -20,6 +20,8 @@ public class UnitAnimal : Unit
         this.BaseDamage = GameConfigManager.Instance.GameConfig.BaseDamageAnimal;
         this.WanderingRadius = GameConfigManager.Instance.GameConfig.WanderingRadius;
         base.Awake();
+
+        this.IsPossibleToAddToActionQueue = true;
     }
     protected override void Start()
     {
@@ -29,7 +31,10 @@ public class UnitAnimal : Unit
 
         base.Start();
     }
-
+    public override void AddToActionQueue()
+    {
+        AddToActionQueueSimple();
+    }
     public override void Flip(string side)
     {
         if (side.Equals("right"))
@@ -88,17 +93,5 @@ public class UnitAnimal : Unit
         }
         ResourceSourceFactory.Instance.ProduceResourceSource(x, y, RSObjects.DeadAnimal, drops);
     }
-
-    private void OnMouseOver()
-    {
-        if (GlobalGameState.Instance.InGameInputAllowed)
-        {
-            if (Input.GetMouseButtonDown(1))
-            {
-                UnitManager.Instance.AddActionToQueue(this);
-            }
-        }
-    }
-
 }
 

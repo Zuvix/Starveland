@@ -54,7 +54,7 @@ class ActivityStateGather : ActivityState
             else if (Unit.CurrentCommand == this.CommandDrop2Storage)
             {
                 // If target resource is depleted, there is no reason to move to it
-                ResourceSource TargetResourceSource = this.Target.GetCurrentResourceSource();
+                ResourceSource TargetResourceSource = (ResourceSource) this.Target.CurrentObject;
                 if (TargetResourceSource == null || (TargetResourceSource is ResourceSource && ((ResourceSource)TargetResourceSource).Resources[0].IsDepleted()))
                 {
                     Unit.SetActivity(new ActivityStateIdle());
@@ -126,7 +126,7 @@ class ActivityStateGather : ActivityState
     }
     public override void InitializeCommand(Unit Unit)
     {
-        ResourceSource TargetResourceSource = this.Target.GetCurrentResourceSource();
+        ResourceSource TargetResourceSource = (ResourceSource)this.Target.CurrentObject;
         if (
             Unit.CarriedResource.IsDepleted()
                 ||

@@ -70,7 +70,7 @@ public class MouseEvents : Singleton<MouseEvents>
     }
     public void HandleMouseClick()
     {
-        if(GlobalGameState.Instance.InGameInputAllowed)
+        if (GlobalGameState.Instance.InGameInputAllowed)
         {
             if (Input.GetMouseButtonDown(0))
             {
@@ -83,6 +83,17 @@ public class MouseEvents : Singleton<MouseEvents>
                     //GameObject mapValue = MapControl.Instance.map.GetValue(UtilsClass.GetMouseWorldPosition());
                     GameObject mapValue = GetSelectedGameObject(MousePosition);
                     selectedObject = mapValue;
+                }
+            }
+            else if (Input.GetMouseButtonDown(1))
+            {
+                Vector3 MousePosition = UtilsClass.GetMouseWorldPosition();
+                MapControl.Instance.map.GetXY(MousePosition, out int x, out int y);
+                bool IsInMap = MapControl.Instance.map.IsInBounds(x, y);
+                Debug.LogWarning($"Right-clicked {x}, {y}. It is in map: {IsInMap}");
+                if (IsInMap)
+                {
+                    MapControl.Instance.map.Grid[x][y].RespondToActionOrder();
                 }
             }
         }

@@ -46,7 +46,7 @@ public class Map {
             Grid.Add(new List<MapCell>());
             for (int y = 0; y < height; y++)
             {
-                Grid[x].Add(new MapCell(GetWorldPosition(x, y) + new Vector3(cellSize, cellSize) * .5f, null, this, x, y));
+                Grid[x].Add(new MapCell(GetWorldPosition(x, y) + new Vector3(cellSize, cellSize) * .5f, this, x, y));
                 if (debugLines)
                 {
                     Debug.DrawLine(GetWorldPosition(x, y), GetWorldPosition(x, y + 1), Color.white, 100f);
@@ -72,7 +72,11 @@ public class Map {
 
     public void SetValue(int x, int y, GameObject o) {
         if (x >= 0 && y >= 0 && x < width && y < height) {
-            Grid[x][y].SetCellObject(o);
+            if (!o.GetComponent<CellObject>().EnterCell(Grid[x][y]))
+            {
+                Debug.LogError($"Fatally failed when tried to put {o} to cell {x}, {y}. Cell cannot be entered");
+            }
+            //Grid[x][y].SetCellObject(o);
             if (OnGridValueChanged != null) OnGridValueChanged(this, new OnGridValueChangedEventArgs { x = x, y = y });
         }
     }
@@ -82,7 +86,7 @@ public class Map {
         GetXY(worldPosition, out x, out y);
         SetValue(x, y, o);
     }
-    public GameObject GetValue(int x, int y, bool Blocking) {
+    /*public GameObject GetValue(int x, int y, bool Blocking) {
         GameObject Result = null;
         if (IsInBounds(x, y)) {
             CellObject CellObject = Grid[x][y].GetCurrentCellObject(Blocking);
@@ -96,7 +100,7 @@ public class Map {
         int x, y;
         GetXY(worldPosition, out x, out y);
         return GetValue(x, y, Blocking);
-    }
+    }*/
 
     public void CenterObject(int x, int y,GameObject g)
     {

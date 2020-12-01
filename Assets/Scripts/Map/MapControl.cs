@@ -5,6 +5,8 @@ using CodeMonkey.Utils;
 
 public class MapControl : Singleton<MapControl> {
 
+    public GameObject GreenBackground;
+
     public Map map;
     public List<MapCell> StorageList;
 
@@ -51,7 +53,7 @@ public class MapControl : Singleton<MapControl> {
 
         List<(int, int)> GrassCoords = new List<(int, int)>(new (int, int)[]
         {
-            (3, 3), (3, 4), (3, 5), (3, 6), (4, 3), (4, 4), (4, 5), (4, 6), (5, 3), (5, 4), (5, 6),
+            (3, 3), (3, 4), (3, 5), (3, 6), (4, 3), (4, 4), (4, 5), (4, 6), (5, 3), (5, 4), (5, 6)
         });
         foreach ((int, int) Coord in GrassCoords)
         {
@@ -79,9 +81,9 @@ public class MapControl : Singleton<MapControl> {
     {
         if (map.IsInBounds(x,y))
         {
-            if (map.GetValue(x, y, toBeCreatedGO.GetComponent<CellObject>().IsBlocking) == null)
+            CellObject CellObjectComponent = toBeCreatedGO.GetComponent<CellObject>();
+            if (CellObjectComponent.CanEnterCell(map.Grid[x][y]))
             {
-                //Debug.LogError("GameObject is going to be instantiated in MapControl");
                 GameObject g = Instantiate(toBeCreatedGO);
                 //Debug.LogError("GameObject instantiated in MapControl");
                 map.CenterObject(x, y, g);
@@ -90,17 +92,17 @@ public class MapControl : Singleton<MapControl> {
             }
             else
             {
-                Debug.Log("Space x: " + x + " y: " + y + " is allready occupied!");
+                Debug.LogWarning("Space x: " + x + " y: " + y + " is already occupied!");
                 return null;
             }
         }
+        Debug.LogWarning($"Instantiation failed in MapControl");
         return null;
     }
 
     private GameObject CreateGameObject(Vector3 worldPosition, GameObject toBeCreatedGO)
     {
-        int x, y;
-        map.GetXY(worldPosition, out x, out y);
+        map.GetXY(worldPosition, out int x, out int y);
         return CreateGameObject(x, y, toBeCreatedGO);
     }
 }

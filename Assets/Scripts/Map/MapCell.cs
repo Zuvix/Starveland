@@ -5,147 +5,95 @@ using UnityEngine;
 
 public class MapCell
 {
-    public static bool BLOCKING = true;
-    public static bool NONBLOCKING = false;
+    public static readonly bool BLOCKING = true;
+    public static readonly bool NONBLOCKING = false;
     public int x { get; }
     public int y { get; }
-    private CellObject CurrentBlockingObject { get; set; } = null;
-    private CellObject CurrentNonblockingObject { get; set; } = null;
+    public CellObject CurrentObject { get; private set; } = null;
+    public Unit CurrentUnit { get; private set; } = null;
     public Map Map { get; }
 
     public Vector3 position;
-    public MapCell(Vector3 position, GameObject g, Map Map, int x, int y)
+    public MapCell(Vector3 position, Map Map, int x, int y)
     {
         this.position = position;
-        this.SetCellObject(g);
         this.Map = Map;
         this.x = x;
         this.y = y;
     }
-    public void SetCellObject(GameObject g)
-    {
-        if (g != null)
-        {
-            g.GetComponent<CellObject>().SetCurrentCell(this);
-            this.AddCellObjectToCell(g.GetComponent<CellObject>());
-        }
-    }
-    public void AddCellObjectToCell(CellObject CellObject)
-    {
-        if (CellObject.IsBlocking)
-        {
-            this.CurrentBlockingObject = CellObject;
-        }
-        else
-        {
-            this.CurrentNonblockingObject = CellObject;
-        }
-    }
-    public void EraseCellObjectBlocking()
-    {
-        this.CurrentBlockingObject = null;
-    }
-    public void EraseCellObjectNonblocking()
-    {
-        this.CurrentNonblockingObject = null;
-    }
-    public void EraseCellObject(CellObject CellObject)
-    {
-        if (CellObject == null)
-        {
-            return;
-        }
-
-        if (this.CurrentBlockingObject == CellObject)
-        {
-            this.CurrentBlockingObject = null;
-        }
-        else if (this.CurrentNonblockingObject == CellObject)
-        {
-            this.CurrentNonblockingObject = null;
-        }
-        else
-        {
-            throw new Exception("Tried to remove cellobject from mapcell when that cellobject wasn't there");
-        }
-    }
     public CellObject GetTopSelectableObject()
     {
         CellObject Result = null;
-        if (this.CurrentBlockingObject != null && this.CurrentBlockingObject.IsSelectable)
+        if (this.CurrentUnit != null)
         {
-            Result = CurrentBlockingObject;
+            Result = this.CurrentUnit;
         }
-        else if (this.CurrentNonblockingObject != null && this.CurrentNonblockingObject.IsSelectable)
+        else if (this.CurrentObject != null && this.CurrentObject.IsSelectable)
         {
-            Result = CurrentNonblockingObject;
-        }
-        return Result;
-    }
-    public CellObject GetCurrentCellObject(bool Blocking)
-    {
-        CellObject Result = null;
-        if (Blocking)
-        {
-            Result = this.CurrentBlockingObject;
-        }
-        else
-        {
-            Result = this.CurrentNonblockingObject;
+            Result = this.CurrentObject;
         }
         return Result;
     }
-    public ResourceSource GetCurrentResourceSource()
+    public bool SetCellObject(CellObject CellObject)
     {
-        ResourceSource Result = null;
-        if (this.CurrentBlockingObject is ResourceSource)
+        bool Success = CanBeEnteredByObject(CellObject.IsBlocking);
+        if (Success)
         {
-            Result = (ResourceSource)this.CurrentBlockingObject;
+            EraseCellObject();
+            CellObject.SetCurrentCell(this);
+            this.CurrentObject = CellObject;
         }
-        else if (this.CurrentNonblockingObject is ResourceSource)
-        {
-            Result = (ResourceSource)this.CurrentNonblockingObject;
-        }
-        return Result;
+        return Success;
     }
-    public bool CanBeEntered()
+    public bool SetUnit(Unit Unit)
     {
-        return this.CurrentBlockingObject == null;
+        bool Success = CanBeEnteredByUnit();
+        if (Success)
+        {
+            EraseUnit();
+            Unit.SetCurrentCell(this);
+            this.CurrentUnit = Unit;
+        }
+        return Success;
+    }
+    public void EraseCellObject()
+    {
+        if (this.CurrentObject != null)
+        {
+            CellObject.Destroy(this.CurrentObject.gameObject);
+        }
+        this.CurrentObject = null;
+    }
+    public void EraseUnit()
+    {
+        this.CurrentUnit = null;
+    }
+    public bool CanBeEnteredByObject(bool EnteringObjectIsBlocking)
+    {
+        return (this.CurrentObject == null && (this.CurrentUnit == null || !EnteringObjectIsBlocking)) || (this.CurrentObject!=null && !this.CurrentObject.IsBlocking && EnteringObjectIsBlocking && this.CurrentUnit==null);
+    }
+    public bool CanBeEnteredByUnit()
+    {
+        return this.CurrentUnit == null && (this.CurrentObject == null || !this.CurrentObject.IsBlocking);
+    }
+    public void RespondToActionOrder()
+    {
+        //Debug.LogWarning($"{this} ({x},{y})responds to right click. Current Unit is {this.CurrentUnit}, current Object is {this.CurrentObject}");
+
+        if (this.CurrentUnit != null && this.CurrentUnit.IsPossibleToAddToActionQueue)
+        {
+            //Debug.LogWarning($"{CurrentUnit} responds to right click");
+            CurrentUnit.AddToActionQueue();
+        }
+        else if (this.CurrentObject != null && this.CurrentObject.IsPossibleToAddToActionQueue)
+        {
+            //Debug.LogWarning($"{CurrentObject} responds to right click");
+            CurrentObject.AddToActionQueue();
+        }
+        //Debug.LogWarning($"No response to right click");
     }
     public virtual PathSearchNode ProducePathSearchNode(List<List<PathSearchNode>> Map)
     {
         return new PathSearchNode(this, Map);
-    }
-    public MapCell GetRandomNeighbour()
-    {
-        List<MapCell> Neighbours = GetNeighbours();
-        MapCell Result = null;
-        if (Neighbours.Count > 0)
-        {
-            Result = Neighbours[UnityEngine.Random.Range(0, Neighbours.Count)];
-        }
-        return Result;
-    }
-    public List<MapCell> GetNeighbours()
-    {
-        List<MapCell> Neighbours = new List<MapCell>();
-        if (this.x > 0)
-        {
-            Neighbours.Add(this.Map.Grid[this.x - 1][this.y]);
-        }
-        if (this.x < this.Map.Grid.Count - 1)
-        {
-            Neighbours.Add(this.Map.Grid[this.x + 1][this.y]);
-        }
-        if (this.y > 0)
-        {
-            Neighbours.Add(this.Map.Grid[this.x][this.y - 1]);
-        }
-        if (this.y < this.Map.Grid[0].Count - 1)
-        {
-            Neighbours.Add(this.Map.Grid[this.x][this.y + 1]);
-        }
-
-        return Neighbours;
     }
 }
