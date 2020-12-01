@@ -21,9 +21,7 @@ MonoBehaviour:
   StartingLevelOfSkills: 1
   MaximumLevelOfSkills: 10
   ExperienceToLevelUpForEachLevel: 0a0000000a0000000a0000000a0000000a0000000a0000000a0000000a0000000a0000000a000000
-  StartingCarryingCapacity: 2
   StartingGatheringTimeOfSkills: 1.5
-  StartingChanceToGetExtraResource: 5
   MaximumTalentsPerSkill: 3
   RecieveTalentLevels: 03000000060000000a000000
   ForagingExperiencePerAction: 10
@@ -37,7 +35,7 @@ MonoBehaviour:
     Effect: 1900000041000000
     Ultimate: 0
   - Name: Gatherer
-    Description: Gather extra food
+    Description: 'Gather extra food chance '
     icon: {fileID: 4732196898076125967, guid: ddf4a4e6ec245864fbfb72f96ebb7d3d, type: 3}
     Effect: 0f00000023000000
     Ultimate: 0
@@ -57,8 +55,8 @@ MonoBehaviour:
     Effect: 08000000
     Ultimate: 1
   - Name: Mother of Nature
-    Description: Spawn a foragable food
-    icon: {fileID: 0}
+    Description: Spawn a foragable food source after cutting down a tree
+    icon: {fileID: -2343689574573338329, guid: ddf4a4e6ec245864fbfb72f96ebb7d3d, type: 3}
     Effect: 
     Ultimate: 1
   MiningExperiencePerAction: 10
