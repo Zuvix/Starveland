@@ -23,7 +23,8 @@ public class UnitManager : Singleton<UnitManager>
             {"Forest", SkillType.Foraging },
             {"Animal", SkillType.Hunting },
             {"Animal_Dead", SkillType.Hunting },
-            {"Stone", SkillType.Mining }
+            {"Stone", SkillType.Mining },
+            {"Diamond", SkillType.Mining }
         };
     }
 

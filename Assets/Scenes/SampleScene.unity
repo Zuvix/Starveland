@@ -7101,6 +7101,12 @@ PrefabInstance:
         type: 3}
     - target: {fileID: 3275805233410246322, guid: ce26828ea09de184f839f032dbfb0368,
         type: 3}
+      propertyPath: diamond
+      value: 
+      objectReference: {fileID: 2283220006766421666, guid: 44d950dc99eb3c543b5a7d6026706cef,
+        type: 3}
+    - target: {fileID: 3275805233410246322, guid: ce26828ea09de184f839f032dbfb0368,
+        type: 3}
       propertyPath: sapling
       value: 
       objectReference: {fileID: 2283220006766421666, guid: 5d02c3b32c089034687246cb500a497e,

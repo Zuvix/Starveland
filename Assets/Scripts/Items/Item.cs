@@ -13,4 +13,5 @@ public class Item : ScriptableObject
     public string storageType;
     [StringInList("None", "Meat", "Foragable")]
     public string foodType;
+    public bool isHeavy;
 }

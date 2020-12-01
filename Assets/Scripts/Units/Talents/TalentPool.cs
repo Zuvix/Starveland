@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using System;
 using System.Text;
 using System.Threading.Tasks;
 using UnityEngine;
@@ -21,28 +22,47 @@ public class TalentPool : Singleton<TalentPool>
         foreach (int level in GameConfigManager.Instance.GameConfig.RecieveTalentLevels)
         {
             Talents[SkillType.Foraging].Add(level, new List<Talent>());
+            Talents[SkillType.Mining].Add(level, new List<Talent>());
+            Talents[SkillType.Hunting].Add(level, new List<Talent>());
 
             if (level != GameConfigManager.Instance.GameConfig.RecieveTalentLevels.Last())
             {
-                (string Name, string Description, int[] Effect, Sprite icon, bool Ultimate) = GameConfigManager.Instance.GameConfig.ForagingTalents[0].Unpack();
-                Talents[SkillType.Foraging][level].Add(new TalentWoodcuttingSpeed(Name, Description, Effect[i], icon, Ultimate));
+                // foraging talents
+                (string Name, string Description, List<EffectList> Effect, Sprite icon) = GameConfigManager.Instance.GameConfig.ForagingTalents[0].Unpack();
+                Talents[SkillType.Foraging][level].Add(new TalentWoodcuttingSpeed(Name, Description, Effect[i], icon));
 
-                (Name, Description, Effect, icon, Ultimate) = GameConfigManager.Instance.GameConfig.ForagingTalents[1].Unpack();
-                Talents[SkillType.Foraging][level].Add(new TalentExtraResource(Name, Description, Effect[i], icon, Ultimate));
+                (Name, Description, Effect, icon) = GameConfigManager.Instance.GameConfig.ForagingTalents[1].Unpack();
+                Talents[SkillType.Foraging][level].Add(new TalentExtraResource(Name, Description, Effect[i], icon));
 
-                (Name, Description, Effect, icon, Ultimate) = GameConfigManager.Instance.GameConfig.ForagingTalents[2].Unpack();
-                Talents[SkillType.Foraging][level].Add(new TalentExtraNutritionValue(Name, Description, Effect[i], icon, Ultimate));
+                (Name, Description, Effect, icon) = GameConfigManager.Instance.GameConfig.ForagingTalents[2].Unpack();
+                Talents[SkillType.Foraging][level].Add(new TalentExtraNutritionValue(Name, Description, Effect[i], icon));
 
-                (Name, Description, Effect, icon, Ultimate) = GameConfigManager.Instance.GameConfig.ForagingTalents[3].Unpack();
-                Talents[SkillType.Foraging][level].Add(new TalentSpawnSapling(Name, Description, Effect[i], icon, Ultimate));
+                (Name, Description, Effect, icon) = GameConfigManager.Instance.GameConfig.ForagingTalents[3].Unpack();
+                Talents[SkillType.Foraging][level].Add(new TalentSpawnSapling(Name, Description, Effect[i], icon));
+
+                // mining talents
+                (Name, Description, Effect, icon) = GameConfigManager.Instance.GameConfig.MiningTalents[0].Unpack();
+                Talents[SkillType.Mining][level].Add(new TalentGatheringBurst(Name, Description, Effect[i], icon));
+
+                (Name, Description, Effect, icon) = GameConfigManager.Instance.GameConfig.MiningTalents[1].Unpack();
+                Talents[SkillType.Mining][level].Add(new TalentRemoveSlownessAndAddInventorySize(Name, Description, Effect[i], icon));
+
+                (Name, Description, Effect, icon) = GameConfigManager.Instance.GameConfig.MiningTalents[2].Unpack();
+                Talents[SkillType.Mining][level].Add(new TalentGatherFromMultipleRS(Name, Description, Effect[i], icon));
+
             }
             else
             {
-                (string Name, string Description, int[] Effect, Sprite icon, bool Ultimate) = GameConfigManager.Instance.GameConfig.ForagingTalents[4].Unpack();
-                Talents[SkillType.Foraging][level].Add(new TalentInstantTreeHarvest(Name, Description, Effect[0], icon, Ultimate));
+                // foraging talents
+                (string Name, string Description, List<EffectList> Effect, Sprite icon) = GameConfigManager.Instance.GameConfig.ForagingTalents[4].Unpack();
+                Talents[SkillType.Foraging][level].Add(new TalentInstantTreeHarvest(Name, Description, Effect[0], icon));
 
-                (Name, Description, Effect, icon, Ultimate) = GameConfigManager.Instance.GameConfig.ForagingTalents[5].Unpack();
-                Talents[SkillType.Foraging][level].Add(new TalentSpawnForagableFoodSource(Name, Description, icon, Ultimate));
+                (Name, Description, Effect, icon) = GameConfigManager.Instance.GameConfig.ForagingTalents[5].Unpack();
+                Talents[SkillType.Foraging][level].Add(new TalentSpawnForagableFoodSource(Name, Description, icon));
+
+                //mining talents
+                (Name, Description, Effect, icon) = GameConfigManager.Instance.GameConfig.MiningTalents[3].Unpack();
+                Talents[SkillType.Mining][level].Add(new TalentArcheologist(Name, Description, icon));
             }
             i++;
         }
@@ -94,7 +114,7 @@ public class TalentPool : Singleton<TalentPool>
         Talent ChoosenTalent = null;
         if (TalentsFree.Count() > 0)
         {
-            ChoosenTalent = TalentsFree.ElementAt(Random.Range(0, TalentsFree.Count()));
+            ChoosenTalent = TalentsFree.ElementAt(UnityEngine.Random.Range(0, TalentsFree.Count()));
         }
 
         return ChoosenTalent;

@@ -7,7 +7,7 @@ using UnityEngine;
 
 public class TalentSpawnForagableFoodSource : Talent
 {
-    public TalentSpawnForagableFoodSource(string Name, string Description, Sprite icon, bool Ultimate) : base(Name, Description, icon, Ultimate)
+    public TalentSpawnForagableFoodSource(string Name, string Description, Sprite icon) : base(Name, Description, icon)
     {
     }
 
@@ -39,7 +39,7 @@ public class TalentSpawnForagableFoodSource : Talent
 
     public override Talent CreateNewInstanceOfSelf()
     {
-        return new TalentSpawnForagableFoodSource(this.Name, this.Description, this.icon, this.Ultimate);
+        return new TalentSpawnForagableFoodSource(this.Name, this.Description, this.icon);
     }
 
     public override string Display()

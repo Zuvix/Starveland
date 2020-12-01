@@ -10,10 +10,10 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 4ffc9427acd4e3e4a8fb7a6dc3cb2154, type: 3}
-  m_Name: Salt
+  m_Name: Diamond
   m_EditorClassIdentifier: 
   type: Resource
-  icon: {fileID: 6648271968111219876, guid: ddf4a4e6ec245864fbfb72f96ebb7d3d, type: 3}
+  icon: {fileID: 6269827325663120309, guid: ddf4a4e6ec245864fbfb72f96ebb7d3d, type: 3}
   NutritionValue: 0
   storageType: Raw
   foodType: None

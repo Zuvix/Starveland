@@ -1,22 +1,18 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using UnityEngine;
 
 public class TalentSpawnSapling : Talent
 {
-    public TalentSpawnSapling(string Name, string Description, int SaplingSpawnChance, Sprite icon, bool Ultimate) : base(Name, Description, icon, Ultimate)
+    public TalentSpawnSapling(string Name, string Description, EffectList Effects, Sprite icon) : base(Name, Description, icon)
     {
-        this.Effect = SaplingSpawnChance;
+        this.TalentEffects = Effects;
     }
 
     public override bool Apply(Unit Unit, Skill Skill)
     {
         if (Skill is SkillForaging)
         {
-            ((SkillForaging)(Skill)).ChanceToSpawnSapling += this.Effect;
+            ((SkillForaging)(Skill)).ChanceToSpawnSapling += this.TalentEffects.Effects[0].effectValue;
             return true;
         }
         else
@@ -30,7 +26,7 @@ public class TalentSpawnSapling : Talent
     {
         if (Skill is SkillForaging)
         {
-            ((SkillForaging)(Skill)).ChanceToSpawnSapling -= this.Effect;
+            ((SkillForaging)(Skill)).ChanceToSpawnSapling -= this.TalentEffects.Effects[0].effectValue;
             return true;
         }
         else
@@ -41,7 +37,12 @@ public class TalentSpawnSapling : Talent
 
     public override Talent CreateNewInstanceOfSelf()
     {
-        return new TalentSpawnSapling(this.Name, this.Description, this.Effect, this.icon, this.Ultimate);
+        return new TalentSpawnSapling(this.Name, this.Description, this.TalentEffects, this.icon);
+    }
+
+    public override string Display()
+    {
+        return $"{this.Description} {this.TalentEffects.Effects[0].effectValue}%";
     }
 }
 

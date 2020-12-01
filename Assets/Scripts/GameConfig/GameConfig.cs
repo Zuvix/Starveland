@@ -35,8 +35,6 @@ public class GameConfig : ScriptableObject
     public int MaximumLevelOfSkills = 10;
     public int[] ExperienceToLevelUpForEachLevel = { 50, 100, 150, 200, 250, 300, 350, 400, 450, 500 };
     [Min(0)]
-    public float StartingGatheringTimeOfSkills = 1.5f;
-    [Min(0)]
     public int MaximumTalentsPerSkill = 3;
     [Tooltip("Defines levels at which unit recieves new talent. Ultimate talent is always recieved on the last level.")]
     public int[] RecieveTalentLevels = { 3, 6, 10 };
@@ -53,7 +51,13 @@ public class GameConfig : ScriptableObject
     [Header("Mining skill")]
     [Min(0)]
     public int MiningExperiencePerAction = 10;
+    [Min(0)]
+    public float MiningGatheringTime = 3.0f;
+    [Min(0)]
+    public int BasicDiamondUnderRockChance = 25;
+    public int MovementSpeedWhileCarryingRock = -50;
     public Sprite MiningIcon;
+    public List<TalentSerializable> MiningTalents;
 
     [Header("Hunting skill")]
     [Min(0)]

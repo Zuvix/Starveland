@@ -1,15 +1,11 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using UnityEngine;
 
 public class TalentInstantTreeHarvest : Talent
 {
-    public TalentInstantTreeHarvest(string Name, string Description, int WoodcuttingSpeedSlow, Sprite icon, bool Ultimate) : base(Name, Description, icon, Ultimate)
+    public TalentInstantTreeHarvest(string Name, string Description, EffectList Effects, Sprite icon) : base(Name, Description, icon)
     {
-        this.Effect = WoodcuttingSpeedSlow;
+        this.TalentEffects = Effects;
     }
 
     public override bool Apply(Unit Unit, Skill Skill)
@@ -17,7 +13,7 @@ public class TalentInstantTreeHarvest : Talent
         if (Skill is SkillForaging)
         {
             ((SkillForaging)Skill).CriticalHarvestActive = true;
-            ((SkillForaging)Skill).WoodcuttingTime *= (float)this.Effect;
+            ((SkillForaging)Skill).WoodcuttingTime *= (float)this.TalentEffects.Effects[0].effectValue;
             return true;
         }
         else
@@ -31,7 +27,7 @@ public class TalentInstantTreeHarvest : Talent
         if (Skill is SkillForaging)
         {
             ((SkillForaging)Skill).CriticalHarvestActive = false;
-            ((SkillForaging)Skill).WoodcuttingTime /= (float)this.Effect;
+            ((SkillForaging)Skill).WoodcuttingTime /= (float)this.TalentEffects.Effects[0].effectValue;
             return true;
         }
         else
@@ -42,11 +38,11 @@ public class TalentInstantTreeHarvest : Talent
 
     public override Talent CreateNewInstanceOfSelf()
     {
-        return new TalentInstantTreeHarvest(this.Name, this.Description, this.Effect, this.icon, this.Ultimate);
+        return new TalentInstantTreeHarvest(this.Name, this.Description, this.TalentEffects, this.icon);
     }
 
     public override string Display()
     {
-        return $"{this.Description} {this.Effect}x";
+        return $"{this.Description} {this.TalentEffects.Effects[0].effectValue}x";
     }
 }

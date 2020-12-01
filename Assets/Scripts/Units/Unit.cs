@@ -185,7 +185,7 @@ public abstract class Unit : CellObject
             yield return new WaitForFixedUpdate();
         }
     }
-    public virtual IEnumerator MoveUnitToNextPosition(MapCell TargetCell)
+    public virtual IEnumerator MoveUnitToNextPosition(MapCell TargetCell, float MovementSpeed)
     {
         this.CurrentAction = "Moving";
         animateMovement = true;
@@ -251,7 +251,8 @@ public abstract class Unit : CellObject
             
         }
 
-        yield return new WaitForSeconds(0.2f);
+        //yield return new WaitForSeconds(0.2f);
+        yield return new WaitForFixedUpdate();
         /* }
          else
          {

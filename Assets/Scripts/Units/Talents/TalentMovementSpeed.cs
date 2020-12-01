@@ -1,32 +1,31 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using UnityEngine;
+﻿using UnityEngine;
 
 public class TalentMovementSpeed : Talent
 {
-    public TalentMovementSpeed(string Name, string Description, int MovementSpeed, Sprite icon, bool Ultimate) : base(Name, Description, icon, Ultimate)
+    public TalentMovementSpeed(string Name, string Description, EffectList Effects, Sprite icon) : base(Name, Description, icon)
     {
-        this.Effect = MovementSpeed;
+        this.TalentEffects = Effects;
     }
 
     public override bool Apply(Unit Unit, Skill Skill)
     {
-        Unit.MovementSpeed *= Mathf.RoundToInt((((float)this.Effect / 100f) + 1f));
+        Unit.MovementSpeed *= Mathf.RoundToInt((((float)this.TalentEffects.Effects[0].effectValue / 100f) + 1f));
         return true;
     }
 
     public override bool Remove(Unit Unit, Skill Skill)
     {
-        Unit.MovementSpeed /= Mathf.RoundToInt((((float)this.Effect / 100f) + 1f));
+        Unit.MovementSpeed /= Mathf.RoundToInt((((float)this.TalentEffects.Effects[0].effectValue / 100f) + 1f));
         return true;
     }
 
     public override Talent CreateNewInstanceOfSelf()
     {
-        return new TalentMovementSpeed(this.Name, this.Description, this.Effect, this.icon, this.Ultimate);
+        return new TalentMovementSpeed(this.Name, this.Description, this.TalentEffects, this.icon);
     }
 
+    public override string Display()
+    {
+        return $"{this.Description} {this.TalentEffects.Effects[0].effectValue}%";
+    }
 }

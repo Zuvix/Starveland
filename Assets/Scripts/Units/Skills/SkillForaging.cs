@@ -24,22 +24,6 @@ public class SkillForaging : Skill
         this.MotherOfNatureActive = false;
     }
 
-    protected override bool LevelUp(Unit Unit)
-    {
-        this.Level++;
-        Unit.CreatePopup(this.icon, $"Level Up!");
-        Talent NewTalent = TalentPool.Instance.RecieveNewTalent(this.AppliedTalents, this.Level, this.type);
-        if (NewTalent != null)
-        {
-            NewTalent.Apply(Unit, this);
-            this.AppliedTalents.Add(NewTalent);
-            Debug.Log("Getting new talent: " + NewTalent.Description);
-            //Unit.CreatePopup(NewTalent.icon, $"New talent {NewTalent.Name}");
-        }
-
-        return true; 
-    }
-
     public override bool DoAction(Unit Unit, ResourceSource Target, out Resource Resource)
     {
         if (Target == null)
@@ -55,7 +39,7 @@ public class SkillForaging : Skill
         int y = Target.CurrentCell.y;
 
         // Critical harvest talent
-        if (CriticalHarvestActive && Target.Resources[0].itemInfo.type.Equals("Resource"))
+        if (CriticalHarvestActive && isResource)
         {
             Resource = Target.GatherResource(Target.Resources[0].Amount, out isDepleted);
         }

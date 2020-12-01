@@ -1,21 +1,17 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using UnityEngine;
 
 public class TalentWoodcuttingSpeed : Talent
 {
-    public TalentWoodcuttingSpeed(string Name, string Description, int WoodcuttingSpeed, Sprite icon, bool Ultimate) : base(Name, Description, icon, Ultimate)
+    public TalentWoodcuttingSpeed(string Name, string Description, EffectList Effects, Sprite icon) : base(Name, Description, icon)
     {
-        if (WoodcuttingSpeed <= 100)
+        if (Effects.Effects[0].effectValue <= 100)
         {
-            this.Effect = WoodcuttingSpeed;
+            this.TalentEffects = Effects;
         }
         else
         {
-            this.Effect = 100;
+            this.TalentEffects.Effects[0].effectValue = 100;
         }
     }
 
@@ -23,7 +19,7 @@ public class TalentWoodcuttingSpeed : Talent
     {
         if (Skill is SkillForaging)
         {
-            ((SkillForaging)Skill).WoodcuttingTime *= ((100f - (float)this.Effect) / 100f);
+            ((SkillForaging)Skill).WoodcuttingTime *= ((100f - (float)this.TalentEffects.Effects[0].effectValue) / 100f);
             return true;
         }
         else
@@ -36,7 +32,7 @@ public class TalentWoodcuttingSpeed : Talent
     {
         if (Skill is SkillForaging)
         {
-            ((SkillForaging)Skill).WoodcuttingTime /= ((100f - (float)this.Effect) / 100f);
+            ((SkillForaging)Skill).WoodcuttingTime /= ((100f - (float)this.TalentEffects.Effects[0].effectValue) / 100f);
             return true;
         }
         else
@@ -47,6 +43,11 @@ public class TalentWoodcuttingSpeed : Talent
 
     public override Talent CreateNewInstanceOfSelf()
     {
-        return new TalentWoodcuttingSpeed(this.Name, this.Description, this.Effect, this.icon, this.Ultimate);
+        return new TalentWoodcuttingSpeed(this.Name, this.Description, this.TalentEffects, this.icon);
+    }
+
+    public override string Display()
+    {
+        return $"{this.Description} {this.TalentEffects.Effects[0].effectValue}%";
     }
 }

@@ -1,33 +1,33 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using UnityEngine;
+﻿using UnityEngine;
 
 public class TalentExtraResource : Talent
 {
-    public TalentExtraResource(string Name, string Description, int ExtraResourceChance, Sprite icon, bool Ultimate) : base(Name, Description, icon, Ultimate)
+    public TalentExtraResource(string Name, string Description, EffectList Effects, Sprite icon) : base(Name, Description, icon)
     {
-        this.Effect = ExtraResourceChance;
+        this.TalentEffects = Effects;
     }
 
     public override bool Apply(Unit Unit, Skill Skill)
     {
-        Skill.ChanceToGetExtraResource += this.Effect;
+        Skill.ChanceToGetExtraResource += this.TalentEffects.Effects[0].effectValue;
         return true;
     }
 
 
     public override bool Remove(Unit Unit, Skill Skill)
     {
-        Skill.ChanceToGetExtraResource -= this.Effect;
+        Skill.ChanceToGetExtraResource -= this.TalentEffects.Effects[0].effectValue;
         return true;
     }
 
     public override Talent CreateNewInstanceOfSelf()
     {
-        return new TalentExtraResource(this.Name, this.Description, this.Effect, this.icon, this.Ultimate);
+        return new TalentExtraResource(this.Name, this.Description, this.TalentEffects, this.icon);
+    }
+
+    public override string Display()
+    {
+        return $"{this.Description} {this.TalentEffects.Effects[0].effectValue}%";
     }
 }
 

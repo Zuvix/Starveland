@@ -17,6 +17,7 @@ public abstract class Skill
     public Sprite icon;
     public bool Allowed { get; private set; }
     public SkillType type;
+    public int MovementSpeedModifier;
 
     public float GatheringTime;
 
@@ -25,12 +26,12 @@ public abstract class Skill
         this.CurrentExperience = 0;
         this.Level = GameConfigManager.Instance.GameConfig.StartingLevelOfSkills;
         this.ExperienceToLevelUpForEachLevel = GameConfigManager.Instance.GameConfig.ExperienceToLevelUpForEachLevel;
-        this.GatheringTime = GameConfigManager.Instance.GameConfig.StartingGatheringTimeOfSkills;
         this.AppliedTalents = new List<Talent>();
         this.Allowed = true;
         this.ChanceToGetExtraResource = 0;
         this.ExtraNutritionValue = 0;
         this.type = SkillType.none;
+        this.MovementSpeedModifier = 0;
     }
 
     protected bool AddExperience(int Amount, Unit Unit)
@@ -49,13 +50,31 @@ public abstract class Skill
         return false;
     }
 
+    protected virtual bool LevelUp(Unit Unit)
+    {
+        this.Level++;
+        Talent NewTalent = TalentPool.Instance.RecieveNewTalent(this.AppliedTalents, this.Level, this.type);
+        if (NewTalent != null)
+        {
+            NewTalent.Apply(Unit, this);
+            this.AppliedTalents.Add(NewTalent);
+            Debug.Log("Getting new talent: " + NewTalent.Description);
+            //Unit.CreatePopup(NewTalent.icon, $"New talent {NewTalent.Name}");
+            Unit.CreatePopup(this.icon, $"Level Up! New Talent!");
+        }
+        else
+        {
+            Unit.CreatePopup(this.icon, $"Level Up!");
+        }
+        return true;
+    }
+
     public void SetAllowed(bool value)
     {
         this.Allowed = value;
         UnitManager.Instance.ActionSchedulingLoop();
     }
 
-    protected abstract bool LevelUp(Unit Unit);
     public virtual bool DoAction(Unit Unit, ResourceSource Target, out Resource Resource)
     {
         if (Target == null)
@@ -69,6 +88,7 @@ public abstract class Skill
         this.AddExperience(this.ExperiencePerAction, Unit);
         return true;
     }
+
     public virtual bool DoAction(Unit Unit, Unit TargetUnit)
     {
         return false;
@@ -82,6 +102,11 @@ public abstract class Skill
     public virtual float GetGatheringSpeed(ResourceSource resourceSource)
     {
         return this.GatheringTime;
+    }
+
+    public virtual int GetMovementSpeedModifier(UnitPlayer Unit)
+    {
+        return 0;
     }
 
 }
