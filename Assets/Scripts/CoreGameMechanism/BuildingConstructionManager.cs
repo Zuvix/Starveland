@@ -1,6 +1,7 @@
 ﻿using CodeMonkey.Utils;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 public class BuildingConstructionManager : Singleton<BuildingConstructionManager>
@@ -20,22 +21,12 @@ public class BuildingConstructionManager : Singleton<BuildingConstructionManager
     // Update is called once per frame
     void Update()
     {
-        Debug.Log("A building is selected");
         if (Input.GetMouseButtonDown(0))
         {
-            if (LastCellHasBuildingMock)
-            {
-                MapCell CellToCreateBuildingOn = LastCellPointedOn;
-                GameObject BuildingToCreate = CurrentlySelectedBuilding;
-
-                DeselectBuilding();
-
-                MapControl.Instance.CreateGameObject(CellToCreateBuildingOn.x, CellToCreateBuildingOn.y, BuildingToCreate);
-            }
+            PlaceBuilding();
         }
         else if (Input.GetMouseButtonDown(1))
         {
-            Debug.Log("The building has been deselected");
             DeselectBuilding();
         }
         else
@@ -96,6 +87,28 @@ public class BuildingConstructionManager : Singleton<BuildingConstructionManager
 
             Destroy(CurrentBackground);
             CurrentBackground = null;
+        }
+    }
+    private void PlaceBuilding()
+    {
+        if (LastCellHasBuildingMock)
+        {
+            MapCell CellToCreateBuildingOn = LastCellPointedOn;
+            GameObject BuildingToCreate = CurrentlySelectedBuilding;
+
+            DeselectBuilding();
+
+            if (GlobalInventory.Instance.RemoveItems(BuildingToCreate.GetComponent<Building>().ConstructionCost))
+            {
+                MapControl.Instance.CreateGameObject(CellToCreateBuildingOn.x, CellToCreateBuildingOn.y, BuildingToCreate);
+
+                CellToCreateBuildingOn.CurrentObject.CreatePopups(
+                    BuildingToCreate.GetComponent<Building>().ConstructionCost.Select(res => (res.itemInfo.icon, -res.Amount)).ToList()
+                );
+                /*CellToCreateBuildingOn.CurrentObject.CreatePopups(
+                    BuildingToCreate.GetComponent<Building>().ConstructionCost.Select(res => (res.itemInfo.icon, res.Amount)).ToList()
+                );*/
+            }
         }
     }
 }

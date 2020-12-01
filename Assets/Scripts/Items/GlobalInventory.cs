@@ -75,6 +75,31 @@ public class GlobalInventory : Singleton<GlobalInventory>
 
         return false;
     }
+    public bool RemoveItems(List<Resource> Items)
+    {
+        bool Success = true;
+        List<Resource> BackedUpResources = new List<Resource>();
+
+        foreach (Resource Resource in Items)
+        {
+            Success &= RemoveItem(Resource);
+            if (!Success)
+            {
+                break;
+            }
+            BackedUpResources.Add(Resource);
+        }
+
+        if (!Success)
+        {
+            foreach (Resource Resource in BackedUpResources)
+            {
+                AddItem(Resource);
+            }
+        }
+
+        return Success;
+    }
     public List<Resource> AvailableFood()
     {
         List<Resource> Result = new List<Resource>();
