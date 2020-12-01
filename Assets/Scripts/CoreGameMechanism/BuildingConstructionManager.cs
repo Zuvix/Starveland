@@ -47,10 +47,16 @@ public class BuildingConstructionManager : Singleton<BuildingConstructionManager
             bool IsInMap = MapControl.Instance.map.IsInBounds(x, y);
             if (IsInMap)
             {
+                if (LastCellPointedOn != null)
+                {
+                    LastCellPointedOn.RestoreCellObject();
+                }
                 LastCellPointedOn = MapControl.Instance.map.Grid[x][y];
 
                 if (LastCellPointedOn.CanBeEnteredByObject(CurrentlySelectedBuilding.GetComponent<Building>().IsBlocking))
                 {
+                    LastCellPointedOn.BackupCellObject();
+
                     //Debug.LogError(MapControl.Instance.GreenBackground);
                     CurrentBackground = Instantiate(MapControl.Instance.GreenBackground);
                     MapControl.Instance.map.CenterObject(x, y, CurrentBackground);
@@ -72,6 +78,7 @@ public class BuildingConstructionManager : Singleton<BuildingConstructionManager
 
         CurrentlySelectedBuilding = null;
         BuildingMock = null;
+        LastCellPointedOn.RestoreCellObject();
         LastCellPointedOn = null;
         LastCellHasBuildingMock = false;
 
