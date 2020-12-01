@@ -47,6 +47,10 @@ public class CellObject : MonoBehaviour
     {
         UnitManager.Instance.AddActionToQueue(this);
     }
+    public virtual ActivityState CreateActivityState()
+    {
+        return null;
+    }
     public virtual void Flip(string side)
     {
         if (side.Equals("right"))

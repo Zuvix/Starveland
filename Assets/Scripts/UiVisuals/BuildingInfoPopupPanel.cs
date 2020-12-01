@@ -20,7 +20,7 @@ public class BuildingInfoPopupPanel : MonoBehaviour
     public void Display(Building Building)
     {
 
-        BuildingNameLabel.text = Building.name;
+        BuildingNameLabel.text = Building.objectName;
         BuildingDescriptionLabel.text = Building.tip;
         CurrentBuilding = Building;
         DisplayResourcePanels();

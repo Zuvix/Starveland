@@ -16,6 +16,10 @@ public class ResourceSource : CellObject
     {
         AddToActionQueueSimple();
     }
+    public override ActivityState CreateActivityState()
+    {
+        return new ActivityStateGather(this.CurrentCell);
+    }
     public Resource GatherResource(int amount)
     {
         Resource Result = this.Resources[0].Subtract(amount);

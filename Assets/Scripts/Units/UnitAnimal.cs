@@ -35,6 +35,10 @@ public class UnitAnimal : Unit
     {
         AddToActionQueueSimple();
     }
+    public override ActivityState CreateActivityState()
+    {
+        return new ActivityStateHunt(this);
+    }
     public override void Flip(string side)
     {
         if (side.Equals("right"))
