@@ -15,7 +15,7 @@ class ActivityStateGather : ActivityState
     public ActivityStateGather(MapCell Target) : base()
     {
         this.Target = Target;
-        this.originalResourceSource = Target.GetCurrentResourceSource();
+        this.originalResourceSource = (ResourceSource)this.Target.CurrentObject;
     }
 
     public override ActivityState SetCommands(Unit Unit, Skill Skill)
@@ -38,7 +38,7 @@ class ActivityStateGather : ActivityState
             // If Unit arrived next to resource, let's command it to gather
             if (Unit.CurrentCommand == this.CommandMove2Resource)
             {
-                if (this.Target.GetCurrentResourceSource() == this.originalResourceSource)
+                if ((ResourceSource)this.Target.CurrentObject == this.originalResourceSource)
                 {
                     Unit.SetCommand(this.CommandGatherFromResource);
                 }

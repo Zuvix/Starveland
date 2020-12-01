@@ -96,4 +96,27 @@ public class MapCell
     {
         return new PathSearchNode(this, Map);
     }
+
+    public List<MapCell> GetNeighbours()
+    {
+        List<MapCell> Neighbours = new List<MapCell>();
+        if (this.x > 0)
+        {
+            Neighbours.Add(this.Map.Grid[this.x - 1][this.y]);
+        }
+        if (this.x < this.Map.Grid.Count - 1)
+        {
+            Neighbours.Add(this.Map.Grid[this.x + 1][this.y]);
+        }
+        if (this.y > 0)
+        {
+            Neighbours.Add(this.Map.Grid[this.x][this.y - 1]);
+        }
+        if (this.y < this.Map.Grid[0].Count - 1)
+        {
+            Neighbours.Add(this.Map.Grid[this.x][this.y + 1]);
+        }
+
+        return Neighbours;
+    }
 }

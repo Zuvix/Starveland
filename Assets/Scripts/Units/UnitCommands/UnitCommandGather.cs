@@ -17,7 +17,7 @@ public class UnitCommandGather : UnitCommand
     public override bool IsDone(Unit Unit)
     {
         //return Unit.CarriedResource.Amount >= Unit.CarryingCapacity;
-        if (Target.GetCurrentResourceSource() != this.originalCellObject || Unit.InventoryFull())
+        if ((ResourceSource)this.Target.CurrentObject != this.originalCellObject || Unit.InventoryFull())
         {
             return true;
         }

@@ -24,8 +24,7 @@ public class Sapling : MonoBehaviour
         {
             int x = co.CurrentCell.x;
             int y = co.CurrentCell.y;
-            co.CurrentCell.EraseCellObject(co);
-            Destroy(co.gameObject);
+            co.CurrentCell.EraseCellObject();
             ResourceSourceFactory.Instance.ProduceResourceSource(x, y, RSObjects.Forest);
         }
     }
