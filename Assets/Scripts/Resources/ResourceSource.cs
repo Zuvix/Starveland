@@ -20,7 +20,7 @@ public class ResourceSource : CellObject
             Debug.Log("Destroying Resource Source");
             UnitManager.Instance.RemoveFromQueue(this);
             //this.CurrentCell.SetCellObject(null);
-            this.CurrentCell.EraseCellObject(this);
+            this.CurrentCell.EraseCellObject();
             Destroy(this.gameObject);
         }
         if (Result == null)

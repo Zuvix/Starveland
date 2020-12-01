@@ -75,7 +75,7 @@ public class PathFinding : Singleton<PathFinding>
                     {
                         continue;
                     }
-                    if (!Neighbour.WrappedCell.CanBeEntered() && Neighbour != StartFinishWrapper.FinishWrapper)
+                    if (!Neighbour.WrappedCell.CanBeEnteredByUnit() && Neighbour != StartFinishWrapper.FinishWrapper)
                     {
                         ListAlreadySearched.Add(Neighbour);
                         continue;

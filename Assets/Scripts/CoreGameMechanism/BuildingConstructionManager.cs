@@ -49,8 +49,7 @@ public class BuildingConstructionManager : Singleton<BuildingConstructionManager
             {
                 LastCellPointedOn = MapControl.Instance.map.Grid[x][y];
 
-                CellObject CurrentCellObject = LastCellPointedOn.GetCurrentCellObject(CurrentlySelectedBuilding.GetComponent<Building>().IsBlocking);
-                if (CurrentCellObject == null)
+                if (LastCellPointedOn.CanBeEnteredByObject(CurrentlySelectedBuilding.GetComponent<Building>().IsBlocking))
                 {
                     //Debug.LogError(MapControl.Instance.GreenBackground);
                     CurrentBackground = Instantiate(MapControl.Instance.GreenBackground);
@@ -83,7 +82,7 @@ public class BuildingConstructionManager : Singleton<BuildingConstructionManager
     {
         if (LastCellPointedOn != null && LastCellHasBuildingMock)
         {
-            LastCellPointedOn.EraseCellObject(BuildingMock.GetComponent<Building>());
+            LastCellPointedOn.EraseCellObject();
             Destroy(BuildingMock);
             BuildingMock = null;
             LastCellHasBuildingMock = false;

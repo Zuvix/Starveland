@@ -29,20 +29,18 @@ public class CellObject : MonoBehaviour
         basicRotation = transform.rotation;
         originalColor = sr.color;
     }
-
-    virtual protected void Start()
+    public virtual bool EnterCell(MapCell MapCell)
     {
+        return MapCell.SetCellObject(this);
     }
-    // Update is called once per frame
-    virtual protected void Update()
+    public virtual bool CanEnterCell(MapCell MapCell)
     {
-        
+        return MapCell.CanBeEnteredByObject(this.IsBlocking);
     }
     public virtual void SetCurrentCell(MapCell Cell)
     {
         this.CurrentCell = Cell;
     }
-
     public virtual void Flip(string side)
     {
         if (side.Equals("right"))

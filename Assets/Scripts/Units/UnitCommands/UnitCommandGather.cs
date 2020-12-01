@@ -28,9 +28,9 @@ public class UnitCommandGather : UnitCommand
         // TODO Animation might be here
 
         //Console.WriteLine("I'm cutting wood {0}/{1}", Unit.CarriedResource.Amount, Skill.CarryingCapacity);
-        yield return Unit.StartCoroutine(Unit.GatherResource(this.Target.GetCurrentResourceSource(), Skill.GatheringTime));
+        yield return Unit.StartCoroutine(Unit.GatherResource((ResourceSource)this.Target.CurrentObject, Skill.GatheringTime));
 
-        ResourceSource TargetResourceSource = Target.GetCurrentResourceSource();
+        ResourceSource TargetResourceSource = (ResourceSource)this.Target.CurrentObject;
         if (TargetResourceSource != null)
         {
             Resource GatheredResource;
@@ -41,7 +41,7 @@ public class UnitCommandGather : UnitCommand
     public override bool CanBePerformed(Unit Unit)
     {
         bool Result = false;
-        ResourceSource TargetResourceSource = Target.GetCurrentResourceSource();
+        ResourceSource TargetResourceSource = (ResourceSource)this.Target.CurrentObject;
         if (TargetResourceSource == null)
         {
             Result = false;

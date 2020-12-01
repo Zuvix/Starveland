@@ -81,7 +81,8 @@ public class MapControl : Singleton<MapControl> {
     {
         if (map.IsInBounds(x,y))
         {
-            if (map.GetValue(x, y, toBeCreatedGO.GetComponent<CellObject>().IsBlocking) == null)
+            CellObject CellObjectComponent = toBeCreatedGO.GetComponent<CellObject>();
+            if (CellObjectComponent.CanEnterCell(map.Grid[x][y]))
             {
                 GameObject g = Instantiate(toBeCreatedGO);
                 //Debug.LogError("GameObject instantiated in MapControl");
@@ -101,8 +102,7 @@ public class MapControl : Singleton<MapControl> {
 
     private GameObject CreateGameObject(Vector3 worldPosition, GameObject toBeCreatedGO)
     {
-        int x, y;
-        map.GetXY(worldPosition, out x, out y);
+        map.GetXY(worldPosition, out int x, out int y);
         return CreateGameObject(x, y, toBeCreatedGO);
     }
 }
