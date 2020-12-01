@@ -73,7 +73,7 @@ public class SkillUI : MonoBehaviour, IPointerClickHandler
             }
 
             // show every talent of the selected unit
-            foreach (var talent in Unit.Skills[skillType].SkillAppliedTalents)
+            foreach (var talent in Unit.Skills[skillType].AppliedTalents)
             {
                 this.ShowTalents(talent);
             }

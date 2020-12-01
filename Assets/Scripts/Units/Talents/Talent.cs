@@ -27,9 +27,9 @@ public abstract class Talent
 
     public abstract Talent CreateNewInstanceOfSelf();
 
-    public virtual void Display()
+    public virtual string Display()
     {
-        throw new NotImplementedException();
+        return $"{this.Description} +{this.Effect}%"; ;
     }
 
 }

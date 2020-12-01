@@ -18,11 +18,11 @@ public class SkillHunting : Skill
     protected override bool LevelUp(Unit Unit) 
     {
         this.Level++;
-        Talent NewTalent = TalentPool.Instance.RecieveNewTalent(this.SkillAppliedTalents, this.Level, this.type);
+        Talent NewTalent = TalentPool.Instance.RecieveNewTalent(this.AppliedTalents, this.Level, this.type);
         if (NewTalent != null)
         {
             NewTalent.Apply(Unit, this);
-            this.SkillAppliedTalents.Add(NewTalent);
+            this.AppliedTalents.Add(NewTalent);
             Debug.Log("Unit getting new talent: " + NewTalent.Description);
             Unit.CreatePopup(this.icon, $"Level Up!");
         }

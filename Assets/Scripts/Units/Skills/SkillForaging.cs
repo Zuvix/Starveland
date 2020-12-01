@@ -7,10 +7,10 @@ using UnityEngine;
 
 public class SkillForaging : Skill
 {
-    public int NutritionValueBonus;
     public int ChanceToSpawnSapling;
     public bool CriticalHarvestActive;
     public bool MotherOfNatureActive;
+    public float WoodcuttingTime;
 
     public SkillForaging() : base()
     {
@@ -18,7 +18,7 @@ public class SkillForaging : Skill
         this.GatheringTime = GameConfigManager.Instance.GameConfig.ForagingGatheringTime;
         this.icon = GameConfigManager.Instance.GameConfig.ForagingIcon;
         this.type = SkillType.Foraging;
-        this.NutritionValueBonus = 0;
+        this.WoodcuttingTime = this.GatheringTime;
         this.ChanceToSpawnSapling = 0;
         this.CriticalHarvestActive = false;
         this.MotherOfNatureActive = false;
@@ -28,11 +28,11 @@ public class SkillForaging : Skill
     {
         this.Level++;
         Unit.CreatePopup(this.icon, $"Level Up!");
-        Talent NewTalent = TalentPool.Instance.RecieveNewTalent(this.SkillAppliedTalents, this.Level, this.type);
+        Talent NewTalent = TalentPool.Instance.RecieveNewTalent(this.AppliedTalents, this.Level, this.type);
         if (NewTalent != null)
         {
             NewTalent.Apply(Unit, this);
-            this.SkillAppliedTalents.Add(NewTalent);
+            this.AppliedTalents.Add(NewTalent);
             Debug.Log("Getting new talent: " + NewTalent.Description);
             //Unit.CreatePopup(NewTalent.icon, $"New talent {NewTalent.Name}");
         }
@@ -47,9 +47,76 @@ public class SkillForaging : Skill
             Resource = null;
             return false;
         }
-        Resource = Target.GatherResource(1);
+
+        bool isForagable = Target.Resources[0].itemInfo.foodType.Equals("Foragable") ? true : false;
+        bool isResource = Target.Resources[0].itemInfo.type.Equals("Resource") ? true : false;
+        bool isDepleted;
+        int x = Target.CurrentCell.x;
+        int y = Target.CurrentCell.y;
+
+        // Critical harvest talent
+        if (CriticalHarvestActive && Target.Resources[0].itemInfo.type.Equals("Resource"))
+        {
+            Resource = Target.GatherResource(Target.Resources[0].Amount, out isDepleted);
+        }
+        else
+        {
+            Resource = Target.GatherResource(1, out isDepleted);
+        }
+
+        // Gatherer talent
+        if (isForagable)
+        {
+            if (UnityEngine.Random.Range(1, 100) <= this.ChanceToGetExtraResource)
+            {
+                Resource.Amount += 1;
+            }
+        }
+
+        if (isDepleted && isResource)
+        {
+            // Friend of the Forest talent
+            if (UnityEngine.Random.Range(1, 100) <= this.ChanceToSpawnSapling)
+            {
+                ResourceSourceFactory.Instance.ProduceResourceSource(x, y, RSObjects.Sapling);
+            }
+            // Mother of Nature talent, todo z foragable listu prefabov random vybrat, nenechat bush berry purple
+            if (this.MotherOfNatureActive)
+            {
+                List<MapCell> neighbouringFields = Target.CurrentCell.GetNeighbours();
+                MapCell randomCell = neighbouringFields[UnityEngine.Random.Range(0, neighbouringFields.Count)];
+                while (ResourceSourceFactory.Instance.ProduceResourceSource(randomCell.x, randomCell.y, RSObjects.Bush_Berry_Purple) == null)
+                {
+                    randomCell = neighbouringFields[UnityEngine.Random.Range(0, neighbouringFields.Count)];
+                }
+            }
+        }
+
         Unit.CarriedResource.AddDestructive(Resource);
         this.AddExperience(this.ExperiencePerAction, Unit);
         return true;
+    }
+
+    public override int GetExtraNutritionValue(Item item)
+    {
+        // Forest Fruits talent
+        if (item.foodType.Equals("Foragable"))
+        {
+            return this.ExtraNutritionValue;
+        }
+        return 0;
+    }
+
+    public override float GetGatheringSpeed(ResourceSource resourceSource)
+    {
+        // Lumberjack talent
+        if (resourceSource.Resources[0].itemInfo.type.Equals("Resource")) 
+        {
+            return this.WoodcuttingTime;
+        }
+        else
+        {
+            return this.GatheringTime;
+        }
     }
 }

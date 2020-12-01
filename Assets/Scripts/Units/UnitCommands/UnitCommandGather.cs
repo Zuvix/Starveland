@@ -7,16 +7,25 @@ using System.Threading.Tasks;
 public class UnitCommandGather : UnitCommand
 {
     public Skill Skill;
-    public UnitCommandGather(MapCell Target, Skill Skill) : base(Target)
+    private ResourceSource originalCellObject;
+    public UnitCommandGather(MapCell Target, Skill Skill, ResourceSource CellObject) : base(Target)
     {
         this.Skill = Skill;
+        this.originalCellObject = CellObject;
     }
 
-    public override bool IsDone(Unit Unit) 
+    public override bool IsDone(Unit Unit)
     {
         //return Unit.CarriedResource.Amount >= Unit.CarryingCapacity;
-        return Unit.InventoryFull(Skill);
-    }
+        if (Target.GetCurrentResourceSource() != this.originalCellObject || Unit.InventoryFull())
+        {
+            return true;
+        }
+        else
+        {
+            return false;
+        }
+    } 
 
     public override IEnumerator PerformAction(Unit Unit)
     {
@@ -28,7 +37,7 @@ public class UnitCommandGather : UnitCommand
         // TODO Animation might be here
 
         //Console.WriteLine("I'm cutting wood {0}/{1}", Unit.CarriedResource.Amount, Skill.CarryingCapacity);
-        yield return Unit.StartCoroutine(Unit.GatherResource(this.Target.GetCurrentResourceSource(), Skill.GatheringTime));
+        yield return Unit.StartCoroutine(Unit.GatherResource(this.Target.GetCurrentResourceSource(), Skill.GetGatheringSpeed(this.Target.GetCurrentResourceSource())));
 
         ResourceSource TargetResourceSource = Target.GetCurrentResourceSource();
         if (TargetResourceSource != null)

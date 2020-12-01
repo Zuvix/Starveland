@@ -34,15 +34,9 @@ public class GameConfig : ScriptableObject
     [Min(1)]
     public int MaximumLevelOfSkills = 10;
     public int[] ExperienceToLevelUpForEachLevel = { 50, 100, 150, 200, 250, 300, 350, 400, 450, 500 };
-    //delete start
-    [Min(1)]
-    public int StartingCarryingCapacityOfSkills = 2;
     [Min(0)]
     public float StartingGatheringTimeOfSkills = 1.5f;
     [Min(0)]
-    public int StartingChanceToGetExtraResource = 5;
-    [Min(0)]
-    //delete end
     public int MaximumTalentsPerSkill = 3;
     [Tooltip("Defines levels at which unit recieves new talent. Ultimate talent is always recieved on the last level.")]
     public int[] RecieveTalentLevels = { 3, 6, 10 };
@@ -67,19 +61,6 @@ public class GameConfig : ScriptableObject
     [Min(0)]
     public int HuntingKillExperience = 30;
     public Sprite HuntingIcon;
-
-    [Header("Talents")]
-    [Space(10)]
-    [Min(0)]
-    public int CarryingCapacityTalent = 200;
-    public Sprite CarryingCapacityTalentIcon;
-    [Tooltip("Should't be higher than 100/MaxNumberOfTalents, otherwise gathering speed can get to 0!")]
-    [Min(0)]
-    public int GatheringSpeedTalent = 30;
-    public Sprite GatheringSpeedTalentIcon;
-    [Min(0)]
-    public int MovementSpeedTalent = 50;
-    public Sprite MovementSpeedTalentIcon;
 
     [Header("Other")]
     [Space(10)]

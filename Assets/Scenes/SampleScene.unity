@@ -7099,6 +7099,12 @@ PrefabInstance:
         type: 3}
     - target: {fileID: 3275805233410246322, guid: ce26828ea09de184f839f032dbfb0368,
         type: 3}
+      propertyPath: sapling
+      value: 
+      objectReference: {fileID: 2283220006766421666, guid: 5d02c3b32c089034687246cb500a497e,
+        type: 3}
+    - target: {fileID: 3275805233410246322, guid: ce26828ea09de184f839f032dbfb0368,
+        type: 3}
       propertyPath: bush_berry_red
       value: 
       objectReference: {fileID: 2283220006766421666, guid: 7637602e43b5c13448646f2afe20763e,
@@ -8479,6 +8485,36 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1648923966}
     m_Modifications:
+    - target: {fileID: 3405178517604461050, guid: dd2c591771077af42946bf200d0fa3cb,
+        type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3405178517604461050, guid: dd2c591771077af42946bf200d0fa3cb,
+        type: 3}
+      propertyPath: m_AnchorMin.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3405178517604461050, guid: dd2c591771077af42946bf200d0fa3cb,
+        type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3405178517604461050, guid: dd2c591771077af42946bf200d0fa3cb,
+        type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3405178517604461053, guid: dd2c591771077af42946bf200d0fa3cb,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3405178518020668838, guid: dd2c591771077af42946bf200d0fa3cb,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 3405178518982320848, guid: dd2c591771077af42946bf200d0fa3cb,
         type: 3}
       propertyPath: m_Name
@@ -8598,6 +8634,56 @@ PrefabInstance:
         type: 3}
       propertyPath: m_IsActive
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3405178519352744215, guid: dd2c591771077af42946bf200d0fa3cb,
+        type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3405178519695766254, guid: dd2c591771077af42946bf200d0fa3cb,
+        type: 3}
+      propertyPath: m_fontSizeMax
+      value: 20
+      objectReference: {fileID: 0}
+    - target: {fileID: 3405178519695766254, guid: dd2c591771077af42946bf200d0fa3cb,
+        type: 3}
+      propertyPath: m_fontSizeMin
+      value: 16
+      objectReference: {fileID: 0}
+    - target: {fileID: 3405178519695766254, guid: dd2c591771077af42946bf200d0fa3cb,
+        type: 3}
+      propertyPath: m_spriteAsset
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 3405178519695766254, guid: dd2c591771077af42946bf200d0fa3cb,
+        type: 3}
+      propertyPath: m_overflowMode
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3405178519695766254, guid: dd2c591771077af42946bf200d0fa3cb,
+        type: 3}
+      propertyPath: m_isRightToLeft
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3405178519695766254, guid: dd2c591771077af42946bf200d0fa3cb,
+        type: 3}
+      propertyPath: m_enableAutoSizing
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3405178519695766254, guid: dd2c591771077af42946bf200d0fa3cb,
+        type: 3}
+      propertyPath: m_overrideHtmlColors
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3405178519695766257, guid: dd2c591771077af42946bf200d0fa3cb,
+        type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: -50.019985
+      objectReference: {fileID: 0}
+    - target: {fileID: 3405178519695766257, guid: dd2c591771077af42946bf200d0fa3cb,
+        type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: -161.5
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: dd2c591771077af42946bf200d0fa3cb, type: 3}

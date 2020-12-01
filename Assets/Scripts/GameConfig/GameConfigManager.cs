@@ -45,10 +45,10 @@ public class GameConfigManager : Singleton<GameConfigManager>
             }
             else
             {
-                if (talent.Effect.Length > 0)
+                /*if (talent.Effect.Length > 0)
                 {
                     throw new Exception($"Foraging talent {talent.Name} is defined as ultimate and therefore it doesn't need any effects!");
-                }
+                }*/
             }
         }
 

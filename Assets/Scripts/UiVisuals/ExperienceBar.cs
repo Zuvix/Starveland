@@ -23,15 +23,16 @@ public class ExperienceBar : MonoBehaviour
 
     public void SetProgress(int value, int level)
     {
-        if (level == this.maxLevel)
+        if (level >= this.maxLevel)
         {
             this.experienceText.text = $"Max";
+            currentProgress = maxProgress[level - 1];
         }
         else
         {
             this.experienceText.text = $"{value}/{maxProgress[level - 1]}";
+            currentProgress = Math.Min(value, maxProgress[level - 1]);
         }
-        currentProgress = Math.Min(value, maxProgress[level - 1]);
         Slider.value = (float)currentProgress / (float)maxProgress[level - 1];
         if (currentProgress > 0)
         {

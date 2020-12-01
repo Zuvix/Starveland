@@ -224,6 +224,15 @@ public abstract class Unit : CellObject
         this.CurrentAction = "Gathering";
         // Debug.Log("Preparing the axe");
 
+        if (target.CurrentCell.position.x > transform.position.x)
+        {
+            Flip("right");
+        }
+        else if (target.CurrentCell.position.x < transform.position.x)
+        {
+            Flip("left");
+        }
+
         yield return new WaitForSeconds(GatheringTime);
         // Debug.Log("Gathering object");
         //itemInHand = target.Gather();

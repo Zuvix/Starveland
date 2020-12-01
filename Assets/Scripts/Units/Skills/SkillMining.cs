@@ -11,16 +11,17 @@ public class SkillMining : Skill
     {
         this.ExperiencePerAction = GameConfigManager.Instance.GameConfig.MiningExperiencePerAction;
         this.icon = GameConfigManager.Instance.GameConfig.MiningIcon;
+        this.type = SkillType.Mining;
     }
 
     protected override bool LevelUp(Unit Unit)
     {
         this.Level++;
-        Talent NewTalent = TalentPool.Instance.RecieveNewTalent(this.SkillAppliedTalents, this.Level, this.type);
+        Talent NewTalent = TalentPool.Instance.RecieveNewTalent(this.AppliedTalents, this.Level, this.type);
         if (NewTalent != null)
         {
             NewTalent.Apply(Unit, this);
-            this.SkillAppliedTalents.Add(NewTalent);
+            this.AppliedTalents.Add(NewTalent);
             Debug.Log("Getting new talent: " + NewTalent.Description);
             //Unit.CreatePopup(NewTalent.icon, $"New talent {NewTalent.Name}");
             Unit.CreatePopup(this.icon, $"Level Up!");
