@@ -3,11 +3,10 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
 
-public class GlobalInventory :Singleton<GlobalInventory>
+public class GlobalInventory : Singleton<GlobalInventory>
 {
     public UnityEvent OnInventoryUpdate = new UnityEvent();
     private Dictionary<string,Resource> playerInventory=new Dictionary<string, Resource>();
-
     public Dictionary<string,Resource> GetInventory()
     {
         return playerInventory;
