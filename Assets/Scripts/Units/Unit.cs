@@ -324,6 +324,15 @@ public abstract class Unit : CellObject
         ActionOnDeath();
         Unit.UnitPool.Remove(this);
     }
+    public void ForcedDie()
+    {
+        int x = this.CurrentCell.x;
+        int y = this.CurrentCell.y;
+        UnitManager.Instance.RemoveFromQueue(this);
+        Destroy(this.gameObject);
+        ActionOnDeath();
+        Unit.UnitPool.Remove(this);
+    }
     public virtual void SpawnOnDeath(int x, int y) { }
     public virtual void ActionOnDeath() { }
     public void DisplayReceivedDamage(int Amount)

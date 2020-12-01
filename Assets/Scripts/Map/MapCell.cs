@@ -39,6 +39,7 @@ public class MapCell
         bool Success = CanBeEnteredByObject(CellObject.IsBlocking);
         if (Success)
         {
+            EraseCellObject();
             CellObject.SetCurrentCell(this);
             this.CurrentObject = CellObject;
         }
@@ -49,6 +50,7 @@ public class MapCell
         bool Success = CanBeEnteredByUnit();
         if (Success)
         {
+            EraseUnit();
             Unit.SetCurrentCell(this);
             this.CurrentUnit = Unit;
         }
@@ -56,6 +58,10 @@ public class MapCell
     }
     public void EraseCellObject()
     {
+        if (this.CurrentObject != null)
+        {
+            CellObject.Destroy(this.CurrentObject.gameObject);
+        }
         this.CurrentObject = null;
     }
     public void EraseUnit()
@@ -64,11 +70,27 @@ public class MapCell
     }
     public bool CanBeEnteredByObject(bool EnteringObjectIsBlocking)
     {
-        return (this.CurrentObject == null && (this.CurrentUnit == null || !EnteringObjectIsBlocking)) || (this.CurrentObject!=null && !this.CurrentObject.IsBlocking && EnteringObjectIsBlocking);
+        return (this.CurrentObject == null && (this.CurrentUnit == null || !EnteringObjectIsBlocking)) || (this.CurrentObject!=null && !this.CurrentObject.IsBlocking && EnteringObjectIsBlocking && this.CurrentUnit==null);
     }
     public bool CanBeEnteredByUnit()
     {
         return this.CurrentUnit == null && (this.CurrentObject == null || !this.CurrentObject.IsBlocking);
+    }
+    public void RespondToActionOrder()
+    {
+        //Debug.LogWarning($"{this} ({x},{y})responds to right click. Current Unit is {this.CurrentUnit}, current Object is {this.CurrentObject}");
+
+        if (this.CurrentUnit != null && this.CurrentUnit.IsPossibleToAddToActionQueue)
+        {
+            //Debug.LogWarning($"{CurrentUnit} responds to right click");
+            CurrentUnit.AddToActionQueue();
+        }
+        else if (this.CurrentObject != null && this.CurrentObject.IsPossibleToAddToActionQueue)
+        {
+            //Debug.LogWarning($"{CurrentObject} responds to right click");
+            CurrentObject.AddToActionQueue();
+        }
+        //Debug.LogWarning($"No response to right click");
     }
     public virtual PathSearchNode ProducePathSearchNode(List<List<PathSearchNode>> Map)
     {

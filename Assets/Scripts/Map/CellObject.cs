@@ -21,6 +21,7 @@ public class CellObject : MonoBehaviour
 
     public bool IsBlocking = false;
     public bool IsSelectable = false;
+    public bool IsPossibleToAddToActionQueue = false;
 
     virtual protected void Awake()
     {
@@ -40,6 +41,11 @@ public class CellObject : MonoBehaviour
     public virtual void SetCurrentCell(MapCell Cell)
     {
         this.CurrentCell = Cell;
+    }
+    public virtual void AddToActionQueue() {}
+    public void AddToActionQueueSimple()
+    {
+        UnitManager.Instance.AddActionToQueue(this);
     }
     public virtual void Flip(string side)
     {

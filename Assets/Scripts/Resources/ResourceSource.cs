@@ -6,11 +6,16 @@ public class ResourceSource : CellObject
 {
     [HideInInspector]
     public List<Resource> Resources=new List<Resource>();
+
     override protected  void Awake()
     {
         base.Awake();
+        this.IsPossibleToAddToActionQueue = true;
     }
-
+    public override void AddToActionQueue()
+    {
+        AddToActionQueueSimple();
+    }
     public Resource GatherResource(int amount)
     {
         Resource Result = this.Resources[0].Subtract(amount);
@@ -28,17 +33,6 @@ public class ResourceSource : CellObject
             Debug.LogWarning("Result=null v Gather resource");
         }
         return Result;
-    }
-
-    private void OnMouseOver()
-    {
-        if (GlobalGameState.Instance.InGameInputAllowed)
-        {
-            if (Input.GetMouseButtonDown(1))
-            {
-                UnitManager.Instance.AddActionToQueue(this);
-            }
-        }
     }
 
     public List<ResourcePack> ResourcePacks;
