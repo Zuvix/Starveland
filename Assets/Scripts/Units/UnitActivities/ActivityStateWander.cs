@@ -67,7 +67,7 @@ public class ActivityStateWander : ActivityState
     {
         // generate random position to move on based on spawn and wandering radius
         int rx = Unit.CurrentCell.x, ry = Unit.CurrentCell.y;
-        while (!MapControl.Instance.map.Grid[rx][ry].CanBeEntered())
+        while (!MapControl.Instance.map.Grid[rx][ry].CanBeEnteredByUnit())
         {
             rx = UnityEngine.Random.Range(this.StartPosition.x - this.WanderingRadius, this.StartPosition.x + this.WanderingRadius);
             ry = UnityEngine.Random.Range(this.StartPosition.y - this.WanderingRadius, this.StartPosition.y + this.WanderingRadius);

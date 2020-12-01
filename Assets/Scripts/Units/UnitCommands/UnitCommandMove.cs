@@ -24,7 +24,7 @@ public class UnitCommandMove : UnitCommand
     public override bool CanBePerformed(Unit Unit)
     {
         bool Result = true;
-        if (!this.Targets.First().CanBeEntered())
+        if (!this.Targets.First().CanBeEnteredByUnit())
         {
             Result = false;
         }

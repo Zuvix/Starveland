@@ -1120,6 +1120,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _persistent: 1
+  GreenBackground: {fileID: 8294826158820469398, guid: 06f757389e6134c41905395e07ba5123,
+    type: 3}
   forest: {fileID: 0}
   carrot_field: {fileID: 0}
   Grass1: {fileID: 2283220006766421666, guid: e101a147995e73a4790fca890d61a162, type: 3}
@@ -7788,6 +7790,50 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2005265392}
   m_CullTransparentMesh: 0
+--- !u!1 &2005896437
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2005896439}
+  - component: {fileID: 2005896438}
+  m_Layer: 0
+  m_Name: BuildingManagement
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &2005896438
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2005896437}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e577c05ca7391b34f8a48c7483bfa875, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _persistent: 1
+--- !u!4 &2005896439
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2005896437}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 691.3941, y: 229.68059, z: -72.32085}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 10
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &2059373918
 GameObject:
   m_ObjectHideFlags: 0
@@ -8217,6 +8263,13 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1648923966}
     m_Modifications:
+    - target: {fileID: 919980271269645686, guid: 7e97364925ff9af4ea26fd1659df5505,
+        type: 3}
+      propertyPath: m_text
+      value: 'Buildings
+
+'
+      objectReference: {fileID: 0}
     - target: {fileID: 919980271346893944, guid: 7e97364925ff9af4ea26fd1659df5505,
         type: 3}
       propertyPath: m_Pivot.x
@@ -8327,6 +8380,51 @@ PrefabInstance:
       propertyPath: m_Name
       value: BuildingPanel
       objectReference: {fileID: 0}
+    - target: {fileID: 919980271346893945, guid: 7e97364925ff9af4ea26fd1659df5505,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3122069527366183982, guid: 7e97364925ff9af4ea26fd1659df5505,
+        type: 3}
+      propertyPath: m_Name
+      value: BuildingFireplace
+      objectReference: {fileID: 0}
+    - target: {fileID: 3432080423250605542, guid: 7e97364925ff9af4ea26fd1659df5505,
+        type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 9176018835096187119, guid: ddf4a4e6ec245864fbfb72f96ebb7d3d,
+        type: 3}
+    - target: {fileID: 3541647715590339971, guid: 7e97364925ff9af4ea26fd1659df5505,
+        type: 3}
+      propertyPath: OfferedBuilding
+      value: 
+      objectReference: {fileID: 5161994218835401504, guid: 17f8e5c93356e8343904c07d6e52001c,
+        type: 3}
+    - target: {fileID: 3638501718819371173, guid: 7e97364925ff9af4ea26fd1659df5505,
+        type: 3}
+      propertyPath: OfferedBuilding
+      value: 
+      objectReference: {fileID: 5161994218835401504, guid: 17f8e5c93356e8343904c07d6e52001c,
+        type: 3}
+    - target: {fileID: 6937705421697243171, guid: 7e97364925ff9af4ea26fd1659df5505,
+        type: 3}
+      propertyPath: OfferedBuilding
+      value: 
+      objectReference: {fileID: 5161994218835401504, guid: c4f8359ef80ed914b834457b573d994c,
+        type: 3}
+    - target: {fileID: 8749071215169834152, guid: 7e97364925ff9af4ea26fd1659df5505,
+        type: 3}
+      propertyPath: m_Name
+      value: BuildingPanelStorage
+      objectReference: {fileID: 0}
+    - target: {fileID: 9050003989535135072, guid: 7e97364925ff9af4ea26fd1659df5505,
+        type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: -1492257981468917035, guid: ddf4a4e6ec245864fbfb72f96ebb7d3d,
+        type: 3}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 7e97364925ff9af4ea26fd1659df5505, type: 3}
 --- !u!1001 &3135379811471778645
