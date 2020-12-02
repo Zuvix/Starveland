@@ -32,12 +32,11 @@ public class UnitCommandGather : UnitCommand
         // TODO Perhaps this will be in Mišo's Skill class
         // Constant 1 should be the amount of resource harvested with single hit
         //Unit.CarriedResource.AddDestructive(((ResourceSource)Target.CurrentObject).Resource.Subtract(1));
-        
+
 
         // TODO Animation might be here
 
         //Console.WriteLine("I'm cutting wood {0}/{1}", Unit.CarriedResource.Amount, Skill.CarryingCapacity);
-
         yield return Unit.StartCoroutine(Unit.GatherResource((ResourceSource)this.Target.CurrentObject, Skill.GetGatheringSpeed((ResourceSource)this.Target.CurrentObject)));
 
         ResourceSource TargetResourceSource = (ResourceSource)this.Target.CurrentObject;

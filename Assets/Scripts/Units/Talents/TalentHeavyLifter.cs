@@ -1,23 +1,18 @@
 ﻿using UnityEngine;
 
-public class TalentRemoveSlownessAndAddInventorySize : Talent
+public class TalentHeavyLifter : Talent
 {
     public int ExtraInventorySize;
-    private int originalEffect;
 
-    public TalentRemoveSlownessAndAddInventorySize(string Name, string Description, EffectList Effects, Sprite icon) : base(Name, Description, icon)
+    public TalentHeavyLifter(string Name, string Description, EffectList Effects, Sprite icon) : base(Name, Description, icon)
     {
+        this.TalentType = TalentType.HeavyLifter;
         this.TalentEffects = Effects;
         this.ExtraInventorySize = this.TalentEffects.Effects[0].effectValue;
     }
 
     public override bool Apply(Unit Unit, Skill Skill)
     {
-        if (Skill.MovementSpeedModifier < 0)
-        {
-            this.originalEffect = Skill.MovementSpeedModifier;
-            Skill.MovementSpeedModifier = 0;
-        }
         ((UnitPlayer)Unit).CarryingCapacity += this.ExtraInventorySize;
         return true;
     }
@@ -25,19 +20,23 @@ public class TalentRemoveSlownessAndAddInventorySize : Talent
 
     public override bool Remove(Unit Unit, Skill Skill)
     {
-        Skill.MovementSpeedModifier = this.originalEffect;
         ((UnitPlayer)Unit).CarryingCapacity -= this.ExtraInventorySize;
         return true;
     }
 
     public override Talent CreateNewInstanceOfSelf()
     {
-        return new TalentRemoveSlownessAndAddInventorySize(this.Name, this.Description, this.TalentEffects, this.icon);
+        return new TalentHeavyLifter(this.Name, this.Description, this.TalentEffects, this.icon);
     }
 
     public override string Display()
     {
         return this.ExtraInventorySize > 0 ? $"{this.Description}, +{this.ExtraInventorySize}inv size" : $"{this.Description}";
+    }
+
+    public override int Execute(int value)
+    {
+        return value < 0 ? 0 : value;
     }
 }
 

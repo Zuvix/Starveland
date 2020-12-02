@@ -29,36 +29,40 @@ public class TalentPool : Singleton<TalentPool>
             {
                 // foraging talents
                 (string Name, string Description, List<EffectList> Effect, Sprite icon) = GameConfigManager.Instance.GameConfig.ForagingTalents[0].Unpack();
-                Talents[SkillType.Foraging][level].Add(new TalentWoodcuttingSpeed(Name, Description, Effect[i], icon));
+                Talents[SkillType.Foraging][level].Add(new TalentLumberjack(Name, Description, Effect[i], icon));
 
                 (Name, Description, Effect, icon) = GameConfigManager.Instance.GameConfig.ForagingTalents[1].Unpack();
-                Talents[SkillType.Foraging][level].Add(new TalentExtraResource(Name, Description, Effect[i], icon));
+                Talents[SkillType.Foraging][level].Add(new TalentGatherer(Name, Description, Effect[i], icon));
 
                 (Name, Description, Effect, icon) = GameConfigManager.Instance.GameConfig.ForagingTalents[2].Unpack();
-                Talents[SkillType.Foraging][level].Add(new TalentExtraNutritionValue(Name, Description, Effect[i], icon));
+                Talents[SkillType.Foraging][level].Add(new TalentForestFruits(Name, Description, Effect[i], icon));
 
                 (Name, Description, Effect, icon) = GameConfigManager.Instance.GameConfig.ForagingTalents[3].Unpack();
-                Talents[SkillType.Foraging][level].Add(new TalentSpawnSapling(Name, Description, Effect[i], icon));
+                Talents[SkillType.Foraging][level].Add(new TalentFriendOfTheForest(Name, Description, Effect[i], icon));
 
                 // mining talents
                 (Name, Description, Effect, icon) = GameConfigManager.Instance.GameConfig.MiningTalents[0].Unpack();
-                Talents[SkillType.Mining][level].Add(new TalentGatheringBurst(Name, Description, Effect[i], icon));
+                Talents[SkillType.Mining][level].Add(new TalentMiningBerserk(Name, Description, Effect[i], icon));
 
                 (Name, Description, Effect, icon) = GameConfigManager.Instance.GameConfig.MiningTalents[1].Unpack();
-                Talents[SkillType.Mining][level].Add(new TalentRemoveSlownessAndAddInventorySize(Name, Description, Effect[i], icon));
+                Talents[SkillType.Mining][level].Add(new TalentHeavyLifter(Name, Description, Effect[i], icon));
 
                 (Name, Description, Effect, icon) = GameConfigManager.Instance.GameConfig.MiningTalents[2].Unpack();
-                Talents[SkillType.Mining][level].Add(new TalentGatherFromMultipleRS(Name, Description, Effect[i], icon));
+                Talents[SkillType.Mining][level].Add(new TalentDualWielder(Name, Description, Effect[i], icon));
+
+                //hunting talents
+                (Name, Description, Effect, icon) = GameConfigManager.Instance.GameConfig.HuntingTalents[0].Unpack();
+                Talents[SkillType.Hunting][level].Add(new TalentCarnivore(Name, Description, Effect[i], icon));
 
             }
             else
             {
                 // foraging talents
                 (string Name, string Description, List<EffectList> Effect, Sprite icon) = GameConfigManager.Instance.GameConfig.ForagingTalents[4].Unpack();
-                Talents[SkillType.Foraging][level].Add(new TalentInstantTreeHarvest(Name, Description, Effect[0], icon));
+                Talents[SkillType.Foraging][level].Add(new TalentCriticalHarvest(Name, Description, Effect[0], icon));
 
                 (Name, Description, Effect, icon) = GameConfigManager.Instance.GameConfig.ForagingTalents[5].Unpack();
-                Talents[SkillType.Foraging][level].Add(new TalentSpawnForagableFoodSource(Name, Description, icon));
+                Talents[SkillType.Foraging][level].Add(new TalentMotherOfNature(Name, Description, icon));
 
                 //mining talents
                 (Name, Description, Effect, icon) = GameConfigManager.Instance.GameConfig.MiningTalents[3].Unpack();

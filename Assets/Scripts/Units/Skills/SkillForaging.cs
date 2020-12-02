@@ -7,10 +7,7 @@ using UnityEngine;
 
 public class SkillForaging : Skill
 {
-    public int ChanceToSpawnSapling;
-    public bool CriticalHarvestActive;
     public bool MotherOfNatureActive;
-    public float WoodcuttingTime;
 
     public SkillForaging() : base()
     {
@@ -18,10 +15,17 @@ public class SkillForaging : Skill
         this.GatheringTime = GameConfigManager.Instance.GameConfig.ForagingGatheringTime;
         this.icon = GameConfigManager.Instance.GameConfig.ForagingIcon;
         this.type = SkillType.Foraging;
-        this.WoodcuttingTime = this.GatheringTime;
-        this.ChanceToSpawnSapling = 0;
-        this.CriticalHarvestActive = false;
         this.MotherOfNatureActive = false;
+
+        this.SkillTalents = new Dictionary<TalentType, Talent>()
+        {
+            { TalentType.Lumberjack, null },
+            { TalentType.Gatherer, null },
+            { TalentType.ForestFruits, null },
+            { TalentType.FriendOfTheForest, null },
+            { TalentType.MotherOfNature, null },
+            { TalentType.CriticalHarvest, null }
+        };
     }
 
     public override bool DoAction(Unit Unit, ResourceSource Target, out Resource Resource)
@@ -32,48 +36,24 @@ public class SkillForaging : Skill
             return false;
         }
 
-        bool isForagable = Target.Resources[0].itemInfo.foodType.Equals("Foragable") ? true : false;
-        bool isResource = Target.Resources[0].itemInfo.type.Equals("Resource") ? true : false;
         bool isDepleted;
         int x = Target.CurrentCell.x;
         int y = Target.CurrentCell.y;
 
         // Critical harvest talent
-        if (CriticalHarvestActive && isResource)
-        {
-            Resource = Target.GatherResource(Target.Resources[0].Amount, out isDepleted);
-        }
-        else
-        {
-            Resource = Target.GatherResource(1, out isDepleted);
-        }
+        Resource = SkillTalents[TalentType.CriticalHarvest] == null ? Target.GatherResource(1, out isDepleted) : 
+            SkillTalents[TalentType.CriticalHarvest].Execute(Target, out isDepleted);
 
         // Gatherer talent
-        if (isForagable)
-        {
-            if (UnityEngine.Random.Range(1, 100) <= this.ChanceToGetExtraResource)
-            {
-                Resource.Amount += 1;
-            }
-        }
+        Resource = this.SkillTalents[TalentType.Gatherer] != null ? this.SkillTalents[TalentType.Gatherer].Execute(Resource) : Resource;
 
-        if (isDepleted && isResource)
+        if (isDepleted)
         {
             // Friend of the Forest talent
-            if (UnityEngine.Random.Range(1, 100) <= this.ChanceToSpawnSapling)
-            {
-                ResourceSourceFactory.Instance.ProduceResourceSource(x, y, RSObjects.Sapling);
-            }
+            this.SkillTalents[TalentType.FriendOfTheForest]?.Execute(x, y, Resource);
+
             // Mother of Nature talent, todo z foragable listu prefabov random vybrat, nenechat bush berry purple
-            if (this.MotherOfNatureActive)
-            {
-                List<MapCell> neighbouringFields = Target.CurrentCell.GetNeighbours();
-                MapCell randomCell = neighbouringFields[UnityEngine.Random.Range(0, neighbouringFields.Count)];
-                while (ResourceSourceFactory.Instance.ProduceResourceSource(randomCell.x, randomCell.y, RSObjects.Bush_Berry_Purple) == null)
-                {
-                    randomCell = neighbouringFields[UnityEngine.Random.Range(0, neighbouringFields.Count)];
-                }
-            }
+            this.SkillTalents[TalentType.MotherOfNature]?.Execute(x, y, Resource, Target);          
         }
 
         Unit.CarriedResource.AddDestructive(Resource);
@@ -84,23 +64,25 @@ public class SkillForaging : Skill
     public override int GetExtraNutritionValue(Item item)
     {
         // Forest Fruits talent
-        if (item.foodType.Equals("Foragable"))
-        {
-            return this.ExtraNutritionValue;
-        }
-        return 0;
+        return SkillTalents[TalentType.ForestFruits] == null ? 0 : SkillTalents[TalentType.ForestFruits].Execute(item);
+
     }
 
     public override float GetGatheringSpeed(ResourceSource resourceSource)
     {
-        // Lumberjack talent
-        if (resourceSource.Resources[0].itemInfo.type.Equals("Resource")) 
+        // Lumberjack talent & Critical harvest 
+        if (SkillTalents[TalentType.Lumberjack] != null && SkillTalents[TalentType.CriticalHarvest] != null)
         {
-            return this.WoodcuttingTime;
+            return SkillTalents[TalentType.CriticalHarvest].Execute(resourceSource, SkillTalents[TalentType.Lumberjack].Execute(resourceSource, GatheringTime));
         }
-        else
+        if (SkillTalents[TalentType.Lumberjack] != null)
         {
-            return this.GatheringTime;
+            return SkillTalents[TalentType.Lumberjack].Execute(resourceSource, GatheringTime);
         }
+        if (SkillTalents[TalentType.CriticalHarvest] != null)
+        {
+            return SkillTalents[TalentType.CriticalHarvest].Execute(resourceSource, this.GatheringTime);
+        }
+        return this.GatheringTime;
     }
 }

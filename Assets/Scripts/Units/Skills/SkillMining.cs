@@ -8,14 +8,6 @@ using UnityEngine;
 public class SkillMining : Skill
 {
     public int DiamondChance;
-    public bool MiningBerserk;
-    public int RemainingBerserkProcs;
-    public int MiningBerserkChance;
-    public int MiningBerserkTimes;
-    public float MiningBerserkTimeSpan;
-    public bool Archeologist;
-    public bool DualWielder;
-    public int ExtraMiningTargets;
 
     public SkillMining() : base()
     {
@@ -25,14 +17,14 @@ public class SkillMining : Skill
         this.MovementSpeedModifier = GameConfigManager.Instance.GameConfig.MovementSpeedWhileCarryingRock;
         this.icon = GameConfigManager.Instance.GameConfig.MiningIcon;
         this.type = SkillType.Mining;
-        this.MiningBerserk = false;
-        this.RemainingBerserkProcs = 0;
-        this.MiningBerserkChance = 0;
-        this.MiningBerserkTimes = 0;
-        this.MiningBerserkTimeSpan = 0f;
-        this.Archeologist = false;
-        this.DualWielder = false;
-        this.ExtraMiningTargets = 0;
+
+        this.SkillTalents = new Dictionary<TalentType, Talent>()
+        {
+            { TalentType.Archeologist, null },
+            { TalentType.MiningBerserk, null },
+            { TalentType.HeavyLifter, null },
+            { TalentType.DualWielder, null }
+        };
     }
 
     public override bool DoAction(Unit Unit, ResourceSource Target, out Resource Resource)
@@ -45,54 +37,22 @@ public class SkillMining : Skill
 
         int x = Target.CurrentCell.x;
         int y = Target.CurrentCell.y;
-        bool diamond = Target.tag.Equals("Diamond");
 
         // mining berserk talent
-        if (this.MiningBerserk)
-        {
-            if (UnityEngine.Random.Range(1, 100) <= this.MiningBerserkChance)
-            {
-                this.RemainingBerserkProcs = this.MiningBerserkTimes;
-            }
-        }
+        this.SkillTalents[TalentType.MiningBerserk]?.Execute();
 
         Resource = Target.GatherResource(1, out bool isDepleted);
         Unit.CarriedResource.AddDestructive(Resource);
 
         // dual wielder talent
-        if (this.DualWielder)
-        {
-            int maximumTargets = this.ExtraMiningTargets;
-            List<MapCell> neighbourFields = Target.CurrentCell.GetNeighbours();
-            for (int i = 1; i < neighbourFields.Count; i++)
-            {
-                if (neighbourFields[i].GetTopSelectableObject() is ResourceSource)
-                {
-                    ResourceSource NeighbouringResourceSource = (ResourceSource)neighbourFields[i].GetTopSelectableObject();
-                    if (NeighbouringResourceSource.tag.Equals("Stone") && maximumTargets-- > 0 && !Unit.InventoryFull())
-                    {
-                        int nx = NeighbouringResourceSource.CurrentCell.x;
-                        int ny = NeighbouringResourceSource.CurrentCell.y;
-                        Resource NeightbouringResource = NeighbouringResourceSource.GatherResource(1, out bool isDepletedNeighbouring);
-                        NeighbouringResourceSource.Flash();
-                        if (isDepletedNeighbouring && !diamond)
-                        {
-                            this.TargetDepleted(nx, ny);
-                        }
-                        Resource.Amount++;
-                        Unit.CarriedResource.AddDestructive(NeightbouringResource);
-                    }                    
-                }
-            }
-        }
-
-        if (isDepleted && !diamond)
+        this.SkillTalents[TalentType.DualWielder]?.Execute(Unit, Target, Resource, this.TargetDepleted);
+     
+        if (isDepleted && !Target.tag.Equals("Diamond"))
         {
             this.TargetDepleted(x, y);
         }
       
         this.AddExperience(this.ExperiencePerAction, Unit);
-
         return true;
     }
 
@@ -102,7 +62,7 @@ public class SkillMining : Skill
         {
             if (Unit.CarriedResource.itemInfo.isHeavy)
             {
-                return this.MovementSpeedModifier;
+                return SkillTalents[TalentType.HeavyLifter] == null ? MovementSpeedModifier : SkillTalents[TalentType.HeavyLifter].Execute(MovementSpeedModifier);
             }
         }
         return 0;
@@ -110,25 +70,22 @@ public class SkillMining : Skill
 
     public override float GetGatheringSpeed(ResourceSource resourceSource)
     {
-        if (this.RemainingBerserkProcs-- > 0)
-        {
-            return this.MiningBerserkTimeSpan;
-        }
-        return this.GatheringTime;
+        return SkillTalents[TalentType.MiningBerserk] == null ? GatheringTime : SkillTalents[TalentType.MiningBerserk].Execute(GatheringTime);
     }
 
-    private void TargetDepleted(int x, int y)
+    private bool TargetDepleted(int x, int y)
     {
         // basic chance to spawn diamond under rock
-        if (UnityEngine.Random.Range(1, 100) <= this.DiamondChance)
+        if (UnityEngine.Random.Range(1, 100) <= 1)
         {
             ResourceSourceFactory.Instance.ProduceResourceSource(x, y, RSObjects.Diamond);
         }
         // archeologist talent
-        else if (this.Archeologist)
+        else 
         {
-            ResourceSourceFactory.Instance.ProduceResourceSource(x, y, RSObjects.DeadAnimal);
+            this.SkillTalents[TalentType.Archeologist]?.Execute(x, y);
         }
+        return true;
     }
 
 }

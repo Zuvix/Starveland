@@ -50,9 +50,9 @@ public class UnitManager : Singleton<UnitManager>
                     UnitPlayer bestUnit = IdleUnitsFiltered[0];
                     foreach (UnitPlayer unit in IdleUnitsFiltered)
                     {
-                        if (unit.Skills[action.Item1].CurrentExperience > bestUnit.Skills[action.Item1].CurrentExperience)
+                        if (unit.Skills[action.Item1].Level > bestUnit.Skills[action.Item1].Level)
                         {
-                            bestUnit = unit;
+                                bestUnit = unit;
                         }
                     }
 

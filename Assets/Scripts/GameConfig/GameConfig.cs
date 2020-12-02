@@ -64,7 +64,10 @@ public class GameConfig : ScriptableObject
     public int HuntingExperiencePerAction = 10;
     [Min(0)]
     public int HuntingKillExperience = 30;
+    [Min(0)]
+    public float HuntingGatheringTime = 3.0f;
     public Sprite HuntingIcon;
+    public List<TalentSerializable> HuntingTalents;
 
     [Header("Other")]
     [Space(10)]

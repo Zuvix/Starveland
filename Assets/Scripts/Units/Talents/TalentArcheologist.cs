@@ -1,37 +1,21 @@
-﻿using System;
-using UnityEngine;
+﻿using UnityEngine;
 
 public class TalentArcheologist : Talent
 {
     public TalentArcheologist(string Name, string Description, Sprite icon) : base(Name, Description, icon)
     {
+        this.TalentType = TalentType.Archeologist;
     }
 
     public override bool Apply(Unit Unit, Skill Skill)
     {
-        if (Skill is SkillMining)
-        {
-            ((SkillMining)(Skill)).Archeologist = true;
-            return true;
-        }
-        else
-        {
-            throw new Exception("Talent archeologist tried to be applied to other skill than Mining!");
-        }
+        return true;
     }
 
 
     public override bool Remove(Unit Unit, Skill Skill)
     {
-        if (Skill is SkillMining)
-        {
-            ((SkillMining)(Skill)).Archeologist = false;
-            return true;
-        }
-        else
-        {
-            throw new Exception("Talent archeologist tried to be removed from other skill than Mining!");
-        }
+        return true;
     }
 
     public override Talent CreateNewInstanceOfSelf()
@@ -42,5 +26,10 @@ public class TalentArcheologist : Talent
     public override string Display()
     {
         return $"{this.Description} ";
+    }
+
+    public override void Execute(int x, int y)
+    {
+        ResourceSourceFactory.Instance.ProduceResourceSource(x, y, RSObjects.DeadAnimal);
     }
 }

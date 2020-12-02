@@ -8,29 +8,19 @@ using UnityEngine;
 public class SkillHunting : Skill
 {
     private int ExperiencePerKill;
+
     public SkillHunting() : base()
     {
         this.ExperiencePerAction = GameConfigManager.Instance.GameConfig.HuntingExperiencePerAction;
         this.ExperiencePerKill = GameConfigManager.Instance.GameConfig.HuntingKillExperience;
+        this.GatheringTime = GameConfigManager.Instance.GameConfig.HuntingGatheringTime;
         this.icon = GameConfigManager.Instance.GameConfig.HuntingIcon;
-    }
+        this.type = SkillType.Hunting;
 
-    protected override bool LevelUp(Unit Unit) 
-    {
-        this.Level++;
-        Talent NewTalent = TalentPool.Instance.RecieveNewTalent(this.AppliedTalents, this.Level, this.type);
-        if (NewTalent != null)
+        this.SkillTalents = new Dictionary<TalentType, Talent>()
         {
-            NewTalent.Apply(Unit, this);
-            this.AppliedTalents.Add(NewTalent);
-            Debug.Log("Unit getting new talent: " + NewTalent.Description);
-            Unit.CreatePopup(this.icon, $"Level Up!");
-        }
-        else
-        {
-            //Console.WriteLine("All possible talents are already active!");
-        }
-        return true;
+            { TalentType.Carnivore, null }
+        };
     }
 
     public override bool DoAction(Unit Unit, Unit TargetUnit)
@@ -46,7 +36,6 @@ public class SkillHunting : Skill
     private bool Attack(Unit Unit, Unit TargetUnit)
     {
         TargetUnit.DealDamage(Unit.BaseDamage, Unit);
-        //Debug.Log("Dealing damage: " + Unit.BaseDamage);
 
         //check if dead?
         if (TargetUnit.Health <= 0)
@@ -54,8 +43,27 @@ public class SkillHunting : Skill
             Debug.Log("Target killed! Getting experience!");
             this.AddExperience(this.ExperiencePerKill, Unit);
         }
-
         return true;
+    }
+
+    public override bool DoAction(Unit Unit, ResourceSource Target, out Resource Resource)
+    {
+        if (Target == null)
+        {
+            Resource = null;
+            return false;
+        }
+
+        Resource = Target.GatherResource(1, out bool isDepleted);
+        Unit.CarriedResource.AddDestructive(Resource);
+        this.AddExperience(this.ExperiencePerAction, Unit);
+        return true;
+    }
+
+    public override int GetExtraNutritionValue(Item item)
+    {
+        // Carnivore talent
+        return SkillTalents[TalentType.Carnivore] == null ? 0 : SkillTalents[TalentType.Carnivore].Execute(item);
     }
 
 }

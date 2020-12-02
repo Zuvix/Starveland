@@ -9,16 +9,14 @@ public abstract class Skill
 {
     public int CurrentExperience { get; set; }
     public int Level;
-    public int ChanceToGetExtraResource;
-    public int ExtraNutritionValue;
     protected int[] ExperienceToLevelUpForEachLevel;
     protected int ExperiencePerAction;
+    protected Dictionary<TalentType, Talent> SkillTalents;
     public List<Talent> AppliedTalents;
     public Sprite icon;
     public bool Allowed { get; private set; }
     public SkillType type;
     public int MovementSpeedModifier;
-
     public float GatheringTime;
 
     public Skill()
@@ -28,8 +26,6 @@ public abstract class Skill
         this.ExperienceToLevelUpForEachLevel = GameConfigManager.Instance.GameConfig.ExperienceToLevelUpForEachLevel;
         this.AppliedTalents = new List<Talent>();
         this.Allowed = true;
-        this.ChanceToGetExtraResource = 0;
-        this.ExtraNutritionValue = 0;
         this.type = SkillType.none;
         this.MovementSpeedModifier = 0;
     }
@@ -58,6 +54,7 @@ public abstract class Skill
         {
             NewTalent.Apply(Unit, this);
             this.AppliedTalents.Add(NewTalent);
+            this.SkillTalents[NewTalent.TalentType] = NewTalent;
             Debug.Log("Getting new talent: " + NewTalent.Description);
             //Unit.CreatePopup(NewTalent.icon, $"New talent {NewTalent.Name}");
             Unit.CreatePopup(this.icon, $"Level Up! New Talent!");
