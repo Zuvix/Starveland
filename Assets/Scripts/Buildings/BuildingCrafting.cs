@@ -6,10 +6,12 @@ using UnityEngine.EventSystems;
 public class BuildingCrafting : Building
 {
     public List<CraftingRecipe> AvailableRecipes;
-    public readonly List<CraftingRecipe> CraftingQueue = new List<CraftingRecipe>();
+    public readonly List<int> CraftingQueue = new List<int>();
     public readonly List<int> ItemQuantities = new List<int>();
     public readonly UnityEvent<int, List<Resource>> OnQueueUpdate = new UnityEvent<int, List<Resource>>();
     private float CurrentProgress;
+    private ProgressBar ProgressBar;
+    private int CurrentRecipeIndex = -1;
     protected override void Awake()
     {
         base.Awake();
@@ -17,6 +19,43 @@ public class BuildingCrafting : Building
         {
             ItemQuantities.Add(0);
         }
+    }
+    void Start()
+    {
+        ProgressBar = Instantiate(PrefabPallette.Instance.CellObjectSliderPrefab).GetComponent<ProgressBar>();
+        ProgressBar.gameObject.transform.SetParent(PrefabPallette.Instance.Canvas.transform);
+        // Move Progress Bar to position of building and adjust it a little
+        Vector3 ProgressBarPosition = this.gameObject.transform.position;
+        ProgressBarPosition.x -= 1;
+        ProgressBarPosition.y += this.gameObject.GetComponent<SpriteRenderer>().bounds.size.y / 2;
+        PositionConversion.MoveUIObjectToWorldObjectPosition(ProgressBarPosition, ProgressBar.gameObject, PrefabPallette.Instance.Canvas, PrefabPallette.Instance.Camera);
+        ProgressBar.gameObject.SetActive(false);
+    }
+    void Update()
+    {
+        if (CurrentRecipeIndex != -1)
+        {
+            CurrentProgress += Time.deltaTime / AvailableRecipes[CurrentRecipeIndex].CraftingDuration;
+            ProgressBar.CurrentProgress = CurrentProgress;
+            if (CurrentProgress >= 1.0f)
+            {
+                GlobalInventory.Instance.AddItem(AvailableRecipes[CurrentRecipeIndex].Output.Duplicate());
+                CurrentRecipeIndex = -1;
+                ProgressBar.gameObject.SetActive(false);
+            }
+        }
+        else if (CraftingQueue.Count > 0)
+        {
+            
+            CurrentProgress = 0f;
+            ProgressBar.gameObject.SetActive(true);
+            ProgressBar.CurrentProgress = CurrentProgress;
+            DequeueRecipe();
+        }
+    }
+    void OnDestroy()
+    {
+        Destroy(ProgressBar.gameObject);
     }
     public override void RightClickAction()
     {
@@ -26,7 +65,7 @@ public class BuildingCrafting : Building
     {
         if (GlobalInventory.Instance.AttemptRemoveItems(AvailableRecipes[Index].Input))
         {
-            this.CraftingQueue.Add(AvailableRecipes[Index]);
+            this.CraftingQueue.Add(Index);
             this.ItemQuantities[Index]++;
             OnQueueUpdate.Invoke(Index, AvailableRecipes[Index].Input);
 
@@ -35,13 +74,20 @@ public class BuildingCrafting : Building
             );*/
         }
     }
-    public void DequeueRecipe(int Index)
+    private void DequeueRecipe()
+    {
+        CurrentRecipeIndex = CraftingQueue[0];
+        CraftingQueue.RemoveAt(0);
+        ItemQuantities[CurrentRecipeIndex]--;
+        OnQueueUpdate.Invoke(CurrentRecipeIndex, AvailableRecipes[CurrentRecipeIndex].Input);
+    }
+    public void CancelQueuedRecipe(int Index)
     {
         if (ItemQuantities[Index] > 0)
         {
             for (int i = CraftingQueue.Count - 1; i >= 0; i++)
             {
-                if (CraftingQueue[i] == AvailableRecipes[Index])
+                if (CraftingQueue[i] == Index)
                 {
                     CraftingQueue.RemoveAt(i);
                     this.ItemQuantities[Index]--;

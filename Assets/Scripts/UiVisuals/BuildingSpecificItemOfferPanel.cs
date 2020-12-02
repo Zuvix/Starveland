@@ -30,7 +30,7 @@ public class BuildingSpecificItemOfferPanel : MonoBehaviour, IPointerClickHandle
         }
         else if (eventData.button == PointerEventData.InputButton.Right)
         {
-            Building.DequeueRecipe(index);
+            Building.CancelQueuedRecipe(index);
         }
     }
 
@@ -56,7 +56,7 @@ public class BuildingSpecificItemOfferPanel : MonoBehaviour, IPointerClickHandle
     }
     public void UpdateQuantityLabel(List<Resource> ResourcesSpent)
     {
-        this.QueueCountLabel.text = Building.ItemQuantities[index] > 0 ? Building.ItemQuantities[index].ToString() : "";
+        UpdateQuantityLabel();
         //CreatePopups(ResourcesSpent.Select(res => (res.itemInfo.icon, -res.Amount)).ToList());
     }
 
