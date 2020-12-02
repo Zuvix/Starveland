@@ -2087,6 +2087,7 @@ MonoBehaviour:
   - {fileID: 487925228}
   - {fileID: 1880700946}
   BuildingInfoPopupPanel: {fileID: 2022542371}
+  Popup: {fileID: 7964957230971447603, guid: 950b028d3cbc148489079960954f13fc, type: 3}
 --- !u!1 &442662138
 GameObject:
   m_ObjectHideFlags: 0
@@ -3900,7 +3901,7 @@ PrefabInstance:
     - target: {fileID: 8257016294825542128, guid: 2646b431e7902d446a4de539134e4ac8,
         type: 3}
       propertyPath: m_RootOrder
-      value: 7
+      value: 6
       objectReference: {fileID: 0}
     - target: {fileID: 8257016294825542128, guid: 2646b431e7902d446a4de539134e4ac8,
         type: 3}
@@ -5685,7 +5686,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 6
+  m_RootOrder: 7
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1254131795
 MonoBehaviour:
@@ -7449,7 +7450,7 @@ PrefabInstance:
     - target: {fileID: 3275805233410246321, guid: ce26828ea09de184f839f032dbfb0368,
         type: 3}
       propertyPath: m_RootOrder
-      value: 9
+      value: 8
       objectReference: {fileID: 0}
     - target: {fileID: 3275805233410246321, guid: ce26828ea09de184f839f032dbfb0368,
         type: 3}
@@ -8553,7 +8554,7 @@ Transform:
   m_LocalScale: {x: 9.4, y: 9.4, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 8
+  m_RootOrder: 9
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &2067620382
 GameObject:
