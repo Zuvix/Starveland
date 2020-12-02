@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
@@ -55,6 +56,24 @@ public class GlobalInventory : Singleton<GlobalInventory>
             }
         }
         return false;
+    }
+    public int CheckAvailabilityAmount(List<Resource> Ingredients)
+    {
+        int Result = CheckAvailabilityAmount(Ingredients[0]);
+        for (int i = 1; i < Ingredients.Count; i++)
+        {
+            Result = Math.Min(Result, CheckAvailabilityAmount(Ingredients[0]));
+        }
+        return Result;
+    }
+    private int CheckAvailabilityAmount(Resource Ingredient)
+    {
+        int Result = 0;
+        if (playerInventory.ContainsKey(Ingredient.itemInfo.name))
+        {
+            Result = (int) Math.Floor(playerInventory[Ingredient.itemInfo.name].Amount / (float) Ingredient.Amount);
+        }
+        return Result;
     }
     public bool RemoveItem(string itemName,int amountToRemove)
     {

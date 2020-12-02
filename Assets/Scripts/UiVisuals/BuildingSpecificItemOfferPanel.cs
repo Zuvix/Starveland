@@ -24,13 +24,38 @@ public class BuildingSpecificItemOfferPanel : MonoBehaviour, IPointerClickHandle
 
     public void OnPointerClick(PointerEventData eventData)
     {
-        if (eventData.button == PointerEventData.InputButton.Left)
+        bool LeftClick = eventData.button == PointerEventData.InputButton.Left;
+        bool RightClick = eventData.button == PointerEventData.InputButton.Right;
+
+        int Amount = 1;
+        if (Input.GetKey(KeyCode.LeftShift) || Input.GetKey(KeyCode.RightShift))
         {
-            Building.EnqueueRecipe(index);
+            Amount = 5;
         }
-        else if (eventData.button == PointerEventData.InputButton.Right)
+        else if (Input.GetKey(KeyCode.LeftControl) || Input.GetKey(KeyCode.RightControl))
         {
-            Building.CancelQueuedRecipe(index);
+            if (LeftClick)
+            {
+                Amount = GlobalInventory.Instance.CheckAvailabilityAmount(Recipe.Input);
+            }
+            else if (RightClick)
+            {
+                Amount = Building.ItemQuantities[index];
+            }
+        }
+        if (LeftClick)
+        {
+            for (int i = 0; i < Amount; i++)
+            {
+                Building.EnqueueRecipe(index);
+            }
+        }
+        else if (RightClick)
+        {
+            for (int i = 0; i < Amount; i++)
+            {
+                Building.CancelQueuedRecipe(index);
+            }
         }
     }
 

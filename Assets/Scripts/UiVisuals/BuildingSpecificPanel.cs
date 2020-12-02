@@ -55,6 +55,7 @@ public class BuildingSpecificPanel : MonoBehaviour, IPointerEnterHandler, IPoint
         this.gameObject.SetActive(false);
         MouseEvents.Instance.UnregisterVisibleBuildingPanel();
         this.BoundBuilding.OnQueueUpdate.RemoveListener(UpdateQuantityLabel);
+        this.BoundBuilding.ToggleProgressBarVisibility(true);
         this.BoundBuilding = null;
     }
 

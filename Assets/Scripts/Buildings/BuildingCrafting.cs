@@ -12,6 +12,7 @@ public class BuildingCrafting : Building
     private float CurrentProgress;
     private ProgressBar ProgressBar;
     private int CurrentRecipeIndex = -1;
+    private bool ProgressBarAllowed;
     protected override void Awake()
     {
         base.Awake();
@@ -48,8 +49,11 @@ public class BuildingCrafting : Building
         {
             
             CurrentProgress = 0f;
-            ProgressBar.gameObject.SetActive(true);
-            ProgressBar.CurrentProgress = CurrentProgress;
+            if (ProgressBarAllowed)
+            {
+                ProgressBar.gameObject.SetActive(true);
+                ProgressBar.CurrentProgress = CurrentProgress;
+            }
             DequeueRecipe();
         }
     }
@@ -60,6 +64,7 @@ public class BuildingCrafting : Building
     public override void RightClickAction()
     {
         PanelControl.Instance.BuildingMenuPanel.GetComponent<BuildingSpecificPanel>().Display(this);
+        this.ProgressBar.gameObject.SetActive(false);
     }
     public void EnqueueRecipe(int Index)
     {
@@ -98,5 +103,10 @@ public class BuildingCrafting : Building
                 }
             }
         }
+    }
+    public void ToggleProgressBarVisibility(bool newValue)
+    {
+        ProgressBarAllowed = newValue;
+        this.ProgressBar.gameObject.SetActive(ProgressBarAllowed);
     }
 }
