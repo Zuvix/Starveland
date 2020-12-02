@@ -82,11 +82,11 @@ public class MapCell
     {
         if (this.CurrentUnit != null && this.CurrentUnit.IsPossibleToAddToActionQueue)
         {
-            CurrentUnit.AddToActionQueue();
+            CurrentUnit.RightClickAction();
         }
         else if (this.CurrentObject != null && this.CurrentObject.IsPossibleToAddToActionQueue)
         {
-            CurrentObject.AddToActionQueue();
+            CurrentObject.RightClickAction();
         }
     }
     public void BackupCellObject()

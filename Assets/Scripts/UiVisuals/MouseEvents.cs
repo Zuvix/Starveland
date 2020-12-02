@@ -14,6 +14,22 @@ public class MouseEvents : Singleton<MouseEvents>
     private GameObject viewedObject=null;
     private GameObject selectedObject = null;
     public GameObject frame;
+
+    private BuildingSpecificPanel ActiveBuildingMenuPanel = null;
+
+    private bool dragEnabled = true;
+    public bool DragEnabled
+    {
+        get
+        {
+            return dragEnabled;
+        }
+        set
+        {
+            this.dragEnabled = value;
+            frame.SetActive(value);
+        }
+    }
     private void HandleMouseMove()
     {
         mouseMoveTimer -= Time.deltaTime;
@@ -75,39 +91,54 @@ public class MouseEvents : Singleton<MouseEvents>
     }
     public void HandleMouseClick()
     {
-        if (GlobalGameState.Instance.InGameInputAllowed)
+        
+        if (ActiveBuildingMenuPanel == null)
         {
-            if (Input.GetMouseButtonDown(0))
+            if (GlobalGameState.Instance.InGameInputAllowed)
             {
                 Vector3 MousePosition = UtilsClass.GetMouseWorldPosition();
                 MapControl.Instance.map.GetXY(MousePosition, out int x, out int y);
                 bool IsInMap = MapControl.Instance.map.IsInBounds(x, y);
-                Debug.Log($"Clicked {x}, {y}. It is in map: {IsInMap}");
-                if (IsInMap)
+                GameObject mapValue = GetSelectedGameObject(MousePosition);
+
+                if (Input.GetMouseButtonDown(0))
                 {
-                    //GameObject mapValue = MapControl.Instance.map.GetValue(UtilsClass.GetMouseWorldPosition());
-                    GameObject mapValue = GetSelectedGameObject(MousePosition);
-                    selectedObject = mapValue;
+                    Debug.Log($"Clicked {x}, {y}. It is in map: {IsInMap}");
+                    if (IsInMap)
+                    {
+                        //GameObject mapValue = MapControl.Instance.map.GetValue(UtilsClass.GetMouseWorldPosition());
+                        
+                        selectedObject = mapValue;
+                    }
+                }
+                else if (Input.GetMouseButtonDown(1))
+                {
+                    Debug.LogWarning($"Right-clicked {x}, {y}. It is in map: {IsInMap}");
+                    if (IsInMap)
+                    {
+                        MapControl.Instance.map.Grid[x][y].RespondToActionOrder();
+                        
+                        if (mapValue != null)
+                        {
+                            mapValue.GetComponent<CellObject>().RightClickAction();
+                        }
+                    }
                 }
             }
-            else if (Input.GetMouseButtonDown(1))
-            {
-                Vector3 MousePosition = UtilsClass.GetMouseWorldPosition();
-                MapControl.Instance.map.GetXY(MousePosition, out int x, out int y);
-                bool IsInMap = MapControl.Instance.map.IsInBounds(x, y);
-                Debug.LogWarning($"Right-clicked {x}, {y}. It is in map: {IsInMap}");
-                if (IsInMap)
-                {
-                    MapControl.Instance.map.Grid[x][y].RespondToActionOrder();
-                }
-            }
+        }
+        else if(DragEnabled && (Input.GetMouseButtonDown(0) || Input.GetMouseButtonDown(1)))
+        {
+            ActiveBuildingMenuPanel.Hide();
         }
     }
 
     // Update is called once per frame
     void Update()
     {
-        HandleMouseMove();
+        if (DragEnabled)
+        {
+            HandleMouseMove();
+        }
         HandleMouseClick();
     }
 
@@ -123,5 +154,14 @@ public class MouseEvents : Singleton<MouseEvents>
         }
 
         return Result;
+    }
+    public void RegisterVisibleBuildingPanel(BuildingSpecificPanel ActivePanel)
+    {
+        this.ActiveBuildingMenuPanel = ActivePanel;
+    }
+    public void UnregisterVisibleBuildingPanel()
+    {
+        this.ActiveBuildingMenuPanel = null;
+        this.DragEnabled = true;
     }
 }

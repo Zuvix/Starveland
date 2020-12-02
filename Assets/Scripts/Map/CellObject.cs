@@ -42,7 +42,7 @@ public class CellObject : MonoBehaviour
     {
         this.CurrentCell = Cell;
     }
-    public virtual void AddToActionQueue() {}
+    public virtual void RightClickAction() {}
     public void AddToActionQueueSimple()
     {
         UnitManager.Instance.AddActionToQueue(this);

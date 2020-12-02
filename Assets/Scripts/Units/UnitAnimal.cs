@@ -31,7 +31,7 @@ public class UnitAnimal : Unit
 
         base.Start();
     }
-    public override void AddToActionQueue()
+    public override void RightClickAction()
     {
         AddToActionQueueSimple();
     }

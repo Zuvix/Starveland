@@ -12,7 +12,7 @@ public class ResourceSource : CellObject
         base.Awake();
         this.IsPossibleToAddToActionQueue = true;
     }
-    public override void AddToActionQueue()
+    public override void RightClickAction()
     {
         AddToActionQueueSimple();
     }

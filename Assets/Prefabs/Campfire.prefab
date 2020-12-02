@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8971180969650932110}
   - component: {fileID: 2343807109050575822}
-  - component: {fileID: 3651762925917075155}
+  - component: {fileID: -5575763673112254602}
   m_Layer: 0
   m_Name: Campfire
   m_TagString: Untagged
@@ -84,7 +84,7 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!114 &3651762925917075155
+--- !u!114 &-5575763673112254602
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -93,14 +93,14 @@ MonoBehaviour:
   m_GameObject: {fileID: 5161994218835401504}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 31f097e5793a33d48a79e51709f372a7, type: 3}
+  m_Script: {fileID: 11500000, guid: 37647ad4d6a26a744a8ff4cbdb83dbcb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   flashTime: 0.2
   sr: {fileID: 0}
-  objectName: Fireplace
+  objectName: Campfire
   tip: To cook meat on and to warm yourself.
-  popup: {fileID: 0}
+  popup: {fileID: 7964957230971447603, guid: 950b028d3cbc148489079960954f13fc, type: 3}
   IsBlocking: 1
   IsSelectable: 1
   IsPossibleToAddToActionQueue: 0
