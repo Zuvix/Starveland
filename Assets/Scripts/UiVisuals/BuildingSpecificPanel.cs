@@ -11,6 +11,7 @@ public class BuildingSpecificPanel : MonoBehaviour, IPointerEnterHandler, IPoint
     public Image BuildingIcon;
     public List<GameObject> OfferedItemPanels;
     public GameObject BuildingInfoPopupPanel;
+    public GameObject Popup;
 
     private BuildingCrafting BoundBuilding = null;
     void Awake()
@@ -66,8 +67,8 @@ public class BuildingSpecificPanel : MonoBehaviour, IPointerEnterHandler, IPoint
     {
         MouseEvents.Instance.DragEnabled = true;
     }
-    private void UpdateQuantityLabel(int Index)
+    private void UpdateQuantityLabel(int Index, List<Resource> ResourcesSpent)
     {
-        this.OfferedItemPanels[Index].GetComponent<BuildingSpecificItemOfferPanel>().UpdateQuantityLabel();
+        this.OfferedItemPanels[Index].GetComponent<BuildingSpecificItemOfferPanel>().UpdateQuantityLabel(ResourcesSpent);
     }
 }

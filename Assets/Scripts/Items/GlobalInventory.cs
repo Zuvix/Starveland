@@ -20,6 +20,9 @@ public class GlobalInventory : Singleton<GlobalInventory>
 
         AddItem(new Resource(ItemManager.Instance.GetItem("Wood"), 50));
         AddItem(new Resource(ItemManager.Instance.GetItem("Rock"), 50));
+
+        AddItem(new Resource(ItemManager.Instance.GetItem("Meat"), 50));
+        AddItem(new Resource(ItemManager.Instance.GetItem("Salt"), 50));
     }
     public bool AddItem(Resource itemToAdd)
     {
@@ -32,6 +35,15 @@ public class GlobalInventory : Singleton<GlobalInventory>
         playerInventory.Add(itemToAdd.itemInfo.name,itemToAdd);
         OnInventoryUpdate.Invoke();
         return true;
+    }
+    public bool AddItems(List<Resource> itemsToAdd)
+    {
+        bool Result = true;
+        foreach (Resource itemToAdd in itemsToAdd)
+        {
+            Result &= AddItem(itemToAdd);
+        }
+        return Result;
     }
     public bool CheckAvaliableItem(string itemName,int amountNeeded)
     {
@@ -78,7 +90,7 @@ public class GlobalInventory : Singleton<GlobalInventory>
 
         return false;
     }
-    public bool RemoveItems(List<Resource> Items)
+    public bool AttemptRemoveItems(List<Resource> Items)
     {
         bool Success = true;
         List<Resource> BackedUpResources = new List<Resource>();

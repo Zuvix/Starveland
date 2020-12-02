@@ -1,4 +1,4 @@
-﻿using System.Collections;
+﻿using System.Linq;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
@@ -8,7 +8,7 @@ public class BuildingCrafting : Building
     public List<CraftingRecipe> AvailableRecipes;
     public readonly List<CraftingRecipe> CraftingQueue = new List<CraftingRecipe>();
     public readonly List<int> ItemQuantities = new List<int>();
-    public readonly UnityEvent<int> OnQueueUpdate = new UnityEvent<int>();
+    public readonly UnityEvent<int, List<Resource>> OnQueueUpdate = new UnityEvent<int, List<Resource>>();
     private float CurrentProgress;
     protected override void Awake()
     {
@@ -24,9 +24,16 @@ public class BuildingCrafting : Building
     }
     public void EnqueueRecipe(int Index)
     {
-        this.CraftingQueue.Add(AvailableRecipes[Index]);
-        this.ItemQuantities[Index]++;
-        OnQueueUpdate.Invoke(Index);
+        if (GlobalInventory.Instance.AttemptRemoveItems(AvailableRecipes[Index].Input))
+        {
+            this.CraftingQueue.Add(AvailableRecipes[Index]);
+            this.ItemQuantities[Index]++;
+            OnQueueUpdate.Invoke(Index, AvailableRecipes[Index].Input);
+
+            /*this.CreatePopups(
+                this.ConstructionCost.Select(res => (res.itemInfo.icon, -res.Amount)).ToList()
+            );*/
+        }
     }
     public void DequeueRecipe(int Index)
     {
@@ -38,10 +45,12 @@ public class BuildingCrafting : Building
                 {
                     CraftingQueue.RemoveAt(i);
                     this.ItemQuantities[Index]--;
+                    GlobalInventory.Instance.AddItems(AvailableRecipes[Index].Input.Select(x => x.Duplicate()).ToList());
+
+                    OnQueueUpdate.Invoke(Index, AvailableRecipes[Index].Input);
                     break;
                 }
             }
-            OnQueueUpdate.Invoke(Index);
         }
     }
 }

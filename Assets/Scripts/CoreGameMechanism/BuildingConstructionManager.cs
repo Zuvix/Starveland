@@ -97,7 +97,7 @@ public class BuildingConstructionManager : Singleton<BuildingConstructionManager
 
             DeselectBuilding();
 
-            if (GlobalInventory.Instance.RemoveItems(BuildingToCreate.GetComponent<Building>().ConstructionCost))
+            if (GlobalInventory.Instance.AttemptRemoveItems(BuildingToCreate.GetComponent<Building>().ConstructionCost))
             {
                 MapControl.Instance.CreateGameObject(CellToCreateBuildingOn.x, CellToCreateBuildingOn.y, BuildingToCreate);
 

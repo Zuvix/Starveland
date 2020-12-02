@@ -4,6 +4,8 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.EventSystems;
 using TMPro;
+using System.Collections;
+
 public class BuildingSpecificItemOfferPanel : MonoBehaviour, IPointerClickHandler, IPointerEnterHandler, IPointerExitHandler
 {
     public TMP_Text QueueCountLabel;
@@ -52,4 +54,34 @@ public class BuildingSpecificItemOfferPanel : MonoBehaviour, IPointerClickHandle
     {
         this.QueueCountLabel.text = Building.ItemQuantities[index] > 0 ? Building.ItemQuantities[index].ToString() : "";
     }
+    public void UpdateQuantityLabel(List<Resource> ResourcesSpent)
+    {
+        this.QueueCountLabel.text = Building.ItemQuantities[index] > 0 ? Building.ItemQuantities[index].ToString() : "";
+        //CreatePopups(ResourcesSpent.Select(res => (res.itemInfo.icon, -res.Amount)).ToList());
+    }
+
+    /*public void CreatePopup(Sprite icon, int value)
+    {
+        GameObject g = Instantiate(SuperPanel.Popup, this.gameObject.transform);
+        if (g.GetComponentInChildren<ItemPopup>() == null)
+        {
+            Debug.LogError("BuildingSpecificItemOfferPanel::CreatePopup - ItemPopup component in children is null");
+        }
+        g.GetComponentInChildren<ItemPopup>()?.CreatePopup(icon, value);
+    }
+    public void CreatePopups(List<(Sprite, int)> Entries)
+    {
+        StartCoroutine(MultiPopupCoroutine(Entries));
+    }
+    private IEnumerator MultiPopupCoroutine(List<(Sprite, int)> Entries)
+    {
+        for (int i = 0; i < Entries.Count; i++)
+        {
+            if (i > 0)
+            {
+                yield return new WaitForSeconds(0.5f);
+            }
+            this.CreatePopup(Entries[i].Item1, Entries[i].Item2);
+        }
+    }*/
 }
