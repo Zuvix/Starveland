@@ -109,3 +109,5 @@ MonoBehaviour:
     Amount: 3
   - itemInfo: {fileID: 11400000, guid: e8182eeb5a384d44bbdda801c49fcd0b, type: 2}
     Amount: 1
+  AvailableRecipes:
+  - {fileID: 11400000, guid: 8fa8eee24b138c64cbffb7e9f2040eed, type: 2}

@@ -64,7 +64,7 @@ public class BuildingOfferPanel : MonoBehaviour, IPointerClickHandler, IPointerE
     public void OnPointerEnter(PointerEventData eventData)
     {
         // BuildingConstructionManager.Instance.PopupPanel.GetComponent<BuildingInfoPopupPanel>().Display(BuildingComponent);
-        PopupPanel.Display(BuildingComponent);
+        PopupPanel.Display(BuildingComponent.objectName, BuildingComponent.tip, BuildingComponent.ConstructionCost);
     }
 
     public void OnPointerExit(PointerEventData eventData)
