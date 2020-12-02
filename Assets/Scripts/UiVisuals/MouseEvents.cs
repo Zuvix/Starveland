@@ -20,6 +20,7 @@ public class MouseEvents : Singleton<MouseEvents>
         objectChangedTimer -= Time.deltaTime;
         if (mouseMoveTimer < 0f)
         {
+            frame.SetActive(true);
             mouseMoveTimer += mouseMoveTimerMax;
 
             Vector3 MousePosition = UtilsClass.GetMouseWorldPosition();
@@ -58,6 +59,10 @@ public class MouseEvents : Singleton<MouseEvents>
             {
                 MapControl.Instance.map.GetXY(MousePosition, out int x, out int y);
                 MapControl.Instance.map.CenterObject(x, y, frame);
+                if (!MapControl.Instance.map.IsInBounds(x, y))
+                {
+                    frame.SetActive(false);
+                }
                 if (viewedObject != null)
                 {
                     viewObjectChanged.Invoke(null, false);
