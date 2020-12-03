@@ -100,7 +100,7 @@ public class UnitManager : Singleton<UnitManager>
             Tuple<SkillType, ActivityState, CellObject, GameObject> newAction = null;
 
             //todo rozlisovat medzi roznymi activity states, vsetko nebude gather
-            if (CellObject is ResourceSource)
+            /*if (CellObject is ResourceSource)
             {
                 newAction = new Tuple<SkillType, ActivityState, CellObject, GameObject>(this.GetSkillDictionary[CellObject.tag],
                     new ActivityStateGather(CellObject.CurrentCell), CellObject, Instantiate(this.frame));
@@ -109,6 +109,17 @@ public class UnitManager : Singleton<UnitManager>
             {
                 newAction = new Tuple<SkillType, ActivityState, CellObject, GameObject>(this.GetSkillDictionary[CellObject.tag],
                     new ActivityStateHunt((UnitAnimal)CellObject), CellObject, Instantiate(this.frame));
+            }*/
+
+            ActivityState NewActivityState = CellObject.CreateActivityState();
+            if (NewActivityState != null)
+            {
+                newAction = new Tuple<SkillType, ActivityState, CellObject, GameObject> (
+                    this.GetSkillDictionary[CellObject.tag],
+                    NewActivityState,
+                    CellObject,
+                    Instantiate(this.frame)
+                );
             }
 
             if (newAction != null)

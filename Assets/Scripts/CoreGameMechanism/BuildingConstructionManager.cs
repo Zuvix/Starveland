@@ -1,11 +1,11 @@
 ﻿using CodeMonkey.Utils;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 public class BuildingConstructionManager : Singleton<BuildingConstructionManager>
 {
-    
     private GameObject CurrentlySelectedBuilding = null;
 
     private GameObject CurrentBackground;
@@ -20,22 +20,12 @@ public class BuildingConstructionManager : Singleton<BuildingConstructionManager
     // Update is called once per frame
     void Update()
     {
-        Debug.Log("A building is selected");
         if (Input.GetMouseButtonDown(0))
         {
-            if (LastCellHasBuildingMock)
-            {
-                MapCell CellToCreateBuildingOn = LastCellPointedOn;
-                GameObject BuildingToCreate = CurrentlySelectedBuilding;
-
-                DeselectBuilding();
-
-                MapControl.Instance.CreateGameObject(CellToCreateBuildingOn.x, CellToCreateBuildingOn.y, BuildingToCreate);
-            }
+            PlaceBuilding();
         }
         else if (Input.GetMouseButtonDown(1))
         {
-            Debug.Log("The building has been deselected");
             DeselectBuilding();
         }
         else
@@ -47,10 +37,16 @@ public class BuildingConstructionManager : Singleton<BuildingConstructionManager
             bool IsInMap = MapControl.Instance.map.IsInBounds(x, y);
             if (IsInMap)
             {
+                if (LastCellPointedOn != null)
+                {
+                    LastCellPointedOn.RestoreCellObject();
+                }
                 LastCellPointedOn = MapControl.Instance.map.Grid[x][y];
 
                 if (LastCellPointedOn.CanBeEnteredByObject(CurrentlySelectedBuilding.GetComponent<Building>().IsBlocking))
                 {
+                    LastCellPointedOn.BackupCellObject();
+
                     //Debug.LogError(MapControl.Instance.GreenBackground);
                     CurrentBackground = Instantiate(MapControl.Instance.GreenBackground);
                     MapControl.Instance.map.CenterObject(x, y, CurrentBackground);
@@ -72,6 +68,7 @@ public class BuildingConstructionManager : Singleton<BuildingConstructionManager
 
         CurrentlySelectedBuilding = null;
         BuildingMock = null;
+        LastCellPointedOn.RestoreCellObject();
         LastCellPointedOn = null;
         LastCellHasBuildingMock = false;
 
@@ -89,6 +86,25 @@ public class BuildingConstructionManager : Singleton<BuildingConstructionManager
 
             Destroy(CurrentBackground);
             CurrentBackground = null;
+        }
+    }
+    private void PlaceBuilding()
+    {
+        if (LastCellHasBuildingMock)
+        {
+            MapCell CellToCreateBuildingOn = LastCellPointedOn;
+            GameObject BuildingToCreate = CurrentlySelectedBuilding;
+
+            DeselectBuilding();
+
+            if (GlobalInventory.Instance.AttemptRemoveItems(BuildingToCreate.GetComponent<Building>().ConstructionCost))
+            {
+                MapControl.Instance.CreateGameObject(CellToCreateBuildingOn.x, CellToCreateBuildingOn.y, BuildingToCreate);
+
+                CellToCreateBuildingOn.CurrentObject.CreatePopups(
+                    BuildingToCreate.GetComponent<Building>().ConstructionCost.Select(res => (res.itemInfo.icon, -res.Amount)).ToList()
+                );
+            }
         }
     }
 }

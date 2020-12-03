@@ -12,9 +12,13 @@ public class ResourceSource : CellObject
         base.Awake();
         this.IsPossibleToAddToActionQueue = true;
     }
-    public override void AddToActionQueue()
+    public override void RightClickAction()
     {
         AddToActionQueueSimple();
+    }
+    public override ActivityState CreateActivityState()
+    {
+        return new ActivityStateGather(this.CurrentCell);
     }
     public Resource GatherResource(int amount)
     {
