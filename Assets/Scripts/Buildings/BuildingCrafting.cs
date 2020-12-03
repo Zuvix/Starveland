@@ -9,6 +9,9 @@ public class BuildingCrafting : Building
     public readonly List<int> CraftingQueue = new List<int>();
     public readonly List<int> ItemQuantities = new List<int>();
     public readonly UnityEvent<int, List<Resource>> OnQueueUpdate = new UnityEvent<int, List<Resource>>();
+    public readonly UnityEvent<string> OnCraftStart = new UnityEvent<string>();
+    public readonly UnityEvent<float> OnCraftUpdate = new UnityEvent<float>();
+    public readonly UnityEvent OnCraftEnd = new UnityEvent();
     private float CurrentProgress;
     private ProgressBar ProgressBar;
     private int CurrentRecipeIndex = -1;
@@ -37,12 +40,17 @@ public class BuildingCrafting : Building
         if (CurrentRecipeIndex != -1)
         {
             CurrentProgress += Time.deltaTime / AvailableRecipes[CurrentRecipeIndex].CraftingDuration;
-            ProgressBar.CurrentProgress = CurrentProgress;
+            if (ProgressBarAllowed)
+            {
+                ProgressBar.CurrentProgress = CurrentProgress;
+            }
+            OnCraftUpdate.Invoke(CurrentProgress);
             if (CurrentProgress >= 1.0f)
             {
                 GlobalInventory.Instance.AddItem(AvailableRecipes[CurrentRecipeIndex].Output.Duplicate());
                 CurrentRecipeIndex = -1;
                 ProgressBar.gameObject.SetActive(false);
+                OnCraftEnd.Invoke();
             }
         }
         else if (CraftingQueue.Count > 0)
@@ -85,6 +93,7 @@ public class BuildingCrafting : Building
         CraftingQueue.RemoveAt(0);
         ItemQuantities[CurrentRecipeIndex]--;
         OnQueueUpdate.Invoke(CurrentRecipeIndex, AvailableRecipes[CurrentRecipeIndex].Input);
+        OnCraftStart.Invoke(AvailableRecipes[CurrentRecipeIndex].Output.itemInfo.name);
     }
     public void CancelQueuedRecipe(int Index)
     {
@@ -107,6 +116,9 @@ public class BuildingCrafting : Building
     public void ToggleProgressBarVisibility(bool newValue)
     {
         ProgressBarAllowed = newValue;
-        this.ProgressBar.gameObject.SetActive(ProgressBarAllowed);
+        if ((newValue && CurrentRecipeIndex != -1) || !newValue)
+        {
+            this.ProgressBar.gameObject.SetActive(newValue);
+        }
     }
 }

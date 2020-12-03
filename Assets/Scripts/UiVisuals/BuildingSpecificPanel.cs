@@ -12,6 +12,9 @@ public class BuildingSpecificPanel : MonoBehaviour, IPointerEnterHandler, IPoint
     public List<GameObject> OfferedItemPanels;
     public GameObject BuildingInfoPopupPanel;
     public GameObject Popup;
+    public GameObject CraftProgressBar;
+    private ProgressBar CraftProgress;
+    public TMP_Text CratedItemNameLabel;
 
     private BuildingCrafting BoundBuilding = null;
     void Awake()
@@ -29,6 +32,7 @@ public class BuildingSpecificPanel : MonoBehaviour, IPointerEnterHandler, IPoint
             PanelComponent.SuperPanel = this;
             i++;
         }
+        CraftProgress = CraftProgressBar.GetComponent<ProgressBar>();
     }
     public void Display(BuildingCrafting Building)
     {
@@ -47,6 +51,11 @@ public class BuildingSpecificPanel : MonoBehaviour, IPointerEnterHandler, IPoint
             OfferedItemPanels[i].SetActive(false);
         }
         this.BoundBuilding.OnQueueUpdate.AddListener(UpdateQuantityLabel);
+        this.BoundBuilding.OnCraftStart.AddListener(UpdateCurrentlyCraftedItemName);
+        this.BoundBuilding.OnCraftUpdate.AddListener(UpdateCraftProgress);
+        this.BoundBuilding.OnCraftEnd.AddListener(HideCraftProgressBar);
+        HideCraftProgressBar();
+        this.BoundBuilding.ToggleProgressBarVisibility(false);
 
         this.gameObject.SetActive(true);
     }
@@ -55,10 +64,12 @@ public class BuildingSpecificPanel : MonoBehaviour, IPointerEnterHandler, IPoint
         this.gameObject.SetActive(false);
         MouseEvents.Instance.UnregisterVisibleBuildingPanel();
         this.BoundBuilding.OnQueueUpdate.RemoveListener(UpdateQuantityLabel);
+        this.BoundBuilding.OnCraftStart.RemoveListener(UpdateCurrentlyCraftedItemName);
+        this.BoundBuilding.OnCraftUpdate.RemoveListener(UpdateCraftProgress);
+        this.BoundBuilding.OnCraftEnd.RemoveListener(HideCraftProgressBar);
         this.BoundBuilding.ToggleProgressBarVisibility(true);
         this.BoundBuilding = null;
     }
-
     public void OnPointerEnter(PointerEventData eventData)
     {
         MouseEvents.Instance.DragEnabled = false;
@@ -67,6 +78,20 @@ public class BuildingSpecificPanel : MonoBehaviour, IPointerEnterHandler, IPoint
     public void OnPointerExit(PointerEventData eventData)
     {
         MouseEvents.Instance.DragEnabled = true;
+    }
+    public void UpdateCurrentlyCraftedItemName(string Value)
+    {
+        this.CratedItemNameLabel.text = Value;
+        this.CraftProgressBar.SetActive(true);
+    }
+    public void UpdateCraftProgress(float Value)
+    {
+        this.CraftProgress.CurrentProgress = Value;
+        this.CraftProgressBar.SetActive(true);
+    }
+    private void HideCraftProgressBar()
+    {
+        this.CraftProgressBar.SetActive(false);
     }
     private void UpdateQuantityLabel(int Index, List<Resource> ResourcesSpent)
     {
