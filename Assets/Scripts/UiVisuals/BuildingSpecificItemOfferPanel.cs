@@ -14,12 +14,21 @@ public class BuildingSpecificItemOfferPanel : MonoBehaviour, IPointerClickHandle
 
     private CraftingRecipe Recipe;
     private BuildingCrafting Building;
+
+    private bool ResourcesAvailable = false;
     public void Initialize(CraftingRecipe Recipe, BuildingCrafting Building)
     {
         this.Recipe = Recipe;
         this.Building = Building;
         this.gameObject.GetComponent<Image>().sprite = this.Recipe.Output.itemInfo.icon;
         UpdateQuantityLabel();
+
+        CheckResourceAvailability();
+        GlobalInventory.Instance.OnInventoryUpdate.AddListener(CheckResourceAvailability);
+    }
+    public void Hide()
+    {
+        GlobalInventory.Instance.OnInventoryUpdate.RemoveListener(CheckResourceAvailability);
     }
 
     public void OnPointerClick(PointerEventData eventData)
@@ -43,7 +52,7 @@ public class BuildingSpecificItemOfferPanel : MonoBehaviour, IPointerClickHandle
                 Amount = Building.ItemQuantities[index];
             }
         }
-        if (LeftClick)
+        if (LeftClick && ResourcesAvailable)
         {
             for (int i = 0; i < Amount; i++)
             {
@@ -84,7 +93,31 @@ public class BuildingSpecificItemOfferPanel : MonoBehaviour, IPointerClickHandle
         UpdateQuantityLabel();
         //CreatePopups(ResourcesSpent.Select(res => (res.itemInfo.icon, -res.Amount)).ToList());
     }
+    public void CheckResourceAvailability()
+    {
+        ResourcesAvailable = true;
+        foreach (Resource Resource in Building.ConstructionCost)
+        {
+            ResourcesAvailable &= GlobalInventory.Instance.CheckAvaliableItem(Resource.itemInfo.name, Resource.Amount);
+            if (!ResourcesAvailable)
+            {
+                break;
+            }
+        }
 
+        MakeAvailable();
+    }
+    private void MakeAvailable()
+    {
+        if (ResourcesAvailable)
+        {
+            this.gameObject.GetComponent<UnityEngine.UI.Image>().color = new Color(1, 1, 1, 1);
+        }
+        else
+        {
+            this.gameObject.GetComponent<UnityEngine.UI.Image>().color = new Color(1, 1, 1, 0.25f);
+        }
+    }
     /*public void CreatePopup(Sprite icon, int value)
     {
         GameObject g = Instantiate(SuperPanel.Popup, this.gameObject.transform);

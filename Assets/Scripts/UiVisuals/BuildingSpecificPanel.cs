@@ -58,9 +58,15 @@ public class BuildingSpecificPanel : MonoBehaviour, IPointerEnterHandler, IPoint
         this.BoundBuilding.ToggleProgressBarVisibility(false);
 
         this.gameObject.SetActive(true);
+
     }
     public void Hide()
     {
+        for (int i = 0; i < OfferedItemPanels.Count; i++)
+        {
+            OfferedItemPanels[i].GetComponent<BuildingSpecificItemOfferPanel>().Hide();
+        }
+
         this.gameObject.SetActive(false);
         MouseEvents.Instance.UnregisterVisibleBuildingPanel();
         this.BoundBuilding.OnQueueUpdate.RemoveListener(UpdateQuantityLabel);
@@ -69,12 +75,12 @@ public class BuildingSpecificPanel : MonoBehaviour, IPointerEnterHandler, IPoint
         this.BoundBuilding.OnCraftEnd.RemoveListener(HideCraftProgressBar);
         this.BoundBuilding.ToggleProgressBarVisibility(true);
         this.BoundBuilding = null;
+
     }
     public void OnPointerEnter(PointerEventData eventData)
     {
         MouseEvents.Instance.DragEnabled = false;
     }
-
     public void OnPointerExit(PointerEventData eventData)
     {
         MouseEvents.Instance.DragEnabled = true;
