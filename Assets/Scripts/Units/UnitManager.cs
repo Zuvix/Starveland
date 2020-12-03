@@ -101,11 +101,10 @@ public class UnitManager : Singleton<UnitManager>
             ActivityState NewActivityState = CellObject.CreateActivityState();
             if (NewActivityState != null)
             {
-                newAction = new Tuple<SkillType, ActivityState, CellObject, GameObject> (
+                newAction = new Tuple<SkillType, ActivityState, CellObject> (
                     this.GetSkillDictionary[CellObject.tag],
                     NewActivityState,
-                    CellObject,
-                    Instantiate(this.frame)
+                    CellObject
                 );
             }
 
