@@ -15,7 +15,7 @@ public class BuildingCrafting : Building
     private float CurrentProgress;
     private ProgressBar ProgressBar;
     private int CurrentRecipeIndex = -1;
-    private bool ProgressBarAllowed;
+    private static bool ProgressBarAllowed;
     protected override void Awake()
     {
         base.Awake();
@@ -44,12 +44,18 @@ public class BuildingCrafting : Building
             {
                 ProgressBar.CurrentProgress = CurrentProgress;
             }
+            ProgressBar.gameObject.SetActive(ProgressBarAllowed);
             OnCraftUpdate.Invoke(CurrentProgress);
             if (CurrentProgress >= 1.0f)
             {
                 GlobalInventory.Instance.AddItem(AvailableRecipes[CurrentRecipeIndex].Output.Duplicate());
-                CurrentRecipeIndex = -1;
+                
                 ProgressBar.gameObject.SetActive(false);
+                if(ProgressBarAllowed)
+                {
+                    this.CreatePopup(AvailableRecipes[CurrentRecipeIndex].Output.itemInfo.icon, AvailableRecipes[CurrentRecipeIndex].Output.Amount);
+                }
+                CurrentRecipeIndex = -1;
                 OnCraftEnd.Invoke();
             }
         }
@@ -65,10 +71,6 @@ public class BuildingCrafting : Building
             DequeueRecipe();
         }
     }
-    void OnDestroy()
-    {
-        Destroy(ProgressBar.gameObject);
-    }
     public override void RightClickAction()
     {
         PanelControl.Instance.BuildingMenuPanel.GetComponent<BuildingSpecificPanel>().Display(this);
@@ -82,9 +84,9 @@ public class BuildingCrafting : Building
             this.ItemQuantities[Index]++;
             OnQueueUpdate.Invoke(Index, AvailableRecipes[Index].Input);
 
-            /*this.CreatePopups(
-                this.ConstructionCost.Select(res => (res.itemInfo.icon, -res.Amount)).ToList()
-            );*/
+            this.CreatePopups(
+                AvailableRecipes[Index].Input.Select(res => (res.itemInfo.icon, -res.Amount)).ToList()
+            );
         }
     }
     private void DequeueRecipe()
