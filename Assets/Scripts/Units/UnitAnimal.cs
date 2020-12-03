@@ -31,9 +31,13 @@ public class UnitAnimal : Unit
 
         base.Start();
     }
-    public override void AddToActionQueue()
+    public override void RightClickAction()
     {
         AddToActionQueueSimple();
+    }
+    public override ActivityState CreateActivityState()
+    {
+        return new ActivityStateHunt(this);
     }
     public override void Flip(string side)
     {

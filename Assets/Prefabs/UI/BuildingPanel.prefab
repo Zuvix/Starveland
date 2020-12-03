@@ -147,6 +147,7 @@ GameObject:
   m_Component:
   - component: {fileID: 919980271346893944}
   - component: {fileID: 919980271346893951}
+  - component: {fileID: 6451427695849667420}
   m_Layer: 5
   m_Name: BuildingPanel
   m_TagString: Untagged
@@ -184,6 +185,19 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 919980271346893945}
   m_CullTransparentMesh: 0
+--- !u!114 &6451427695849667420
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 919980271346893945}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f271828122af94e44948d9599bafb6a8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  PopupPanel: {fileID: 0}
 --- !u!1001 &1279389981825310618
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -316,6 +330,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: BuildingConstructionPanel (1)
       objectReference: {fileID: 0}
+    - target: {fileID: 8180472313472665529, guid: 5430158f9b1ad7c4290ee101ab90c278,
+        type: 3}
+      propertyPath: BuildingPanel
+      value: 
+      objectReference: {fileID: 919980271346893945}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 5430158f9b1ad7c4290ee101ab90c278, type: 3}
 --- !u!224 &3550663441615502339 stripped
@@ -441,6 +460,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: BuildingConstructionPanel
       objectReference: {fileID: 0}
+    - target: {fileID: 8180472313472665529, guid: 5430158f9b1ad7c4290ee101ab90c278,
+        type: 3}
+      propertyPath: BuildingPanel
+      value: 
+      objectReference: {fileID: 919980271346893945}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 5430158f9b1ad7c4290ee101ab90c278, type: 3}
 --- !u!224 &7169552268759768197 stripped

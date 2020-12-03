@@ -14,6 +14,8 @@ public class MapCell
     public Map Map { get; }
 
     public Vector3 position;
+
+    private CellObject ObjectBackup;
     public MapCell(Vector3 position, Map Map, int x, int y)
     {
         this.position = position;
@@ -78,19 +80,40 @@ public class MapCell
     }
     public void RespondToActionOrder()
     {
-        //Debug.LogWarning($"{this} ({x},{y})responds to right click. Current Unit is {this.CurrentUnit}, current Object is {this.CurrentObject}");
-
         if (this.CurrentUnit != null && this.CurrentUnit.IsPossibleToAddToActionQueue)
         {
-            //Debug.LogWarning($"{CurrentUnit} responds to right click");
-            CurrentUnit.AddToActionQueue();
+            CurrentUnit.RightClickAction();
         }
         else if (this.CurrentObject != null && this.CurrentObject.IsPossibleToAddToActionQueue)
         {
-            //Debug.LogWarning($"{CurrentObject} responds to right click");
-            CurrentObject.AddToActionQueue();
+            CurrentObject.RightClickAction();
         }
-        //Debug.LogWarning($"No response to right click");
+    }
+    public void BackupCellObject()
+    {
+        if (this.CurrentObject != null)
+        {
+            this.ObjectBackup = this.CurrentObject;
+            this.ObjectBackup.gameObject.SetActive(false);
+            this.CurrentObject = null;
+        }
+    }
+    public void RestoreCellObject()
+    {
+        if (this.ObjectBackup != null)
+        {
+            this.CurrentObject = this.ObjectBackup;
+            this.CurrentObject.gameObject.SetActive(true);
+            this.ObjectBackup = null;
+        }
+    }
+    public void DiscardCellObjectBackup()
+    {
+        if (this.ObjectBackup != null)
+        {
+            CellObject.Destroy(this.ObjectBackup);
+            this.ObjectBackup = null;
+        }
     }
     public virtual PathSearchNode ProducePathSearchNode(List<List<PathSearchNode>> Map)
     {

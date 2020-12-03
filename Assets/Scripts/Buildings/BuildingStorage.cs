@@ -14,6 +14,9 @@ public class BuildingStorage : Building
     }
     public void OnDestroy()
     {
-        MapControl.Instance.StorageList.Remove(this.CurrentCell);
+        if (MapControl.Instance != null)
+        {
+            MapControl.Instance.StorageList.Remove(this.CurrentCell);
+        }
     }
 }

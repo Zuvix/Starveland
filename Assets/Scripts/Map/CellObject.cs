@@ -16,7 +16,7 @@ public class CellObject : MonoBehaviour
     public string tip;
 
     public GameObject popup;
-
+    public readonly float MultiPopupDelay = 0.5f;
     public MapCell CurrentCell { get; private set; }
 
     public bool IsBlocking = false;
@@ -42,10 +42,14 @@ public class CellObject : MonoBehaviour
     {
         this.CurrentCell = Cell;
     }
-    public virtual void AddToActionQueue() {}
+    public virtual void RightClickAction() {}
     public void AddToActionQueueSimple()
     {
         UnitManager.Instance.AddActionToQueue(this);
+    }
+    public virtual ActivityState CreateActivityState()
+    {
+        return null;
     }
     public virtual void Flip(string side)
     {
@@ -78,7 +82,21 @@ public class CellObject : MonoBehaviour
         GameObject g= Instantiate(popup,this.transform);
         g.GetComponentInChildren<ItemPopup>()?.CreatePopup(icon, value);
     }
-
+    public void CreatePopups(List<(Sprite, int)> Entries)
+    {
+        StartCoroutine(MultiPopupCoroutine(Entries));
+    }
+    private IEnumerator MultiPopupCoroutine(List<(Sprite, int)> Entries)
+    {
+        for(int i = 0; i < Entries.Count; i++)
+        {
+            if (i > 0)
+            {
+                yield return new WaitForSeconds(MultiPopupDelay);
+            }
+            this.CreatePopup(Entries[i].Item1, Entries[i].Item2);
+        }
+    }
     public void CreatePopup(Sprite icon, string text)
     {
         GameObject g = Instantiate(popup, this.transform);
