@@ -50,7 +50,7 @@ class FeedingManager : Singleton<FeedingManager>
         UnitHungry ConsumingUnit = UnitPanel.Unit;
         if (GlobalInventory.Instance.RemoveItem(ConsumedResource.itemInfo.name, ConsumedResource.Amount))
         {
-            ConsumingUnit.Eat(ConsumedResource.itemInfo.NutritionValue);
+            ConsumingUnit.Eat(ConsumedResource.itemInfo);
             if (ConsumingUnit.IsFed())
             {
                 PlayerUnits.Remove(ConsumingUnit);

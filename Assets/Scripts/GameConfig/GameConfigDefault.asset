@@ -19,28 +19,142 @@ MonoBehaviour:
   MovementSpeedAnimal: 5
   BaseDamageAnimal: 10
   StartingLevelOfSkills: 1
-  ExperienceNeededToLevelUp: 50
-  StartingCarryingCapacityOfSkills: 2
-  StartingGatheringTimeOfSkills: 1.5
-  StartingChanceToGetExtraResource: 5
-  WoodcuttingExperiencePerAction: 10
-  WoodcuttingIcon: {fileID: 6566697938281827825, guid: b81d09a574bb33a4ea1b7acc8221604e,
+  MaximumLevelOfSkills: 10
+  ExperienceToLevelUpForEachLevel: 0a0000000a0000000a0000000a0000000a0000000a0000000a0000000a0000000a0000000a000000
+  MaximumTalentsPerSkill: 3
+  RecieveTalentLevels: 03000000060000000a000000
+  ForagingExperiencePerAction: 10
+  ForagingGatheringTime: 1.5
+  ForagingIcon: {fileID: 6566697938281827825, guid: b81d09a574bb33a4ea1b7acc8221604e,
     type: 3}
+  ForagingTalents:
+  - Name: Lumberjack
+    Description: Woodcutting speed
+    icon: {fileID: 4914606730991292130, guid: ddf4a4e6ec245864fbfb72f96ebb7d3d, type: 3}
+    EffectList:
+    - Effects:
+      - effectDescription: wooducutting speed
+        effectValue: 25
+    - Effects:
+      - effectDescription: wooducutting speed
+        effectValue: 60
+  - Name: Gatherer
+    Description: 'Gather extra food chance '
+    icon: {fileID: 4732196898076125967, guid: ddf4a4e6ec245864fbfb72f96ebb7d3d, type: 3}
+    EffectList:
+    - Effects:
+      - effectDescription: chance to gather extra foragable food
+        effectValue: 15
+    - Effects:
+      - effectDescription: chance to gather extra foragable food
+        effectValue: 35
+  - Name: Forest Fruits
+    Description: Foragable food
+    icon: {fileID: -8445415046740580943, guid: ddf4a4e6ec245864fbfb72f96ebb7d3d, type: 3}
+    EffectList:
+    - Effects:
+      - effectDescription: nv bonus for each raw foragable food eaten
+        effectValue: 1
+    - Effects:
+      - effectDescription: nv bonus for each raw foragable food eaten
+        effectValue: 2
+  - Name: Friend of the Forest
+    Description: Spawn sapling chance
+    icon: {fileID: -3314528202052115370, guid: ddf4a4e6ec245864fbfb72f96ebb7d3d, type: 3}
+    EffectList:
+    - Effects:
+      - effectDescription: chance to spawn a sapling when finishing the tree
+        effectValue: 15
+    - Effects:
+      - effectDescription: chance to spawn a sapling when finishing the tree
+        effectValue: 35
+  - Name: Critical Harvest
+    Description: Cutting down trees is instant but slower
+    icon: {fileID: -8911930798815700879, guid: ddf4a4e6ec245864fbfb72f96ebb7d3d, type: 3}
+    EffectList:
+    - Effects:
+      - effectDescription: slows down the cutting speed by x times
+        effectValue: 8
+  - Name: Mother of Nature
+    Description: Spawn a foragable food source after cutting down a tree
+    icon: {fileID: -2343689574573338329, guid: ddf4a4e6ec245864fbfb72f96ebb7d3d, type: 3}
+    EffectList: []
+  MiningExperiencePerAction: 10
+  MiningGatheringTime: 3
+  BasicDiamondUnderRockChance: 25
+  MovementSpeedWhileCarryingRock: -50
+  MiningIcon: {fileID: -2420062209741622707, guid: ddf4a4e6ec245864fbfb72f96ebb7d3d,
+    type: 3}
+  MiningTalents:
+  - Name: Mining Berserk
+    Description: '% chance to mine the rock n-times in a short span of time'
+    icon: {fileID: -8889883037610402322, guid: ddf4a4e6ec245864fbfb72f96ebb7d3d, type: 3}
+    EffectList:
+    - Effects:
+      - effectDescription: chance
+        effectValue: 20
+      - effectDescription: n-times
+        effectValue: 2
+      - effectDescription: time span (seconds)
+        effectValue: 1
+    - Effects:
+      - effectDescription: chance
+        effectValue: 20
+      - effectDescription: n-times
+        effectValue: 3
+      - effectDescription: time span(seconds)
+        effectValue: 1
+  - Name: Heavy lifter
+    Description: Carrying heavy resources no longer reduce movement speed
+    icon: {fileID: 6923726732206455785, guid: b81d09a574bb33a4ea1b7acc8221604e, type: 3}
+    EffectList:
+    - Effects:
+      - effectDescription: extra inventory size
+        effectValue: 0
+    - Effects:
+      - effectDescription: extra inventory size
+        effectValue: 3
+  - Name: Dual wielder
+    Description: slower mining speed, mine adjacent rocks
+    icon: {fileID: -2420062209741622707, guid: ddf4a4e6ec245864fbfb72f96ebb7d3d, type: 3}
+    EffectList:
+    - Effects:
+      - effectDescription: mining speed slowed by x%
+        effectValue: 30
+      - effectDescription: x adjanced objects of the same type
+        effectValue: 1
+    - Effects:
+      - effectDescription: mining speed slowed by x%
+        effectValue: 30
+      - effectDescription: x adjanced objects of the same type
+        effectValue: 2
+  - Name: Archeologist
+    Description: Always find something under rock
+    icon: {fileID: 3228136105522509479, guid: ddf4a4e6ec245864fbfb72f96ebb7d3d, type: 3}
+    EffectList: []
   HuntingExperiencePerAction: 10
   HuntingKillExperience: 30
+  HuntingGatheringTime: 3
   HuntingIcon: {fileID: -2267467025370889615, guid: b81d09a574bb33a4ea1b7acc8221604e,
     type: 3}
-  CarryingCapacityTalent: 200
-  CarryingCapacityTalentIcon: {fileID: -7072911494624527190, guid: ddf4a4e6ec245864fbfb72f96ebb7d3d,
-    type: 3}
-  GatheringSpeedTalent: 30
-  GatheringSpeedTalentIcon: {fileID: 9176018835096187119, guid: ddf4a4e6ec245864fbfb72f96ebb7d3d,
-    type: 3}
-  MovementSpeedTalent: 50
-  MovementSpeedTalentIcon: {fileID: 7582453376698232748, guid: ddf4a4e6ec245864fbfb72f96ebb7d3d,
-    type: 3}
+  HuntingTalents:
+  - Name: Carnivore
+    Description: Unit gains +2nv when eating any meat food, fully heals and gains
+      +X max health.
+    icon: {fileID: 1914097269958853597, guid: ddf4a4e6ec245864fbfb72f96ebb7d3d, type: 3}
+    EffectList:
+    - Effects:
+      - effectDescription: extra nutrition value
+        effectValue: 2
+      - effectDescription: extra max health when eating meat
+        effectValue: 0
+    - Effects:
+      - effectDescription: extra nutrition value
+        effectValue: 2
+      - effectDescription: extra max health when eating meat
+        effectValue: 10
   ChanceToMoveDuringWandering: 10
   WanderingRadius: 2
-  MaxQueueActions: 28
+  MaxQueueActions: 20
   QueueFrame: {fileID: 3575314171218851561, guid: 95a0c3fb8c9150d44bf16cc794a1ea82,
     type: 3}

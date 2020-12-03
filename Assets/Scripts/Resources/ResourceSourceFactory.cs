@@ -11,7 +11,9 @@ public enum RSObjects
     Stone,
     Bush,
     Bush_Berry_Red,
-    Bush_Berry_Purple
+    Bush_Berry_Purple,
+    Sapling,
+    Diamond
 }
 
 class ResourceSourceFactory : Singleton<ResourceSourceFactory>
@@ -22,6 +24,9 @@ class ResourceSourceFactory : Singleton<ResourceSourceFactory>
     public GameObject bush;
     public GameObject bush_berry_red;
     public GameObject bush_berry_purple;
+    public GameObject sapling;
+    public GameObject diamond;
+
     public GameObject ProduceResourceSource(int x, int y, RSObjects type, List<Resource> additionalResources=null)
     {
         GameObject Result = null;
@@ -57,6 +62,16 @@ class ResourceSourceFactory : Singleton<ResourceSourceFactory>
             case RSObjects.Bush_Berry_Purple:
             {
                 selectedPrefab = bush_berry_purple;
+                break;
+            }
+            case RSObjects.Sapling:
+            {
+                selectedPrefab = sapling;
+                break;
+            }
+            case RSObjects.Diamond:
+            {
+                selectedPrefab = diamond;
                 break;
             }
             default:

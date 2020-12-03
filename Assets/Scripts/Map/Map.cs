@@ -120,7 +120,7 @@ public class Map {
         bool Result = x >= 0 && y >= 0 && x < width && y < height;
         if (!Result)
         {
-            Debug.Log("Target outside of bounds.");
+            //Debug.Log("Target outside of bounds.");
         }
 
         return Result;

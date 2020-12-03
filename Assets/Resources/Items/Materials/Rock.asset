@@ -16,3 +16,5 @@ MonoBehaviour:
   icon: {fileID: 353090918558837069, guid: ddf4a4e6ec245864fbfb72f96ebb7d3d, type: 3}
   NutritionValue: 0
   storageType: Raw
+  foodType: None
+  isHeavy: 1

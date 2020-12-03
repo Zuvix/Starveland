@@ -9,36 +9,59 @@ public abstract class Skill
 {
     public int CurrentExperience { get; set; }
     public int Level;
-    protected int ExperienceNeededToLevelUp;
+    protected int[] ExperienceToLevelUpForEachLevel;
     protected int ExperiencePerAction;
-    public List<TalentSkillSpecific> SkillAppliedTalents;
+    protected Dictionary<TalentType, Talent> SkillTalents;
+    public List<Talent> AppliedTalents;
     public Sprite icon;
     public bool Allowed { get; private set; }
-
-    // talents variables
-    public float ChanceToGetExtraResource;
+    public SkillType type;
+    public int MovementSpeedModifier;
     public float GatheringTime;
-    public int CarryingCapacity;
 
     public Skill()
     {
         this.CurrentExperience = 0;
         this.Level = GameConfigManager.Instance.GameConfig.StartingLevelOfSkills;
-        this.ExperienceNeededToLevelUp = GameConfigManager.Instance.GameConfig.ExperienceNeededToLevelUp;
-        this.SkillAppliedTalents = new List<TalentSkillSpecific>();
-        this.ChanceToGetExtraResource = GameConfigManager.Instance.GameConfig.StartingChanceToGetExtraResource;
-        this.GatheringTime = GameConfigManager.Instance.GameConfig.StartingGatheringTimeOfSkills;
-        this.CarryingCapacity = GameConfigManager.Instance.GameConfig.StartingCarryingCapacityOfSkills;
+        this.ExperienceToLevelUpForEachLevel = GameConfigManager.Instance.GameConfig.ExperienceToLevelUpForEachLevel;
+        this.AppliedTalents = new List<Talent>();
         this.Allowed = true;
+        this.type = SkillType.none;
+        this.MovementSpeedModifier = 0;
     }
 
     protected bool AddExperience(int Amount, Unit Unit)
     {
-        this.CurrentExperience += Amount;
-        //if i have enough experience to level up
-        if(CurrentExperience >= ExperienceNeededToLevelUp*Level)
+        if (this.Level < GameConfigManager.Instance.GameConfig.MaximumLevelOfSkills)
         {
-            this.LevelUp(Unit);
+            this.CurrentExperience += Amount;
+            //if i have enough experience to level up
+            if (CurrentExperience >= this.ExperienceToLevelUpForEachLevel[this.Level - 1])
+            {
+                this.CurrentExperience -= this.ExperienceToLevelUpForEachLevel[this.Level - 1];
+                this.LevelUp(Unit);
+            }
+            return true;
+        }
+        return false;
+    }
+
+    protected virtual bool LevelUp(Unit Unit)
+    {
+        this.Level++;
+        Talent NewTalent = TalentPool.Instance.RecieveNewTalent(this.AppliedTalents, this.Level, this.type);
+        if (NewTalent != null)
+        {
+            NewTalent.Apply(Unit, this);
+            this.AppliedTalents.Add(NewTalent);
+            this.SkillTalents[NewTalent.TalentType] = NewTalent;
+            Debug.Log("Getting new talent: " + NewTalent.Description);
+            //Unit.CreatePopup(NewTalent.icon, $"New talent {NewTalent.Name}");
+            Unit.CreatePopup(this.icon, $"Level Up! New Talent!");
+        }
+        else
+        {
+            Unit.CreatePopup(this.icon, $"Level Up!");
         }
         return true;
     }
@@ -49,8 +72,7 @@ public abstract class Skill
         UnitManager.Instance.ActionSchedulingLoop();
     }
 
-    protected abstract bool LevelUp(Unit Unit);
-    public bool DoAction(Unit Unit, ResourceSource Target, out Resource Resource)
+    public virtual bool DoAction(Unit Unit, ResourceSource Target, out Resource Resource)
     {
         if (Target == null)
         {
@@ -58,14 +80,30 @@ public abstract class Skill
             return false;
         }
 
-        Resource = Target.GatherResource(1);
+        Resource = Target.GatherResource(1, out bool isDepleted);
         Unit.CarriedResource.AddDestructive(Resource);
         this.AddExperience(this.ExperiencePerAction, Unit);
         return true;
     }
+
     public virtual bool DoAction(Unit Unit, Unit TargetUnit)
     {
         return false;
+    }
+
+    public virtual int GetExtraNutritionValue(Item item)
+    {
+        return 0;
+    }
+
+    public virtual float GetGatheringSpeed(ResourceSource resourceSource)
+    {
+        return this.GatheringTime;
+    }
+
+    public virtual int GetMovementSpeedModifier(UnitPlayer Unit)
+    {
+        return 0;
     }
 
 }

@@ -32,38 +32,42 @@ public class GameConfig : ScriptableObject
     [Min(1)]
     public int StartingLevelOfSkills = 1;
     [Min(1)]
-    public int ExperienceNeededToLevelUp = 50;
-    [Min(1)]
-    public int StartingCarryingCapacityOfSkills = 2;
+    public int MaximumLevelOfSkills = 10;
+    public int[] ExperienceToLevelUpForEachLevel = { 50, 100, 150, 200, 250, 300, 350, 400, 450, 500 };
     [Min(0)]
-    public float StartingGatheringTimeOfSkills = 1.5f;
-    [Min(0)]
-    public int StartingChanceToGetExtraResource = 5;
+    public int MaximumTalentsPerSkill = 3;
+    [Tooltip("Defines levels at which unit recieves new talent. Ultimate talent is always recieved on the last level.")]
+    public int[] RecieveTalentLevels = { 3, 6, 10 };
 
-    [Header("Woodcutting skill")]
+
+    [Header("Foraging skill")]
     [Min(0)]
-    public int WoodcuttingExperiencePerAction = 10;
-    public Sprite WoodcuttingIcon;
+    public int ForagingExperiencePerAction = 10;
+    [Min(0)]
+    public float ForagingGatheringTime = 1.5f;
+    public Sprite ForagingIcon;
+    public List<TalentSerializable> ForagingTalents;
+
+    [Header("Mining skill")]
+    [Min(0)]
+    public int MiningExperiencePerAction = 10;
+    [Min(0)]
+    public float MiningGatheringTime = 3.0f;
+    [Min(0)]
+    public int BasicDiamondUnderRockChance = 25;
+    public int MovementSpeedWhileCarryingRock = -50;
+    public Sprite MiningIcon;
+    public List<TalentSerializable> MiningTalents;
 
     [Header("Hunting skill")]
     [Min(0)]
     public int HuntingExperiencePerAction = 10;
     [Min(0)]
     public int HuntingKillExperience = 30;
+    [Min(0)]
+    public float HuntingGatheringTime = 3.0f;
     public Sprite HuntingIcon;
-
-    [Header("Talents")]
-    [Space(10)]
-    [Min(0)]
-    public int CarryingCapacityTalent = 200;
-    public Sprite CarryingCapacityTalentIcon;
-    [Tooltip("Should't be higher than 100/MaxNumberOfTalents, otherwise gathering speed can get to 0!")]
-    [Min(0)]
-    public int GatheringSpeedTalent = 30;
-    public Sprite GatheringSpeedTalentIcon;
-    [Min(0)]
-    public int MovementSpeedTalent = 50;
-    public Sprite MovementSpeedTalentIcon;
+    public List<TalentSerializable> HuntingTalents;
 
     [Header("Other")]
     [Space(10)]
@@ -75,7 +79,7 @@ public class GameConfig : ScriptableObject
     public int WanderingRadius = 2;
     [Tooltip("Default size 28 is to fill full panel.")]
     [Min(1)]
-    public int MaxQueueActions = 28;
+    public int MaxQueueActions = 20;
     public GameObject QueueFrame;
 
 }

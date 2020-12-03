@@ -16,16 +16,20 @@ public class ResourceSource : CellObject
     {
         AddToActionQueueSimple();
     }
+
     public override ActivityState CreateActivityState()
     {
         return new ActivityStateGather(this.CurrentCell);
     }
-    public Resource GatherResource(int amount)
+	
+    public Resource GatherResource(int amount, out bool depleted)
     {
+        bool isDepleted = false;
         Resource Result = this.Resources[0].Subtract(amount);
         //Debug.LogWarning(Result.itemInfo.name);
         if (this.Resources[0].Amount <= 0)
         {
+            isDepleted = true;
             Debug.Log("Destroying Resource Source");
             UnitManager.Instance.RemoveFromQueue(this);
             //this.CurrentCell.SetCellObject(null);
@@ -36,6 +40,7 @@ public class ResourceSource : CellObject
         {
             Debug.LogWarning("Result=null v Gather resource");
         }
+        depleted = isDepleted;
         return Result;
     }
 

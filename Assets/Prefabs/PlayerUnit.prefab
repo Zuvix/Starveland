@@ -118,3 +118,4 @@ MonoBehaviour:
   Dodge: 0
   CritChance: 0
   CritMultiplier: 0
+  CarryingCapacity: 3

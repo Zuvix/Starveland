@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 8841977509073851376}
   m_Layer: 0
   m_Name: Stone
-  m_TagString: Animal_Dead
+  m_TagString: Stone
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -104,11 +104,12 @@ MonoBehaviour:
   popup: {fileID: 7964957230971447603, guid: 950b028d3cbc148489079960954f13fc, type: 3}
   IsBlocking: 1
   IsSelectable: 1
+  IsPossibleToAddToActionQueue: 1
   Resources: []
   ResourcePacks:
   - resource:
       itemInfo: {fileID: 11400000, guid: e8182eeb5a384d44bbdda801c49fcd0b, type: 2}
-      Amount: 55
+      Amount: 40
     chance: 100
     variationPercentage: 20
 --- !u!61 &8841977509073851376

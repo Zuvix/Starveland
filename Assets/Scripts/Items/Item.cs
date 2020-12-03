@@ -11,4 +11,7 @@ public class Item : ScriptableObject
     public int NutritionValue;
     [StringInList("Raw", "Cooked")]
     public string storageType;
+    [StringInList("None", "Meat", "Foragable")]
+    public string foodType;
+    public bool isHeavy;
 }

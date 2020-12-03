@@ -16,3 +16,4 @@ MonoBehaviour:
   icon: {fileID: 21300000, guid: 6b2bcea0ded05e343a03ab2e7fa064da, type: 3}
   NutritionValue: 1
   storageType: Raw
+  foodType: Foragable

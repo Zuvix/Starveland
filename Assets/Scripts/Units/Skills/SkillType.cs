@@ -6,8 +6,8 @@ using System.Threading.Tasks;
 
 public enum SkillType
 {
-    Woodcutting,
-    mining,
+    Foraging,
+    Mining,
     Hunting,
     none
 }

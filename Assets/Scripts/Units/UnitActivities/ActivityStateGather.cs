@@ -10,10 +10,12 @@ class ActivityStateGather : ActivityState
     private UnitCommandMove CommandMove2Storage;
     private UnitCommandDrop CommandDrop2Storage;
     private MapCell Target;
+    private ResourceSource originalResourceSource;
 
     public ActivityStateGather(MapCell Target) : base()
     {
         this.Target = Target;
+        this.originalResourceSource = (ResourceSource)this.Target.CurrentObject;
     }
 
     public override ActivityState SetCommands(Unit Unit, Skill Skill)
@@ -22,7 +24,7 @@ class ActivityStateGather : ActivityState
 
         this.CommandMove2Resource = new UnitCommandMove(this.Target, Path2Resource);
 
-        this.CommandGatherFromResource = new UnitCommandGather(this.Target, Skill);
+        this.CommandGatherFromResource = new UnitCommandGather(this.Target, Skill, this.originalResourceSource);
         this.CommandMove2Storage = null;
         this.CommandDrop2Storage = null;
 
@@ -36,7 +38,14 @@ class ActivityStateGather : ActivityState
             // If Unit arrived next to resource, let's command it to gather
             if (Unit.CurrentCommand == this.CommandMove2Resource)
             {
-                Unit.SetCommand(this.CommandGatherFromResource);
+                if ((ResourceSource)this.Target.CurrentObject == this.originalResourceSource)
+                {
+                    Unit.SetCommand(this.CommandGatherFromResource);
+                }
+                else
+                {
+                    Unit.SetActivity(new ActivityStateIdle());
+                }
             }
             // If Unit is finished gathering (full inventory), let's command it to move to storage
             else if (Unit.CurrentCommand == this.CommandGatherFromResource)

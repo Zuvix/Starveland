@@ -7,6 +7,8 @@ TagManager:
   - Forest
   - Animal
   - Animal_Dead
+  - Stone
+  - Diamond
   layers:
   - Default
   - TransparentFX

@@ -35,7 +35,17 @@ public class UnitCommandMove : UnitCommand
         // TODO - Animation here
         if (this.Targets != null && this.Targets.Count > 0)
         {
-            yield return Unit.StartCoroutine(Unit.MoveUnitToNextPosition(this.Targets.First()));
+            int MovementSpeedModifier = 100;
+
+            if (Unit is UnitPlayer)
+            {
+                foreach (var skill in ((UnitPlayer)Unit).Skills)
+                {
+                    MovementSpeedModifier += skill.Value.GetMovementSpeedModifier((UnitPlayer)Unit);
+                }               
+            }
+            yield return Unit.StartCoroutine(Unit.MoveUnitToNextPosition(this.Targets.First(), Unit.MovementSpeed * ((float)(MovementSpeedModifier)/100f)));
+
 
             // Remove the currently performed action from the command list.
             // Keep this at the bottom of the method unless you know better.

@@ -14,7 +14,7 @@ public class TalentsUI : MonoBehaviour, IPointerExitHandler, IPointerEnterHandle
     public void Show(Talent Talent)
     {
         //this.talentEffect.text = $"{Talent.Name} +{Talent.effect}%";
-        this.TextToShow = $"{Talent.Name} +{Talent.Effect}%";
+        this.TextToShow = Talent.Display();
         this.talentIcon.sprite = Talent.icon;
     }
 

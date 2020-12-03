@@ -43,6 +43,8 @@ public class MapControl : Singleton<MapControl> {
         }
         ResourceSourceFactory.Instance.ProduceResourceSource(10, 0, RSObjects.Stone);
         ResourceSourceFactory.Instance.ProduceResourceSource(0, 10, RSObjects.Stone);
+        ResourceSourceFactory.Instance.ProduceResourceSource(0, 11, RSObjects.Stone);
+        ResourceSourceFactory.Instance.ProduceResourceSource(0, 9, RSObjects.Stone);
         ResourceSourceFactory.Instance.ProduceResourceSource(9, 3, RSObjects.Stone);
         ResourceSourceFactory.Instance.ProduceResourceSource(12, 10, RSObjects.Stone);
         //animal test

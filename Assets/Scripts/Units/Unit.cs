@@ -185,7 +185,7 @@ public abstract class Unit : CellObject
             yield return new WaitForFixedUpdate();
         }
     }
-    public virtual IEnumerator MoveUnitToNextPosition(MapCell TargetCell)
+    public virtual IEnumerator MoveUnitToNextPosition(MapCell TargetCell, float MovementSpeed)
     {
         this.CurrentAction = "Moving";
         animateMovement = true;
@@ -232,6 +232,15 @@ public abstract class Unit : CellObject
         this.CurrentAction = "Gathering";
         // Debug.Log("Preparing the axe");
 
+        if (target.CurrentCell.position.x > transform.position.x)
+        {
+            Flip("right");
+        }
+        else if (target.CurrentCell.position.x < transform.position.x)
+        {
+            Flip("left");
+        }
+
         yield return new WaitForSeconds(GatheringTime);
         // Debug.Log("Gathering object");
         //itemInHand = target.Gather();
@@ -242,7 +251,8 @@ public abstract class Unit : CellObject
             
         }
 
-        yield return new WaitForSeconds(0.2f);
+        //yield return new WaitForSeconds(0.2f);
+        yield return new WaitForFixedUpdate();
         /* }
          else
          {
@@ -351,11 +361,11 @@ public abstract class Unit : CellObject
         switch (itemInfo.name)
         {
             case "Wood":
-                Result = SkillType.Woodcutting;
+                Result = SkillType.Foraging;
                 break;
             case "Stone":
             case "Iron":
-                Result = SkillType.mining;
+                Result = SkillType.Mining;
                 break;
             default:
                 Result = SkillType.none;

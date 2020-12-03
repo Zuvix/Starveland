@@ -2,10 +2,14 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+
 public class UnitPlayer : Unit
 {
+    [HideInInspector]
     public Dictionary<SkillType, Skill> Skills;
-    public List<TalentUnitSpecific> UnitAppliedTalents = new List<TalentUnitSpecific>();
+    [Header("Player unit specific")]
+    [Min(1)]
+    public int CarryingCapacity = 3;
 
     public override void SetActivity(ActivityState Activity)
     {
@@ -24,8 +28,9 @@ public class UnitPlayer : Unit
         //Debug.LogError("UnitPlayer Instantiated");
         this.Skills = new Dictionary<SkillType, Skill> 
         {
-            { SkillType.Woodcutting, new SkillWoodcutting() },
-            { SkillType.Hunting, new SkillHunting() } 
+            { SkillType.Foraging, new SkillForaging() },
+            { SkillType.Hunting, new SkillHunting() },
+            { SkillType.Mining, new SkillMining() } 
         };
 
         this.MovementSpeed = GameConfigManager.Instance.GameConfig.MovementSpeedPlayer;
@@ -45,7 +50,7 @@ public class UnitPlayer : Unit
         base.Start();
     }
 
-    public override bool InventoryFull()
+    /*public override bool InventoryFull()
     {
          if (this.CarriedResource.IsDepleted())
          {
@@ -54,11 +59,20 @@ public class UnitPlayer : Unit
 
          SkillType CurrentResourceSkill = Unit.ResourceType2SkillType(this.CarriedResource.itemInfo);
          return this.InventoryFull(this.Skills[CurrentResourceSkill]);
-    }
+    }*/
 
-    public override bool InventoryFull(Skill Skill)
+    /*public override bool InventoryFull(Skill Skill)
     {
-        return this.CarriedResource.Amount >= Skill.CarryingCapacity;
+        return this.CarriedResource.Amount >= this.CarryingCapacity;
+    }*/
+
+    public override bool InventoryFull()
+    {
+        if (this.CarriedResource.IsDepleted())
+        {
+            return false;
+        }
+        return this.CarriedResource.Amount >= this.CarryingCapacity;
     }
 
     public override IEnumerator StoreResource(BuildingStorage target)
