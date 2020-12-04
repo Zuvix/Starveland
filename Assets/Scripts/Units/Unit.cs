@@ -47,10 +47,10 @@ public abstract class Unit : CellObject
 
     //future combat stats
     [Header("Future combat stats")]
-    public int Accuracy;
-    public int Dodge;
-    public int CritChance;
-    public int CritMultiplier;
+    public int Accuracy = 90;
+    public int Dodge = 10;
+    public int CritChance = 25;
+    public int Armour = 0;
 
     public override bool EnterCell(MapCell MapCell)
     {
