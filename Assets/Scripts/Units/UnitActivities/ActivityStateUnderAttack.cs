@@ -34,7 +34,11 @@ public class ActivityStateUnderAttack : ActivityState
 
     public override IEnumerator PerformSpecificAction(Unit Unit)
     {
-        if (Unit.CurrentCommand.IsDone(Unit))
+        if (Unit is UnitAnimal && Unit.CurrentCommand == this.CommandMoveToTarget && DayCycleManager.Instance.GameIsWaitingForPlayerUnits2GoEat())
+        {
+            ((UnitAnimal)Unit).Wander();
+        }
+        else if (Unit.CurrentCommand.IsDone(Unit))
         {
             if (Unit.CurrentCommand == CommandMoveToTarget)
             {
@@ -67,11 +71,12 @@ public class ActivityStateUnderAttack : ActivityState
         }
         else
         {
-            yield return Unit.StartCoroutine(Unit.CurrentCommand.PerformAction(Unit));
+             yield return Unit.StartCoroutine(Unit.CurrentCommand.PerformAction(Unit));
         }
-
     }
-
-
+    public override bool IsCancellable()
+    {
+        return true;
+    }
 }
 

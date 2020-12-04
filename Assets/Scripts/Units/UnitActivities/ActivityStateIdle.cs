@@ -66,4 +66,8 @@ class ActivityStateIdle : ActivityState
             yield return Unit.StartCoroutine(Unit.CurrentCommand.PerformAction(Unit));
         }
     }
+    public override bool IsCancellable()
+    {
+        return false;
+    }
 }

@@ -115,7 +115,15 @@ class ActivityStateGather : ActivityState
             {
                 if (MapControl.Instance.StorageList.Count > 0)
                 {
-                    this.CommandMove2Storage = this.CommandToMoveToStorage(Unit);
+                    UnitCommandMove NewMoveCommand = this.CommandToMoveToStorage(Unit);
+                    if (NewMoveCommand != null)
+                    {
+                        this.CommandMove2Storage = NewMoveCommand;
+                    }
+                    else
+                    {
+                        Unit.SetActivity(new ActivityStateIdle());
+                    }
                 }
                 else
                 {
@@ -148,5 +156,10 @@ class ActivityStateGather : ActivityState
         {
             this.CommandMove2Storage = this.CommandToMoveToStorage(Unit);
         }
+    }
+
+    public override bool IsCancellable()
+    {
+        return true;
     }
 }

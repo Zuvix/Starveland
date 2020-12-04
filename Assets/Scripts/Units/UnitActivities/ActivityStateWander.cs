@@ -86,5 +86,9 @@ public class ActivityStateWander : ActivityState
         }
     }
 
+    public override bool IsCancellable()
+    {
+        return false;
+    }
 }
 

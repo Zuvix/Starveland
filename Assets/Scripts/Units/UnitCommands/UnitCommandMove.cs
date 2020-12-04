@@ -15,7 +15,7 @@ public class UnitCommandMove : UnitCommand
     public override bool IsDone(Unit Unit)
     {
         bool Result = false;
-        if (this.Targets.Count == 0)
+        if (this.Targets != null && this.Targets.Count == 0)
         {
             Result = true;
         }
@@ -24,7 +24,7 @@ public class UnitCommandMove : UnitCommand
     public override bool CanBePerformed(Unit Unit)
     {
         bool Result = true;
-        if (!this.Targets.First().CanBeEnteredByUnit())
+        if (this.Targets == null || !this.Targets.First().CanBeEnteredByUnit())
         {
             Result = false;
         }

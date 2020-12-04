@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 
 public abstract class Unit : CellObject
 {
@@ -34,7 +35,21 @@ public abstract class Unit : CellObject
     public Sprite ReceiveDamageIcon;
 
     public UnitCommand CurrentCommand { get; private set; }
-    protected ActivityState CurrentActivity;
+
+    private ActivityState RealCurrentActivity;
+    public ActivityState CurrentActivity
+    {
+        get
+        {
+            return RealCurrentActivity;
+        }
+        private set
+        {
+            RealCurrentActivity = value;
+            OnActivityStateChanged.Invoke(RealCurrentActivity);
+        }
+    }
+    public UnityEvent<ActivityState> OnActivityStateChanged = new UnityEvent<ActivityState>();
     public ActivityState NextActivity { get; private set; }
     public UnitMovementConflictManager MovementConflictManager;
     public Resource CarriedResource = new Resource(null,0);

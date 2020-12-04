@@ -19,4 +19,8 @@ class ActivityStateNull : ActivityState
     {
         yield return Unit.StartCoroutine(Unit.WaitEmpty());
     }
+    public override bool IsCancellable()
+    {
+        return false;
+    }
 }
