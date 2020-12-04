@@ -112,7 +112,7 @@ public class UnitPlayer : Unit
     }*/
     public override void DealDamageStateRoutine(int Amount, Unit AttackingUnit)
     {
-        if (!(this.CurrentActivity is ActivityStateUnderAttack) && !(this.CurrentActivity is ActivityStateHunt))
+        if (!(this.CurrentActivity is ActivityStateUnderAttack) && !(this.CurrentActivity is ActivityStateHunt) && !DayCycleManager.Instance.GameIsWaitingForPlayerUnits2GoEat())
         {
             this.SetActivity(new ActivityStateUnderAttack(AttackingUnit, this));
         }
