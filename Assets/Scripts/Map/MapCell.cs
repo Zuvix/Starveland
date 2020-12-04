@@ -55,6 +55,11 @@ public class MapCell
             EraseUnit();
             Unit.SetCurrentCell(this);
             this.CurrentUnit = Unit;
+
+            if(CurrentObject != null)
+            {
+                this.CurrentObject.MakeTransparent(0.5f);
+            }
         }
         return Success;
     }
@@ -69,6 +74,10 @@ public class MapCell
     public void EraseUnit()
     {
         this.CurrentUnit = null;
+        if (this.CurrentObject != null)
+        {
+            this.CurrentObject.MakeOpaque();
+        }
     }
     public bool CanBeEnteredByObject(bool EnteringObjectIsBlocking)
     {
