@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections;
+using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -32,8 +33,15 @@ public class UnitMovementConflictManager
             else
             {
                 this.RemainingNewPathFindTries--;
-                ((UnitCommandMove)Unit.CurrentCommand).Targets.Clear();
-                ((UnitCommandMove)Unit.CurrentCommand).Targets.AddRange(PathFinding.Instance.FindPath(Unit.CurrentCell, Unit.CurrentCommand.Target, PathFinding.EXCLUDE_LAST));
+                if (((UnitCommandMove)Unit.CurrentCommand).Targets != null)
+                {
+                    ((UnitCommandMove)Unit.CurrentCommand).Targets.Clear();
+                }
+                List<MapCell> Path = PathFinding.Instance.FindPath(Unit.CurrentCell, Unit.CurrentCommand.Target, PathFinding.EXCLUDE_LAST);
+                if (Path != null)
+                {
+                    ((UnitCommandMove)Unit.CurrentCommand).Targets.AddRange(Path);
+                }
             }
         }
         else

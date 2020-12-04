@@ -75,7 +75,7 @@ public class MapControl : Singleton<MapControl> {
         foreach ((int, int) Coord in BushCoords)
         {
 
-            ResourceSourceFactory.Instance.ProduceResourceSource(Coord.Item1, Coord.Item2, BushTypeList[random.Next(BushTypeList.Count)]);
+            ResourceSourceFactory.Instance.ProduceResourceSource(Coord.Item1, Coord.Item2, RSObjects.Stone);//BushTypeList[random.Next(BushTypeList.Count)]);
         }
     }
 
