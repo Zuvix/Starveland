@@ -14,6 +14,7 @@ public class CancelCurrentActionButton : MonoBehaviour, IPointerDownHandler
     {
         if (eventData.button == PointerEventData.InputButton.Left)
         {
+            this.gameObject.SetActive(false);
             MouseEvents.Instance.selectedObject.GetComponent<UnitPlayer>().SetActivity(new ActivityStateIdle());
         }
     }
