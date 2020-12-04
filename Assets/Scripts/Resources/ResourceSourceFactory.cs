@@ -21,7 +21,6 @@ class ResourceSourceFactory : Singleton<ResourceSourceFactory>
     public GameObject deadAnimal;
     public GameObject stone;
     public GameObject bush;
-    public GameObject bush_berry_red;
     public GameObject bush_berry_purple;
     public GameObject sapling;
     public GameObject diamond;
