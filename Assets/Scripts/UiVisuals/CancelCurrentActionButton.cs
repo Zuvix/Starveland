@@ -32,9 +32,9 @@ public class CancelCurrentActionButton : MonoBehaviour, IPointerDownHandler
         }
 
         UnitPlayer UnitPlayerComponent = CurrentlySelectedObject.GetComponent<UnitPlayer>();
-        UnitPlayerComponent.OnActivityStateChanged.AddListener(ToggleVisibility);
         if (UnitPlayerComponent != null)
         {
+            UnitPlayerComponent.OnActivityStateChanged.AddListener(ToggleVisibility);
             ToggleVisibility(UnitPlayerComponent.CurrentActivity);
         }
         else

@@ -95,7 +95,7 @@ public class UnitAnimal : Unit
             }
 
         }
-        ResourceSourceFactory.Instance.ProduceResourceSource(x, y, RSObjects.DeadAnimal, drops);
+        CellObjectFactory.Instance.ProduceResourceSource(x, y, RSObjects.DeadAnimal, drops);
     }
     public void Wander()
     {

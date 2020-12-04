@@ -30,6 +30,6 @@ public class TalentArcheologist : Talent
 
     public override void Execute(int x, int y)
     {
-        ResourceSourceFactory.Instance.ProduceResourceSource(x, y, RSObjects.DeadAnimal);
+        CellObjectFactory.Instance.ProduceResourceSource(x, y, RSObjects.DeadAnimal);
     }
 }
