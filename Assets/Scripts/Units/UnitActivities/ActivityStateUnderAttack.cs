@@ -74,5 +74,9 @@ public class ActivityStateUnderAttack : ActivityState
              yield return Unit.StartCoroutine(Unit.CurrentCommand.PerformAction(Unit));
         }
     }
+    public override bool IsCancellable()
+    {
+        return true;
+    }
 }
 

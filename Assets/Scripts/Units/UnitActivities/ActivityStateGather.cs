@@ -157,4 +157,9 @@ class ActivityStateGather : ActivityState
             this.CommandMove2Storage = this.CommandToMoveToStorage(Unit);
         }
     }
+
+    public override bool IsCancellable()
+    {
+        return true;
+    }
 }
