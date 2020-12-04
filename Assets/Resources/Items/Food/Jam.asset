@@ -10,11 +10,11 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 4ffc9427acd4e3e4a8fb7a6dc3cb2154, type: 3}
-  m_Name: Cooked Meat
+  m_Name: Jam
   m_EditorClassIdentifier: 
   type: Food
-  icon: {fileID: 1914097269958853597, guid: ddf4a4e6ec245864fbfb72f96ebb7d3d, type: 3}
-  NutritionValue: 8
+  icon: {fileID: -3264967060546058117, guid: 3715bf9b0c12f8244b785d254c6653c9, type: 3}
+  NutritionValue: 5
   storageType: Cooked
-  foodType: Meat
+  foodType: None
   isHeavy: 0
