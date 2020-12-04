@@ -17,7 +17,7 @@ public class UnitCommandGather : UnitCommand
     public override bool IsDone(Unit Unit)
     {
         //return Unit.CarriedResource.Amount >= Unit.CarryingCapacity;
-        if ((ResourceSource)this.Target.CurrentObject != this.originalCellObject || Unit.InventoryFull())
+        if (this.Target.CurrentObject != (CellObject)this.originalCellObject || Unit.InventoryFull())
         {
             return true;
         }
@@ -39,9 +39,9 @@ public class UnitCommandGather : UnitCommand
         //Console.WriteLine("I'm cutting wood {0}/{1}", Unit.CarriedResource.Amount, Skill.CarryingCapacity);
         yield return Unit.StartCoroutine(Unit.GatherResource((ResourceSource)this.Target.CurrentObject, Skill.GetGatheringSpeed((ResourceSource)this.Target.CurrentObject)));
 
-        ResourceSource TargetResourceSource = (ResourceSource)this.Target.CurrentObject;
-        if (TargetResourceSource != null)
+        if (this.Target.CurrentObject != null && this.Target.CurrentObject is ResourceSource)
         {
+            ResourceSource TargetResourceSource = (ResourceSource)this.Target.CurrentObject;
             Resource GatheredResource;
             Skill.DoAction(Unit, TargetResourceSource, out GatheredResource);
             Unit.CreatePopup(GatheredResource.itemInfo.icon, GatheredResource.Amount);

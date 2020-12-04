@@ -78,7 +78,7 @@ public class SkillMining : Skill
         // basic chance to spawn diamond under rock
         if (UnityEngine.Random.Range(1, 100) <= 1)
         {
-            ResourceSourceFactory.Instance.ProduceResourceSource(x, y, RSObjects.Diamond);
+            CellObjectFactory.Instance.ProduceResourceSource(x, y, RSObjects.Diamond);
         }
         // archeologist talent
         else 

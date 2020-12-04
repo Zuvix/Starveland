@@ -40,6 +40,7 @@ public class UnitMovementConflictManager
                 List<MapCell> Path = PathFinding.Instance.FindPath(Unit.CurrentCell, Unit.CurrentCommand.Target, PathFinding.EXCLUDE_LAST);
                 if (Path != null)
                 {
+                    ((UnitCommandMove)Unit.CurrentCommand).DeNullifyTargets();
                     ((UnitCommandMove)Unit.CurrentCommand).Targets.AddRange(Path);
                 }
             }

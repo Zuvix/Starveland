@@ -38,7 +38,7 @@ class ActivityStateGather : ActivityState
             // If Unit arrived next to resource, let's command it to gather
             if (Unit.CurrentCommand == this.CommandMove2Resource)
             {
-                if ((ResourceSource)this.Target.CurrentObject == this.originalResourceSource)
+                if (this.Target.CurrentObject == (CellObject)this.originalResourceSource)
                 {
                     Unit.SetCommand(this.CommandGatherFromResource);
                 }
