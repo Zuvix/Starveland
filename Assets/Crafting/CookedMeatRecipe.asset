@@ -15,7 +15,7 @@ MonoBehaviour:
   Input:
   - itemInfo: {fileID: 11400000, guid: 756d6da29aa825645a10985bc585f9d3, type: 2}
     Amount: 1
-  - itemInfo: {fileID: 11400000, guid: c49ad2ba050c1bc40b6d0668e801a0ce, type: 2}
+  - itemInfo: {fileID: 11400000, guid: e8182eeb5a384d44bbdda801c49fcd0b, type: 2}
     Amount: 1
   Output:
     itemInfo: {fileID: 11400000, guid: d84504986f4f621439cd242915661087, type: 2}

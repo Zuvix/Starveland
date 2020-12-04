@@ -10,7 +10,7 @@ public class DaytimeCounter : Singleton<DaytimeCounter>
     public UnityEvent<int> OnDayStarted;
     public UnityEvent<float> OnTimeChanged;
 
-    public float dayLength=300f;
+    public float dayLength;
     private float dayTimeLeft;
     private int dayCount = 0;
     private bool dayOver;

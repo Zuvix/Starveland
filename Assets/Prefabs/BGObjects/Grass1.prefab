@@ -72,7 +72,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingOrder: -2
   m_Sprite: {fileID: 1836151317322602105, guid: ddf4a4e6ec245864fbfb72f96ebb7d3d,
     type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -130,3 +130,4 @@ MonoBehaviour:
   popup: {fileID: 0}
   IsBlocking: 0
   IsSelectable: 0
+  IsPossibleToAddToActionQueue: 0
