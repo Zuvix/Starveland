@@ -25,6 +25,8 @@ public class CellObject : MonoBehaviour
 
     private SpriteRenderer SpriteRendererComponent;
 
+    public GameObject Replacement;
+
     virtual protected void Awake()
     {
         sr = GetComponent<SpriteRenderer>();

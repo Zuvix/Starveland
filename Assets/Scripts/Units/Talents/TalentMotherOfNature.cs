@@ -38,7 +38,7 @@ public class TalentMotherOfNature : Talent
         {
             List<MapCell> neighbouringFields = Target.CurrentCell.GetNeighbours();
             MapCell randomCell = neighbouringFields[UnityEngine.Random.Range(0, neighbouringFields.Count)];
-            while (ResourceSourceFactory.Instance.ProduceResourceSource(randomCell.x, randomCell.y, RSObjects.Bush_Berry_Purple) == null)
+            while (CellObjectFactory.Instance.ProduceResourceSource(randomCell.x, randomCell.y, RSObjects.Bush_Berry_Purple) == null)
             {
                 randomCell = neighbouringFields[UnityEngine.Random.Range(0, neighbouringFields.Count)];
             }
