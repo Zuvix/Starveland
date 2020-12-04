@@ -15,15 +15,13 @@ public class GlobalInventory : Singleton<GlobalInventory>
     private void Start()
     {
         AddItem(new Resource(ItemManager.Instance.GetItem("Apple"), 5));
-        AddItem(new Resource(ItemManager.Instance.GetItem("Carrot"), 4));
-        AddItem(new Resource(ItemManager.Instance.GetItem("Mushroom"), 3));
         AddItem(new Resource(ItemManager.Instance.GetItem("Cooked Meat"), 3));
 
         AddItem(new Resource(ItemManager.Instance.GetItem("Wood"), 50));
-        AddItem(new Resource(ItemManager.Instance.GetItem("Rock"), 50));
-
+        AddItem(new Resource(ItemManager.Instance.GetItem("Stone"), 50));
+        AddItem(new Resource(ItemManager.Instance.GetItem("Gold bar"), 50));
         AddItem(new Resource(ItemManager.Instance.GetItem("Meat"), 50));
-        AddItem(new Resource(ItemManager.Instance.GetItem("Salt"), 50));
+        AddItem(new Resource(ItemManager.Instance.GetItem("Coal"), 50));
     }
     public bool AddItem(Resource itemToAdd)
     {
