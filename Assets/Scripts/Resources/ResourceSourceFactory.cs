@@ -10,7 +10,6 @@ public enum RSObjects
     DeadAnimal,
     Stone,
     Bush,
-    Bush_Berry_Red,
     Bush_Berry_Purple,
     Sapling,
     Diamond
@@ -52,11 +51,6 @@ class ResourceSourceFactory : Singleton<ResourceSourceFactory>
             case RSObjects.Bush:
             {
                 selectedPrefab = bush;
-                break;
-            }
-            case RSObjects.Bush_Berry_Red:
-            {
-                selectedPrefab = bush_berry_red;
                 break;
             }
             case RSObjects.Bush_Berry_Purple:

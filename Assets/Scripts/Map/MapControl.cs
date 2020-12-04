@@ -66,7 +66,7 @@ public class MapControl : Singleton<MapControl> {
         //testUnit1.GetComponent<Unit>().SetActivity(new ActivityStateWoodcutting(map.Grid[11][4], testUnit1.GetComponent<Unit>(), testUnit1.GetComponent<Unit>().SkillWoodcutting));
         //testUnit1.GetComponent<Unit>().SetActivity(new ActivityStateIdle());
         // testUnit2.GetComponent<Unit>().SetActivity(new ActivityStateIdle());
-        List<RSObjects> BushTypeList = new List<RSObjects>(new RSObjects[] { RSObjects.Bush, RSObjects.Bush_Berry_Red, RSObjects.Bush_Berry_Purple});
+        List<RSObjects> BushTypeList = new List<RSObjects>(new RSObjects[] { RSObjects.Bush, RSObjects.Bush_Berry_Purple});
         System.Random random = new System.Random();
         List<(int, int)> BushCoords = new List<(int, int)>(new (int, int)[]
         {
