@@ -116,8 +116,6 @@ public class MouseEvents : Singleton<MouseEvents>
                     Debug.LogWarning($"Right-clicked {x}, {y}. It is in map: {IsInMap}");
                     if (IsInMap)
                     {
-                        MapControl.Instance.map.Grid[x][y].RespondToActionOrder();
-                        
                         if (mapValue != null)
                         {
                             mapValue.GetComponent<CellObject>().RightClickAction();

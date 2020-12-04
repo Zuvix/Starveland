@@ -78,17 +78,6 @@ public class MapCell
     {
         return this.CurrentUnit == null && (this.CurrentObject == null || !this.CurrentObject.IsBlocking);
     }
-    public void RespondToActionOrder()
-    {
-        if (this.CurrentUnit != null && this.CurrentUnit.IsPossibleToAddToActionQueue)
-        {
-            CurrentUnit.RightClickAction();
-        }
-        else if (this.CurrentObject != null && this.CurrentObject.IsPossibleToAddToActionQueue)
-        {
-            CurrentObject.RightClickAction();
-        }
-    }
     public void BackupCellObject()
     {
         if (this.CurrentObject != null)
