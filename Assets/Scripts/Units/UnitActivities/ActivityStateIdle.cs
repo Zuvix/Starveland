@@ -6,6 +6,7 @@ class ActivityStateIdle : ActivityState
 {
     private UnitCommandMove MoveToHouseCommand;
     private UnitCommandIdle IdleCommand;
+    private UnitCommandDrop DropCommand = null;
 
     public ActivityStateIdle() : base()
     {
@@ -24,6 +25,18 @@ class ActivityStateIdle : ActivityState
         {
             // If Unit arrived next house, command it to stay idle
             if (Unit.CurrentCommand == this.MoveToHouseCommand)
+            {
+                if (Unit.CarriedResource.IsDepleted())
+                {
+                    Unit.SetCommand(this.IdleCommand);
+                }
+                else
+                {
+                    this.DropCommand = new UnitCommandDrop(MoveToHouseCommand.Target);
+                    Unit.SetCommand(this.DropCommand);
+                }
+            }
+            else if (Unit.CurrentCommand == this.DropCommand)
             {
                 Unit.SetCommand(this.IdleCommand);
             }
@@ -47,6 +60,19 @@ class ActivityStateIdle : ActivityState
             if (Unit.CurrentCommand == this.MoveToHouseCommand)
             {
                 yield return Unit.StartCoroutine(Unit.MovementConflictManager.UnableToMoveRoutine(Unit));
+            }
+            else if (Unit.CurrentCommand == this.DropCommand)
+            {
+                UnitCommandMove NewMoveCommand = this.CommandToMoveToStorage(Unit);
+                if (NewMoveCommand != null)
+                {
+                    this.MoveToHouseCommand = NewMoveCommand;
+                    Unit.SetCommand(this.MoveToHouseCommand);
+                }
+                else
+                {
+                    Unit.SetActivity(new ActivityStateIdle());
+                }
             }
             // If gathering from resource is not possible
             else if (Unit.CurrentCommand == this.IdleCommand)
