@@ -18,6 +18,8 @@ public class UnitAnimal : Unit
     private int spawnY;
     public List<ResourcePack> inventory;
 
+    public MapCell SpawnCell { get; private set; } = null;
+
     protected override void Awake()
     {
         this.Health = this.MaxHealth;
@@ -28,7 +30,7 @@ public class UnitAnimal : Unit
     {
         this.spawnX = this.CurrentCell.x;
         this.spawnY = this.CurrentCell.y;
-        Wander();
+        SetDefaultActivity();
         base.Start();
     }
     public override void RightClickAction()
@@ -106,9 +108,21 @@ public class UnitAnimal : Unit
         }
         CellObjectFactory.Instance.ProduceResourceSource(x, y, RSObjects.DeadAnimal, drops);
     }
-    public void Wander()
+    public override void SetDefaultActivity()
     {
         this.SetActivity(new ActivityStateWander(this.WanderingRadius, this.CurrentCell, this.ChanceToMoveDuringWandering));
+    }
+    public override void SetCurrentCell(MapCell Cell)
+    {
+        base.SetCurrentCell(Cell);
+        if (SpawnCell == null)
+        {
+            SpawnCell = Cell;
+        }
+        if (PathFinding.Instance.BlockDistance(SpawnCell, CurrentCell) > 5)
+        {
+            SetActivity(new ActivityStateMoveToSpawnPosition(SpawnCell));
+        }
     }
 }
 

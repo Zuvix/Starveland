@@ -15,7 +15,6 @@ class ActivityStateIdle : ActivityState
     }
     public override void InitializeCommand(Unit Unit)
     {
-        base.InitializeCommand(Unit);
         this.MoveToHouseCommand = this.CommandToMoveToStorage(Unit);
     }
     public override IEnumerator PerformSpecificAction(Unit Unit)

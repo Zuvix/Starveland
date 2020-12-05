@@ -790,7 +790,7 @@ MonoBehaviour:
   OnTimeChanged:
     m_PersistentCalls:
       m_Calls: []
-  dayLength: 15
+  dayLength: 120
 --- !u!114 &166628868
 MonoBehaviour:
   m_ObjectHideFlags: 0

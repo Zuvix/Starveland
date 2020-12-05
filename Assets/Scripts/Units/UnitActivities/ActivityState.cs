@@ -15,10 +15,7 @@ public abstract class ActivityState
         }
     }
     public abstract IEnumerator PerformSpecificAction(Unit Unit);
-    public virtual void InitializeCommand(Unit Unit)
-    {
-        Unit.SetCommand(null);
-    }
+    public abstract void InitializeCommand(Unit Unit);
     public virtual ActivityState SetCommands(Unit Unit, Skill Skill)
     {
         return null;

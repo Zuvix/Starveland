@@ -23,4 +23,9 @@ class ActivityStateNull : ActivityState
     {
         return false;
     }
+
+    public override void InitializeCommand(Unit Unit)
+    {
+        Unit.SetCommand(null);
+    }
 }

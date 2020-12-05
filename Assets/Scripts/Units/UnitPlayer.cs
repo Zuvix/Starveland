@@ -121,4 +121,9 @@ public class UnitPlayer : Unit
         }
         GameOver.Instance.IndicatePlayerUnitDeath();
     }
+
+    public override void SetDefaultActivity()
+    {
+        SetActivity(new ActivityStateIdle());
+    }
 }

@@ -30,7 +30,6 @@ public class ActivityStateHunt : ActivityState
 
     public override void InitializeCommand(Unit Unit)
     {
-        base.InitializeCommand(Unit);
         Unit.SetCommand(this.CommandCombat);
     }
 

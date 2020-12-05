@@ -61,6 +61,7 @@ public class MapControl : Singleton<MapControl> {
         GameObject snake2 = CreateGameObject(27, 3, snake);
         GameObject spider1 = CreateGameObject(20, 10, spider);
         GameObject spider2 = CreateGameObject(20, 11, spider);
+        GameObject boar3 = CreateGameObject(19, 11, wildboar);
         GameObject boar1 = CreateGameObject(2, 2, wildboar);
         GameObject boar2 = CreateGameObject(2, 1, wildboar);
         GameObject mouse1 = CreateGameObject(3, 2, mouse);

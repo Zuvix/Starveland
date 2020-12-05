@@ -25,7 +25,7 @@ public class UnitCommandCombatMelee : UnitCommand
     public override IEnumerator PerformAction(Unit Unit)
     {
         yield return Unit.StartCoroutine(Unit.Fight(this.TargetUnit));
-        if (TargetUnit != null && Skill != null)
+        if (TargetUnit != null && Skill != null && PathFinding.Instance.BlockDistance(Unit.CurrentCell, TargetUnit.CurrentCell) <= 2)
         {
             Skill.DoAction(Unit, TargetUnit);
         }

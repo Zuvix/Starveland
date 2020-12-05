@@ -64,6 +64,7 @@ public abstract class Unit : CellObject
     public int CritChance = 25;
     public int Defence = 0;
     public int TimesCriticalMultiplier = 2;
+    public int TargetDistance2AbortAttackOn = 4;
     [HideInInspector]
     public UnityEvent<int> onDamageRecieved = new UnityEvent<int>();
 
@@ -423,4 +424,5 @@ public abstract class Unit : CellObject
         }
         return Result;
     }
+    public abstract void SetDefaultActivity();
 }
