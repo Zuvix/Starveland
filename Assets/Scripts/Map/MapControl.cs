@@ -9,78 +9,89 @@ public class MapControl : Singleton<MapControl> {
 
     public Map map;
     public List<MapCell> StorageList;
-
-    private float mouseMoveTimer;
-    private float mouseMoveTimerMax = .01f;
-
-    public GameObject forest;
-    public GameObject carrot_field;
-
-    public GameObject Grass1;
-
     public GameObject building_storage;
-
     public GameObject player;
-    public GameObject animal;
     public GameObject tombstone;
-
+    //Pre Misa na talent
+    public RSObjects[] Foragables= {RSObjects.Bush_Berry_Purple};
+    CellObjectFactory COF;
     private void Start() {
-        //Example of the world
-        StorageList = new List<MapCell>();
-        map = new Map(32, 18, 10f, new Vector3(0, 0));
-        GameObject testUnit1 = CreateGameObject(0, 0, player);
-        GameObject testUnit2 = CreateGameObject(0, 1, player);
-        GameObject testUnit3 = CreateGameObject(0, 2, player);
-        CreateGameObject(5, 5, building_storage);
-
-        List<(int, int)> ForestCoords = new List<(int, int)>(new (int, int)[]
-        { 
-            (9, 4), (10, 4), (11, 4), (9, 5), (15, 15), (15,14), (14,15), (11,11), (10,10), (10,11), (11,10), (12,13)
-        });
-        foreach ((int, int) Coord in ForestCoords)
-        {
-            CellObjectFactory.Instance.ProduceResourceSource(Coord.Item1, Coord.Item2, RSObjects.Forest);
-        }
-        CellObjectFactory.Instance.ProduceResourceSource(10, 0, RSObjects.Stone);
-        CellObjectFactory.Instance.ProduceResourceSource(0, 10, RSObjects.Stone);
-        CellObjectFactory.Instance.ProduceResourceSource(0, 11, RSObjects.Stone);
-        CellObjectFactory.Instance.ProduceResourceSource(0, 9, RSObjects.Stone);
-        CellObjectFactory.Instance.ProduceResourceSource(9, 3, RSObjects.Stone);
-        CellObjectFactory.Instance.ProduceResourceSource(12, 10, RSObjects.Stone);
-        //animal test
-        GameObject testAnimal1 = CreateGameObject(14, 14, animal);
-        GameObject testAnimal2 = CreateGameObject(13, 13, animal);
-        GameObject testAnimal3 = CreateGameObject(15, 12, animal);
-        GameObject testAnimal4 = CreateGameObject(16, 14, animal);
-
-        List<(int, int)> GrassCoords = new List<(int, int)>(new (int, int)[]
-        {
-            (3, 3), (3, 4), (3, 5), (3, 6), (4, 3), (4, 4), (4, 5), (4, 6), (5, 3), (5, 4), (5, 6)
-        });
-        foreach ((int, int) Coord in GrassCoords)
-        {
-            CreateGameObject(Coord.Item1, Coord.Item2, Grass1);
-        }
-        GameObject testAnimal5 = CreateGameObject(4, 4, animal);
-
-        //testUnit1.GetComponent<Unit>().SetActivity(new ActivityStateWoodcutting(map.Grid[11][4], testUnit1.GetComponent<Unit>(), testUnit1.GetComponent<Unit>().SkillWoodcutting));
-        //testUnit1.GetComponent<Unit>().SetActivity(new ActivityStateIdle());
-        // testUnit2.GetComponent<Unit>().SetActivity(new ActivityStateIdle());
-        System.Random random = new System.Random();
-        List<(int, int)> BushCoords = new List<(int, int)>(new (int, int)[]
-        {
-            (9, 1), (9, 2), (10, 1), (10, 2), (11, 0), (11, 1), (11, 2),
-        });
-        foreach ((int, int) Coord in BushCoords)
-        {
-
-            CellObjectFactory.Instance.ProduceResourceSource(Coord.Item1, Coord.Item2, RSObjects.Stone);//BushTypeList[random.Next(BushTypeList.Count)]);
-        }
-
-        CellObjectFactory.Instance.ProduceCellObject(7, 7, CellObjects.Sapling);
-        CellObjectFactory.Instance.ProduceCellObject(7, 8, CellObjects.Bush_Berry_Purple);
+        COF = CellObjectFactory.Instance;
+        GenerateWorld();
+        //Ak chces daco navyse spawnut tak skus tu
     }
+    public void GenerateWorld()
+    {
+        StorageList = new List<MapCell>();
+        map = new Map(35, 22, 10f, new Vector3(0, 0));
+        CreateGameObject(1, 1, player);
+        CreateGameObject(1, 2, player);
+        CreateGameObject(1, 3, player);
+        CreateGameObject(4, 1, player);
+        CreateGameObject(15, 12, building_storage);
 
+        //Water 
+        /*
+        CreateGameObject(0, 0, COF.water[4]);
+        CreateGameObject(map.GetWidth()-1, 0, COF.water[5]);
+        CreateGameObject(map.GetWidth() - 1, map.GetHeight() - 1, COF.water[6]);
+        CreateGameObject(0, map.GetHeight()-1, COF.water[7]);
+        for (int i = 1; i < map.GetWidth()-1; i++)
+        {
+            CreateGameObject(i, 0, COF.water[0]);
+            CreateGameObject(i, map.GetHeight()-1, COF.water[2]);
+        }
+        for(int i = 1; i < map.GetHeight()-1; i++)
+        {
+            CreateGameObject(0, i, COF.water[3]);
+            CreateGameObject(map.GetWidth()-1, i, COF.water[1]);
+        }
+        */
+
+        //Gravel around water
+        for (int i = 0; i < map.GetWidth(); i++)
+        {
+            int x = Random.Range(0, 3);
+            if (x <= 1)
+                COF.ProduceBGlObject(i, 0, BGObjects.Gravel);
+            x = Random.Range(0, 3);
+            if (x <= 1)
+                COF.ProduceBGlObject(i, map.GetHeight()-1, BGObjects.Gravel);
+        }
+        for (int i = 0; i < map.GetHeight(); i++)
+        {
+            int x = Random.Range(0, 3);
+            if (x <= 1)
+            {
+                COF.ProduceBGlObject(0, i, BGObjects.Gravel);
+            }
+            x = Random.Range(0, 3);
+            if (x <= 1)
+            {
+                COF.ProduceBGlObject(map.GetWidth() - 1, i, BGObjects.Gravel);
+            }
+        }
+        //Grass
+        for (int i=1; i<map.GetWidth()-1;i++)
+        {
+            for(int d = 1; d < map.GetHeight() - 1; d++)
+            {
+                int x = Random.Range(0, 4);
+                if (x <= 1)
+                {
+                    COF.ProduceBGlObject(i, d, BGObjects.Grass);
+                }
+                if (x ==2)
+                {
+                    COF.ProduceBGlObject(i, d, BGObjects.Grass1);
+                }
+            }
+        }
+        //Trees
+
+
+
+    }
     public GameObject CreateGameObject(int x, int y, GameObject toBeCreatedGO)
     {
         if (map.IsInBounds(x,y))

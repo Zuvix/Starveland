@@ -5,7 +5,7 @@ using UnityEngine;
 public class ResourceSource : CellObject
 {
     [HideInInspector]
-    public List<Resource> Resources=new List<Resource>();
+    public Resource resource = null;
 
     override protected  void Awake()
     {
@@ -24,9 +24,9 @@ public class ResourceSource : CellObject
     public Resource GatherResource(int amount, out bool depleted)
     {
         bool isDepleted = false;
-        Resource Result = this.Resources[0].Subtract(amount);
+        Resource Result = this.resource.Subtract(amount);
         //Debug.LogWarning(Result.itemInfo.name);
-        if (this.Resources[0].Amount <= 0)
+        if (this.resource.Amount <= 0)
         {
             isDepleted = true;
             Debug.Log("Destroying Resource Source");
@@ -43,38 +43,30 @@ public class ResourceSource : CellObject
         return Result;
     }
 
-    public List<ResourcePack> ResourcePacks;
+    public ResourcePack rp;
 
     public void GenerateResources()
-    {
-        List<Resource> generatedResources = new List<Resource>();
-        foreach (ResourcePack rp in ResourcePacks)
-        {
-            Resource toAddResource = rp.UnpackPack();
-            if (toAddResource != null)
-            {
-                generatedResources.Add(rp.resource);
-            }
-                
-        }
-        this.Resources = generatedResources;
+    {   
+
+        this.resource = rp.UnpackPack();
     }
 
-    public void AddResource(Resource toAddResource)
+    public bool AddResource(Resource toAddResource)
     {
-        bool added = false;
-        for (int i = 0; i < Resources.Count; i++)
+        if (resource == null)
         {
-            if (Resources[i].itemInfo.name.Equals(toAddResource.itemInfo.name))
-            {
-                Resources[i].AddDestructive(toAddResource);
-                added = true;
-                break;
-            }
+            resource.AddDestructive(toAddResource);
+            return true;
         }
-        if (!added)
+        else if (!resource.itemInfo.name.Equals(toAddResource.itemInfo.name))
         {
-            Resources.Add(toAddResource);
+            Debug.Log("Trying to add resources of different type");
+            return false;
+        }
+        else
+        {
+            resource.AddDestructive(toAddResource);
+            return true;
         }
     }
 }

@@ -1,6 +1,6 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1 &1468059033923470519
+--- !u!1 &7279664699217834465
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -8,38 +8,37 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 4138085810194520864}
-  - component: {fileID: 5058300775905411020}
-  - component: {fileID: 422818186283922562}
-  - component: {fileID: -2647990642881357952}
+  - component: {fileID: 7279664699217834471}
+  - component: {fileID: 7279664699217834464}
+  - component: {fileID: 7968707655280347348}
   m_Layer: 0
-  m_Name: Animal_Dead
-  m_TagString: Animal_Dead
+  m_Name: Wave
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &4138085810194520864
+--- !u!4 &7279664699217834471
 Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1468059033923470519}
+  m_GameObject: {fileID: 7279664699217834465}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 8, y: 8, z: 1}
+  m_LocalPosition: {x: 315.17352, y: 259.76508, z: 0}
+  m_LocalScale: {x: 9.5, y: 9.5, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!212 &5058300775905411020
+--- !u!212 &7279664699217834464
 SpriteRenderer:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1468059033923470519}
+  m_GameObject: {fileID: 7279664699217834465}
   m_Enabled: 1
   m_CastShadows: 0
   m_ReceiveShadows: 0
@@ -72,71 +71,28 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
-  m_Sprite: {fileID: -3298766565060276698, guid: ddf4a4e6ec245864fbfb72f96ebb7d3d,
-    type: 3}
+  m_SortingOrder: -6
+  m_Sprite: {fileID: 578920975225610018, guid: ddf4a4e6ec245864fbfb72f96ebb7d3d, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
-  m_Size: {x: 0.34375, y: 0.34375}
+  m_Size: {x: 1.125, y: 1.125}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!61 &422818186283922562
-BoxCollider2D:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1468059033923470519}
-  m_Enabled: 1
-  m_Density: 1
-  m_Material: {fileID: 0}
-  m_IsTrigger: 1
-  m_UsedByEffector: 0
-  m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0}
-  m_SpriteTilingProperty:
-    border: {x: 0, y: 0, z: 0, w: 0}
-    pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 1.125, y: 1.125}
-    newSize: {x: 0.34375, y: 0.34375}
-    adaptiveTilingThreshold: 0.5
-    drawMode: 0
-    adaptiveTiling: 0
-  m_AutoTiling: 0
-  serializedVersion: 2
-  m_Size: {x: 1.125, y: 1.125}
-  m_EdgeRadius: 0
---- !u!114 &-2647990642881357952
+--- !u!114 &7968707655280347348
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1468059033923470519}
+  m_GameObject: {fileID: 7279664699217834465}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b10766576e1129b41bebd07ace1af4a5, type: 3}
+  m_Script: {fileID: 11500000, guid: e7bde3652ccade443be22ffd70e7d16d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  flashTime: 0.2
-  sr: {fileID: 0}
-  objectName: Dead Animal
-  tip: Dead animal
-  popup: {fileID: 0}
-  IsBlocking: 1
-  IsSelectable: 1
-  IsPossibleToAddToActionQueue: 0
-  Resources:
-  - itemInfo: {fileID: 0}
-    Amount: 5
-  ResourcePacks:
-  - resource:
-      itemInfo: {fileID: 11400000, guid: 756d6da29aa825645a10985bc585f9d3, type: 2}
-      Amount: 1
-    chance: 100
-    variationPercentage: 0
+  speed: 20

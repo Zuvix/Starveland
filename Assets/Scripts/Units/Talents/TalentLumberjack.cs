@@ -34,7 +34,7 @@ public class TalentLumberjack : Talent
 
     public override float Execute(ResourceSource resourceSource, float value)
     {
-        if (resourceSource.Resources[0].itemInfo.type.Equals("Resource"))
+        if (resourceSource.resource.itemInfo.type.Equals("Resource"))
         {
             return value * ((100f - (float)this.WoodcuttingBonus) / 100f);
         }

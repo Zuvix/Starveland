@@ -104,3 +104,4 @@ MonoBehaviour:
   IsBlocking: 0
   IsSelectable: 0
   IsPossibleToAddToActionQueue: 0
+  Replacement: {fileID: 0}

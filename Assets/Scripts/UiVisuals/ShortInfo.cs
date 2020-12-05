@@ -91,7 +91,7 @@ public class ShortInfo : MonoBehaviour
         {
             ResourceSource rs = (ResourceSource)visibleObject;
             resourcePanel.SetActive(true);
-            resourcePanelItemsInfo.ShowInfo(rs.Resources);
+            resourcePanelItemsInfo.ShowInfo(rs.resource);
             resourceSourcTipTxt.text = visibleObject.tip;
 
         }

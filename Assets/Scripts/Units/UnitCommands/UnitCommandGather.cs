@@ -57,7 +57,7 @@ public class UnitCommandGather : UnitCommand
         }
         else if (TargetResourceSource is ResourceSource)
         {
-            Result = !TargetResourceSource.Resources[0].IsDepleted();
+            Result = !TargetResourceSource.resource.IsDepleted();
         }
         return Result;
     }

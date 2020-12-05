@@ -34,7 +34,7 @@ public class TalentCriticalHarvest : Talent
 
     public override float Execute(ResourceSource resourceSource, float value)
     {
-        if (resourceSource.Resources[0].itemInfo.type.Equals("Resource"))
+        if (resourceSource.resource.itemInfo.type.Equals("Resource"))
         {
             return value * (float)this.WoodcuttingTimeSlowed;
         }
@@ -43,9 +43,9 @@ public class TalentCriticalHarvest : Talent
 
     public override Resource Execute(ResourceSource Target, out bool isDepleted)
     {
-        if (Target.Resources[0].itemInfo.type.Equals("Resource"))
+        if (Target.resource.itemInfo.type.Equals("Resource"))
         {
-            return Target.GatherResource(Target.Resources[0].Amount, out isDepleted);
+            return Target.GatherResource(Target.resource.Amount, out isDepleted);
         }
         return Target.GatherResource(1, out isDepleted);
     }

@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 8971999135580258472}
   - component: {fileID: 81266211527196175}
   m_Layer: 0
-  m_Name: SeaTile
+  m_Name: w1 4
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -71,8 +71,8 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
-  m_Sprite: {fileID: 5144763148505463700, guid: ddf4a4e6ec245864fbfb72f96ebb7d3d,
+  m_SortingOrder: -4
+  m_Sprite: {fileID: 7799943615762278233, guid: ddf4a4e6ec245864fbfb72f96ebb7d3d,
     type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -98,8 +98,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   flashTime: 0.2
   sr: {fileID: 0}
-  objectName: 
-  tip: 
+  objectName: Vast Sea
+  tip: Nothing to see here.
   popup: {fileID: 0}
   IsBlocking: 1
-  IsSelectable: 1
+  IsSelectable: 0
+  IsPossibleToAddToActionQueue: 0
+  Replacement: {fileID: 0}

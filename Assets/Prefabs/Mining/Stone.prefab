@@ -105,13 +105,15 @@ MonoBehaviour:
   IsBlocking: 1
   IsSelectable: 1
   IsPossibleToAddToActionQueue: 1
-  Resources: []
-  ResourcePacks:
-  - resource:
-      itemInfo: {fileID: 11400000, guid: e8182eeb5a384d44bbdda801c49fcd0b, type: 2}
-      Amount: 40
+  Replacement: {fileID: 0}
+  resource:
+    itemInfo: {fileID: 0}
+    Amount: 0
+  rp:
+    item: {fileID: 11400000, guid: e8182eeb5a384d44bbdda801c49fcd0b, type: 2}
+    minValue: 14
+    maxValue: 18
     chance: 100
-    variationPercentage: 20
 --- !u!61 &8841977509073851376
 BoxCollider2D:
   m_ObjectHideFlags: 0

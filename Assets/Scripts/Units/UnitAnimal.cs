@@ -91,7 +91,7 @@ public class UnitAnimal : Unit
             Resource toAddResource = rp.UnpackPack();
             if (toAddResource != null)
             {
-                drops.Add(rp.resource);
+                drops.Add(toAddResource);
             }
 
         }

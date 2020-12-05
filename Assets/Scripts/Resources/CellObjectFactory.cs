@@ -19,9 +19,17 @@ public enum CellObjects
     Bush_Berry_Purple
 }
 
+public enum BGObjects
+{
+    Grass,
+    Grass1,
+    Gravel, 
+}
+
 class CellObjectFactory : Singleton<CellObjectFactory>
 {
     // Resource Sources
+    [Header("Resource sources")]
     public GameObject forest;
     public GameObject deadAnimal;
     public GameObject stone;
@@ -30,8 +38,15 @@ class CellObjectFactory : Singleton<CellObjectFactory>
     public GameObject diamond;
 
     // Cell Objects
+    [Header ("Cell objects")]
     public GameObject sapling;
     public GameObject berryless_bush;
+
+    [Header("Background objects")]
+    public GameObject[] water;
+    public GameObject grass;
+    public GameObject grass1;
+    public GameObject gravel;
     public GameObject ProduceResourceSource(int x, int y, RSObjects type, List<Resource> additionalResources=null)
     {
         GameObject Result = null;
@@ -82,7 +97,7 @@ class CellObjectFactory : Singleton<CellObjectFactory>
         }
         if (createdResourceSource!=null)
         {
-            if (createdResourceSource.Resources?.Count == 0)
+            if (createdResourceSource.resource==null)
             {
                 Destroy(Result);
                 Debug.LogWarning("Destroyed ResourceSource because it had no resources.");
@@ -107,10 +122,46 @@ class CellObjectFactory : Singleton<CellObjectFactory>
                 selectedPrefab = berryless_bush;
                 break;
             }
+
             default:
             {
                 break;
             }
+        }
+        if (selectedPrefab != null)
+        {
+            Result = MapControl.Instance.CreateGameObject(x, y, selectedPrefab);
+        }
+
+        return Result;
+    }
+
+    public GameObject ProduceBGlObject(int x, int y, BGObjects type)
+    {
+        GameObject selectedPrefab = null;
+        GameObject Result = null;
+        switch (type)
+        {
+            case BGObjects.Grass:
+                {
+                    selectedPrefab = grass;
+                    break;
+                }
+            case BGObjects.Grass1:
+                {
+                    selectedPrefab = grass1;
+                    break;
+                }
+
+            case BGObjects.Gravel:
+                {
+                    selectedPrefab = gravel;
+                    break;
+                }
+            default:
+                {
+                    break;
+                }
         }
         if (selectedPrefab != null)
         {
