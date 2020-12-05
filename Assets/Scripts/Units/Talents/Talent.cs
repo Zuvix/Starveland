@@ -39,6 +39,7 @@ public abstract class Talent
         isDepleted = false;
         return null; 
     }
+    public virtual void Execute(Unit Unit, Unit Target) { }
 }
 
 public enum TalentType
@@ -53,5 +54,12 @@ public enum TalentType
     ForestFruits,
     FriendOfTheForest,
     CriticalHarvest,
-    MotherOfNature
+    MotherOfNature,
+    ThroatSeeker,
+    LethalBlow,
+    WindDancer,
+    DeadEye,
+    DivineBlessing,
+    UnwaveringStance,
+    Opportunist
 }

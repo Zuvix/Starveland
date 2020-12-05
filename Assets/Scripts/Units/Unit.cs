@@ -1,18 +1,12 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 
 public abstract class Unit : CellObject
 {
     [HideInInspector]
     public string CurrentAction { get; set; }
-    [HideInInspector]
-    public float MovementSpeed { get; set; }
-    [HideInInspector]
-    public int Health { get; set; }
-    [HideInInspector]
-    public int MaxHealth { get; set; }
-    public int BaseDamage { get; set; }
 
     [SerializeField]
     float xScalingFactor = 2f;
@@ -31,12 +25,11 @@ public abstract class Unit : CellObject
     public static readonly List<UnitPlayer> PlayerUnitPool = new List<UnitPlayer>();
     public static readonly List<Unit> UnitPool = new List<Unit>();
 
-    public Sprite ReceiveDamageIcon;
-
     public UnitCommand CurrentCommand { get; private set; }
     protected ActivityState CurrentActivity;
     public ActivityState NextActivity { get; private set; }
     public UnitMovementConflictManager MovementConflictManager;
+    [HideInInspector]
     public Resource CarriedResource = new Resource(null,0);
 
     // Used for movement collisions
@@ -45,12 +38,20 @@ public abstract class Unit : CellObject
     private static readonly float MaxWaitTime = 0.3f;
     private static readonly float WaitTimeRange = MaxWaitTime - MinWaitTime;
 
-    //future combat stats
-    [Header("Future combat stats")]
+    [Header("Combat stuff")]
+    public Sprite ReceiveDamageIcon;
+    public float MovementSpeed = 20f;
+    [HideInInspector]
+    public int Health;
+    public int MaxHealth = 100;
+    public int BaseDamage = 10;
     public int Accuracy = 90;
     public int Dodge = 10;
     public int CritChance = 25;
-    public int Armour = 0;
+    public int Defence = 0;
+    public int TimesCriticalMultiplier = 2;
+    [HideInInspector]
+    public UnityEvent<int> onDamageRecieved = new UnityEvent<int>();
 
     public override bool EnterCell(MapCell MapCell)
     {
@@ -260,7 +261,7 @@ public abstract class Unit : CellObject
          }*/
     }
 
-    public virtual IEnumerator Fight(Unit UnitTarget, float AttackTime = 1.0f)
+    public virtual IEnumerator Fight(Unit UnitTarget, float AttackTime = 2f)
     {
         this.CurrentAction = "In combat!";
 
@@ -274,10 +275,10 @@ public abstract class Unit : CellObject
         }
 
         yield return new WaitForSeconds(AttackTime);
-        if (UnitTarget != null)
+        /*if (UnitTarget != null)
         {
             UnitTarget.Flash(Color.red);
-        }
+        }*/
         yield return new WaitForSeconds(0.2f);
     }
 
@@ -307,20 +308,48 @@ public abstract class Unit : CellObject
         yield return new WaitForSeconds((float)(MinWaitTime + WaitTimeGenerator.NextDouble() * WaitTimeRange));
     }
 
-
-    public void DealDamage(int Amount, Unit AttackingUnit)
+    public void Attack(Unit Unit, Unit TargetUnit, bool pierce = false)
     {
-        DealDamageStateRoutine(Amount, AttackingUnit);
+        int chanceToHit = Unit.Accuracy - TargetUnit.Dodge;
 
-        this.Health -= Amount;
-        DisplayReceivedDamage(Amount);
-
-        if (this.Health <= 0) //handle death
+        if (Random.Range(1, 100) <= chanceToHit)
         {
-            Die();
+            if (Random.Range(1, 100) <= Unit.CritChance)
+            {
+                TargetUnit.DealDamage(Unit.BaseDamage * this.TimesCriticalMultiplier, Unit, true, pierce);
+            }
+            else
+            {
+                TargetUnit.DealDamage(Unit.BaseDamage, Unit, false, pierce);
+            }
+        }
+        else
+        {
+            Unit.CreatePopup("Miss");
         }
     }
-    public abstract void DealDamageStateRoutine(int Amount, Unit AttackingUnit);
+
+    protected void DealDamage(int Amount, Unit AttackingUnit, bool crit, bool pierce = false)
+    {
+        DealDamageStateRoutine(AttackingUnit);
+
+        if (!pierce)
+        {
+            Amount -= this.Defence;
+            Amount = Amount < 0 ? 0 : Amount;
+        }
+
+        this.Health -= Amount;
+        DisplayReceivedDamage(Amount, crit);
+        this.onDamageRecieved.Invoke(Amount);
+
+        if (this.Health <= 0) //handle death
+        {          
+            Die();
+        }
+        this.Flash(Color.red);
+    }
+    public abstract void DealDamageStateRoutine(Unit AttackingUnit);
     public void Die()
     {
         int x = this.CurrentCell.x;
@@ -345,9 +374,16 @@ public abstract class Unit : CellObject
     }
     public virtual void SpawnOnDeath(int x, int y) { }
     public virtual void ActionOnDeath() { }
-    public void DisplayReceivedDamage(int Amount)
+    public void DisplayReceivedDamage(int Amount, bool crit)
     {
-        CreatePopup(ReceiveDamageIcon, -Amount);
+        if (crit)
+        {
+            CreatePopup(ReceiveDamageIcon, -Amount, Color.red);
+        }
+        else
+        {
+            CreatePopup(ReceiveDamageIcon, -Amount);
+        }
     }
 
     public IEnumerator WaitEmpty()

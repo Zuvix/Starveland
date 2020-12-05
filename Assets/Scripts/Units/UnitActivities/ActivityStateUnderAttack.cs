@@ -14,8 +14,9 @@ public class ActivityStateUnderAttack : ActivityState
     private readonly int originalX;
     private readonly int originalY;
     private readonly int waderingRadius;
+    private readonly int chanceToMove;
 
-    public ActivityStateUnderAttack(Unit UnitTarget, Unit Unit, int originalX = -1, int originalY = -1, int wanderingRadius = 2) : base()
+    public ActivityStateUnderAttack(Unit UnitTarget, Unit Unit, int originalX = -1, int originalY = -1, int wanderingRadius = 2, int chanceToMove = 0) : base()
     {
         this.UnitTarget = UnitTarget;
         List<MapCell> path = PathFinding.Instance.FindPath(Unit.CurrentCell, this.UnitTarget.CurrentCell);
@@ -24,6 +25,7 @@ public class ActivityStateUnderAttack : ActivityState
         this.originalX = originalX;
         this.originalY = originalY;
         this.waderingRadius = wanderingRadius;
+        this.chanceToMove = chanceToMove;
     }
 
     public override void InitializeCommand(Unit Unit)
@@ -48,7 +50,7 @@ public class ActivityStateUnderAttack : ActivityState
                 }
                 else
                 {
-                    Unit.SetActivity(new ActivityStateWander(this.waderingRadius, MapControl.Instance.map.Grid[originalX][originalY]));
+                    Unit.SetActivity(new ActivityStateWander(this.waderingRadius, MapControl.Instance.map.Grid[originalX][originalY], this.chanceToMove));
                 }
             }
         }

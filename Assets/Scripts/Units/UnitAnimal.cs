@@ -7,27 +7,28 @@ using UnityEngine;
 
 public class UnitAnimal : Unit
 {
-    private int WanderingRadius;
+    [Header("Other")]
+    [Tooltip("Defines how far a unit can move from its spawn position during wandering.")]
+    [Min(0)]
+    public int WanderingRadius = 2;
+    [Tooltip("Defines the chance of a unit moving to random position if he's wandering around and idling.")]
+    [Range(0, 100)]
+    public int ChanceToMoveDuringWandering = 10;
     private int spawnX;
     private int spawnY;
     public List<ResourcePack> inventory;
 
     protected override void Awake()
     {
-        this.MovementSpeed = GameConfigManager.Instance.GameConfig.MovementSpeedAnimal;
-        this.MaxHealth = GameConfigManager.Instance.GameConfig.MaxHealthAnimal;
         this.Health = this.MaxHealth;
-        this.BaseDamage = GameConfigManager.Instance.GameConfig.BaseDamageAnimal;
-        this.WanderingRadius = GameConfigManager.Instance.GameConfig.WanderingRadius;
         base.Awake();
-
         this.IsPossibleToAddToActionQueue = true;
     }
     protected override void Start()
     {
         this.spawnX = this.CurrentCell.x;
         this.spawnY = this.CurrentCell.y;
-        this.SetActivity(new ActivityStateWander(this.WanderingRadius, this.CurrentCell));
+        this.SetActivity(new ActivityStateWander(this.WanderingRadius, this.CurrentCell, this.ChanceToMoveDuringWandering));
 
         base.Start();
     }
@@ -54,9 +55,18 @@ public class UnitAnimal : Unit
     public override IEnumerator Fight(Unit UnitTarget, float AttackTime = 1.0f)
     {
         this.CurrentAction = "In combat!";
+        if (UnitTarget.CurrentCell.position.x > transform.position.x)
+        {
+            Flip("right");
+        }
+        else if (UnitTarget.CurrentCell.position.x < transform.position.x)
+        {
+            Flip("left");
+        }
         yield return new WaitForSeconds(AttackTime);
-        UnitTarget.DealDamage(this.BaseDamage, this);
-        UnitTarget.Flash(Color.red);
+        //UnitTarget.DealDamage(this.BaseDamage, this, false);
+        this.Attack(this, UnitTarget);
+        //UnitTarget.Flash(Color.red);
         yield return new WaitForSeconds(0.2f);
     }
 
@@ -76,11 +86,11 @@ public class UnitAnimal : Unit
             Die();
         }
     }*/
-    public override void DealDamageStateRoutine(int Amount, Unit AttackingUnit)
+    public override void DealDamageStateRoutine(Unit AttackingUnit)
     {
         if (!(this.CurrentActivity is ActivityStateUnderAttack))
         {
-            this.SetActivity(new ActivityStateUnderAttack(AttackingUnit, this, this.spawnX, this.spawnY, this.WanderingRadius));
+            this.SetActivity(new ActivityStateUnderAttack(AttackingUnit, this, this.spawnX, this.spawnY, this.WanderingRadius, this.ChanceToMoveDuringWandering));
         }
     }
     public override void SpawnOnDeath(int x, int y)

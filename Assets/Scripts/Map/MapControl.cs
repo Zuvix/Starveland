@@ -24,6 +24,11 @@ public class MapControl : Singleton<MapControl> {
     public GameObject animal;
     public GameObject tombstone;
 
+    public GameObject snake;
+    public GameObject spider;
+    public GameObject wildboar;
+    public GameObject mouse;
+
     private void Start() {
         //Example of the world
         StorageList = new List<MapCell>();
@@ -52,6 +57,16 @@ public class MapControl : Singleton<MapControl> {
         GameObject testAnimal2 = CreateGameObject(13, 13, animal);
         GameObject testAnimal3 = CreateGameObject(15, 12, animal);
         GameObject testAnimal4 = CreateGameObject(16, 14, animal);
+        GameObject snake1 = CreateGameObject(27,1, snake);
+        GameObject snake2 = CreateGameObject(27, 3, snake);
+        GameObject spider1 = CreateGameObject(20, 10, spider);
+        GameObject spider2 = CreateGameObject(20, 11, spider);
+        GameObject boar1 = CreateGameObject(2, 2, wildboar);
+        GameObject boar2 = CreateGameObject(2, 1, wildboar);
+        GameObject mouse1 = CreateGameObject(3, 2, mouse);
+        GameObject mouse2 = CreateGameObject(4, 1, mouse);
+        GameObject mouse3 = CreateGameObject(2, 3, mouse);
+        GameObject mouse4 = CreateGameObject(5, 4, mouse);
 
         List<(int, int)> GrassCoords = new List<(int, int)>(new (int, int)[]
         {

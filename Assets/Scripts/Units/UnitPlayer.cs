@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-
 public class UnitPlayer : Unit
 {
     [HideInInspector]
@@ -25,26 +24,18 @@ public class UnitPlayer : Unit
     }
     protected override void Awake()
     {
-        //Debug.LogError("UnitPlayer Instantiated");
         this.Skills = new Dictionary<SkillType, Skill> 
         {
             { SkillType.Foraging, new SkillForaging() },
             { SkillType.Hunting, new SkillHunting() },
             { SkillType.Mining, new SkillMining() } 
         };
-
-        this.MovementSpeed = GameConfigManager.Instance.GameConfig.MovementSpeedPlayer;
-        this.MaxHealth = GameConfigManager.Instance.GameConfig.MaxHealthPlayer;
         this.Health = this.MaxHealth;
-        this.BaseDamage = GameConfigManager.Instance.GameConfig.BaseDamagePlayer;
-
         Unit.PlayerUnitPool.Add(this);
-
         base.Awake();
     }
     protected override void Start()
-    {
-        
+    {       
         objectName = NameGenerator.GetRandomName();
         this.SetActivity(new ActivityStateIdle());
         base.Start();
@@ -110,7 +101,7 @@ public class UnitPlayer : Unit
             MapControl.Instance.CreateGameObject(x, y, MapControl.Instance.tombstone);
         }
     }*/
-    public override void DealDamageStateRoutine(int Amount, Unit AttackingUnit)
+    public override void DealDamageStateRoutine(Unit AttackingUnit)
     {
         if (!(this.CurrentActivity is ActivityStateUnderAttack) && !(this.CurrentActivity is ActivityStateHunt))
         {
