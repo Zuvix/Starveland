@@ -44,7 +44,7 @@ public class ActivityStateHunt : ActivityState
             }
             else if (Unit.CurrentCommand == CommandCombat)
             {
-                if (!DayCycleManager.Instance.GameIsWaitingForPlayerUnits2GoEat())
+                if (!DayCycleManager.Instance.TimeOut)
                 {
                     Unit.SetActivity(new ActivityStateGather(this.UnitTarget.CurrentCell).SetCommands(Unit, this.Skill));
                 }

@@ -3,6 +3,7 @@
 class DayCycleManager : Singleton<DayCycleManager>
 {
     private int FinishedUnitCounter { get; set; }
+    public bool TimeOut { get; private set; }  = false;
     private void Start()
     {
         DaytimeCounter.Instance.OnDayOver.AddListener(EndDay);
@@ -11,6 +12,7 @@ class DayCycleManager : Singleton<DayCycleManager>
     public void EndDay()
     {
         GlobalGameState.Instance.InGameInputAllowed = false;
+        TimeOut = true;
 
         UnitManager.Instance.ActionQueue.Clear();
         UnitManager.Instance.IdleUnits.Clear();
@@ -34,6 +36,7 @@ class DayCycleManager : Singleton<DayCycleManager>
         }
         DaytimeCounter.Instance.StartDay();
         GlobalGameState.Instance.InGameInputAllowed = true;
+        TimeOut = false;
     }
     public void IndicateEndDayRoutineEnd()
     {

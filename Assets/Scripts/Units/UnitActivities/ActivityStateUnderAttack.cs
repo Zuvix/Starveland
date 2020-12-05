@@ -36,7 +36,7 @@ public class ActivityStateUnderAttack : ActivityState
 
     public override IEnumerator PerformSpecificAction(Unit Unit)
     {
-        if (Unit is UnitAnimal && Unit.CurrentCommand == this.CommandMoveToTarget && DayCycleManager.Instance.GameIsWaitingForPlayerUnits2GoEat())
+        if (Unit is UnitAnimal && Unit.CurrentCommand == this.CommandMoveToTarget && DayCycleManager.Instance.TimeOut)
         {
             ((UnitAnimal)Unit).Wander();
         }
