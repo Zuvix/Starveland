@@ -27,7 +27,7 @@ Transform:
   m_GameObject: {fileID: 2283220006766421666}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 120.4, y: 71.8, z: 0}
-  m_LocalScale: {x: 9.5, y: 9.5, z: 1}
+  m_LocalScale: {x: 9, y: 9, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
@@ -74,8 +74,8 @@ SpriteRenderer:
   m_SortingOrder: 0
   m_Sprite: {fileID: -4456215778560731949, guid: ddf4a4e6ec245864fbfb72f96ebb7d3d,
     type: 3}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_FlipX: 0
+  m_Color: {r: 0.7607844, g: 0.7607844, b: 0.7607844, a: 1}
+  m_FlipX: 1
   m_FlipY: 0
   m_DrawMode: 0
   m_Size: {x: 0.25, y: 0.375}
@@ -109,9 +109,7 @@ MonoBehaviour:
     itemInfo: {fileID: 0}
     Amount: 0
   rp:
-    resource:
-      itemInfo: {fileID: 11400000, guid: 5722983080fed344796794c0aafe3131, type: 2}
-      Amount: 0
+    item: {fileID: 11400000, guid: 5722983080fed344796794c0aafe3131, type: 2}
     minValue: 8
     maxValue: 12
     chance: 100

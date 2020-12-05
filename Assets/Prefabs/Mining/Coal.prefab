@@ -11,9 +11,8 @@ GameObject:
   - component: {fileID: 2283220006766421676}
   - component: {fileID: 2283220006766421677}
   - component: {fileID: 9141504505225892636}
-  - component: {fileID: 8841977509073851376}
   m_Layer: 0
-  m_Name: Stone
+  m_Name: Coal
   m_TagString: Stone
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -28,7 +27,7 @@ Transform:
   m_GameObject: {fileID: 2283220006766421666}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 120.4, y: 71.8, z: 0}
-  m_LocalScale: {x: 8.5, y: 8.5, z: 1}
+  m_LocalScale: {x: 9.3, y: 9.3, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
@@ -73,7 +72,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: -6249780431782880589, guid: ddf4a4e6ec245864fbfb72f96ebb7d3d,
+  m_Sprite: {fileID: -1310412292177923284, guid: 6799260d129174a4f8ffee2e2140586a,
     type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -99,8 +98,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   flashTime: 0.1
   sr: {fileID: 0}
-  objectName: Stone
-  tip: A soild rock.
+  objectName: Coal
+  tip: A best gift from santa.
   popup: {fileID: 7964957230971447603, guid: 950b028d3cbc148489079960954f13fc, type: 3}
   IsBlocking: 1
   IsSelectable: 1
@@ -110,33 +109,7 @@ MonoBehaviour:
     itemInfo: {fileID: 0}
     Amount: 0
   rp:
-    item: {fileID: 11400000, guid: e8182eeb5a384d44bbdda801c49fcd0b, type: 2}
-    minValue: 20
-    maxValue: 24
+    item: {fileID: 11400000, guid: 7092d47e34caaa344bc94da314a4abc2, type: 2}
+    minValue: 16
+    maxValue: 20
     chance: 100
---- !u!61 &8841977509073851376
-BoxCollider2D:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2283220006766421666}
-  m_Enabled: 1
-  m_Density: 1
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_UsedByEffector: 0
-  m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0}
-  m_SpriteTilingProperty:
-    border: {x: 0, y: 0, z: 0, w: 0}
-    pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 1.125, y: 1.125}
-    newSize: {x: 0.3125, y: 0.28125}
-    adaptiveTilingThreshold: 0.5
-    drawMode: 0
-    adaptiveTiling: 0
-  m_AutoTiling: 0
-  serializedVersion: 2
-  m_Size: {x: 1.125, y: 1.125}
-  m_EdgeRadius: 0

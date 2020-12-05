@@ -10,7 +10,11 @@ public enum RSObjects
     DeadAnimal,
     Stone,
     Bush_Berry_Purple,
-    Diamond
+    Diamond,
+    Mushroom,
+    ToxicMushroom,
+    Iron,
+    Coal
 }
 
 public enum CellObjects
@@ -24,6 +28,7 @@ public enum BGObjects
     Grass,
     Grass1,
     Gravel, 
+    lekno,
 }
 
 class CellObjectFactory : Singleton<CellObjectFactory>
@@ -36,6 +41,10 @@ class CellObjectFactory : Singleton<CellObjectFactory>
     public GameObject bush;
     public GameObject bush_berry_purple;
     public GameObject diamond;
+    public GameObject mushroom;
+    public GameObject toxicFungi;
+    public GameObject iron;
+    public GameObject coal;
 
     // Cell Objects
     [Header ("Cell objects")]
@@ -46,6 +55,7 @@ class CellObjectFactory : Singleton<CellObjectFactory>
     public GameObject[] water;
     public GameObject grass;
     public GameObject grass1;
+    public GameObject lekno;
     public GameObject gravel;
     public GameObject ProduceResourceSource(int x, int y, RSObjects type, List<Resource> additionalResources=null)
     {
@@ -79,6 +89,26 @@ class CellObjectFactory : Singleton<CellObjectFactory>
                 selectedPrefab = diamond;
                 break;
             }
+            case RSObjects.Coal:
+                {
+                    selectedPrefab = coal;
+                    break;
+                }
+            case RSObjects.Iron:
+                {
+                    selectedPrefab = iron;
+                    break;
+                }
+            case RSObjects.Mushroom:
+                {
+                    selectedPrefab = mushroom;
+                    break;
+                }
+            case RSObjects.ToxicMushroom:
+                {
+                    selectedPrefab = toxicFungi;
+                    break;
+                }
             default:
                 break;
         }
@@ -156,6 +186,11 @@ class CellObjectFactory : Singleton<CellObjectFactory>
             case BGObjects.Gravel:
                 {
                     selectedPrefab = gravel;
+                    break;
+                }
+            case BGObjects.lekno:
+                {
+                    selectedPrefab = lekno;
                     break;
                 }
             default:

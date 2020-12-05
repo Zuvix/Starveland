@@ -1743,6 +1743,13 @@ MonoBehaviour:
   tombstone: {fileID: 8294826158820469398, guid: e37469ff022ec4f42b9711f654e34632,
     type: 3}
   Foragables: 03000000
+  treeMaxCount: 75
+  mushroomMaxCount: 15
+  maxBerryCount: 8
+  toxicMaxFungiCount: 12
+  rockMaxCount: 40
+  ironMaxCount: 12
+  coalMaxCount: 8
 --- !u!4 &253511558
 Transform:
   m_ObjectHideFlags: 0
@@ -8857,7 +8864,7 @@ PrefabInstance:
     - target: {fileID: 3275805233410246322, guid: ce26828ea09de184f839f032dbfb0368,
         type: 3}
       propertyPath: water.Array.size
-      value: 8
+      value: 9
       objectReference: {fileID: 0}
     - target: {fileID: 3275805233410246322, guid: ce26828ea09de184f839f032dbfb0368,
         type: 3}
@@ -8972,6 +8979,42 @@ PrefabInstance:
       propertyPath: grass1
       value: 
       objectReference: {fileID: 2283220006766421666, guid: c1107de33bd2ab946a48b98675d237b1,
+        type: 3}
+    - target: {fileID: 3275805233410246322, guid: ce26828ea09de184f839f032dbfb0368,
+        type: 3}
+      propertyPath: water.Array.data[8]
+      value: 
+      objectReference: {fileID: 8971999135580258473, guid: 32dee5f7da200ee47bd0ed1bacf8905d,
+        type: 3}
+    - target: {fileID: 3275805233410246322, guid: ce26828ea09de184f839f032dbfb0368,
+        type: 3}
+      propertyPath: lekno
+      value: 
+      objectReference: {fileID: 2283220006766421666, guid: c54eb643c1a268b49b36cf75bd0b2557,
+        type: 3}
+    - target: {fileID: 3275805233410246322, guid: ce26828ea09de184f839f032dbfb0368,
+        type: 3}
+      propertyPath: coal
+      value: 
+      objectReference: {fileID: 2283220006766421666, guid: 605d24b26d62f204d917bf49d1ac119a,
+        type: 3}
+    - target: {fileID: 3275805233410246322, guid: ce26828ea09de184f839f032dbfb0368,
+        type: 3}
+      propertyPath: iron
+      value: 
+      objectReference: {fileID: 2283220006766421666, guid: 39f5be832ecd4a64e97f49bf51ee068b,
+        type: 3}
+    - target: {fileID: 3275805233410246322, guid: ce26828ea09de184f839f032dbfb0368,
+        type: 3}
+      propertyPath: mushroom
+      value: 
+      objectReference: {fileID: 2283220006766421666, guid: 973f5dc7fbfc60b4ab7e0c653fbb5ac9,
+        type: 3}
+    - target: {fileID: 3275805233410246322, guid: ce26828ea09de184f839f032dbfb0368,
+        type: 3}
+      propertyPath: toxicFungi
+      value: 
+      objectReference: {fileID: 2283220006766421666, guid: 54b726138bdfa8540a89875855d0789e,
         type: 3}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: ce26828ea09de184f839f032dbfb0368, type: 3}
@@ -11973,8 +12016,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 9142817829593211066}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 175.013, y: 104.999, z: 0}
-  m_LocalScale: {x: 311.18576, y: 186.67026, z: 1}
+  m_LocalPosition: {x: 175.013, y: 109.92, z: 0}
+  m_LocalScale: {x: 311.18576, y: 195.42657, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 13

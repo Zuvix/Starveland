@@ -98,8 +98,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   flashTime: 0.2
   sr: {fileID: 0}
-  objectName: Grass
-  tip: Soft under your feet.
+  objectName: Gravel
+  tip: Rocks from the sea.
   popup: {fileID: 0}
   IsBlocking: 0
   IsSelectable: 0

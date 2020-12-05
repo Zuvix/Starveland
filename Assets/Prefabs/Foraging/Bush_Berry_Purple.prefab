@@ -102,13 +102,14 @@ MonoBehaviour:
   popup: {fileID: 7964957230971447603, guid: 950b028d3cbc148489079960954f13fc, type: 3}
   IsBlocking: 1
   IsSelectable: 1
-  IsPossibleToAddToActionQueue: 0
+  IsPossibleToAddToActionQueue: 1
   Replacement: {fileID: 2283220006766421666, guid: bc3a6439918b4c64a922e116ae9b506f,
     type: 3}
-  Resources: []
-  ResourcePacks:
-  - resource:
-      itemInfo: {fileID: 11400000, guid: 383cd9080ffc444468babecb666fc913, type: 2}
-      Amount: 5
+  resource:
+    itemInfo: {fileID: 0}
+    Amount: 0
+  rp:
+    item: {fileID: 11400000, guid: 383cd9080ffc444468babecb666fc913, type: 2}
+    minValue: 2
+    maxValue: 4
     chance: 100
-    variationPercentage: 36
