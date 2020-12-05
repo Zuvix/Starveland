@@ -28,8 +28,7 @@ public class UnitAnimal : Unit
     {
         this.spawnX = this.CurrentCell.x;
         this.spawnY = this.CurrentCell.y;
-        this.SetActivity(new ActivityStateWander(this.WanderingRadius, this.CurrentCell, this.ChanceToMoveDuringWandering));
-
+        Wander();
         base.Start();
     }
     public override void RightClickAction()
@@ -105,7 +104,11 @@ public class UnitAnimal : Unit
             }
 
         }
-        ResourceSourceFactory.Instance.ProduceResourceSource(x, y, RSObjects.DeadAnimal, drops);
+        CellObjectFactory.Instance.ProduceResourceSource(x, y, RSObjects.DeadAnimal, drops);
+    }
+    public void Wander()
+    {
+        this.SetActivity(new ActivityStateWander(this.WanderingRadius, this.CurrentCell, this.ChanceToMoveDuringWandering));
     }
 }
 

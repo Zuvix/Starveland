@@ -17,3 +17,4 @@ MonoBehaviour:
   NutritionValue: 8
   storageType: Cooked
   foodType: Meat
+  isHeavy: 0

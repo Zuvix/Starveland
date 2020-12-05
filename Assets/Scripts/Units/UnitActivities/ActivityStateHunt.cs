@@ -74,5 +74,9 @@ public class ActivityStateHunt : ActivityState
         
     }
 
+    public override bool IsCancellable()
+    {
+        return true;
+    }
 }
 

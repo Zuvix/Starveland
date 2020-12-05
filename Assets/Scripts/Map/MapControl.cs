@@ -44,14 +44,14 @@ public class MapControl : Singleton<MapControl> {
         });
         foreach ((int, int) Coord in ForestCoords)
         {
-            ResourceSourceFactory.Instance.ProduceResourceSource(Coord.Item1, Coord.Item2, RSObjects.Forest);
+            CellObjectFactory.Instance.ProduceResourceSource(Coord.Item1, Coord.Item2, RSObjects.Forest);
         }
-        ResourceSourceFactory.Instance.ProduceResourceSource(10, 0, RSObjects.Stone);
-        ResourceSourceFactory.Instance.ProduceResourceSource(0, 10, RSObjects.Stone);
-        ResourceSourceFactory.Instance.ProduceResourceSource(0, 11, RSObjects.Stone);
-        ResourceSourceFactory.Instance.ProduceResourceSource(0, 9, RSObjects.Stone);
-        ResourceSourceFactory.Instance.ProduceResourceSource(9, 3, RSObjects.Stone);
-        ResourceSourceFactory.Instance.ProduceResourceSource(12, 10, RSObjects.Stone);
+        CellObjectFactory.Instance.ProduceResourceSource(10, 0, RSObjects.Stone);
+        CellObjectFactory.Instance.ProduceResourceSource(0, 10, RSObjects.Stone);
+        CellObjectFactory.Instance.ProduceResourceSource(0, 11, RSObjects.Stone);
+        CellObjectFactory.Instance.ProduceResourceSource(0, 9, RSObjects.Stone);
+        CellObjectFactory.Instance.ProduceResourceSource(9, 3, RSObjects.Stone);
+        CellObjectFactory.Instance.ProduceResourceSource(12, 10, RSObjects.Stone);
         //animal test
         GameObject testAnimal1 = CreateGameObject(14, 14, animal);
         GameObject testAnimal2 = CreateGameObject(13, 13, animal);
@@ -81,7 +81,6 @@ public class MapControl : Singleton<MapControl> {
         //testUnit1.GetComponent<Unit>().SetActivity(new ActivityStateWoodcutting(map.Grid[11][4], testUnit1.GetComponent<Unit>(), testUnit1.GetComponent<Unit>().SkillWoodcutting));
         //testUnit1.GetComponent<Unit>().SetActivity(new ActivityStateIdle());
         // testUnit2.GetComponent<Unit>().SetActivity(new ActivityStateIdle());
-        List<RSObjects> BushTypeList = new List<RSObjects>(new RSObjects[] { RSObjects.Bush, RSObjects.Bush_Berry_Red, RSObjects.Bush_Berry_Purple});
         System.Random random = new System.Random();
         List<(int, int)> BushCoords = new List<(int, int)>(new (int, int)[]
         {
@@ -90,8 +89,11 @@ public class MapControl : Singleton<MapControl> {
         foreach ((int, int) Coord in BushCoords)
         {
 
-            ResourceSourceFactory.Instance.ProduceResourceSource(Coord.Item1, Coord.Item2, BushTypeList[random.Next(BushTypeList.Count)]);
+            CellObjectFactory.Instance.ProduceResourceSource(Coord.Item1, Coord.Item2, RSObjects.Stone);//BushTypeList[random.Next(BushTypeList.Count)]);
         }
+
+        CellObjectFactory.Instance.ProduceCellObject(7, 7, CellObjects.Sapling);
+        CellObjectFactory.Instance.ProduceCellObject(7, 8, CellObjects.Bush_Berry_Purple);
     }
 
     public GameObject CreateGameObject(int x, int y, GameObject toBeCreatedGO)

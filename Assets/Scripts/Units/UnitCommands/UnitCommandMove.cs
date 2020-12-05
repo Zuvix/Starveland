@@ -5,8 +5,8 @@ using System.Collections;
 
 public class UnitCommandMove : UnitCommand
 {
-    public List<MapCell> Targets { get; }
-    public List<MapCell> UsedTargets { get; }
+    public List<MapCell> Targets { get; private set; }
+    public List<MapCell> UsedTargets { get; private set; }
     public UnitCommandMove(MapCell Target, List<MapCell> Path) : base(Target)
     {
         this.Targets = Path;
@@ -15,7 +15,7 @@ public class UnitCommandMove : UnitCommand
     public override bool IsDone(Unit Unit)
     {
         bool Result = false;
-        if (this.Targets.Count == 0)
+        if (this.Targets != null && this.Targets.Count == 0)
         {
             Result = true;
         }
@@ -24,7 +24,7 @@ public class UnitCommandMove : UnitCommand
     public override bool CanBePerformed(Unit Unit)
     {
         bool Result = true;
-        if (!this.Targets.First().CanBeEnteredByUnit())
+        if (this.Targets == null || !this.Targets.First().CanBeEnteredByUnit())
         {
             Result = false;
         }
@@ -61,5 +61,13 @@ public class UnitCommandMove : UnitCommand
         this.Targets.Clear();
         this.Targets.AddRange(this.UsedTargets);
         this.UsedTargets.Clear();
+    }
+    public void DeNullifyTargets()
+    {
+        if(this.Targets == null)
+        {
+            this.Targets = new List<MapCell>();
+            this.UsedTargets = new List<MapCell>();
+        }
     }
 }

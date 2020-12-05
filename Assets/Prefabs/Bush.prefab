@@ -10,8 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2283220006766421676}
   - component: {fileID: 2283220006766421677}
-  - component: {fileID: 9141504505225892636}
-  - component: {fileID: 8841977509073851376}
+  - component: {fileID: 968870588263553653}
   m_Layer: 0
   m_Name: Bush
   m_TagString: Forest
@@ -72,7 +71,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingOrder: -2
   m_Sprite: {fileID: 21300000, guid: 14a3614094c9f384e8d81e0b73281d52, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -84,7 +83,7 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!114 &9141504505225892636
+--- !u!114 &968870588263553653
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -93,46 +92,17 @@ MonoBehaviour:
   m_GameObject: {fileID: 2283220006766421666}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b10766576e1129b41bebd07ace1af4a5, type: 3}
+  m_Script: {fileID: 11500000, guid: 049b71571c1f4f645a2a67a78e310a8b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  flashTime: 0.1
+  flashTime: 0.2
   sr: {fileID: 0}
-  objectName: Tree
-  tip: Small source of wood.
-  popup: {fileID: 7964957230971447603, guid: 950b028d3cbc148489079960954f13fc, type: 3}
+  objectName: Berry Bush
+  tip: If you wait a few days, more berries will come.
+  popup: {fileID: 0}
   IsBlocking: 0
   IsSelectable: 1
-  Resources: []
-  ResourcePacks:
-  - resource:
-      itemInfo: {fileID: 11400000, guid: 5722983080fed344796794c0aafe3131, type: 2}
-      Amount: 5
-    chance: 100
-    variationPercentage: 30
---- !u!61 &8841977509073851376
-BoxCollider2D:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2283220006766421666}
-  m_Enabled: 1
-  m_Density: 1
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_UsedByEffector: 0
-  m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0}
-  m_SpriteTilingProperty:
-    border: {x: 0, y: 0, z: 0, w: 0}
-    pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 1.28, y: 1.28}
-    newSize: {x: 1.125, y: 1.125}
-    adaptiveTilingThreshold: 0.5
-    drawMode: 0
-    adaptiveTiling: 0
-  m_AutoTiling: 0
-  serializedVersion: 2
-  m_Size: {x: 1.125, y: 1.125}
-  m_EdgeRadius: 0
+  IsPossibleToAddToActionQueue: 0
+  Replacement: {fileID: 0}
+  DaysToGrow: 1
+  IncubatedResourceSourceType: 3

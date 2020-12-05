@@ -37,7 +37,7 @@ public class TalentFriendOfTheForest : Talent
     {
         if (Resource.itemInfo.type.Equals("Resource") && UnityEngine.Random.Range(1, 100) <= this.SpawnSaplingChance)
         {
-            ResourceSourceFactory.Instance.ProduceResourceSource(x, y, RSObjects.Sapling);
+            CellObjectFactory.Instance.ProduceCellObject(x, y, CellObjects.Sapling);
         }
     }
 }

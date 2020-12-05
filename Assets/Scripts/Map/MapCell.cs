@@ -55,6 +55,11 @@ public class MapCell
             EraseUnit();
             Unit.SetCurrentCell(this);
             this.CurrentUnit = Unit;
+
+            if(CurrentObject != null)
+            {
+                this.CurrentObject.MakeTransparent(0.5f);
+            }
         }
         return Success;
     }
@@ -62,13 +67,35 @@ public class MapCell
     {
         if (this.CurrentObject != null)
         {
+            GameObject ReplacementObject = null;
+            if (this.CurrentObject.Replacement != null)
+            {
+                ReplacementObject = this.CurrentObject.Replacement;
+            }
             CellObject.Destroy(this.CurrentObject.gameObject);
+            this.CurrentObject = null;
+            if (ReplacementObject != null)
+            {
+                MapControl.Instance.CreateGameObject(this.x, this.y, ReplacementObject);
+            }
         }
-        this.CurrentObject = null;
     }
     public void EraseUnit()
     {
         this.CurrentUnit = null;
+        if (this.CurrentObject != null)
+        {
+            this.CurrentObject.MakeOpaque();
+        }
+    }
+    public bool ReplaceCellObject(CellObject CellObject)
+    {
+        if (this.CurrentObject != null)
+        {
+            CellObject.Destroy(this.CurrentObject.gameObject);
+        }
+        this.CurrentObject = null;
+        return SetCellObject(CellObject);
     }
     public bool CanBeEnteredByObject(bool EnteringObjectIsBlocking)
     {

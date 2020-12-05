@@ -9,24 +9,29 @@ public enum RSObjects
     Forest,
     DeadAnimal,
     Stone,
-    Bush,
-    Bush_Berry_Red,
     Bush_Berry_Purple,
-    Sapling,
     Diamond
 }
 
-class ResourceSourceFactory : Singleton<ResourceSourceFactory>
+public enum CellObjects
 {
+    Sapling,
+    Bush_Berry_Purple
+}
+
+class CellObjectFactory : Singleton<CellObjectFactory>
+{
+    // Resource Sources
     public GameObject forest;
     public GameObject deadAnimal;
     public GameObject stone;
     public GameObject bush;
-    public GameObject bush_berry_red;
     public GameObject bush_berry_purple;
-    public GameObject sapling;
     public GameObject diamond;
 
+    // Cell Objects
+    public GameObject sapling;
+    public GameObject berryless_bush;
     public GameObject ProduceResourceSource(int x, int y, RSObjects type, List<Resource> additionalResources=null)
     {
         GameObject Result = null;
@@ -49,24 +54,9 @@ class ResourceSourceFactory : Singleton<ResourceSourceFactory>
                 selectedPrefab = stone;
                 break;
             }
-            case RSObjects.Bush:
-            {
-                selectedPrefab = bush;
-                break;
-            }
-            case RSObjects.Bush_Berry_Red:
-            {
-                selectedPrefab = bush_berry_red;
-                break;
-            }
             case RSObjects.Bush_Berry_Purple:
             {
                 selectedPrefab = bush_berry_purple;
-                break;
-            }
-            case RSObjects.Sapling:
-            {
-                selectedPrefab = sapling;
                 break;
             }
             case RSObjects.Diamond:
@@ -99,6 +89,34 @@ class ResourceSourceFactory : Singleton<ResourceSourceFactory>
                 return null;
             }
         }
+        return Result;
+    }
+    public GameObject ProduceCellObject(int x, int y, CellObjects type)
+    {
+        GameObject selectedPrefab = null;
+        GameObject Result = null;
+        switch (type)
+        {
+            case CellObjects.Sapling:
+            {
+                selectedPrefab = sapling;
+                break;
+            }
+            case CellObjects.Bush_Berry_Purple:
+            {
+                selectedPrefab = berryless_bush;
+                break;
+            }
+            default:
+            {
+                break;
+            }
+        }
+        if (selectedPrefab != null)
+        {
+            Result = MapControl.Instance.CreateGameObject(x, y, selectedPrefab);
+        }
+
         return Result;
     }
 }

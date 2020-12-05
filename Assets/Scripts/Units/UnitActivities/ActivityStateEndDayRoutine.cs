@@ -68,4 +68,9 @@ class ActivityStateEndDayRoutine : ActivityState
         OnActivityFinished.Invoke();
         Unit.SetActivity(ActivityStateNull.Instance);
     }
+
+    public override bool IsCancellable()
+    {
+        return false;
+    }
 }

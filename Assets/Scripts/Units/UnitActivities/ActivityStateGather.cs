@@ -38,7 +38,7 @@ class ActivityStateGather : ActivityState
             // If Unit arrived next to resource, let's command it to gather
             if (Unit.CurrentCommand == this.CommandMove2Resource)
             {
-                if ((ResourceSource)this.Target.CurrentObject == this.originalResourceSource)
+                if (this.Target.CurrentObject == (CellObject)this.originalResourceSource)
                 {
                     Unit.SetCommand(this.CommandGatherFromResource);
                 }
@@ -115,7 +115,15 @@ class ActivityStateGather : ActivityState
             {
                 if (MapControl.Instance.StorageList.Count > 0)
                 {
-                    this.CommandMove2Storage = this.CommandToMoveToStorage(Unit);
+                    UnitCommandMove NewMoveCommand = this.CommandToMoveToStorage(Unit);
+                    if (NewMoveCommand != null)
+                    {
+                        this.CommandMove2Storage = NewMoveCommand;
+                    }
+                    else
+                    {
+                        Unit.SetActivity(new ActivityStateIdle());
+                    }
                 }
                 else
                 {
@@ -148,5 +156,10 @@ class ActivityStateGather : ActivityState
         {
             this.CommandMove2Storage = this.CommandToMoveToStorage(Unit);
         }
+    }
+
+    public override bool IsCancellable()
+    {
+        return true;
     }
 }

@@ -24,12 +24,33 @@ public class CellObject : MonoBehaviour
     public bool IsSelectable = false;
     public bool IsPossibleToAddToActionQueue = false;
 
+    private SpriteRenderer SpriteRendererComponent;
+
+    public GameObject Replacement;
+
     virtual protected void Awake()
     {
         sr = GetComponent<SpriteRenderer>();
         basicScale = transform.localScale;
         basicRotation = transform.rotation;
         originalColor = sr.color;
+    }
+    private void Start()
+    {
+        this.SpriteRendererComponent = this.gameObject.GetComponent<SpriteRenderer>();
+    }
+    public void MakeTransparent(float Value)
+    {
+        if (SpriteRendererComponent != null)
+        {
+            Color NewColour = this.SpriteRendererComponent.color;
+            NewColour.a = Value;
+            this.SpriteRendererComponent.color = NewColour;
+        }
+    }
+    public void MakeOpaque()
+    {
+        MakeTransparent(1.0f);
     }
     public virtual bool EnterCell(MapCell MapCell)
     {

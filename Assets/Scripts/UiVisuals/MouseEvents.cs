@@ -7,12 +7,28 @@ using CodeMonkey.Utils;
 public class MouseEvents : Singleton<MouseEvents>
 {
     public UnityEvent<GameObject, bool> viewObjectChanged=new UnityEvent<GameObject, bool>();
+    public UnityEvent<GameObject, GameObject> OnSelectedObjectChanged = new UnityEvent<GameObject, GameObject>();
     private float mouseMoveTimer;
     private float mouseMoveTimerMax = .02f;
     private float objectChangedTimer=0f;
     private float objectChangedTimerMax = .2f;
     private GameObject viewedObject=null;
-    private GameObject selectedObject = null;
+
+    private GameObject realSelectedObject = null;
+    public GameObject selectedObject
+    {
+        get
+        {
+            return realSelectedObject;
+        }
+        private set
+        {
+            GameObject previousSelectedObject = realSelectedObject;
+            realSelectedObject = value;
+            OnSelectedObjectChanged.Invoke(realSelectedObject, previousSelectedObject);
+        }
+    }
+
     public GameObject frame;
 
     private BuildingSpecificPanel ActiveBuildingMenuPanel = null;
