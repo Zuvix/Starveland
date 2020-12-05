@@ -28,14 +28,14 @@ public class BuildingInfoPopupPanel : MonoBehaviour
 
         GlobalInventory.Instance.OnInventoryUpdate.AddListener(DisplayResourcePanels);
 
-        this.PositionBackup = this.gameObject.transform.position;
+        this.PositionBackup = this.gameObject.GetComponent<RectTransform>().anchoredPosition;
         this.gameObject.SetActive(true);
     }
     public void Hide()
     {
         GlobalInventory.Instance.OnInventoryUpdate.RemoveListener(DisplayResourcePanels);
         this.gameObject.SetActive(false);
-        this.gameObject.transform.position = this.PositionBackup;
+        this.gameObject.GetComponent<RectTransform>().anchoredPosition = this.PositionBackup;
     }
     private void DisplayResourcePanels()
     {
