@@ -45,7 +45,7 @@ public class SkillTalentPanel : MonoBehaviour
     {
         if (go == null || !isSelected)
         {
-            PanelControl.Instance.SetActivePanel(0);
+            //PanelControl.Instance.SetActivePanel(0);
             return;
         }
 
