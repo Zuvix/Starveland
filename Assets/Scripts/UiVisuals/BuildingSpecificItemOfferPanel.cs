@@ -70,14 +70,7 @@ public class BuildingSpecificItemOfferPanel : MonoBehaviour, IPointerClickHandle
 
     public void OnPointerEnter(PointerEventData eventData)
     {
-        // Fill Popup Panel With info and display it
         SuperPanel.BuildingInfoPopupPanel.GetComponent<BuildingInfoPopupPanel>().Display(Recipe.Output.itemInfo.name, $"{Recipe.Output.itemInfo.NutritionValue} nv", Recipe.Input);
-        // Change its position to fit our needs.
-        // It will safely restore its position when hidden, so no need to worry it would break anything
-        Vector3 NewPopupPosition = this.gameObject.GetComponent<RectTransform>().anchoredPosition;
-        //NewPopupPosition.x -= 130;
-        NewPopupPosition.x += this.gameObject.GetComponent<RectTransform>().sizeDelta.x/2 + SuperPanel.BuildingInfoPopupPanel.GetComponent<RectTransform>().sizeDelta.x/2;
-        SuperPanel.BuildingInfoPopupPanel.GetComponent<RectTransform>().anchoredPosition = NewPopupPosition;
     }
 
     public void OnPointerExit(PointerEventData eventData)
