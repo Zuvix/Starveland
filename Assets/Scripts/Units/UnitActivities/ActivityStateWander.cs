@@ -9,13 +9,14 @@ public class ActivityStateWander : ActivityState
     private readonly UnitCommandIdle IdleCommand;
     private readonly int WanderingRadius;
     private readonly MapCell StartPosition;
-    private readonly int chanceToMove = GameConfigManager.Instance.GameConfig.ChanceToMoveDuringWandering;
+    private readonly int chanceToMove;
 
-    public ActivityStateWander(int WanderingRadius, MapCell StartPosition) : base()
+    public ActivityStateWander(int WanderingRadius, MapCell StartPosition, int chanceToMove) : base()
     {
         this.IdleCommand = new UnitCommandIdle();
         this.WanderingRadius = WanderingRadius;
         this.StartPosition = StartPosition;
+        this.chanceToMove = chanceToMove;
     }
 
     public override void InitializeCommand(Unit Unit)
@@ -71,6 +72,11 @@ public class ActivityStateWander : ActivityState
         {
             rx = UnityEngine.Random.Range(this.StartPosition.x - this.WanderingRadius, this.StartPosition.x + this.WanderingRadius);
             ry = UnityEngine.Random.Range(this.StartPosition.y - this.WanderingRadius, this.StartPosition.y + this.WanderingRadius);
+            while (!MapControl.Instance.map.IsInBounds(rx, ry))
+            {
+                rx = UnityEngine.Random.Range(this.StartPosition.x - this.WanderingRadius, this.StartPosition.x + this.WanderingRadius);
+                ry = UnityEngine.Random.Range(this.StartPosition.y - this.WanderingRadius, this.StartPosition.y + this.WanderingRadius);
+            }
         }
      
         List<MapCell> path = PathFinding.Instance.FindPath(Unit.CurrentCell, MapControl.Instance.map.Grid[rx][ry]);

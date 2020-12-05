@@ -4,58 +4,44 @@ using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 
-public class ItemPopup : MonoBehaviour
+public class ItemPopupNoIcon : MonoBehaviour
 {
     private float upSpeed = 0.02f;
     private float timeCounded = 0;
     private float timeToLive = .85f;
-    private Image img;
     private TMP_Text valueTxt;
     private void Awake()
     {
-        img = GetComponentInChildren<Image>();
         valueTxt = GetComponentInChildren<TMP_Text>();
     }
-    public void CreatePopup(Sprite icon, int value)
+    public void CreatePopup(int value)
     {
-        img.sprite = icon;
         valueTxt.text = (value >= 0 ? "+" : "-") + (Math.Abs(value) == 1 && value >= 0 ? "" : Math.Abs(value).ToString());
         timeToLive = .85f;
-        /*if (value == 1)
-        {
-            valueTxt.text = "+";
-        }*/
-        // Vector3 startPos = this.transform.position;
     }
 
-    public void CreatePopup(Sprite icon, int value, Color color)
+    public void CreatePopup(int value, Color color)
     {
-        img.sprite = icon;
         valueTxt.color = color;
         valueTxt.text = (value >= 0 ? "+" : "-") + (Math.Abs(value) == 1 && value >= 0 ? "" : Math.Abs(value).ToString());
         timeToLive = .85f;
     }
 
-    public void CreatePopup(Sprite icon, string text)
+    public void CreatePopup(string text)
     {
-        img.sprite = icon;
         valueTxt.text = text;
-        timeToLive = 3.0f;
+        timeToLive = 1.5f;
     }
-    public void CreatePopup(Sprite icon, string text, Color color)
+    public void CreatePopup(string text, Color color)
     {
-        img.sprite = icon;
         valueTxt.color = color;
         valueTxt.text = text;
-        timeToLive = 3.0f;
+        timeToLive = 1.5f;
     }
-    public void CreatePopup(Sprite icon)
+    public void CreatePopup()
     {
-        img.sprite = icon;
         valueTxt.text = "+";
         timeToLive = .85f;
-        // Vector3 startPos = this.transform.position;
-
     }
     private void Update()
     {

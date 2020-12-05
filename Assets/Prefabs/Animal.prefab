@@ -126,8 +126,10 @@ MonoBehaviour:
   flashTime: 0.2
   sr: {fileID: 0}
   objectName: Unicorn
-  tip: Food source
+  tip: Very hard to kill!
   popup: {fileID: 7964957230971447603, guid: 950b028d3cbc148489079960954f13fc, type: 3}
+  popupNoIcon: {fileID: 7964957230971447603, guid: 0199f2e141a351545a749764e1a1c83c,
+    type: 3}
   IsBlocking: 1
   IsSelectable: 1
   IsPossibleToAddToActionQueue: 0
@@ -137,23 +139,28 @@ MonoBehaviour:
   scalingTime: 0.2
   rotationTime: 0.2
   rotationSpeed: 20
-  ReceiveDamageIcon: {fileID: 9122268959118044443, guid: b81d09a574bb33a4ea1b7acc8221604e,
-    type: 3}
   CarriedResource:
     itemInfo: {fileID: 0}
     Amount: 0
-  Accuracy: 0
-  Dodge: 0
-  CritChance: 0
-  CritMultiplier: 0
+  ReceiveDamageIcon: {fileID: 9122268959118044443, guid: b81d09a574bb33a4ea1b7acc8221604e,
+    type: 3}
+  MovementSpeed: 5
+  Health: 0
+  MaxHealth: 500
+  BaseDamage: 100
+  Accuracy: 100
+  Dodge: 20
+  CritChance: 25
+  Defence: 50
+  TimesCriticalMultiplier: 2
+  onDamageRecieved:
+    m_PersistentCalls:
+      m_Calls: []
+  WanderingRadius: 2
+  ChanceToMoveDuringWandering: 10
   inventory:
   - resource:
       itemInfo: {fileID: 11400000, guid: 756d6da29aa825645a10985bc585f9d3, type: 2}
-      Amount: 5
+      Amount: 20
     chance: 100
     variationPercentage: 20
-  - resource:
-      itemInfo: {fileID: 11400000, guid: 76fc393010725694fb30ffb90421bf55, type: 2}
-      Amount: 3
-    chance: 50
-    variationPercentage: 0

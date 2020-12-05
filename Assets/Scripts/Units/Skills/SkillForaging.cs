@@ -7,7 +7,8 @@ using UnityEngine;
 
 public class SkillForaging : Skill
 {
-    public bool MotherOfNatureActive;
+    private float WoodcuttingTime;
+    private int WoodcuttingTimeIncrease;
 
     public SkillForaging() : base()
     {
@@ -15,7 +16,8 @@ public class SkillForaging : Skill
         this.GatheringTime = GameConfigManager.Instance.GameConfig.ForagingGatheringTime;
         this.icon = GameConfigManager.Instance.GameConfig.ForagingIcon;
         this.type = SkillType.Foraging;
-        this.MotherOfNatureActive = false;
+        this.WoodcuttingTime = this.GatheringTime;
+        this.WoodcuttingTimeIncrease = 0;
 
         this.SkillTalents = new Dictionary<TalentType, Talent>()
         {
@@ -65,24 +67,20 @@ public class SkillForaging : Skill
     {
         // Forest Fruits talent
         return SkillTalents[TalentType.ForestFruits] == null ? 0 : SkillTalents[TalentType.ForestFruits].Execute(item);
-
     }
 
     public override float GetGatheringSpeed(ResourceSource resourceSource)
     {
-        // Lumberjack talent & Critical harvest 
-        if (SkillTalents[TalentType.Lumberjack] != null && SkillTalents[TalentType.CriticalHarvest] != null)
+        if (resourceSource.Resources[0].itemInfo.type.Equals("Resource"))
         {
-            return SkillTalents[TalentType.CriticalHarvest].Execute(resourceSource, SkillTalents[TalentType.Lumberjack].Execute(resourceSource, GatheringTime));
-        }
-        if (SkillTalents[TalentType.Lumberjack] != null)
-        {
-            return SkillTalents[TalentType.Lumberjack].Execute(resourceSource, GatheringTime);
-        }
-        if (SkillTalents[TalentType.CriticalHarvest] != null)
-        {
-            return SkillTalents[TalentType.CriticalHarvest].Execute(resourceSource, this.GatheringTime);
+            return SkillTalents[TalentType.CriticalHarvest] == null ? WoodcuttingTime : SkillTalents[TalentType.CriticalHarvest].Execute(WoodcuttingTime);
         }
         return this.GatheringTime;
+    }
+
+    public void IncreaseWoodcuttingSpeed(int value)
+    {
+        this.WoodcuttingTimeIncrease += value;
+        this.WoodcuttingTime = this.GatheringTime / (this.GatheringTime * (float)(this.WoodcuttingTimeIncrease + 100f) / 100f);
     }
 }

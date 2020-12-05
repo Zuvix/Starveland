@@ -32,13 +32,9 @@ public class TalentCriticalHarvest : Talent
         return $"{this.Description} {this.TalentEffects.Effects[0].effectValue}x";
     }
 
-    public override float Execute(ResourceSource resourceSource, float value)
+    public override float Execute(float value)
     {
-        if (resourceSource.Resources[0].itemInfo.type.Equals("Resource"))
-        {
-            return value * (float)this.WoodcuttingTimeSlowed;
-        }
-        return value;
+        return value * (float)this.WoodcuttingTimeSlowed;
     }
 
     public override Resource Execute(ResourceSource Target, out bool isDepleted)
