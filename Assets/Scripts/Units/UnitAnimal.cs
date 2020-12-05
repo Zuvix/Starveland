@@ -18,6 +18,8 @@ public class UnitAnimal : Unit
     private int spawnY;
     public List<ResourcePack> inventory;
 
+    public int MaxTravelDistance = 5;
+
     public MapCell SpawnCell { get; private set; } = null;
 
     protected override void Awake()
@@ -119,7 +121,7 @@ public class UnitAnimal : Unit
         {
             SpawnCell = Cell;
         }
-        if (PathFinding.Instance.BlockDistance(SpawnCell, CurrentCell) > 5)
+        if (PathFinding.Instance.BlockDistance(SpawnCell, CurrentCell) > MaxTravelDistance)
         {
             SetActivity(new ActivityStateMoveToSpawnPosition(SpawnCell));
         }
