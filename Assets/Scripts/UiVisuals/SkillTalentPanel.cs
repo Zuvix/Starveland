@@ -51,7 +51,7 @@ public class SkillTalentPanel : MonoBehaviour
 
         CellObject visibleObject = go.GetComponent<CellObject>();
 
-        if (viewUnitName != visibleObject.objectName)
+        if (viewUnitName != visibleObject.objectName && visibleObject is Unit)
         {
             PanelControl.Instance.SetActivePanel(5);
         }
