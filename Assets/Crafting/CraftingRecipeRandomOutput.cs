@@ -6,33 +6,37 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "newCraftingRecipeRandomOutput", menuName = "CraftingRecipeRandomOutput")]
 public class CraftingRecipeRandomOutput : CraftingRecipe
 {
-    public List<(Resource, int)> Output;
+    [SerializeField]
+    public List<RandomOutputItem> Output;
     public string OutputScreenName;
     public Sprite Icon;
-    private int ProbabilitySum = -1;
 
     public override (Sprite, int) ProduceOutput(BuildingCrafting ProducingBuilding)
     {
-        /*GlobalInventory.Instance.AddItem(Output.Duplicate());
-        return (Output.itemInfo.icon, Output.Amount);*/
-        if (ProbabilitySum == -1)
-        {
-            ProbabilitySum = Output.Select(x => x.Item2).Sum();
-        }
-        int SelectedValue = Random.Range(0, ProbabilitySum);
+        int SelectedValue = Random.Range(0, 100);
         int SelectedOutputIndex;
         int Accumulator = 0;
         for (SelectedOutputIndex = 0; SelectedOutputIndex < Output.Count; SelectedOutputIndex++)
         {
-            Accumulator += Output[SelectedOutputIndex].Item2;
+            Accumulator += Output[SelectedOutputIndex].Probability;
             if (Accumulator >= SelectedValue)
             {
                 break;
             }
         }
-        SelectedOutputIndex = Mathf.Min(SelectedOutputIndex, Output.Count - 1);
+        (Sprite, int) Result;
+        if (SelectedOutputIndex >= Output.Count)
+        {
+            Result = (PrefabPallette.Instance.VoidSprite, 0);
+        }
+        else
+        {
+            GlobalInventory.Instance.AddItem(Output[SelectedOutputIndex].Item.Duplicate());
+            Result = (Output[SelectedOutputIndex].Item.itemInfo.icon, Output[SelectedOutputIndex].Item.Amount);
+        }
+        
 
-        return (Output[SelectedOutputIndex].Item1.itemInfo.icon, Output[SelectedOutputIndex].Item1.Amount);
+        return Result;
     }
     public override string OutputName()
     {
@@ -40,16 +44,16 @@ public class CraftingRecipeRandomOutput : CraftingRecipe
     }
     protected override string CreateOutputDescription()
     {
+        Debug.LogError("CraftingRecipeRandomOutput::CreateOutputDescription Invoked");
+
         string Result = "";
-        if (ProbabilitySum == -1)
+        Debug.LogError($"{Output.Count} DIFFERENT possible items in Output");
+        foreach (RandomOutputItem PotentialOutput in Output)
         {
-            ProbabilitySum = Output.Select(x => x.Item2).Sum();
+            Debug.LogError($"ProbabilitySum is {100}, my probability is {PotentialOutput.Probability}");
+            Result += $"{PotentialOutput.Probability}% chance for {PotentialOutput.Item.itemInfo.name}\n";
         }
-        foreach ((Resource, int) PotentialOutput in Output)
-        {
-            Result += $"{(int)(PotentialOutput.Item2 / ProbabilitySum * 100)}% chance for {PotentialOutput.Item1.itemInfo.name}\n";
-        }
-        if (Result.Length <= 0)
+        if (Result.Length > 0)
         {
             Result = Result.Remove(Result.Length - 1);
         }

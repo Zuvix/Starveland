@@ -7,5 +7,7 @@ public class PrefabPallette : Singleton<PrefabPallette>
     public Camera Camera;
     public GameObject Canvas;
 
+    public Sprite VoidSprite;
+
     public GameObject CellObjectSliderPrefab;
 }
