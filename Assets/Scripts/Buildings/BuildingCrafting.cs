@@ -48,12 +48,12 @@ public class BuildingCrafting : Building
             OnCraftUpdate.Invoke(CurrentProgress);
             if (CurrentProgress >= 1.0f)
             {
-                GlobalInventory.Instance.AddItem(AvailableRecipes[CurrentRecipeIndex].Output.Duplicate());
-                
+                (Sprite, int) PopupInfo = AvailableRecipes[CurrentRecipeIndex].ProduceOutput(this);
+
                 ProgressBar.gameObject.SetActive(false);
                 if(ProgressBarAllowed)
                 {
-                    this.CreatePopup(AvailableRecipes[CurrentRecipeIndex].Output.itemInfo.icon, AvailableRecipes[CurrentRecipeIndex].Output.Amount);
+                    this.CreatePopup(PopupInfo.Item1, PopupInfo.Item2);
                 }
                 CurrentRecipeIndex = -1;
                 OnCraftEnd.Invoke();
@@ -95,7 +95,7 @@ public class BuildingCrafting : Building
         CraftingQueue.RemoveAt(0);
         ItemQuantities[CurrentRecipeIndex]--;
         OnQueueUpdate.Invoke(CurrentRecipeIndex, AvailableRecipes[CurrentRecipeIndex].Input);
-        OnCraftStart.Invoke(AvailableRecipes[CurrentRecipeIndex].Output.itemInfo.name);
+        OnCraftStart.Invoke(AvailableRecipes[CurrentRecipeIndex].OutputDescription());
     }
     public void CancelQueuedRecipe(int Index)
     {

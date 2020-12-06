@@ -20,7 +20,7 @@ public class BuildingSpecificItemOfferPanel : MonoBehaviour, IPointerClickHandle
     {
         this.Recipe = Recipe;
         this.Building = Building;
-        this.gameObject.GetComponent<Image>().sprite = this.Recipe.Output.itemInfo.icon;
+        this.gameObject.GetComponent<Image>().sprite = this.Recipe.OutputIcon();
         UpdateQuantityLabel();
 
         CheckResourceAvailability();
@@ -70,7 +70,7 @@ public class BuildingSpecificItemOfferPanel : MonoBehaviour, IPointerClickHandle
 
     public void OnPointerEnter(PointerEventData eventData)
     {
-        SuperPanel.BuildingInfoPopupPanel.GetComponent<BuildingInfoPopupPanel>().Display(Recipe.Output.itemInfo.name, $"{Recipe.Output.itemInfo.NutritionValue} nv", Recipe.Input);
+        SuperPanel.BuildingInfoPopupPanel.GetComponent<BuildingInfoPopupPanel>().Display(Recipe.OutputName(), Recipe.OutputDescription(), Recipe.Input);
     }
 
     public void OnPointerExit(PointerEventData eventData)
