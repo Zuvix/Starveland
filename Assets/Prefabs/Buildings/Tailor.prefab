@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 2343807109050575822}
   - component: {fileID: -5575763673112254602}
   m_Layer: 0
-  m_Name: Smeltery
+  m_Name: Tailor
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -72,7 +72,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: -2364191061579259067, guid: b81d09a574bb33a4ea1b7acc8221604e,
+  m_Sprite: {fileID: -5837769854586528439, guid: ddf4a4e6ec245864fbfb72f96ebb7d3d,
     type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -98,8 +98,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   flashTime: 0.2
   sr: {fileID: 0}
-  objectName: Smeltery
-  tip: Melt ore here into more refined form. Watch your hands, it's hot!
+  objectName: Tailor
+  tip: Working with delicate materials is done here.
   popup: {fileID: 7964957230971447603, guid: 950b028d3cbc148489079960954f13fc, type: 3}
   popupNoIcon: {fileID: 0}
   IsBlocking: 1
@@ -107,10 +107,10 @@ MonoBehaviour:
   IsPossibleToAddToActionQueue: 0
   Replacement: {fileID: 0}
   ConstructionCost:
-  - itemInfo: {fileID: 11400000, guid: 7092d47e34caaa344bc94da314a4abc2, type: 2}
-    Amount: 10
-  - itemInfo: {fileID: 11400000, guid: e8182eeb5a384d44bbdda801c49fcd0b, type: 2}
+  - itemInfo: {fileID: 11400000, guid: 5722983080fed344796794c0aafe3131, type: 2}
     Amount: 20
+  - itemInfo: {fileID: 11400000, guid: e8182eeb5a384d44bbdda801c49fcd0b, type: 2}
+    Amount: 10
   AvailableRecipes:
-  - {fileID: 11400000, guid: 6a7b29180ac5ec24f8e8b50344f1a2ff, type: 2}
-  - {fileID: 11400000, guid: f9cda1b2b6f52de4bbb86e11bf0d6e13, type: 2}
+  - {fileID: 11400000, guid: 5f9ba5d40320a2c45964246fc548829c, type: 2}
+  - {fileID: 11400000, guid: 849c48d388827004bbac2086e815b2a7, type: 2}
