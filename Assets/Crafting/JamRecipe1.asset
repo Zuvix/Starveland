@@ -10,15 +10,15 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 313fd814e1518ab4a89c264d0027a147, type: 3}
-  m_Name: CookedFish
+  m_Name: JamRecipe1
   m_EditorClassIdentifier: 
   Input:
-  - itemInfo: {fileID: 11400000, guid: 2aa84915032c16d48a4bae33c2cba2d4, type: 2}
-    Amount: 1
-  - itemInfo: {fileID: 11400000, guid: 7092d47e34caaa344bc94da314a4abc2, type: 2}
+  - itemInfo: {fileID: 11400000, guid: 383cd9080ffc444468babecb666fc913, type: 2}
+    Amount: 2
+  - itemInfo: {fileID: 11400000, guid: 508da25c2dcf82d4c90820e22ecd2a11, type: 2}
     Amount: 1
   IsUnlocked: 1
   CraftingDuration: 8
   Output:
-    itemInfo: {fileID: 11400000, guid: 6b12ac73abd6b314c9169fb59f4f4335, type: 2}
+    itemInfo: {fileID: 11400000, guid: dd48fc68137036d4e801008740aa5ce0, type: 2}
     Amount: 1

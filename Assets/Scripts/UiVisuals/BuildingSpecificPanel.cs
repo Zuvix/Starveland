@@ -52,6 +52,11 @@ public class BuildingSpecificPanel : MonoBehaviour, IPointerEnterHandler, IPoint
             OfferedItemPanels[i].SetActive(false);
             OfferedItemPanels[i].GetComponent<BuildingSpecificItemOfferPanel>().QueueCountLabel.gameObject.SetActive(false);
         }
+        if (Building.CurrentRecipeIndex != -1)
+        {
+            UpdateCurrentlyCraftedItemName(Building.AvailableRecipes[Building.CurrentRecipeIndex].OutputName());
+        }
+
         this.BoundBuilding.OnQueueUpdate.AddListener(UpdateQuantityLabel);
         this.BoundBuilding.OnCraftStart.AddListener(UpdateCurrentlyCraftedItemName);
         this.BoundBuilding.OnCraftUpdate.AddListener(UpdateCraftProgress);

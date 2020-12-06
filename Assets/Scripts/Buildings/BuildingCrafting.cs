@@ -14,7 +14,7 @@ public class BuildingCrafting : Building
     public readonly UnityEvent OnCraftEnd = new UnityEvent();
     private float CurrentProgress;
     private ProgressBar ProgressBar;
-    private int CurrentRecipeIndex = -1;
+    public int CurrentRecipeIndex { get; private set; }  = -1;
     private static bool ProgressBarAllowed;
     protected override void Awake()
     {
