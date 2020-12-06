@@ -44,13 +44,9 @@ public class CraftingRecipeRandomOutput : CraftingRecipe
     }
     protected override string CreateOutputDescription()
     {
-        Debug.LogError("CraftingRecipeRandomOutput::CreateOutputDescription Invoked");
-
         string Result = "";
-        Debug.LogError($"{Output.Count} DIFFERENT possible items in Output");
         foreach (RandomOutputItem PotentialOutput in Output)
         {
-            Debug.LogError($"ProbabilitySum is {100}, my probability is {PotentialOutput.Probability}");
             Result += $"{PotentialOutput.Probability}% chance for {PotentialOutput.Item.itemInfo.name}\n";
         }
         if (Result.Length > 0)

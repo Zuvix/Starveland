@@ -17,6 +17,7 @@ MonoBehaviour:
     Amount: 1
   IsUnlocked: 1
   CraftingDuration: 2
+  DescriptionInitialized: 0
   Output:
   - Item:
       itemInfo: {fileID: 11400000, guid: 5722983080fed344796794c0aafe3131, type: 2}

@@ -10,6 +10,7 @@ public abstract class CraftingRecipe : ScriptableObject
     public float CraftingDuration;
 
     private string Description;
+    [SerializeField]
     private bool DescriptionInitialized = false;
 
     public abstract (Sprite, int) ProduceOutput(BuildingCrafting ProducingBuilding);
@@ -17,7 +18,7 @@ public abstract class CraftingRecipe : ScriptableObject
     public string OutputDescription()
     {
         Debug.LogWarning(DescriptionInitialized);
-        if (true)
+        if (!DescriptionInitialized)
         {
             Debug.LogWarning("Creating Description");
             Description = CreateOutputDescription();
