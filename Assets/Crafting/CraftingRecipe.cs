@@ -9,17 +9,21 @@ public abstract class CraftingRecipe : ScriptableObject
     public bool IsUnlocked = true;
     public float CraftingDuration;
 
-    private string Description = null;
+    private string Description;
+    private bool DescriptionInitialized = false;
 
     public abstract (Sprite, int) ProduceOutput(BuildingCrafting ProducingBuilding);
     public abstract string OutputName();
     public string OutputDescription()
     {
-        if (Description == null)
+        if (!DescriptionInitialized)
         {
-            Description = CreateOutputDescription();
+            Debug.LogWarning("Creating Description");
+           Description = CreateOutputDescription();
+            DescriptionInitialized = true;
         }
 
+        Debug.LogWarning(Description);
         return Description;
     }
     protected abstract string CreateOutputDescription();

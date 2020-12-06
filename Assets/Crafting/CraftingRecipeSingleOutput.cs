@@ -17,6 +17,7 @@ public class CraftingRecipeSingleOutput : CraftingRecipe
     }
     protected override string CreateOutputDescription()
     {
+        Debug.LogWarning(Output.itemInfo.NutritionValue);
         return Output.itemInfo.NutritionValue == 0 ? "" : $"Eat for {Output.itemInfo.NutritionValue} nv";
     }
     public override Sprite OutputIcon()

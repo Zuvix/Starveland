@@ -95,13 +95,13 @@ public class BuildingCrafting : Building
         CraftingQueue.RemoveAt(0);
         ItemQuantities[CurrentRecipeIndex]--;
         OnQueueUpdate.Invoke(CurrentRecipeIndex, AvailableRecipes[CurrentRecipeIndex].Input);
-        OnCraftStart.Invoke(AvailableRecipes[CurrentRecipeIndex].OutputDescription());
+        OnCraftStart.Invoke(AvailableRecipes[CurrentRecipeIndex].OutputName());
     }
     public void CancelQueuedRecipe(int Index)
     {
         if (ItemQuantities[Index] > 0)
         {
-            for (int i = CraftingQueue.Count - 1; i >= 0; i++)
+            for (int i = CraftingQueue.Count - 1; i >= 0; i--)
             {
                 if (CraftingQueue[i] == Index)
                 {
