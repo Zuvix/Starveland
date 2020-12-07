@@ -1,8 +1,8 @@
-﻿using System.Collections;
+﻿using System;
 using System.Collections.Generic;
 using UnityEngine;
-
+[Serializable]
 public class RandomUnitOutputItem : RandomOutputItem
 {
-    public Unit OfferedUnit;
+    public GameObject OfferedUnit;
 }

@@ -1,0 +1,29 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e69856f5d5e8524409bcbb06cba4224a, type: 3}
+  m_Name: AnimalRecipe1
+  m_EditorClassIdentifier: 
+  Input:
+  - itemInfo: {fileID: 11400000, guid: 5722983080fed344796794c0aafe3131, type: 2}
+    Amount: 0
+  IsUnlocked: 1
+  CraftingDuration: 4
+  DescriptionInitialized: 0
+  Output:
+  - Probability: 50
+    OfferedUnit: {fileID: 1407401077263290619, guid: 60d756f7b77957c44965f4834c09b538,
+      type: 3}
+  - Probability: 50
+    OfferedUnit: {fileID: 1407401077263290619, guid: 247fb3c0a2361d0498ea95d8537ca53b,
+      type: 3}
+  OutputScreenName: Random Wild Animal
+  Icon: {fileID: 1599935142216745595, guid: b81d09a574bb33a4ea1b7acc8221604e, type: 3}
