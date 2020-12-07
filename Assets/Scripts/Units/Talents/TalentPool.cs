@@ -54,6 +54,18 @@ public class TalentPool : Singleton<TalentPool>
                 (Name, Description, Effect, icon) = GameConfigManager.Instance.GameConfig.HuntingTalents[0].Unpack();
                 Talents[SkillType.Hunting][level].Add(new TalentCarnivore(Name, Description, Effect[i], icon));
 
+                (Name, Description, Effect, icon) = GameConfigManager.Instance.GameConfig.HuntingTalents[1].Unpack();
+                Talents[SkillType.Hunting][level].Add(new TalentThroatseeker(Name, Description, Effect[i], icon));
+
+                (Name, Description, Effect, icon) = GameConfigManager.Instance.GameConfig.HuntingTalents[2].Unpack();
+                Talents[SkillType.Hunting][level].Add(new TalentLethalBlow(Name, Description, Effect[i], icon));
+
+                (Name, Description, Effect, icon) = GameConfigManager.Instance.GameConfig.HuntingTalents[3].Unpack();
+                Talents[SkillType.Hunting][level].Add(new TalentWindDancer(Name, Description, Effect[i], icon));
+
+                (Name, Description, Effect, icon) = GameConfigManager.Instance.GameConfig.HuntingTalents[4].Unpack();
+                Talents[SkillType.Hunting][level].Add(new TalentDeadeye(Name, Description, Effect[i], icon));
+
             }
             else
             {
@@ -67,6 +79,16 @@ public class TalentPool : Singleton<TalentPool>
                 //mining talents
                 (Name, Description, Effect, icon) = GameConfigManager.Instance.GameConfig.MiningTalents[3].Unpack();
                 Talents[SkillType.Mining][level].Add(new TalentArcheologist(Name, Description, icon));
+
+                //hunting talents
+                (Name, Description, Effect, icon) = GameConfigManager.Instance.GameConfig.HuntingTalents[5].Unpack();
+                Talents[SkillType.Hunting][level].Add(new TalentUnwaveringStance(Name, Description, icon));
+
+                (Name, Description, Effect, icon) = GameConfigManager.Instance.GameConfig.HuntingTalents[6].Unpack();
+                Talents[SkillType.Hunting][level].Add(new TalentDivineBlessing(Name, Description, Effect[0], icon));
+
+                (Name, Description, Effect, icon) = GameConfigManager.Instance.GameConfig.HuntingTalents[7].Unpack();
+                Talents[SkillType.Hunting][level].Add(new TalentOpportunist(Name, Description, icon));
             }
             i++;
         }

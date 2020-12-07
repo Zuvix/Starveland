@@ -1,6 +1,6 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1 &3607116211974803593
+--- !u!1 &1407401077263290619
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -8,37 +8,38 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 3607116211974803599}
-  - component: {fileID: 3607116211974803598}
-  - component: {fileID: 883225433098291899}
+  - component: {fileID: 817605181625652430}
+  - component: {fileID: 7076689595390830340}
+  - component: {fileID: 6813496909135561650}
+  - component: {fileID: 1880159630408921298}
   m_Layer: 0
-  m_Name: PlayerUnit
-  m_TagString: Untagged
+  m_Name: Spider
+  m_TagString: Animal
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &3607116211974803599
+--- !u!4 &817605181625652430
 Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3607116211974803593}
+  m_GameObject: {fileID: 1407401077263290619}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -30.432533, y: -5.914647, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 9.4, y: 9.4, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!212 &3607116211974803598
+--- !u!212 &7076689595390830340
 SpriteRenderer:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3607116211974803593}
+  m_GameObject: {fileID: 1407401077263290619}
   m_Enabled: 1
   m_CastShadows: 0
   m_ReceiveShadows: 0
@@ -72,34 +73,60 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: -7858541106361481556, guid: ddf4a4e6ec245864fbfb72f96ebb7d3d,
+  m_Sprite: {fileID: -990417508781871988, guid: ddf4a4e6ec245864fbfb72f96ebb7d3d,
     type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
-  m_Size: {x: 0.34375, y: 0.21875}
+  m_Size: {x: 1.125, y: 1.125}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!114 &883225433098291899
+--- !u!61 &6813496909135561650
+BoxCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1407401077263290619}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0.5, y: 0.5}
+    oldSize: {x: 1.125, y: 1.125}
+    newSize: {x: 1.125, y: 1.125}
+    adaptiveTilingThreshold: 0.5
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  serializedVersion: 2
+  m_Size: {x: 1.125, y: 1.125}
+  m_EdgeRadius: 0
+--- !u!114 &1880159630408921298
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3607116211974803593}
+  m_GameObject: {fileID: 1407401077263290619}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 263f3f4930cf328479c12548d3bbc75b, type: 3}
+  m_Script: {fileID: 11500000, guid: 3ae2484905f78d04496da8fa291dfae0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   flashTime: 0.2
   sr: {fileID: 0}
-  objectName: Pipik
-  tip: One of your precious humans.
+  objectName: Spider
+  tip: Maybe it drops samething valuable?
   popup: {fileID: 7964957230971447603, guid: 950b028d3cbc148489079960954f13fc, type: 3}
   popupNoIcon: {fileID: 7964957230971447603, guid: 0199f2e141a351545a749764e1a1c83c,
     type: 3}
@@ -110,15 +137,30 @@ MonoBehaviour:
   yScalingFactor: 1.5
   rotationFactor: 5
   scalingTime: 0.2
-  rotationTime: 0.1
+  rotationTime: 0.2
   rotationSpeed: 20
-  ReceiveDamageIcon: {fileID: 9122268959118044443, guid: b81d09a574bb33a4ea1b7acc8221604e,
-    type: 3}
   CarriedResource:
     itemInfo: {fileID: 0}
     Amount: 0
-  Accuracy: 90
-  Dodge: 10
-  CritChance: 25
+  ReceiveDamageIcon: {fileID: 9122268959118044443, guid: b81d09a574bb33a4ea1b7acc8221604e,
+    type: 3}
+  MovementSpeed: 10
+  Health: 0
+  MaxHealth: 100
+  BaseDamage: 10
+  Accuracy: 80
+  Dodge: 80
+  CritChance: 10
   Defence: 0
-  CarryingCapacity: 3
+  TimesCriticalMultiplier: 5
+  onDamageRecieved:
+    m_PersistentCalls:
+      m_Calls: []
+  WanderingRadius: 3
+  ChanceToMoveDuringWandering: 10
+  inventory:
+  - resource:
+      itemInfo: {fileID: 11400000, guid: a4cc2863a35f94c46a84a2cb80a66b5a, type: 2}
+      Amount: 1
+    chance: 15
+    variationPercentage: 0

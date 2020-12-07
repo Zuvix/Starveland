@@ -8,7 +8,7 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "newGameConfig", menuName = "Game Configuration")]
 public class GameConfig : ScriptableObject
 {
-    [Header("Player Unit")]
+    /*[Header("Player Unit")]
     [Tooltip("Maximum health of the player units, default value is 100")]
     [Min(1)]
     public int MaxHealthPlayer = 100;
@@ -24,7 +24,7 @@ public class GameConfig : ScriptableObject
     [Range(0f, 50f)]
     public float MovementSpeedAnimal = 5f;
     [Min(1)]
-    public int BaseDamageAnimal = 10;
+    public int BaseDamageAnimal = 10;*/
 
     [Header("Skills")]
     [Space(10)]
@@ -71,13 +71,6 @@ public class GameConfig : ScriptableObject
 
     [Header("Other")]
     [Space(10)]
-    [Tooltip("Defines the chance of a unit moving to random position if he's wandering around and idling.")]
-    [Range(0, 100)]
-    public int ChanceToMoveDuringWandering = 10;
-    [Tooltip("Defines how far a unit can move from its spawn position during wandering.")]
-    [Min(0)]
-    public int WanderingRadius = 2;
-    [Tooltip("Default size 28 is to fill full panel.")]
     [Min(1)]
     public int MaxQueueActions = 20;
     public GameObject QueueFrame;

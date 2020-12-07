@@ -19,8 +19,24 @@ public class SkillHunting : Skill
 
         this.SkillTalents = new Dictionary<TalentType, Talent>()
         {
-            { TalentType.Carnivore, null }
+            { TalentType.Carnivore, null },
+            { TalentType.LethalBlow, null },
+            { TalentType.Opportunist, null },
+            { TalentType.UnwaveringStance, null },
+            { TalentType.ThroatSeeker, null },
+            { TalentType.WindDancer, null },
+            { TalentType.DivineBlessing, null },
+            { TalentType.DeadEye, null }
         };
+    }
+
+    protected override void LevelUp(Unit Unit)
+    {
+        Unit.Defence += 5;
+        if ((this.Level + 1) % 3 == 0) {
+            Unit.BaseDamage += 5;
+        }
+        base.LevelUp(Unit);
     }
 
     public override bool DoAction(Unit Unit, Unit TargetUnit)
@@ -35,7 +51,9 @@ public class SkillHunting : Skill
     
     private bool Attack(Unit Unit, Unit TargetUnit)
     {
-        TargetUnit.DealDamage(Unit.BaseDamage, Unit);
+        SkillTalents[TalentType.LethalBlow]?.Execute(Unit, TargetUnit);
+
+        Unit.Attack(Unit, TargetUnit, SkillTalents[TalentType.Opportunist] != null ? true : false);
 
         //check if dead?
         if (TargetUnit.Health <= 0)
@@ -54,7 +72,7 @@ public class SkillHunting : Skill
             return false;
         }
 
-        Resource = Target.GatherResource(1, out bool isDepleted);
+        Resource = Target.GatherResource(1, out _);
         Unit.CarriedResource.AddDestructive(Resource);
         this.AddExperience(this.ExperiencePerAction, Unit);
         return true;

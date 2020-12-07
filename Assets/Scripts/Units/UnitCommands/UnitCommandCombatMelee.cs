@@ -24,7 +24,7 @@ public class UnitCommandCombatMelee : UnitCommand
 
     public override IEnumerator PerformAction(Unit Unit)
     {
-        yield return Unit.StartCoroutine(Unit.Fight(this.TargetUnit)); // todo send skill attack speed
+        yield return Unit.StartCoroutine(Unit.Fight(this.TargetUnit));
         if (TargetUnit != null && Skill != null)
         {
             Skill.DoAction(Unit, TargetUnit);

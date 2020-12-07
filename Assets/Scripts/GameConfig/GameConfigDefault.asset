@@ -12,15 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 206e63ee2494e614c8557a01f6540fd7, type: 3}
   m_Name: GameConfigDefault
   m_EditorClassIdentifier: 
-  MaxHealthPlayer: 100
-  MovementSpeedPlayer: 20
-  BaseDamagePlayer: 10
-  MaxHealthAnimal: 100
-  MovementSpeedAnimal: 5
-  BaseDamageAnimal: 10
   StartingLevelOfSkills: 1
   MaximumLevelOfSkills: 10
-  ExperienceToLevelUpForEachLevel: 0a0000000a0000000a0000000a0000000a0000000a0000000a0000000a0000000a0000000a000000
+  ExperienceToLevelUpForEachLevel: 1e0000001e0000001e0000001e0000001e0000001e0000001e0000001e0000001e0000001e000000
   MaximumTalentsPerSkill: 3
   RecieveTalentLevels: 03000000060000000a000000
   ForagingExperiencePerAction: 10
@@ -153,8 +147,65 @@ MonoBehaviour:
         effectValue: 2
       - effectDescription: extra max health when eating meat
         effectValue: 10
-  ChanceToMoveDuringWandering: 10
-  WanderingRadius: 2
+  - Name: Throatseeker
+    Description: n-times extra crit dmg (use > 2)
+    icon: {fileID: -4688461891272198046, guid: b81d09a574bb33a4ea1b7acc8221604e, type: 3}
+    EffectList:
+    - Effects:
+      - effectDescription: n-times extra crit dmg
+        effectValue: 3
+    - Effects:
+      - effectDescription: n-times extra crit dmg
+        effectValue: 4
+  - Name: LethalBlow
+    Description: Chance to kill instantly
+    icon: {fileID: -1924646966863043374, guid: b81d09a574bb33a4ea1b7acc8221604e, type: 3}
+    EffectList:
+    - Effects:
+      - effectDescription: lethal blow chance
+        effectValue: 5
+    - Effects:
+      - effectDescription: lethal blow chance
+        effectValue: 10
+  - Name: WindDancer
+    Description: Dodge
+    icon: {fileID: 6138714654604647946, guid: ddf4a4e6ec245864fbfb72f96ebb7d3d, type: 3}
+    EffectList:
+    - Effects:
+      - effectDescription: extra dodge %
+        effectValue: 10
+    - Effects:
+      - effectDescription: extra dodge %
+        effectValue: 20
+  - Name: Deadeye
+    Description: '%extra accuracy and % extra crit chance'
+    icon: {fileID: -6551036717264956511, guid: b81d09a574bb33a4ea1b7acc8221604e, type: 3}
+    EffectList:
+    - Effects:
+      - effectDescription: extra accuracy
+        effectValue: 15
+      - effectDescription: extra critchance
+        effectValue: 15
+    - Effects:
+      - effectDescription: extra accuracy
+        effectValue: 30
+      - effectDescription: extra critchance
+        effectValue: 30
+  - Name: Unwavering stance
+    Description: Your defences are doubled
+    icon: {fileID: 1698825157113618812, guid: b81d09a574bb33a4ea1b7acc8221604e, type: 3}
+    EffectList: []
+  - Name: Divine Blessing
+    Description: '% chance to fully heal instead of dying in combat'
+    icon: {fileID: -3707772756628023920, guid: b81d09a574bb33a4ea1b7acc8221604e, type: 3}
+    EffectList:
+    - Effects:
+      - effectDescription: chance to proc
+        effectValue: 75
+  - Name: Opportunist
+    Description: Ignore enemy defences
+    icon: {fileID: 1914097269958853597, guid: ddf4a4e6ec245864fbfb72f96ebb7d3d, type: 3}
+    EffectList: []
   MaxQueueActions: 20
   QueueFrame: {fileID: 3575314171218851561, guid: 95a0c3fb8c9150d44bf16cc794a1ea82,
     type: 3}

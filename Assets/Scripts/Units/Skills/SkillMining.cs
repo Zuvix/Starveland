@@ -8,6 +8,8 @@ using UnityEngine;
 public class SkillMining : Skill
 {
     public int DiamondChance;
+    private float MininigTime;
+    private int MiningTimeIncrease;
 
     public SkillMining() : base()
     {
@@ -17,6 +19,8 @@ public class SkillMining : Skill
         this.MovementSpeedModifier = GameConfigManager.Instance.GameConfig.MovementSpeedWhileCarryingRock;
         this.icon = GameConfigManager.Instance.GameConfig.MiningIcon;
         this.type = SkillType.Mining;
+        this.MininigTime = this.GatheringTime;
+        this.MiningTimeIncrease = 0;
 
         this.SkillTalents = new Dictionary<TalentType, Talent>()
         {
@@ -70,7 +74,7 @@ public class SkillMining : Skill
 
     public override float GetGatheringSpeed(ResourceSource resourceSource)
     {
-        return SkillTalents[TalentType.MiningBerserk] == null ? GatheringTime : SkillTalents[TalentType.MiningBerserk].Execute(GatheringTime);
+        return SkillTalents[TalentType.MiningBerserk] == null ? MininigTime : SkillTalents[TalentType.MiningBerserk].Execute(MininigTime);
     }
 
     private bool TargetDepleted(int x, int y)
@@ -86,6 +90,12 @@ public class SkillMining : Skill
             this.SkillTalents[TalentType.Archeologist]?.Execute(x, y);
         }
         return true;
+    }
+
+    public void IncreaseMiningSpeed(int valuePercent)
+    {
+        this.MiningTimeIncrease += valuePercent;
+        this.MininigTime = this.GatheringTime / (this.GatheringTime * (float)(this.MiningTimeIncrease + 100f) / 100f);
     }
 
 }

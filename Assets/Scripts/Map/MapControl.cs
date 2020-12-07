@@ -23,6 +23,12 @@ public class MapControl : Singleton<MapControl> {
     public int rockMaxCount = 40;
     public int ironMaxCount = 12;
     public int coalMaxCount = 8;
+
+    public GameObject snake;
+    public GameObject spider;
+    public GameObject wildboar;
+    public GameObject mouse;
+
     private void Start() {
         COF = CellObjectFactory.Instance;
         GenerateWorld();

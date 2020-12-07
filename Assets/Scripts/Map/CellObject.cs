@@ -16,6 +16,7 @@ public class CellObject : MonoBehaviour
     public string tip;
 
     public GameObject popup;
+    public GameObject popupNoIcon;
     public readonly float MultiPopupDelay = 0.5f;
     public MapCell CurrentCell { get; private set; }
 
@@ -98,12 +99,41 @@ public class CellObject : MonoBehaviour
     {
         sr.color = originalColor;
     }
+    public void CreatePopup(string value)
+    {
+        GameObject g = Instantiate(popupNoIcon, this.transform);
+        g.GetComponentInChildren<ItemPopupNoIcon>()?.CreatePopup(value);
+    }
+    public void CreatePopup(string value, Color color)
+    {
+        GameObject g = Instantiate(popupNoIcon, this.transform);
+        g.GetComponentInChildren<ItemPopupNoIcon>()?.CreatePopup(value, color);
+    }
     public void CreatePopup(Sprite icon, int value)
     {
         GameObject g= Instantiate(popup,this.transform);
         g.GetComponentInChildren<ItemPopup>()?.CreatePopup(icon, value);
     }
+    public void CreatePopup(Sprite icon, int value, Color color)
+    {
+        GameObject g = Instantiate(popup, this.transform);
+        g.GetComponentInChildren<ItemPopup>()?.CreatePopup(icon, value, color);
+    }
+    public void CreatePopup(Sprite icon, string text, Color color)
+    {
+        GameObject g = Instantiate(popup, this.transform);
+        g.GetComponentInChildren<ItemPopup>()?.CreatePopup(icon, text, color);
+    }
+    public void CreatePopup(Sprite icon, string text)
+    {
+        GameObject g = Instantiate(popup, this.transform);
+        g.GetComponentInChildren<ItemPopup>()?.CreatePopup(icon, text);
+    }
     public void CreatePopups(List<(Sprite, int)> Entries)
+    {
+        StartCoroutine(MultiPopupCoroutine(Entries));
+    }
+    public void CreatePopups(List<(Sprite, string)> Entries)
     {
         StartCoroutine(MultiPopupCoroutine(Entries));
     }
@@ -118,10 +148,16 @@ public class CellObject : MonoBehaviour
             this.CreatePopup(Entries[i].Item1, Entries[i].Item2);
         }
     }
-    public void CreatePopup(Sprite icon, string text)
+    private IEnumerator MultiPopupCoroutine(List<(Sprite, string)> Entries)
     {
-        GameObject g = Instantiate(popup, this.transform);
-        g.GetComponentInChildren<ItemPopup>()?.CreatePopup(icon, text);
+        for (int i = 0; i < Entries.Count; i++)
+        {
+            if (i > 0)
+            {
+                yield return new WaitForSeconds(3f);
+            }
+            this.CreatePopup(Entries[i].Item1, Entries[i].Item2);
+        }
     }
 
 }

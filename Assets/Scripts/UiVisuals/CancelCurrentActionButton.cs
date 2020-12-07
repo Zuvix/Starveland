@@ -20,7 +20,7 @@ public class CancelCurrentActionButton : MonoBehaviour, IPointerDownHandler
     }
     private void OnNewObjectSelected(GameObject CurrentlySelectedObject, GameObject PreviouslySelectedObject)
     {
-        if (PreviouslySelectedObject != null)
+        if (PreviouslySelectedObject != null && PreviouslySelectedObject.GetComponent<UnitPlayer>() != null)
         {
             PreviouslySelectedObject.GetComponent<UnitPlayer>().OnActivityStateChanged.RemoveListener(ToggleVisibility);
         }

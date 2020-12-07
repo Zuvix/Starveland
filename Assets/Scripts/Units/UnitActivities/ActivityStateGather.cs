@@ -63,8 +63,8 @@ class ActivityStateGather : ActivityState
             else if (Unit.CurrentCommand == this.CommandDrop2Storage)
             {
                 // If target resource is depleted, there is no reason to move to it
-                ResourceSource TargetResourceSource = (ResourceSource) this.Target.CurrentObject;
-                if (TargetResourceSource == null || (TargetResourceSource is ResourceSource && ((ResourceSource)TargetResourceSource).resource.IsDepleted()))
+                CellObject TargetResourceSource = (CellObject)this.Target.CurrentObject;
+                if (TargetResourceSource == null || (TargetResourceSource is ResourceSource && ((ResourceSource)TargetResourceSource).Resources[0].IsDepleted()))
                 {
                     Unit.SetActivity(new ActivityStateIdle());
                 }
@@ -147,7 +147,7 @@ class ActivityStateGather : ActivityState
         if (
             Unit.CarriedResource.IsDepleted()
                 ||
-            (!Unit.InventoryFull() && TargetResourceSource != null && TargetResourceSource is ResourceSource && Unit.CarriedResource.itemInfo.type.Equals(TargetResourceSource.resource.itemInfo.type))
+            (!Unit.InventoryFull() && TargetResourceSource != null && TargetResourceSource is ResourceSource && Unit.CarriedResource.itemInfo.type.Equals(TargetResourceSource.Resources[0].itemInfo.type))
            )
         {
             Unit.SetCommand(this.CommandMove2Resource);
