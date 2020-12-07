@@ -33,6 +33,7 @@ public class BuildingSpecificPanel : MonoBehaviour, IPointerEnterHandler, IPoint
             i++;
         }
         CraftProgress = CraftProgressBar.GetComponent<ProgressBar>();
+        DaytimeCounter.Instance.OnDayOver.AddListener(Hide);
     }
     public void Display(BuildingCrafting Building)
     {
@@ -62,7 +63,7 @@ public class BuildingSpecificPanel : MonoBehaviour, IPointerEnterHandler, IPoint
         this.BoundBuilding.OnCraftUpdate.AddListener(UpdateCraftProgress);
         this.BoundBuilding.OnCraftEnd.AddListener(HideCraftProgressBar);
         HideCraftProgressBar();
-        this.BoundBuilding.ToggleProgressBarVisibility(false);
+        /*this.BoundBuilding.*/BuildingCrafting.ToggleProgressBarVisibility(false);
 
         this.gameObject.SetActive(true);
 
@@ -76,13 +77,15 @@ public class BuildingSpecificPanel : MonoBehaviour, IPointerEnterHandler, IPoint
 
         this.gameObject.SetActive(false);
         MouseEvents.Instance.UnregisterVisibleBuildingPanel();
-        this.BoundBuilding.OnQueueUpdate.RemoveListener(UpdateQuantityLabel);
-        this.BoundBuilding.OnCraftStart.RemoveListener(UpdateCurrentlyCraftedItemName);
-        this.BoundBuilding.OnCraftUpdate.RemoveListener(UpdateCraftProgress);
-        this.BoundBuilding.OnCraftEnd.RemoveListener(HideCraftProgressBar);
-        this.BoundBuilding.ToggleProgressBarVisibility(true);
-        this.BoundBuilding = null;
-
+        if (this.BoundBuilding != null)
+        {
+            this.BoundBuilding.OnQueueUpdate.RemoveListener(UpdateQuantityLabel);
+            this.BoundBuilding.OnCraftStart.RemoveListener(UpdateCurrentlyCraftedItemName);
+            this.BoundBuilding.OnCraftUpdate.RemoveListener(UpdateCraftProgress);
+            this.BoundBuilding.OnCraftEnd.RemoveListener(HideCraftProgressBar);
+            /*this.BoundBuilding*/BuildingCrafting.ToggleProgressBarVisibility(true);
+            this.BoundBuilding = null;
+        }
     }
     public void OnPointerEnter(PointerEventData eventData)
     {

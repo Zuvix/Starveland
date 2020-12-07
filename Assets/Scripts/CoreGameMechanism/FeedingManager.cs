@@ -43,6 +43,7 @@ class FeedingManager : Singleton<FeedingManager>
 
         PlayerUnits = Unit.PlayerUnitPool.Select(unit => new UnitHungry(unit)).ToList();
         FillUnitPanels();
+        BuildingCrafting.ToggleProgressBarVisibility(false);
     }
     public void DroppedInConsumationArea(UnitPanel UnitPanel)
     {
@@ -79,6 +80,7 @@ class FeedingManager : Singleton<FeedingManager>
         {
             FeedingPanel.SetActive(false);
             DayCycleManager.Instance.StartDay();
+            BuildingCrafting.ToggleProgressBarVisibility(true);
         }
     }
     private void FillUnitPanels()

@@ -14,8 +14,10 @@ public class BuildingCrafting : Building
     public readonly UnityEvent OnCraftEnd = new UnityEvent();
     private float CurrentProgress;
     private ProgressBar ProgressBar;
+
     public int CurrentRecipeIndex { get; private set; }  = -1;
     private static bool ProgressBarAllowed;
+    private static bool WorkHalted = false;
     protected override void Awake()
     {
         base.Awake();
@@ -34,9 +36,20 @@ public class BuildingCrafting : Building
         ProgressBarPosition.y += this.gameObject.GetComponent<SpriteRenderer>().bounds.size.y / 2;
         PositionConversion.MoveUIObjectToWorldObjectPosition(ProgressBarPosition, ProgressBar.gameObject, PrefabPallette.Instance.Canvas, PrefabPallette.Instance.Camera);
         ProgressBar.gameObject.SetActive(false);
+
+        if (WorkHalted)
+        {
+            WorkHalted = false;
+        }
     }
     void Update()
     {
+        if (WorkHalted)
+        {
+            ProgressBar.gameObject.SetActive(ProgressBarAllowed);
+            return;
+        }
+
         if (CurrentRecipeIndex != -1)
         {
             CurrentProgress += Time.deltaTime / AvailableRecipes[CurrentRecipeIndex].CraftingDuration;
@@ -115,12 +128,25 @@ public class BuildingCrafting : Building
             }
         }
     }
-    public void ToggleProgressBarVisibility(bool newValue)
+    public static void ToggleProgressBarVisibility(bool newValue)
     {
         ProgressBarAllowed = newValue;
-        if ((newValue && CurrentRecipeIndex != -1) || !newValue)
+        /*if ((newValue && CurrentRecipeIndex != -1) || !newValue)
         {
             this.ProgressBar.gameObject.SetActive(newValue);
-        }
+        }*/
+    }
+
+    public static void HaltWork()
+    {
+        ToggleWorkHalting(true);
+    }
+    public static void RestoreWork(int i = 0)
+    {
+        ToggleWorkHalting(false);
+    }
+    private static void ToggleWorkHalting(bool value)
+    {
+        WorkHalted = value;
     }
 }

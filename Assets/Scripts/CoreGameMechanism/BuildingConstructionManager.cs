@@ -16,7 +16,10 @@ public class BuildingConstructionManager : Singleton<BuildingConstructionManager
     {
         this.gameObject.SetActive(false);
     }
-
+    private void Start()
+    {
+        DaytimeCounter.Instance.OnDayOver.AddListener(DeselectBuilding);
+    }
     // Update is called once per frame
     void Update()
     {
@@ -68,7 +71,10 @@ public class BuildingConstructionManager : Singleton<BuildingConstructionManager
 
         CurrentlySelectedBuilding = null;
         BuildingMock = null;
-        LastCellPointedOn.RestoreCellObject();
+        if (LastCellPointedOn != null)
+        {
+            LastCellPointedOn.RestoreCellObject();
+        }
         LastCellPointedOn = null;
         LastCellHasBuildingMock = false;
 
