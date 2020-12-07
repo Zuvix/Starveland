@@ -107,9 +107,11 @@ MonoBehaviour:
   IsPossibleToAddToActionQueue: 0
   Replacement: {fileID: 0}
   ConstructionCost:
-  - itemInfo: {fileID: 11400000, guid: 5722983080fed344796794c0aafe3131, type: 2}
-    Amount: 20
-  - itemInfo: {fileID: 11400000, guid: e8182eeb5a384d44bbdda801c49fcd0b, type: 2}
-    Amount: 10
+  - itemInfo: {fileID: 11400000, guid: 3167aece16db1304d8602e20b6defbf4, type: 2}
+    Amount: 3
+  - itemInfo: {fileID: 11400000, guid: d2d66c5851998654c93058ef2dfdc18a, type: 2}
+    Amount: 5
+  - itemInfo: {fileID: 11400000, guid: a4cc2863a35f94c46a84a2cb80a66b5a, type: 2}
+    Amount: 1
   AvailableRecipes:
   - {fileID: 11400000, guid: aeae0b2597d1f2f42b09b76f13f6fc58, type: 2}

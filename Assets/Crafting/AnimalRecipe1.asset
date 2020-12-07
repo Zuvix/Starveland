@@ -13,17 +13,32 @@ MonoBehaviour:
   m_Name: AnimalRecipe1
   m_EditorClassIdentifier: 
   Input:
-  - itemInfo: {fileID: 11400000, guid: 5722983080fed344796794c0aafe3131, type: 2}
-    Amount: 0
+  - itemInfo: {fileID: 11400000, guid: 3167aece16db1304d8602e20b6defbf4, type: 2}
+    Amount: 1
+  - itemInfo: {fileID: 11400000, guid: d2d66c5851998654c93058ef2dfdc18a, type: 2}
+    Amount: 3
+  - itemInfo: {fileID: 11400000, guid: 8041d655803214148bf3272292ae8187, type: 2}
+    Amount: 1
+  - itemInfo: {fileID: 11400000, guid: 508da25c2dcf82d4c90820e22ecd2a11, type: 2}
+    Amount: 5
   IsUnlocked: 1
-  CraftingDuration: 4
-  DescriptionInitialized: 0
+  CraftingDuration: 15
+  DescriptionInitialized: 1
   Output:
-  - Probability: 50
+  - Probability: 35
+    OfferedUnit: {fileID: 1407401077263290619, guid: 84e4acc0303f19d4db4a22768d8547eb,
+      type: 3}
+  - Probability: 25
+    OfferedUnit: {fileID: 1407401077263290619, guid: 247fb3c0a2361d0498ea95d8537ca53b,
+      type: 3}
+  - Probability: 20
     OfferedUnit: {fileID: 1407401077263290619, guid: 60d756f7b77957c44965f4834c09b538,
       type: 3}
-  - Probability: 50
-    OfferedUnit: {fileID: 1407401077263290619, guid: 247fb3c0a2361d0498ea95d8537ca53b,
+  - Probability: 15
+    OfferedUnit: {fileID: 1407401077263290619, guid: 086d143166f420a4c9e9a41e327e008f,
+      type: 3}
+  - Probability: 5
+    OfferedUnit: {fileID: 1407401077263290619, guid: 5217e69090006a14e8c8884a5ef242df,
       type: 3}
   OutputScreenName: Random Wild Animal
   Icon: {fileID: 1599935142216745595, guid: b81d09a574bb33a4ea1b7acc8221604e, type: 3}
