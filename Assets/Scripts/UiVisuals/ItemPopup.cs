@@ -19,8 +19,21 @@ public class ItemPopup : MonoBehaviour
     public void CreatePopup(Sprite icon, int value)
     {
         img.sprite = icon;
-        valueTxt.text = (value >= 0 ? "+" : "-") + (Math.Abs(value) == 1 && value >= 0 ? "" : Math.Abs(value).ToString());
+        if (value == 0)
+        {
+            valueTxt.text = (Math.Abs(value) == 1 && value >= 0 ? "" : Math.Abs(value).ToString());
+        }
+        else if (value < 0)
+        {
+            valueTxt.text = "-" + (Math.Abs(value) == 1 && value >= 0 ? "" : Math.Abs(value).ToString());
+        }
+        else if (value > 0)
+        {
+            valueTxt.text = "+" + (Math.Abs(value) == 1 && value >= 0 ? "" : Math.Abs(value).ToString());
+        }
+        //valueTxt.text = (value >= 0 ? "+" : "-") + (Math.Abs(value) == 1 && value >= 0 ? "" : Math.Abs(value).ToString());
         timeToLive = .85f;
+
         /*if (value == 1)
         {
             valueTxt.text = "+";

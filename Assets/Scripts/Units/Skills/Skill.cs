@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using UnityEngine;
+using UnityEngine.Events;
 
 public abstract class Skill
 {
@@ -18,6 +19,7 @@ public abstract class Skill
     public SkillType type;
     public int MovementSpeedModifier;
     public float GatheringTime;
+    public UnityEvent<UnitPlayer> onExperienceChanged = new UnityEvent<UnitPlayer>();
 
     public Skill()
     {
@@ -41,6 +43,7 @@ public abstract class Skill
                 this.CurrentExperience -= this.ExperienceToLevelUpForEachLevel[this.Level - 1];
                 this.LevelUp(Unit);
             }
+            this.onExperienceChanged.Invoke((UnitPlayer)Unit);
             return true;
         }
         return false;

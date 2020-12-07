@@ -790,7 +790,7 @@ MonoBehaviour:
   OnTimeChanged:
     m_PersistentCalls:
       m_Calls: []
-  dayLength: 15
+  dayLength: 300
 --- !u!114 &166628868
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -9157,6 +9157,12 @@ PrefabInstance:
       propertyPath: bush_berry_purple
       value: 
       objectReference: {fileID: 2283220006766421666, guid: 71472869ee9d50a4fa5cb67e0c7766c2,
+        type: 3}
+    - target: {fileID: 3275805233410246322, guid: ce26828ea09de184f839f032dbfb0368,
+        type: 3}
+      propertyPath: deadAnimalArcheologist
+      value: 
+      objectReference: {fileID: 1468059033923470519, guid: 27a7a1a7563f01f4ca50c96086811374,
         type: 3}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: ce26828ea09de184f839f032dbfb0368, type: 3}

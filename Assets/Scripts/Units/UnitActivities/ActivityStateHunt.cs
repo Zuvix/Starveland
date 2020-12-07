@@ -46,11 +46,25 @@ public class ActivityStateHunt : ActivityState
             {
                 if (!DayCycleManager.Instance.GameIsWaitingForPlayerUnits2GoEat())
                 {
-                    Unit.SetActivity(new ActivityStateGather(this.UnitTarget.CurrentCell).SetCommands(Unit, this.Skill));
+                    if (Unit is UnitPlayer)
+                    {
+                        Unit.SetActivity(new ActivityStateGather(this.UnitTarget.CurrentCell).SetCommands(Unit, this.Skill));
+                    }
+                    else if (Unit is UnitAnimal)
+                    {
+                        ((UnitAnimal)Unit).Wander();
+                    }
                 }
                 else
                 {
-                    Unit.SetActivity(new ActivityStateEndDayRoutine());
+                    if (Unit is UnitPlayer)
+                    {
+                        Unit.SetActivity(new ActivityStateEndDayRoutine());
+                    }
+                    else if (Unit is UnitAnimal)
+                    {
+                        ((UnitAnimal)Unit).Wander();
+                    }
                 }
             }
         }

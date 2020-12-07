@@ -33,7 +33,8 @@ public class SkillHunting : Skill
     protected override void LevelUp(Unit Unit)
     {
         Unit.Defence += 5;
-        if ((this.Level + 1) % 3 == 0) {
+        if ((this.Level + 1) % 3 == 0) 
+        {
             Unit.BaseDamage += 5;
         }
         base.LevelUp(Unit);
@@ -51,9 +52,14 @@ public class SkillHunting : Skill
     
     private bool Attack(Unit Unit, Unit TargetUnit)
     {
-        SkillTalents[TalentType.LethalBlow]?.Execute(Unit, TargetUnit);
-
-        Unit.Attack(Unit, TargetUnit, SkillTalents[TalentType.Opportunist] != null ? true : false);
+        if (SkillTalents[TalentType.LethalBlow] != null)
+        {
+            SkillTalents[TalentType.LethalBlow]?.Execute(Unit, TargetUnit);
+        }
+        else
+        {
+            Unit.Attack(Unit, TargetUnit, SkillTalents[TalentType.Opportunist] != null ? true : false);
+        }
 
         //check if dead?
         if (TargetUnit.Health <= 0)

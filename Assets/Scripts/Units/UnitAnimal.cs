@@ -14,6 +14,7 @@ public class UnitAnimal : Unit
     [Tooltip("Defines the chance of a unit moving to random position if he's wandering around and idling.")]
     [Range(0, 100)]
     public int ChanceToMoveDuringWandering = 10;
+    public int AggroRadius = 1;
     private int spawnX;
     private int spawnY;
     public List<ResourcePack> inventory;
@@ -64,7 +65,10 @@ public class UnitAnimal : Unit
         }
         yield return new WaitForSeconds(AttackTime);
         //UnitTarget.DealDamage(this.BaseDamage, this, false);
-        this.Attack(this, UnitTarget);
+        if (UnitTarget != null)
+        {
+            this.Attack(this, UnitTarget);
+        }
         //UnitTarget.Flash(Color.red);
         yield return new WaitForSeconds(0.2f);
     }
@@ -89,7 +93,7 @@ public class UnitAnimal : Unit
     {
         if (!(this.CurrentActivity is ActivityStateUnderAttack))
         {
-            this.SetActivity(new ActivityStateUnderAttack(AttackingUnit, this, this.spawnX, this.spawnY, this.WanderingRadius, this.ChanceToMoveDuringWandering));
+            this.SetActivity(new ActivityStateUnderAttack(AttackingUnit, this));
         }
     }
     public override void SpawnOnDeath(int x, int y)
@@ -108,7 +112,7 @@ public class UnitAnimal : Unit
     }
     public void Wander()
     {
-        this.SetActivity(new ActivityStateWander(this.WanderingRadius, this.CurrentCell, this.ChanceToMoveDuringWandering));
+        this.SetActivity(new ActivityStateWander(this.WanderingRadius, this.CurrentCell, this.ChanceToMoveDuringWandering, this.AggroRadius));
     }
 }
 

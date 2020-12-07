@@ -16,7 +16,7 @@ public class SkillTalentPanel : MonoBehaviour
     public TMP_Text defenceNumber;
     public TMP_Text critNumber;
     public TMP_Text actionRestrictionTip;
-    string viewUnitName = "";
+    int id;
     public List<(SkillUI, SkillType)> skillList;
 
     private void Awake()
@@ -37,36 +37,40 @@ public class SkillTalentPanel : MonoBehaviour
 
     private void Start()
     {
-        MouseEvents.Instance.viewObjectChanged.AddListener(UpdateSkillTalentPanel);
+        foreach (var player in Unit.PlayerUnitPool)
+        {
+            foreach (var skill in player.Skills)
+            {
+                skill.Value.onExperienceChanged.AddListener(this.UpdatePlayer);
+            }
+        }
+        MouseEvents.Instance.OnSelectedObjectChanged.AddListener(UpdateSkillTalentPanel);
         skillTalentPanel.SetActive(false);
     }
 
-    public void UpdateSkillTalentPanel(GameObject go, bool isSelected)
+    public void UpdateSkillTalentPanel(GameObject go, GameObject prev)
     {
-        if (go == null || !isSelected)
+        if (go == null)
         {
-            //PanelControl.Instance.SetActivePanel(0);
+            PanelControl.Instance.SetActivePanel(0);
             return;
         }
 
         CellObject visibleObject = go.GetComponent<CellObject>();
 
-        if (viewUnitName != visibleObject.objectName && visibleObject is Unit)
+        if (visibleObject is Unit)
         {
             PanelControl.Instance.SetActivePanel(5);
+            id = visibleObject.GetInstanceID();
+        }
+        else
+        {
+            PanelControl.Instance.SetActivePanel(0);
         }
 
         if (visibleObject is UnitPlayer)
         {
-            this.skillLayout.SetActive(true);
-            this.actionRestrictionTip.transform.gameObject.SetActive(true);
-            UnitPlayer unit = (UnitPlayer)visibleObject;
-            this.UpdateCombatStats(unit);
-            // player skills
-            foreach (var skills in this.skillList)
-            {
-                skills.Item1.Show(unit, skills.Item2);
-            }
+            this.UpdatePlayer((UnitPlayer)visibleObject);
         }
         else if (visibleObject is UnitAnimal)
         {
@@ -75,7 +79,6 @@ public class SkillTalentPanel : MonoBehaviour
             UnitAnimal unit = (UnitAnimal)visibleObject;
             this.UpdateCombatStats(unit);
         }
-        viewUnitName = visibleObject?.objectName;
     }
 
     private void UpdateCombatStats(Unit unit)
@@ -85,5 +88,20 @@ public class SkillTalentPanel : MonoBehaviour
         this.defenceNumber.text = unit.Defence.ToString();
         this.critNumber.text = unit.CritChance.ToString() + "%";
         this.dodgeNumber.text = unit.Dodge.ToString() + "%";
+    }
+
+    public void UpdatePlayer(UnitPlayer unit)
+    {
+        if (unit.GetInstanceID() == this.id)
+        {
+            this.skillLayout.SetActive(true);
+            this.actionRestrictionTip.transform.gameObject.SetActive(true);
+            this.UpdateCombatStats(unit);
+            // player skills
+            foreach (var skills in this.skillList)
+            {
+                skills.Item1.Show(unit, skills.Item2);
+            }
+        }
     }
 }

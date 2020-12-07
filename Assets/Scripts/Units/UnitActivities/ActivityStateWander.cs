@@ -10,13 +10,15 @@ public class ActivityStateWander : ActivityState
     private readonly int WanderingRadius;
     private readonly MapCell StartPosition;
     private readonly int chanceToMove;
+    private readonly int AggroRadius;
 
-    public ActivityStateWander(int WanderingRadius, MapCell StartPosition, int chanceToMove) : base()
+    public ActivityStateWander(int WanderingRadius, MapCell StartPosition, int chanceToMove, int aggroRadius = 0) : base()
     {
         this.IdleCommand = new UnitCommandIdle();
         this.WanderingRadius = WanderingRadius;
         this.StartPosition = StartPosition;
         this.chanceToMove = chanceToMove;
+        this.AggroRadius = aggroRadius;
     }
 
     public override void InitializeCommand(Unit Unit)
@@ -27,6 +29,14 @@ public class ActivityStateWander : ActivityState
 
     public override IEnumerator PerformSpecificAction(Unit Unit)
     {
+        if (this.AggroRadius > 0)
+        {
+            UnitPlayer target = this.CheckEnemiesAround(Unit);
+            if (target != null)
+            {
+                Unit.SetActivity(new ActivityStateHunt(target).SetCommands(Unit));
+            }
+        }
         if (Unit.CurrentCommand.IsDone(Unit))
         {
             if (Unit.CurrentCommand == this.IdleCommand)
@@ -89,6 +99,27 @@ public class ActivityStateWander : ActivityState
         {
             this.MoveCommand = new UnitCommandMove(MapControl.Instance.map.Grid[rx][ry], path);
             Unit.SetCommand(this.MoveCommand);
+        }
+    }
+
+    private UnitPlayer CheckEnemiesAround(Unit Unit)
+    {
+        List<UnitPlayer> TargetList = new List<UnitPlayer>();
+        foreach (UnitPlayer player in Unit.PlayerUnitPool)
+        {
+            //Debug.LogWarning(Vector2.Distance(new Vector2(Unit.CurrentCell.x, Unit.CurrentCell.y), new Vector2(player.CurrentCell.x, player.CurrentCell.y)));
+            if (Vector2.Distance(new Vector2(Unit.CurrentCell.x, Unit.CurrentCell.y), new Vector2(player.CurrentCell.x, player.CurrentCell.y)) <= this.AggroRadius)
+            {
+                TargetList.Add(player);
+            }
+        }
+        if (TargetList.Count > 0)
+        {
+            return TargetList[UnityEngine.Random.Range(0, TargetList.Count - 1)];
+        }
+        else
+        {
+            return null;
         }
     }
 

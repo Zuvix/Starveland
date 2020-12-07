@@ -52,6 +52,7 @@ public class MapControl : Singleton<MapControl> {
         CellObjectFactory.Instance.ProduceResourceSource(0, 9, RSObjects.Stone);
         CellObjectFactory.Instance.ProduceResourceSource(9, 3, RSObjects.Stone);
         CellObjectFactory.Instance.ProduceResourceSource(12, 10, RSObjects.Stone);
+        CellObjectFactory.Instance.ProduceResourceSource(24, 2, RSObjects.Stone);
         //animal test
         GameObject testAnimal1 = CreateGameObject(14, 14, animal);
         GameObject testAnimal2 = CreateGameObject(13, 13, animal);

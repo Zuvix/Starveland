@@ -162,9 +162,15 @@ MonoBehaviour:
       m_Calls: []
   WanderingRadius: 5
   ChanceToMoveDuringWandering: 10
+  AggroRadius: 0
   inventory:
   - resource:
       itemInfo: {fileID: 11400000, guid: 756d6da29aa825645a10985bc585f9d3, type: 2}
+      Amount: 1
+    chance: 100
+    variationPercentage: 20
+  - resource:
+      itemInfo: {fileID: 11400000, guid: 93ca700ae8a52c64eaa15182ee540395, type: 2}
       Amount: 1
     chance: 100
     variationPercentage: 20
