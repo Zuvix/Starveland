@@ -4,10 +4,10 @@ using System.Linq;
 using UnityEngine;
 
 [CreateAssetMenu(fileName = "newCraftingRecipeRandomOutput", menuName = "CraftingRecipeRandomOutput")]
-public class CraftingRecipeRandomOutput : CraftingRecipe
+public class CraftingRecipeRandomResourceOutput : CraftingRecipe
 {
     [SerializeField]
-    public List<RandomOutputItem> Output;
+    public List<RandomResourceOutputItem> Output;
     public string OutputScreenName;
     public Sprite Icon;
 
@@ -31,8 +31,8 @@ public class CraftingRecipeRandomOutput : CraftingRecipe
         }
         else
         {
-            GlobalInventory.Instance.AddItem(Output[SelectedOutputIndex].Item.Duplicate());
-            Result = (Output[SelectedOutputIndex].Item.itemInfo.icon, Output[SelectedOutputIndex].Item.Amount);
+            GlobalInventory.Instance.AddItem(Output[SelectedOutputIndex].OfferedResource.Duplicate());
+            Result = (Output[SelectedOutputIndex].OfferedResource.itemInfo.icon, Output[SelectedOutputIndex].OfferedResource.Amount);
         }
         
 
@@ -45,9 +45,9 @@ public class CraftingRecipeRandomOutput : CraftingRecipe
     protected override string CreateOutputDescription()
     {
         string Result = "";
-        foreach (RandomOutputItem PotentialOutput in Output)
+        foreach (RandomResourceOutputItem PotentialOutput in Output)
         {
-            Result += $"{PotentialOutput.Probability}% chance for {PotentialOutput.Item.itemInfo.name}\n";
+            Result += $"{PotentialOutput.Probability}% chance for {PotentialOutput.OfferedResource.itemInfo.name}\n";
         }
         if (Result.Length > 0)
         {

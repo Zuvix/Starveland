@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class RandomOutputItem
+public class RandomUnitOutputItem : RandomOutputItem
 {
-    public int Probability;
+    public Unit OfferedUnit;
 }
