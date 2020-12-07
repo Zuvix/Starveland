@@ -113,4 +113,5 @@ MonoBehaviour:
     Amount: 10
   AvailableRecipes:
   - {fileID: 11400000, guid: 5f9ba5d40320a2c45964246fc548829c, type: 2}
+  - {fileID: 11400000, guid: dae9096f53880c847bf67be084a00a37, type: 2}
   - {fileID: 11400000, guid: 849c48d388827004bbac2086e815b2a7, type: 2}
