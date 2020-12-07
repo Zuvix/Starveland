@@ -23,6 +23,7 @@ public class UnitCommandDrop : UnitCommand
         yield return Unit.StartCoroutine(Unit.StoreResource((BuildingStorage)this.Target.CurrentObject));
         // TODO This might be moved to Mišo's Skill classes, Miso: nevidim dovod preco by to muselo byt v skille
         Resource DroppedResource = Unit.CarriedResource.Deplete();
+        this.Target.CurrentObject.CreatePopup(DroppedResource.itemInfo.icon, DroppedResource.Amount);
         GlobalInventory.Instance.AddItem(DroppedResource);
     }
 }
