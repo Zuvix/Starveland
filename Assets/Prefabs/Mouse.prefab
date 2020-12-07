@@ -157,6 +157,7 @@ MonoBehaviour:
   CritChance: 10
   Defence: 0
   TimesCriticalMultiplier: 2
+  TargetDistance2AbortAttackOn: 4
   onDamageRecieved:
     m_PersistentCalls:
       m_Calls: []
@@ -168,3 +169,4 @@ MonoBehaviour:
       Amount: 1
     chance: 100
     variationPercentage: 20
+  MaxTravelDistance: 3

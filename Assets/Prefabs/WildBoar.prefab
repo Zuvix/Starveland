@@ -169,4 +169,4 @@ MonoBehaviour:
       Amount: 6
     chance: 100
     variationPercentage: 20
-  MaxTravelDistance: 0
+  MaxTravelDistance: 5

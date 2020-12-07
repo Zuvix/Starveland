@@ -123,6 +123,7 @@ public class UnitAnimal : Unit
         }
         if (PathFinding.Instance.BlockDistance(SpawnCell, CurrentCell) > MaxTravelDistance)
         {
+            //Debug.LogError($"I'm {gameObject} at {CurrentCell.x},{CurrentCell.y}, which is {PathFinding.Instance.BlockDistance(SpawnCell, CurrentCell)} from home, more than {MaxTravelDistance}. Gotta go home to {SpawnCell.x},{SpawnCell.y}.");
             SetActivity(new ActivityStateMoveToSpawnPosition(SpawnCell));
         }
     }
