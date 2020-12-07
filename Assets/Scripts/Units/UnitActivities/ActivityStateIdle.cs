@@ -7,6 +7,7 @@ class ActivityStateIdle : ActivityState
     private UnitCommandMove MoveToHouseCommand;
     private UnitCommandIdle IdleCommand;
     private UnitCommandDrop DropCommand = null;
+    private UnitCommandEnterBuilding EnterBuildingCommand;
 
     public ActivityStateIdle() : base()
     {
@@ -27,7 +28,8 @@ class ActivityStateIdle : ActivityState
             {
                 if (Unit.CarriedResource.IsDepleted())
                 {
-                    Unit.SetCommand(this.IdleCommand);
+                    EnterBuildingCommand = new UnitCommandEnterBuilding(MoveToHouseCommand.Target);
+                    Unit.SetCommand(EnterBuildingCommand);
                 }
                 else
                 {
@@ -36,6 +38,12 @@ class ActivityStateIdle : ActivityState
                 }
             }
             else if (Unit.CurrentCommand == this.DropCommand)
+            {
+                //Unit.SetCommand(this.IdleCommand);
+                EnterBuildingCommand = new UnitCommandEnterBuilding(DropCommand.Target);
+                Unit.SetCommand(EnterBuildingCommand);
+            }
+            else if (Unit.CurrentCommand == this.EnterBuildingCommand)
             {
                 Unit.SetCommand(this.IdleCommand);
             }
@@ -60,7 +68,7 @@ class ActivityStateIdle : ActivityState
             {
                 yield return Unit.StartCoroutine(Unit.MovementConflictManager.UnableToMoveRoutine(Unit));
             }
-            else if (Unit.CurrentCommand == this.DropCommand)
+            else if (Unit.CurrentCommand == this.DropCommand || Unit.CurrentCommand == this.EnterBuildingCommand)
             {
                 UnitCommandMove NewMoveCommand = this.CommandToMoveToStorage(Unit);
                 if (NewMoveCommand != null)
@@ -70,7 +78,7 @@ class ActivityStateIdle : ActivityState
                 }
                 else
                 {
-                    Unit.SetActivity(new ActivityStateIdle());
+                    Unit.SetCommand(new UnitCommandIdle());
                 }
             }
             // If gathering from resource is not possible
@@ -95,4 +103,5 @@ class ActivityStateIdle : ActivityState
     {
         return false;
     }
+    public override void HandleInBuildingAction(Unit Unit) {}
 }

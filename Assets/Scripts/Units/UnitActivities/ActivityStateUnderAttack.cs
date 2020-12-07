@@ -51,14 +51,7 @@ public class ActivityStateUnderAttack : ActivityState
             }
             else if (Unit.CurrentCommand == CommandCombat)
             {
-                if (this.originalX == -1 || this.originalY == -1)
-                {
-                    Unit.SetActivity(new ActivityStateIdle());
-                }
-                else
-                {
-                    Unit.SetActivity(new ActivityStateWander(this.waderingRadius, MapControl.Instance.map.Grid[originalX][originalY], this.chanceToMove));
-                }
+                Unit.SetDefaultActivity();
             }
         }
         else if (!Unit.CurrentCommand.CanBePerformed(Unit))
@@ -69,9 +62,16 @@ public class ActivityStateUnderAttack : ActivityState
             }
             else if (Unit.CurrentCommand == this.CommandCombat)
             {
-                List<MapCell> path = PathFinding.Instance.FindPath(Unit.CurrentCell, this.UnitTarget.CurrentCell);
-                this.CommandMoveToTarget = new UnitCommandMove(this.UnitTarget.CurrentCell, path);
-                Unit.SetCommand(this.CommandMoveToTarget);
+                if (!UnitTarget.IsInBuilding())
+                {
+                    List<MapCell> path = PathFinding.Instance.FindPath(Unit.CurrentCell, this.UnitTarget.CurrentCell);
+                    this.CommandMoveToTarget = new UnitCommandMove(this.UnitTarget.CurrentCell, path);
+                    Unit.SetCommand(this.CommandMoveToTarget);
+                }
+                else
+                {
+                    Unit.SetDefaultActivity();
+                }
             }
         }
         else

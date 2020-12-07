@@ -49,7 +49,7 @@ public class ActivityStateHunt : ActivityState
                 }
                 else
                 {
-                    Unit.SetActivity(new ActivityStateEndDayRoutine());
+                    Unit.SetActivity(new ActivityStateIdle());
                 }
             }
         }

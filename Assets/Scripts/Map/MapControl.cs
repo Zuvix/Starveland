@@ -36,7 +36,10 @@ public class MapControl : Singleton<MapControl> {
         GameObject testUnit1 = CreateGameObject(0, 0, player);
         GameObject testUnit2 = CreateGameObject(0, 1, player);
         GameObject testUnit3 = CreateGameObject(0, 2, player);
-        CreateGameObject(5, 5, building_storage);
+        GameObject Storage = CreateGameObject(5, 5, building_storage);
+        Storage.GetComponent<BuildingStorage>().Enter(testUnit1.GetComponent<UnitPlayer>());
+        Storage.GetComponent<BuildingStorage>().Enter(testUnit2.GetComponent<UnitPlayer>());
+        Storage.GetComponent<BuildingStorage>().Enter(testUnit3.GetComponent<UnitPlayer>());
 
         List<(int, int)> ForestCoords = new List<(int, int)>(new (int, int)[]
         { 

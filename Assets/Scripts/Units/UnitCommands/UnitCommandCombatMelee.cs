@@ -41,6 +41,10 @@ public class UnitCommandCombatMelee : UnitCommand
         {
             return false;
         }
+        else if (TargetUnit.IsInBuilding())
+        {
+            return false;
+        }
         else
         {
             return true;
