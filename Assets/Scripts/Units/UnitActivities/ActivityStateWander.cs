@@ -23,7 +23,6 @@ public class ActivityStateWander : ActivityState
 
     public override void InitializeCommand(Unit Unit)
     {
-        base.InitializeCommand(Unit);
         Unit.SetCommand(this.IdleCommand);
     }
 

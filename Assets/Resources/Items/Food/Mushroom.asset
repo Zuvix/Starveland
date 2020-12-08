@@ -17,3 +17,5 @@ MonoBehaviour:
   NutritionValue: 3
   storageType: Raw
   foodType: Foragable
+  isHeavy: 0
+  IsShipPart: 0

@@ -19,7 +19,7 @@ public class ItemPopup : MonoBehaviour
     public void CreatePopup(Sprite icon, int value)
     {
         img.sprite = icon;
-        if (value == 0)
+        /*if (value == 0)
         {
             valueTxt.text = (Math.Abs(value) == 1 && value >= 0 ? "" : Math.Abs(value).ToString());
         }
@@ -32,21 +32,35 @@ public class ItemPopup : MonoBehaviour
             valueTxt.text = "+" + (Math.Abs(value) == 1 && value >= 0 ? "" : Math.Abs(value).ToString());
         }
         //valueTxt.text = (value >= 0 ? "+" : "-") + (Math.Abs(value) == 1 && value >= 0 ? "" : Math.Abs(value).ToString());
-        timeToLive = .85f;
+        timeToLive = .85f;*/
 
-        /*if (value == 1)
+
+        if (value != 0)
         {
-            valueTxt.text = "+";
-        }*/
-        // Vector3 startPos = this.transform.position;
+            valueTxt.text =
+                (value > 0 ? "+" : "-")
+                +
+                (Math.Abs(value) == 1 && value > 0 ? "" : Math.Abs(value).ToString());
+            img.sprite = icon;
+            Vector4 NewColor = img.color;
+            NewColor.w = 1;
+            img.color = NewColor;
+        }
+        else
+        {
+            valueTxt.text = "Nothing";
+            valueTxt.GetComponent<RectTransform>().position = img.GetComponent<RectTransform>().position;
+            Vector4 NewColor = img.color;
+            NewColor.w = 0;
+            img.color = NewColor;
+        }
+        timeToLive = .85f;
     }
 
     public void CreatePopup(Sprite icon, int value, Color color)
     {
-        img.sprite = icon;
         valueTxt.color = color;
-        valueTxt.text = (value >= 0 ? "+" : "-") + (Math.Abs(value) == 1 && value >= 0 ? "" : Math.Abs(value).ToString());
-        timeToLive = .85f;
+        CreatePopup(icon, value);
     }
 
     public void CreatePopup(Sprite icon, string text)
@@ -57,10 +71,8 @@ public class ItemPopup : MonoBehaviour
     }
     public void CreatePopup(Sprite icon, string text, Color color)
     {
-        img.sprite = icon;
         valueTxt.color = color;
-        valueTxt.text = text;
-        timeToLive = 3.0f;
+        CreatePopup(icon, text);
     }
     public void CreatePopup(Sprite icon)
     {

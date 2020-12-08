@@ -30,7 +30,6 @@ public class ActivityStateHunt : ActivityState
 
     public override void InitializeCommand(Unit Unit)
     {
-        base.InitializeCommand(Unit);
         Unit.SetCommand(this.CommandCombat);
     }
 
@@ -44,7 +43,7 @@ public class ActivityStateHunt : ActivityState
             }
             else if (Unit.CurrentCommand == CommandCombat)
             {
-                if (!DayCycleManager.Instance.GameIsWaitingForPlayerUnits2GoEat())
+                if (!DayCycleManager.Instance.TimeOut)
                 {
                     if (Unit is UnitPlayer)
                     {
@@ -52,19 +51,21 @@ public class ActivityStateHunt : ActivityState
                     }
                     else if (Unit is UnitAnimal)
                     {
-                        ((UnitAnimal)Unit).Wander();
+                        Unit.SetDefaultActivity();
                     }
                 }
                 else
                 {
-                    if (Unit is UnitPlayer)
+                    /*if (Unit is UnitPlayer)
                     {
-                        Unit.SetActivity(new ActivityStateEndDayRoutine());
+                        //Unit.SetActivity(new ActivityStateEndDayRoutine());
+						Unit.SetActivity(new ActivityStateIdle());
                     }
                     else if (Unit is UnitAnimal)
                     {
                         ((UnitAnimal)Unit).Wander();
-                    }
+                    }*/
+					Unit.SetDefaultActivity();
                 }
             }
         }

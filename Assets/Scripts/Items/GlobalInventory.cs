@@ -3,10 +3,21 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
+using System.Linq;
 
 public class GlobalInventory : Singleton<GlobalInventory>
 {
     public UnityEvent OnInventoryUpdate = new UnityEvent();
+    public UnityEvent OnShipPartUpdate = new UnityEvent();
+
+    private void ActionOnInventoryUpdate(Item ChangedItemInfo)
+    {
+        OnInventoryUpdate.Invoke();
+        if (ChangedItemInfo.IsShipPart)
+        {
+            OnShipPartUpdate.Invoke();
+        }
+    }
     private Dictionary<string,Resource> playerInventory=new Dictionary<string, Resource>();
     public Dictionary<string,Resource> GetInventory()
     {
@@ -17,23 +28,29 @@ public class GlobalInventory : Singleton<GlobalInventory>
         AddItem(new Resource(ItemManager.Instance.GetItem("Apple"), 5));
         AddItem(new Resource(ItemManager.Instance.GetItem("Cooked Meat"), 3));
 
-        AddItem(new Resource(ItemManager.Instance.GetItem("Wood"), 50));
-        AddItem(new Resource(ItemManager.Instance.GetItem("Stone"), 50));
+        AddItem(new Resource(ItemManager.Instance.GetItem("Wood"), 500));
+        AddItem(new Resource(ItemManager.Instance.GetItem("Hardwood"), 50));
+        AddItem(new Resource(ItemManager.Instance.GetItem("Stone"), 500));
         AddItem(new Resource(ItemManager.Instance.GetItem("Gold Bar"), 50));
-        AddItem(new Resource(ItemManager.Instance.GetItem("Meat"), 50));
+        AddItem(new Resource(ItemManager.Instance.GetItem("Iron Bar"), 50));
+        AddItem(new Resource(ItemManager.Instance.GetItem("Trash"), 50));
+        AddItem(new Resource(ItemManager.Instance.GetItem("Meat"), 5));
         AddItem(new Resource(ItemManager.Instance.GetItem("Coal"), 50));
         AddItem(new Resource(ItemManager.Instance.GetItem("Fish"), 50));
+        AddItem(new Resource(ItemManager.Instance.GetItem("Leather"), 50));
+        AddItem(new Resource(ItemManager.Instance.GetItem("Magic Scroll"), 2));
     }
     public bool AddItem(Resource itemToAdd)
     {
+        Item AddedItemInfo = itemToAdd.itemInfo;
         if (CheckAvaliableItem(itemToAdd.itemInfo.name,1))
         {
             playerInventory[itemToAdd.itemInfo.name].AddDestructive(itemToAdd);
-            OnInventoryUpdate.Invoke();
+            ActionOnInventoryUpdate(AddedItemInfo);
             return true;
         }
         playerInventory.Add(itemToAdd.itemInfo.name,itemToAdd);
-        OnInventoryUpdate.Invoke();
+        ActionOnInventoryUpdate(AddedItemInfo);
         return true;
     }
     public bool AddItems(List<Resource> itemsToAdd)
@@ -78,12 +95,13 @@ public class GlobalInventory : Singleton<GlobalInventory>
     {
         if (CheckAvaliableItem(itemName, amountToRemove))
         {
+            Item TakenItemInfo = playerInventory[itemName].itemInfo;
             playerInventory[itemName].Subtract(amountToRemove);
             if (playerInventory[itemName].Amount == 0)
             {
                 playerInventory.Remove(itemName);
             }
-            OnInventoryUpdate.Invoke();
+            ActionOnInventoryUpdate(TakenItemInfo);
             return true;
         }
 
@@ -96,12 +114,13 @@ public class GlobalInventory : Singleton<GlobalInventory>
             string itemKey = item.itemInfo.name;
             if (CheckAvaliableItem(item.itemInfo.name, item.Amount))
             {
+                Item TakenItemInfo = item.itemInfo;
                 playerInventory[item.itemInfo.name].Subtract(item.Amount);
                 if (playerInventory[itemKey].Amount == 0)
                 {
                     playerInventory.Remove(itemKey);
                 }
-                OnInventoryUpdate.Invoke();
+                ActionOnInventoryUpdate(TakenItemInfo);
                 return true;
             }
         }
@@ -144,6 +163,10 @@ public class GlobalInventory : Singleton<GlobalInventory>
             }
         }
         return Result;
+    }
+    public List<Resource> OwnedShipParts()
+    {
+        return playerInventory.Values.Where(x => x.itemInfo.IsShipPart).ToList();
     }
     public void RemoveUneatenFood()
     {

@@ -157,10 +157,11 @@ MonoBehaviour:
   CritChance: 15
   Defence: 20
   TimesCriticalMultiplier: 2
+  TargetDistance2AbortAttackOn: 4
   onDamageRecieved:
     m_PersistentCalls:
       m_Calls: []
-  WanderingRadius: 2
+  WanderingRadius: 7
   ChanceToMoveDuringWandering: 10
   AggroRadius: 0
   inventory:
@@ -174,3 +175,4 @@ MonoBehaviour:
       Amount: 6
     chance: 100
     variationPercentage: 20
+  MaxTravelDistance: 5

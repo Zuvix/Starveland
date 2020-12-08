@@ -28,7 +28,14 @@ public class UnitMovementConflictManager
         {
             if (this.RemainingNewPathFindTries <= 0)
             {
-                Unit.SetActivity(NewActivity ?? new ActivityStateIdle());
+                if (NewActivity != null)
+                {
+                    Unit.SetActivity(NewActivity);
+                }
+                else
+                {
+                    Unit.SetDefaultActivity();
+                }
             }
             else
             {

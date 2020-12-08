@@ -173,4 +173,8 @@ public class PathFinding : Singleton<PathFinding>
         }
         Path.Reverse();
     }
+    public int BlockDistance(MapCell A, MapCell B)
+    {
+        return Math.Abs(A.x - B.x) + Math.Abs(A.y - B.y);
+    }
 }

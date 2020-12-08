@@ -25,7 +25,7 @@ public class UnitCommandCombatMelee : UnitCommand
     public override IEnumerator PerformAction(Unit Unit)
     {
         yield return Unit.StartCoroutine(Unit.Fight(this.TargetUnit));
-        if (TargetUnit != null && Skill != null)
+        if (TargetUnit != null && Skill != null && PathFinding.Instance.BlockDistance(Unit.CurrentCell, TargetUnit.CurrentCell) <= 2)
         {
             Skill.DoAction(Unit, TargetUnit);
         }
@@ -38,6 +38,10 @@ public class UnitCommandCombatMelee : UnitCommand
             return false;
         }
         else if (Vector2.Distance(new Vector2(Unit.CurrentCell.x, Unit.CurrentCell.y), new Vector2(TargetUnit.CurrentCell.x, TargetUnit.CurrentCell.y)) > 1)
+        {
+            return false;
+        }
+        else if (TargetUnit.IsInBuilding())
         {
             return false;
         }
