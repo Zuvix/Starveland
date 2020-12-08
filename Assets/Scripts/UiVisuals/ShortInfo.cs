@@ -100,7 +100,7 @@ public class ShortInfo : MonoBehaviour
         {
             ResourceSource rs = (ResourceSource)visibleObject;
             resourcePanel.SetActive(true);
-            resourcePanelItemsInfo.ShowInfo(rs.Resources);
+            resourcePanelItemsInfo.ShowInfo(rs.resource);
             resourceSourcTipTxt.text = visibleObject.tip;
 
         }
@@ -115,6 +115,7 @@ public class ShortInfo : MonoBehaviour
     private void FillVisitorPanels(Building Building)
     {
         List<Unit> Visitors = Building.CurrentVisitors;
+        Debug.LogWarning(Visitors.Count);
         Dictionary<Sprite, int> VisitorImageDict = new Dictionary<Sprite, int>();
         foreach (Unit Unit in Visitors)
         {

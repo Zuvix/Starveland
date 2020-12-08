@@ -1,17 +1,20 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public abstract class CraftingRecipeGeneric : CraftingRecipe
 {
     public Sprite Icon;
     public string ScreenName;
     public string ScreenDescription;
+    
 
     public override (Sprite, int) ProduceOutput(BuildingCrafting ProducingBuilding)
     {
         PerformRecipeAction();
         return (Icon, 1);
+
     }
     protected abstract void PerformRecipeAction();
     public override Sprite OutputIcon()

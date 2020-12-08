@@ -74,7 +74,7 @@ SpriteRenderer:
   m_SortingOrder: 0
   m_Sprite: {fileID: -7858541106361481556, guid: ddf4a4e6ec245864fbfb72f96ebb7d3d,
     type: 3}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Color: {r: 1, g: 1, b: 1, a: 0}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -106,19 +106,32 @@ MonoBehaviour:
   IsBlocking: 1
   IsSelectable: 1
   IsPossibleToAddToActionQueue: 0
+  Replacement: {fileID: 0}
   xScalingFactor: 1.5
   yScalingFactor: 1.5
   rotationFactor: 5
   scalingTime: 0.2
   rotationTime: 0.1
   rotationSpeed: 20
-  ReceiveDamageIcon: {fileID: 9122268959118044443, guid: b81d09a574bb33a4ea1b7acc8221604e,
-    type: 3}
+  OnActivityStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
   CarriedResource:
     itemInfo: {fileID: 0}
     Amount: 0
+  ReceiveDamageIcon: {fileID: 9122268959118044443, guid: b81d09a574bb33a4ea1b7acc8221604e,
+    type: 3}
+  MovementSpeed: 20
+  Health: 0
+  MaxHealth: 100
+  BaseDamage: 10
   Accuracy: 90
   Dodge: 10
   CritChance: 25
   Defence: 0
+  TimesCriticalMultiplier: 2
+  TargetDistance2AbortAttackOn: 4
+  onDamageRecieved:
+    m_PersistentCalls:
+      m_Calls: []
   CarryingCapacity: 3

@@ -31,14 +31,6 @@ public class GlobalInventory : Singleton<GlobalInventory>
         AddItem(new Resource(ItemManager.Instance.GetItem("Wood"), 500));
         AddItem(new Resource(ItemManager.Instance.GetItem("Hardwood"), 50));
         AddItem(new Resource(ItemManager.Instance.GetItem("Stone"), 500));
-        AddItem(new Resource(ItemManager.Instance.GetItem("Gold Bar"), 50));
-        AddItem(new Resource(ItemManager.Instance.GetItem("Iron Bar"), 50));
-        AddItem(new Resource(ItemManager.Instance.GetItem("Trash"), 50));
-        AddItem(new Resource(ItemManager.Instance.GetItem("Meat"), 5));
-        AddItem(new Resource(ItemManager.Instance.GetItem("Coal"), 50));
-        AddItem(new Resource(ItemManager.Instance.GetItem("Fish"), 50));
-        AddItem(new Resource(ItemManager.Instance.GetItem("Leather"), 50));
-        AddItem(new Resource(ItemManager.Instance.GetItem("Magic Scroll"), 2));
     }
     public bool AddItem(Resource itemToAdd)
     {

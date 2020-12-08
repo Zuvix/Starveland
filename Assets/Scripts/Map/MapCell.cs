@@ -65,7 +65,7 @@ public class MapCell
 
             if(CurrentObject != null)
             {
-                this.CurrentObject.MakeTransparent(0.5f);
+                this.CurrentObject.MakeTransparent(0.25f);
             }
         }
         return Success;

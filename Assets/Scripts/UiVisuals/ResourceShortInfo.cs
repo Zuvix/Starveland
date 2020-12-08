@@ -13,18 +13,13 @@ public class ResourceShortInfo : MonoBehaviour
     {
         HideAll();
     }
-    public void ShowInfo(List<Resource> resources)
+    public void ShowInfo(Resource resource)
     {
         HideAll();
-        for (int i = 0; i < resources.Count; i++)
-        {
-            if (i < panels.Length)
-            {
-                panels[i].SetActive(true);
-                icons[i].sprite = resources[i].itemInfo.icon;
-                valueTxts[i].text = resources[i].Amount.ToString();
-            }
-        }
+        panels[0].SetActive(true);
+        icons[0].sprite = resource.itemInfo.icon;
+        valueTxts[0].text = resource.Amount.ToString();
+        
     }
     private void HideAll()
     {
