@@ -107,7 +107,7 @@ public class ActivityStateWander : ActivityState
         foreach (UnitPlayer player in Unit.PlayerUnitPool)
         {
             //Debug.LogWarning(Vector2.Distance(new Vector2(Unit.CurrentCell.x, Unit.CurrentCell.y), new Vector2(player.CurrentCell.x, player.CurrentCell.y)));
-            if (Vector2.Distance(new Vector2(Unit.CurrentCell.x, Unit.CurrentCell.y), new Vector2(player.CurrentCell.x, player.CurrentCell.y)) <= this.AggroRadius)
+            if (!player.IsInBuilding() && Vector2.Distance(new Vector2(Unit.CurrentCell.x, Unit.CurrentCell.y), new Vector2(player.CurrentCell.x, player.CurrentCell.y)) <= this.AggroRadius)
             {
                 TargetList.Add(player);
             }
