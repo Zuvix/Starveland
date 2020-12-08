@@ -11320,62 +11320,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3275805233410246322, guid: ce26828ea09de184f839f032dbfb0368,
         type: 3}
-      propertyPath: water.Array.size
-      value: 9
-      objectReference: {fileID: 0}
+      propertyPath: boar
+      value: 
+      objectReference: {fileID: 1407401077263290619, guid: 086d143166f420a4c9e9a41e327e008f,
+        type: 3}
     - target: {fileID: 3275805233410246322, guid: ce26828ea09de184f839f032dbfb0368,
         type: 3}
       propertyPath: bush
       value: 
       objectReference: {fileID: 2283220006766421666, guid: bc3a6439918b4c64a922e116ae9b506f,
-        type: 3}
-    - target: {fileID: 3275805233410246322, guid: ce26828ea09de184f839f032dbfb0368,
-        type: 3}
-      propertyPath: stone
-      value: 
-      objectReference: {fileID: 2283220006766421666, guid: f13b2c2b4832bf546a02ae9f6330dca0,
-        type: 3}
-    - target: {fileID: 3275805233410246322, guid: ce26828ea09de184f839f032dbfb0368,
-        type: 3}
-      propertyPath: diamond
-      value: 
-      objectReference: {fileID: 2283220006766421666, guid: 44d950dc99eb3c543b5a7d6026706cef,
-        type: 3}
-    - target: {fileID: 3275805233410246322, guid: ce26828ea09de184f839f032dbfb0368,
-        type: 3}
-      propertyPath: sapling
-      value: 
-      objectReference: {fileID: 2283220006766421666, guid: 5d02c3b32c089034687246cb500a497e,
-        type: 3}
-    - target: {fileID: 3275805233410246322, guid: ce26828ea09de184f839f032dbfb0368,
-        type: 3}
-      propertyPath: berryless_bush
-      value: 
-      objectReference: {fileID: 2283220006766421666, guid: bc3a6439918b4c64a922e116ae9b506f,
-        type: 3}
-    - target: {fileID: 3275805233410246322, guid: ce26828ea09de184f839f032dbfb0368,
-        type: 3}
-      propertyPath: bush_berry_red
-      value: 
-      objectReference: {fileID: 2283220006766421666, guid: 7637602e43b5c13448646f2afe20763e,
-        type: 3}
-    - target: {fileID: 3275805233410246322, guid: ce26828ea09de184f839f032dbfb0368,
-        type: 3}
-      propertyPath: bush_berry_purple
-      value: 
-      objectReference: {fileID: 2283220006766421666, guid: 71472869ee9d50a4fa5cb67e0c7766c2,
-        type: 3}
-    - target: {fileID: 3275805233410246322, guid: ce26828ea09de184f839f032dbfb0368,
-        type: 3}
-      propertyPath: toxicFungi
-      value: 
-      objectReference: {fileID: 2283220006766421666, guid: 54b726138bdfa8540a89875855d0789e,
-        type: 3}
-    - target: {fileID: 3275805233410246322, guid: ce26828ea09de184f839f032dbfb0368,
-        type: 3}
-      propertyPath: mushroom
-      value: 
-      objectReference: {fileID: 2283220006766421666, guid: 973f5dc7fbfc60b4ab7e0c653fbb5ac9,
         type: 3}
     - target: {fileID: 3275805233410246322, guid: ce26828ea09de184f839f032dbfb0368,
         type: 3}
@@ -11391,24 +11344,6 @@ PrefabInstance:
         type: 3}
     - target: {fileID: 3275805233410246322, guid: ce26828ea09de184f839f032dbfb0368,
         type: 3}
-      propertyPath: hardLog
-      value: 
-      objectReference: {fileID: 2283220006766421666, guid: 6fb3d81f6483d2a4eacfdb9675c83e92,
-        type: 3}
-    - target: {fileID: 3275805233410246322, guid: ce26828ea09de184f839f032dbfb0368,
-        type: 3}
-      propertyPath: deadAnimalArcheologist
-      value: 
-      objectReference: {fileID: 1468059033923470519, guid: 27a7a1a7563f01f4ca50c96086811374,
-        type: 3}
-    - target: {fileID: 3275805233410246322, guid: ce26828ea09de184f839f032dbfb0368,
-        type: 3}
-      propertyPath: grass1
-      value: 
-      objectReference: {fileID: 2283220006766421666, guid: c1107de33bd2ab946a48b98675d237b1,
-        type: 3}
-    - target: {fileID: 3275805233410246322, guid: ce26828ea09de184f839f032dbfb0368,
-        type: 3}
       propertyPath: grass
       value: 
       objectReference: {fileID: 2283220006766421666, guid: e101a147995e73a4790fca890d61a162,
@@ -11418,18 +11353,6 @@ PrefabInstance:
       propertyPath: lekno
       value: 
       objectReference: {fileID: 2283220006766421666, guid: c54eb643c1a268b49b36cf75bd0b2557,
-        type: 3}
-    - target: {fileID: 3275805233410246322, guid: ce26828ea09de184f839f032dbfb0368,
-        type: 3}
-      propertyPath: gravel
-      value: 
-      objectReference: {fileID: 2283220006766421666, guid: 0a4d54e4c7f496f4c9acce1a33f0081f,
-        type: 3}
-    - target: {fileID: 3275805233410246322, guid: ce26828ea09de184f839f032dbfb0368,
-        type: 3}
-      propertyPath: spider
-      value: 
-      objectReference: {fileID: 1407401077263290619, guid: 60d756f7b77957c44965f4834c09b538,
         type: 3}
     - target: {fileID: 3275805233410246322, guid: ce26828ea09de184f839f032dbfb0368,
         type: 3}
@@ -11445,9 +11368,92 @@ PrefabInstance:
         type: 3}
     - target: {fileID: 3275805233410246322, guid: ce26828ea09de184f839f032dbfb0368,
         type: 3}
-      propertyPath: boar
+      propertyPath: stone
       value: 
-      objectReference: {fileID: 1407401077263290619, guid: 086d143166f420a4c9e9a41e327e008f,
+      objectReference: {fileID: 2283220006766421666, guid: f13b2c2b4832bf546a02ae9f6330dca0,
+        type: 3}
+    - target: {fileID: 3275805233410246322, guid: ce26828ea09de184f839f032dbfb0368,
+        type: 3}
+      propertyPath: grass1
+      value: 
+      objectReference: {fileID: 2283220006766421666, guid: c1107de33bd2ab946a48b98675d237b1,
+        type: 3}
+    - target: {fileID: 3275805233410246322, guid: ce26828ea09de184f839f032dbfb0368,
+        type: 3}
+      propertyPath: gravel
+      value: 
+      objectReference: {fileID: 2283220006766421666, guid: 0a4d54e4c7f496f4c9acce1a33f0081f,
+        type: 3}
+    - target: {fileID: 3275805233410246322, guid: ce26828ea09de184f839f032dbfb0368,
+        type: 3}
+      propertyPath: spider
+      value: 
+      objectReference: {fileID: 1407401077263290619, guid: 60d756f7b77957c44965f4834c09b538,
+        type: 3}
+    - target: {fileID: 3275805233410246322, guid: ce26828ea09de184f839f032dbfb0368,
+        type: 3}
+      propertyPath: diamond
+      value: 
+      objectReference: {fileID: 2283220006766421666, guid: 44d950dc99eb3c543b5a7d6026706cef,
+        type: 3}
+    - target: {fileID: 3275805233410246322, guid: ce26828ea09de184f839f032dbfb0368,
+        type: 3}
+      propertyPath: hardLog
+      value: 
+      objectReference: {fileID: 2283220006766421666, guid: 6fb3d81f6483d2a4eacfdb9675c83e92,
+        type: 3}
+    - target: {fileID: 3275805233410246322, guid: ce26828ea09de184f839f032dbfb0368,
+        type: 3}
+      propertyPath: sapling
+      value: 
+      objectReference: {fileID: 2283220006766421666, guid: 5d02c3b32c089034687246cb500a497e,
+        type: 3}
+    - target: {fileID: 3275805233410246322, guid: ce26828ea09de184f839f032dbfb0368,
+        type: 3}
+      propertyPath: mushroom
+      value: 
+      objectReference: {fileID: 2283220006766421666, guid: 973f5dc7fbfc60b4ab7e0c653fbb5ac9,
+        type: 3}
+    - target: {fileID: 3275805233410246322, guid: ce26828ea09de184f839f032dbfb0368,
+        type: 3}
+      propertyPath: toxicFungi
+      value: 
+      objectReference: {fileID: 2283220006766421666, guid: 54b726138bdfa8540a89875855d0789e,
+        type: 3}
+    - target: {fileID: 3275805233410246322, guid: ce26828ea09de184f839f032dbfb0368,
+        type: 3}
+      propertyPath: deadAnimalFur
+      value: 
+      objectReference: {fileID: 1468059033923470519, guid: cc089cb8014d48a42b48146ce55bb27b,
+        type: 3}
+    - target: {fileID: 3275805233410246322, guid: ce26828ea09de184f839f032dbfb0368,
+        type: 3}
+      propertyPath: berryless_bush
+      value: 
+      objectReference: {fileID: 2283220006766421666, guid: bc3a6439918b4c64a922e116ae9b506f,
+        type: 3}
+    - target: {fileID: 3275805233410246322, guid: ce26828ea09de184f839f032dbfb0368,
+        type: 3}
+      propertyPath: bush_berry_red
+      value: 
+      objectReference: {fileID: 2283220006766421666, guid: 7637602e43b5c13448646f2afe20763e,
+        type: 3}
+    - target: {fileID: 3275805233410246322, guid: ce26828ea09de184f839f032dbfb0368,
+        type: 3}
+      propertyPath: deadAnimalMeat
+      value: 
+      objectReference: {fileID: 1468059033923470519, guid: 304421dfea88f024696532745427d45f,
+        type: 3}
+    - target: {fileID: 3275805233410246322, guid: ce26828ea09de184f839f032dbfb0368,
+        type: 3}
+      propertyPath: water.Array.size
+      value: 9
+      objectReference: {fileID: 0}
+    - target: {fileID: 3275805233410246322, guid: ce26828ea09de184f839f032dbfb0368,
+        type: 3}
+      propertyPath: bush_berry_purple
+      value: 
+      objectReference: {fileID: 2283220006766421666, guid: 71472869ee9d50a4fa5cb67e0c7766c2,
         type: 3}
     - target: {fileID: 3275805233410246322, guid: ce26828ea09de184f839f032dbfb0368,
         type: 3}
@@ -11502,6 +11508,12 @@ PrefabInstance:
       propertyPath: water.Array.data[8]
       value: 
       objectReference: {fileID: 8971999135580258473, guid: 32dee5f7da200ee47bd0ed1bacf8905d,
+        type: 3}
+    - target: {fileID: 3275805233410246322, guid: ce26828ea09de184f839f032dbfb0368,
+        type: 3}
+      propertyPath: deadAnimalArcheologist
+      value: 
+      objectReference: {fileID: 1468059033923470519, guid: 27a7a1a7563f01f4ca50c96086811374,
         type: 3}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: ce26828ea09de184f839f032dbfb0368, type: 3}

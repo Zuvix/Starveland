@@ -128,6 +128,7 @@ MonoBehaviour:
   objectName: Dead Animal
   tip: Dead animal
   popup: {fileID: 0}
+  popupNoIcon: {fileID: 0}
   IsBlocking: 1
   IsSelectable: 1
   IsPossibleToAddToActionQueue: 0
@@ -138,5 +139,5 @@ MonoBehaviour:
   rp:
     item: {fileID: 11400000, guid: 756d6da29aa825645a10985bc585f9d3, type: 2}
     minValue: 1
-    maxValue: 10
+    maxValue: 1
     chance: 100

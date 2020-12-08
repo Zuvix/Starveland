@@ -6,11 +6,18 @@ using UnityEngine.Events;
 public class ItemManager : Singleton<ItemManager>
 {
     private Dictionary<string,Item> items;
+    public Dictionary<Item, RSObjects> resourceToResourceSource; 
     private void Awake()
     {
         items = new Dictionary<string, Item>();
         LoadItemsFromDirectory("Items/Materials/");
         LoadItemsFromDirectory("Items/Food/");
+        resourceToResourceSource = new Dictionary<Item, RSObjects>()
+        {
+            { GetItem("Meat"), RSObjects.DeadAnimalMeat },
+            { GetItem("Fur"), RSObjects.DeadAnimalFur },
+            { GetItem("Diamond"), RSObjects.Diamond }
+        };
     }
     void LoadItemsFromDirectory(string path)
     {

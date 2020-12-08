@@ -7,7 +7,8 @@ using UnityEngine;
 public enum RSObjects
 {
     Forest,
-    DeadAnimal,
+    DeadAnimalMeat,
+    DeadAnimalFur,
     Stone,
     Bush_Berry_Purple,
     Diamond,
@@ -46,7 +47,8 @@ class CellObjectFactory : Singleton<CellObjectFactory>
     // Resource Sources
     [Header("Resource sources")]
     public GameObject forest;
-    public GameObject deadAnimal;
+    public GameObject deadAnimalMeat;
+    public GameObject deadAnimalFur;
     public GameObject stone;
     public GameObject bush;
     public GameObject bush_berry_purple;
@@ -88,9 +90,14 @@ class CellObjectFactory : Singleton<CellObjectFactory>
                 selectedPrefab = forest;
                 break;
             }
-            case RSObjects.DeadAnimal:
+            case RSObjects.DeadAnimalMeat:
             {
-                selectedPrefab = deadAnimal;
+                selectedPrefab = deadAnimalMeat;
+                break;
+            }
+            case RSObjects.DeadAnimalFur:
+            {
+                selectedPrefab = deadAnimalFur;
                 break;
             }
             case RSObjects.Stone:

@@ -7,6 +7,7 @@ using UnityEngine;
 
 public class UnitAnimal : Unit
 {
+    public int AggroRadius = 1;
     [Header("Other")]
     [Tooltip("Defines how far a unit can move from its spawn position during wandering.")]
     [Min(0)]
@@ -14,7 +15,6 @@ public class UnitAnimal : Unit
     [Tooltip("Defines the chance of a unit moving to random position if he's wandering around and idling.")]
     [Range(0, 100)]
     public int ChanceToMoveDuringWandering = 10;
-    public int AggroRadius = 1;
     private int spawnX;
     private int spawnY;
     public List<ResourcePack> inventory;
@@ -112,7 +112,15 @@ public class UnitAnimal : Unit
             }
 
         }
-        CellObjectFactory.Instance.ProduceResourceSource(x, y, RSObjects.DeadAnimal, drops);
+        List<MapCell> whereToSpawn = this.CurrentCell.GetRandomNeighbouringResourceSourceSpawnLocation(drops.Count);
+        int i = 0;
+        foreach (var spawn in whereToSpawn)
+        {
+            Debug.LogWarning($"Spawning Resource Source! {drops[i].itemInfo.name}, {spawn.x},{spawn.y}");
+            CellObjectFactory.Instance.ProduceResourceSource(spawn.x, spawn.y, ItemManager.Instance.resourceToResourceSource[drops[i].itemInfo], new List<Resource>() { drops[i] });
+            i++;
+        }
+        //CellObjectFactory.Instance.ProduceResourceSource(x, y, RSObjects.DeadAnimalMeat, drops);
     }
     public override void SetDefaultActivity()
     {
