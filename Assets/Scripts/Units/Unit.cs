@@ -129,6 +129,10 @@ public abstract class Unit : CellObject
     {
         return true;
     }
+    public virtual bool InventoryEmpty()
+    {
+        return false;
+    }
     IEnumerator RotatingAnimation()
     {
         float roatatingIntesity = 0.02f;
@@ -287,11 +291,11 @@ public abstract class Unit : CellObject
         // Debug.Log("Gathering object");
         //itemInHand = target.Gather();
 
-        if (target != null)
+        /*if (target != null)
         {
             target.Flash();
             
-        }
+        }*/
 
         //yield return new WaitForSeconds(0.2f);
         yield return new WaitForFixedUpdate();

@@ -10,7 +10,8 @@ public enum RSObjects
     DeadAnimal,
     Stone,
     Bush_Berry_Purple,
-    Diamond
+    Diamond,
+    DeadAnimalArcheologist
 }
 
 public enum CellObjects
@@ -28,6 +29,7 @@ class CellObjectFactory : Singleton<CellObjectFactory>
     public GameObject bush;
     public GameObject bush_berry_purple;
     public GameObject diamond;
+    public GameObject deadAnimalArcheologist;
 
     // Cell Objects
     public GameObject sapling;
@@ -62,6 +64,11 @@ class CellObjectFactory : Singleton<CellObjectFactory>
             case RSObjects.Diamond:
             {
                 selectedPrefab = diamond;
+                break;
+            }
+            case RSObjects.DeadAnimalArcheologist:
+            {
+                selectedPrefab = deadAnimalArcheologist;
                 break;
             }
             default:

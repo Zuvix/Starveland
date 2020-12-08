@@ -45,11 +45,27 @@ public class ActivityStateHunt : ActivityState
             {
                 if (!DayCycleManager.Instance.TimeOut)
                 {
-                    Unit.SetActivity(new ActivityStateGather(this.UnitTarget.CurrentCell).SetCommands(Unit, this.Skill));
+                    if (Unit is UnitPlayer)
+                    {
+                        Unit.SetActivity(new ActivityStateGather(this.UnitTarget.CurrentCell).SetCommands(Unit, this.Skill));
+                    }
+                    else if (Unit is UnitAnimal)
+                    {
+                        Unit.SetDefaultActivity();
+                    }
                 }
                 else
                 {
-                    Unit.SetActivity(new ActivityStateIdle());
+                    /*if (Unit is UnitPlayer)
+                    {
+                        //Unit.SetActivity(new ActivityStateEndDayRoutine());
+						Unit.SetActivity(new ActivityStateIdle());
+                    }
+                    else if (Unit is UnitAnimal)
+                    {
+                        ((UnitAnimal)Unit).Wander();
+                    }*/
+					Unit.SetDefaultActivity();
                 }
             }
         }

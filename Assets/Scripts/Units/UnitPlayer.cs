@@ -66,6 +66,15 @@ public class UnitPlayer : Unit
         return this.CarriedResource.Amount >= this.CarryingCapacity;
     }
 
+    public override bool InventoryEmpty()
+    {
+        if (this.CarriedResource.IsDepleted())
+        {
+            return true;
+        }
+        return false;
+    }
+
     public override IEnumerator StoreResource(BuildingStorage target)
     {
         /*if (itemInHand != null)

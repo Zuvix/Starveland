@@ -25,11 +25,11 @@ public class TalentArcheologist : Talent
 
     public override string Display()
     {
-        return $"{this.Description} ";
+        return $"{this.Description}";
     }
 
     public override void Execute(int x, int y)
     {
-        CellObjectFactory.Instance.ProduceResourceSource(x, y, RSObjects.DeadAnimal);
+        CellObjectFactory.Instance.ProduceResourceSource(x, y, RSObjects.DeadAnimalArcheologist);
     }
 }

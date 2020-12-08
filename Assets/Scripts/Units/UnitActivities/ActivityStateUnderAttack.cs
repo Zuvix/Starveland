@@ -11,21 +11,13 @@ public class ActivityStateUnderAttack : ActivityState
     private UnitCommandMove CommandMoveToTarget;
     private UnitCommandCombatMelee CommandCombat;
     public Unit UnitTarget { get; private set; }
-    private readonly int originalX;
-    private readonly int originalY;
-    private readonly int waderingRadius;
-    private readonly int chanceToMove;
 
-    public ActivityStateUnderAttack(Unit UnitTarget, Unit Unit, int originalX = -1, int originalY = -1, int wanderingRadius = 2, int chanceToMove = 0) : base()
+    public ActivityStateUnderAttack(Unit UnitTarget, Unit Unit) : base()
     {
         this.UnitTarget = UnitTarget;
         List<MapCell> path = PathFinding.Instance.FindPath(Unit.CurrentCell, this.UnitTarget.CurrentCell);
         this.CommandMoveToTarget = new UnitCommandMove(this.UnitTarget.CurrentCell, path);
         this.CommandCombat = new UnitCommandCombatMelee(this.UnitTarget);
-        this.originalX = originalX;
-        this.originalY = originalY;
-        this.waderingRadius = wanderingRadius;
-        this.chanceToMove = chanceToMove;
     }
 
     public override void InitializeCommand(Unit Unit)
