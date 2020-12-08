@@ -71,7 +71,7 @@ public class SkillForaging : Skill
 
     public override float GetGatheringSpeed(ResourceSource resourceSource)
     {
-        if (resourceSource.Resources[0].itemInfo.type.Equals("Resource"))
+        if (resourceSource.resource.itemInfo.type.Equals("Resource"))
         {
             return SkillTalents[TalentType.CriticalHarvest] == null ? WoodcuttingTime : SkillTalents[TalentType.CriticalHarvest].Execute(WoodcuttingTime);
         }

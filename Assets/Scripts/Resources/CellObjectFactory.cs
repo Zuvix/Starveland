@@ -14,7 +14,8 @@ public enum RSObjects
     Mushroom,
     ToxicMushroom,
     Iron,
-    Coal
+    Coal,
+    HardLog
 }
 
 public enum CellObjects
@@ -30,6 +31,14 @@ public enum BGObjects
     Gravel, 
     lekno,
 }
+public enum AnimalObjects
+{
+    Mouse,
+    Boar,
+    Snake,
+    Spider
+}
+
 
 class CellObjectFactory : Singleton<CellObjectFactory>
 {
@@ -45,7 +54,7 @@ class CellObjectFactory : Singleton<CellObjectFactory>
     public GameObject toxicFungi;
     public GameObject iron;
     public GameObject coal;
-
+    public GameObject hardLog;
     // Cell Objects
     [Header ("Cell objects")]
     public GameObject sapling;
@@ -57,6 +66,13 @@ class CellObjectFactory : Singleton<CellObjectFactory>
     public GameObject grass1;
     public GameObject lekno;
     public GameObject gravel;
+
+    [Header("Animals")]
+    public GameObject boar;
+    public GameObject snake;
+    public GameObject mouse;
+    public GameObject spider;
+
     public GameObject ProduceResourceSource(int x, int y, RSObjects type, List<Resource> additionalResources=null)
     {
         GameObject Result = null;
@@ -107,6 +123,11 @@ class CellObjectFactory : Singleton<CellObjectFactory>
             case RSObjects.ToxicMushroom:
                 {
                     selectedPrefab = toxicFungi;
+                    break;
+                }
+            case RSObjects.HardLog:
+                {
+                    selectedPrefab = hardLog;
                     break;
                 }
             default:
@@ -170,27 +191,71 @@ class CellObjectFactory : Singleton<CellObjectFactory>
     {
         GameObject selectedPrefab = null;
         GameObject Result = null;
+        if (MapControl.Instance.map.Grid[x][y].CanBeEnteredByUnit())
+            switch (type)
+            {
+                case BGObjects.Grass:
+                    {
+                        selectedPrefab = grass;
+                        break;
+                    }
+                case BGObjects.Grass1:
+                    {
+                        selectedPrefab = grass1;
+                        break;
+                    }
+
+                case BGObjects.Gravel:
+                    {
+                        selectedPrefab = gravel;
+                        break;
+                    }
+                case BGObjects.lekno:
+                    {
+                        selectedPrefab = lekno;
+                        break;
+                    }
+                default:
+                    {
+                        break;
+                    }
+            }
+        else
+        {
+            Debug.Log("Dont need to create a BGOBJECT under unit at x:" + x + " y:" + y);
+        }
+        if (selectedPrefab != null)
+        {
+            Result = MapControl.Instance.CreateGameObject(x, y, selectedPrefab);
+        }
+
+        return Result;
+    }
+    public GameObject ProduceAnimal(int x, int y, AnimalObjects type)
+    {
+        GameObject selectedPrefab = null;
+        GameObject Result = null;
         switch (type)
         {
-            case BGObjects.Grass:
+            case AnimalObjects.Boar:
                 {
-                    selectedPrefab = grass;
+                    selectedPrefab = boar;
                     break;
                 }
-            case BGObjects.Grass1:
+            case AnimalObjects.Snake:
                 {
-                    selectedPrefab = grass1;
+                    selectedPrefab = snake;
                     break;
                 }
 
-            case BGObjects.Gravel:
+            case AnimalObjects.Mouse:
                 {
-                    selectedPrefab = gravel;
+                    selectedPrefab = mouse;
                     break;
                 }
-            case BGObjects.lekno:
+            case AnimalObjects.Spider:
                 {
-                    selectedPrefab = lekno;
+                    selectedPrefab = spider;
                     break;
                 }
             default:

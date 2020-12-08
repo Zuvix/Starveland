@@ -107,12 +107,12 @@ TextureImporter:
       name: custom_irons_0
       rect:
         serializedVersion: 2
-        x: 1
-        y: 146
-        width: 33
-        height: 33
+        x: 0
+        y: 145
+        width: 36
+        height: 35
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -128,12 +128,12 @@ TextureImporter:
       name: custom_irons_1
       rect:
         serializedVersion: 2
-        x: 1
-        y: 110
-        width: 33
-        height: 33
+        x: 0
+        y: 109
+        width: 36
+        height: 35
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -149,12 +149,12 @@ TextureImporter:
       name: custom_irons_2
       rect:
         serializedVersion: 2
-        x: 1
-        y: 74
-        width: 33
-        height: 33
+        x: 0
+        y: 72
+        width: 36
+        height: 37
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -170,12 +170,12 @@ TextureImporter:
       name: custom_irons_3
       rect:
         serializedVersion: 2
-        x: 2
-        y: 43
-        width: 30
-        height: 24
+        x: 0
+        y: 41
+        width: 36
+        height: 30
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -191,12 +191,12 @@ TextureImporter:
       name: custom_irons_4
       rect:
         serializedVersion: 2
-        x: 2
-        y: 4
-        width: 30
-        height: 30
+        x: 0
+        y: 0
+        width: 36
+        height: 38
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []

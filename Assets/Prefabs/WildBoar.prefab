@@ -72,7 +72,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingOrder: 1
   m_Sprite: {fileID: 3923206052049989027, guid: ddf4a4e6ec245864fbfb72f96ebb7d3d,
     type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -133,12 +133,16 @@ MonoBehaviour:
   IsBlocking: 1
   IsSelectable: 1
   IsPossibleToAddToActionQueue: 0
+  Replacement: {fileID: 0}
   xScalingFactor: 1.5
   yScalingFactor: 1.5
   rotationFactor: 5
   scalingTime: 0.2
   rotationTime: 0.2
   rotationSpeed: 20
+  OnActivityStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
   CarriedResource:
     itemInfo: {fileID: 0}
     Amount: 0
@@ -159,8 +163,7 @@ MonoBehaviour:
   WanderingRadius: 2
   ChanceToMoveDuringWandering: 10
   inventory:
-  - resource:
-      itemInfo: {fileID: 11400000, guid: 756d6da29aa825645a10985bc585f9d3, type: 2}
-      Amount: 6
+  - item: {fileID: 11400000, guid: 756d6da29aa825645a10985bc585f9d3, type: 2}
+    minValue: 1
+    maxValue: 10
     chance: 100
-    variationPercentage: 20

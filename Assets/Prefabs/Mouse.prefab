@@ -28,7 +28,7 @@ Transform:
   m_GameObject: {fileID: 1407401077263290619}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 5.5, y: 5.5, z: 1}
+  m_LocalScale: {x: 9, y: 9, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
@@ -72,11 +72,11 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingOrder: 1
   m_Sprite: {fileID: -829009479908464317, guid: ddf4a4e6ec245864fbfb72f96ebb7d3d,
     type: 3}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_FlipX: 0
+  m_Color: {r: 0.7735849, g: 0.7692061, b: 0.7692061, a: 1}
+  m_FlipX: 1
   m_FlipY: 0
   m_DrawMode: 0
   m_Size: {x: 1.125, y: 1.125}
@@ -163,8 +163,7 @@ MonoBehaviour:
   WanderingRadius: 5
   ChanceToMoveDuringWandering: 10
   inventory:
-  - resource:
-      itemInfo: {fileID: 11400000, guid: 756d6da29aa825645a10985bc585f9d3, type: 2}
-      Amount: 1
+  - item: {fileID: 11400000, guid: e1cf7174a92301942a284f7d41ea53bc, type: 2}
+    minValue: 1
+    maxValue: 10
     chance: 100
-    variationPercentage: 20

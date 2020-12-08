@@ -3,6 +3,16 @@ using System.Collections.Generic;
 using UnityEngine;
 using CodeMonkey.Utils;
 
+public struct sur
+{
+    public int x;
+    public int y;
+    public sur(int x, int y)
+    {
+        this.x = x;
+        this.y = y;
+    }
+}
 public class MapControl : Singleton<MapControl> {
 
     public GameObject GreenBackground;
@@ -17,6 +27,7 @@ public class MapControl : Singleton<MapControl> {
     CellObjectFactory COF;
     public int treeMaxCount = 75;
     int treeCount = 0;
+    public int hardLogMaxCount = 5;
     public int mushroomMaxCount = 15;
     public int maxBerryCount = 8;
     public int toxicMaxFungiCount = 12;
@@ -24,10 +35,13 @@ public class MapControl : Singleton<MapControl> {
     public int ironMaxCount = 12;
     public int coalMaxCount = 8;
 
-    public GameObject snake;
-    public GameObject spider;
-    public GameObject wildboar;
-    public GameObject mouse;
+
+
+    [Header("Animals")]
+    public int mouseMaxCount= 6;
+    public int boarMaxCount = 4;
+    public int snakeMaxCount = 3;
+    public int spiderMaxCount = 5;
 
     private void Start() {
         COF = CellObjectFactory.Instance;
@@ -38,11 +52,12 @@ public class MapControl : Singleton<MapControl> {
     {
         StorageList = new List<MapCell>();
         map = new Map(35, 22, 10f, new Vector3(0, 0));
-        CreateGameObject(1, 1, player);
-        CreateGameObject(1, 2, player);
-        CreateGameObject(1, 3, player);
-        CreateGameObject(4, 1, player);
+        CreateGameObject(16, 13, player);
+        CreateGameObject(16, 11, player);
+        CreateGameObject(15, 12, player);
+        CreateGameObject(17, 12, player);
         CreateGameObject(16, 12, building_storage);
+
 
         //Gravel around water
         for (int i = 0; i < map.GetWidth(); i++)
@@ -70,10 +85,11 @@ public class MapControl : Singleton<MapControl> {
         //Create Lake
         CreateLake(map.GetWidth() - 9, map.GetHeight() - 7,3,3);
         //Forest
-        SpawnForest(15, 20, 2, 2);
+        //SpawnForest(12, 18, 2, 2);
+        SpawnForest2(12, 18, 2, 2);
 
         //SpawnLeftovers
-        SpawnLeftoverStuff();
+        //SpawnLeftoverStuff();
     }
     public GameObject CreateGameObject(int x, int y, GameObject toBeCreatedGO)
     {
@@ -128,18 +144,30 @@ public class MapControl : Singleton<MapControl> {
             spots.Add('b');
             totalCount++;
         }
+        for(int i = 0; i < mouseMaxCount;i++)
+        {
+            spots.Add('u');
+            totalCount++;
+        }
+        for (int i = 0; i < snakeMaxCount; i++)
+        {
+            spots.Add('s');
+            totalCount++;
+        }
+        for (int i = 0; i < hardLogMaxCount; i++)
+        {
+            spots.Add('h');
+            totalCount++;
+        }
         for (int i = totalCount; i < forestxSize * forestySize; i++)
         {
             spots.Add('x');
         }
-        Debug.Log("Spots" + spots.Count);
-        startx = 2;
-        starty = 2;
         if (startx != -1 && starty != -1)
         {
-            for (int i = startx; i < forestxSize; i++)
+            for (int i = startx; i < forestxSize+startx; i++)
             {
-                for (int d = starty; d < forestySize; d++)
+                for (int d = starty; d < forestySize+starty; d++)
                 {
                     int randomIndex = Random.Range(0, spots.Count);
                     if (spots[randomIndex] == 'f')
@@ -158,27 +186,216 @@ public class MapControl : Singleton<MapControl> {
                     {
                         COF.ProduceResourceSource(i, d, RSObjects.Bush_Berry_Purple);
                     }
+                    if (spots[randomIndex] == 's')
+                    {
+                        COF.ProduceAnimal(i, d, AnimalObjects.Snake);
+                    }
+                    if (spots[randomIndex] == 'u')
+                    {
+                        COF.ProduceAnimal(i, d, AnimalObjects.Mouse);
+                    }
+                    if (spots[randomIndex] == 'h')
+                    {
+                        COF.ProduceResourceSource(i, d, RSObjects.HardLog);
+                    }
                     spots.RemoveAt(randomIndex);
                 }
             }
         }
 
-
-        for (int i = 1; i < 16; i++)
+        //Spawn the grass
+        for (int i = startx-1; i < forestxSize+startx+1; i++)
         {
-            for (int d = 1; d < 21; d++)
+            for (int d = starty-1; d < forestySize+starty+1; d++)
             {
-                int r = Random.Range(0, 4);
-                if (r <= 1)
+                int r = Random.Range(0, 100);
+                if (r <= 50)
                 {
                     COF.ProduceBGlObject(i, d, BGObjects.Grass);
                 }
-                if (r == 2)
+                if (r>50 &&r <=80)
                 {
                     COF.ProduceBGlObject(i, d, BGObjects.Grass1);
                 }
             }
         }
+        
+    }
+    public void SpawnForest2(int forestxSize, int forestySize, int startx, int starty)
+    {
+        //Trees
+        int maxFields=forestxSize*forestySize;
+        List<char> spots = new List<char>();
+        List<sur> usedSpots = new List<sur>();
+        for (int i = 0; i < Mathf.FloorToInt(treeMaxCount * 0.8f); i++)
+        {
+            spots.Add('f');
+            treeCount++;
+        }
+        for (int i = 0; i < hardLogMaxCount; i++)
+        {
+            spots.Add('h');
+        }
+        for (int i = treeCount+hardLogMaxCount; i < maxFields; i++)
+        {
+            spots.Add('x');
+        }
+        if (startx != -1 && starty != -1)
+        {
+            for (int i = startx; i < forestxSize + startx; i++)
+            {
+                for (int d = starty; d < forestySize + starty; d++)
+                {
+                    int randomIndex = Random.Range(0, spots.Count);
+                    if (spots[randomIndex] == 'f'|| spots[randomIndex] == 'h')
+                    {
+                        if (!MapControl.Instance.map.Grid[i-1][d].CanBeEnteredByUnit() || !MapControl.Instance.map.Grid[i][d-1].CanBeEnteredByUnit()|| !MapControl.Instance.map.Grid[i-1][d - 1].CanBeEnteredByUnit()|| !MapControl.Instance.map.Grid[i +1][d - 1].CanBeEnteredByUnit())
+                        {
+                            randomIndex = GetRandomIndex(spots.Count);
+                            if (spots[randomIndex] == 'f')
+                            {
+                                COF.ProduceResourceSource(i, d, RSObjects.Forest);
+                                usedSpots.Add(new sur(i, d));
+                            }
+
+                            if (spots[randomIndex] == 'h')
+                            {
+                                COF.ProduceResourceSource(i, d, RSObjects.HardLog);
+                                usedSpots.Add(new sur(i, d));
+                            }
+
+                        }
+                        else
+                        {
+                            if (spots[randomIndex] == 'f')
+                            {
+                                COF.ProduceResourceSource(i, d, RSObjects.Forest);
+                                usedSpots.Add(new sur(i, d));
+                            }
+
+                            if (spots[randomIndex] == 'h')
+                            {
+                                COF.ProduceResourceSource(i, d, RSObjects.HardLog);
+                                usedSpots.Add(new sur(i, d));
+                            }
+                        }
+                    }
+                    else
+                    {
+                        if (MapControl.Instance.map.Grid[i - 1][d].CanBeEnteredByUnit() && MapControl.Instance.map.Grid[i][d - 1].CanBeEnteredByUnit() && MapControl.Instance.map.Grid[i - 1][d - 1].CanBeEnteredByUnit() && MapControl.Instance.map.Grid[i + 1][d - 1].CanBeEnteredByUnit())
+                        {
+                            randomIndex = GetRandomIndex(spots.Count);
+                            if (spots[randomIndex] == 'f')
+                            {
+                                COF.ProduceResourceSource(i, d, RSObjects.Forest);
+                                usedSpots.Add(new sur(i, d));
+                            }
+                            if (spots[randomIndex] == 'h')
+                            {
+                                COF.ProduceResourceSource(i, d, RSObjects.HardLog);
+                                usedSpots.Add(new sur(i, d));
+                            }
+                        }
+                    }
+                    spots.RemoveAt(randomIndex);
+
+                }
+            }
+            maxFields -= (treeCount + hardLogMaxCount);
+            //Normal Mushrooms
+            int mushroomCount=0;
+            while (mushroomCount < mushroomMaxCount)
+            {
+                int randIndex = Random.Range(0, usedSpots.Count);
+                sur treeSpot = usedSpots[randIndex];
+                int randomDir = Random.Range(0, 4);
+                int x = usedSpots[randIndex].x;
+                int y = +usedSpots[randIndex].y;
+                if (randomDir == 0)
+                {
+                    x += -1;
+                    y += 0;
+                }
+                if (randomDir == 1)
+                {
+                    x += +1;
+                    y += 0;
+                }
+                if (randomDir == 2)
+                {
+                    x += 0;
+                    y += 1;
+                }
+                if (randomDir == 3)
+                {
+                    x += 0;
+                    y += -1;
+                }
+                if (MapControl.Instance.map.Grid[x][y].CanBeEnteredByUnit() && MapControl.Instance.map.Grid[x][y].CanBeEnteredByObject(false))
+                {
+                    COF.ProduceResourceSource(x, y, RSObjects.Mushroom);
+                    mushroomCount++;
+                }
+            }
+            //Toxic mushrooms
+            int toxicMushroomCount = 0;
+            while (toxicMushroomCount < toxicMaxFungiCount)
+            {
+                int randIndex = Random.Range(0, usedSpots.Count);
+                sur treeSpot = usedSpots[randIndex];
+                int randomDir = Random.Range(0, 4);
+                int x = usedSpots[randIndex].x;
+                int y =+usedSpots[randIndex].y;
+                if (randomDir == 0)
+                {
+                    x += -1;
+                    y += 0;
+                }
+                if (randomDir == 1)
+                {
+                    x += +1;
+                    y += 0;
+                }
+                if (randomDir == 2)
+                {
+                    x += 0;
+                    y += 1;
+                }
+                if (randomDir == 3)
+                {
+                    x += 0;
+                    y += -1;
+                }
+                if (MapControl.Instance.map.Grid[x][y].CanBeEnteredByUnit()&& MapControl.Instance.map.Grid[x][y].CanBeEnteredByObject(false))
+                {
+                    COF.ProduceResourceSource(x, y, RSObjects.ToxicMushroom);
+                    toxicMushroomCount++;
+                }
+
+            }
+            //Spawn the grass
+            for (int i = startx - 1; i < forestxSize + startx + 1; i++)
+            {
+                for (int d = starty - 1; d < forestySize + starty + 1; d++)
+                {
+                    int r = Random.Range(0, 100);
+                    if (r <= 50)
+                    {
+                        COF.ProduceBGlObject(i, d, BGObjects.Grass);
+                    }
+                    if (r > 50 && r <= 80)
+                    {
+                        COF.ProduceBGlObject(i, d, BGObjects.Grass1);
+                    }
+                }
+            }
+        }
+
+    }
+    public int GetRandomIndex(int max)
+    {
+        int randomIndex = Random.Range(0, max);
+        return randomIndex;
     }
     public void FindPlaceToSpawn(int xsize, int ysize, int spotsNeeded, out int x, out int y)
     {

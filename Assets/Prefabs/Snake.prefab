@@ -72,10 +72,10 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
-  m_Sprite: {fileID: -8643712716431691938, guid: ddf4a4e6ec245864fbfb72f96ebb7d3d,
+  m_SortingOrder: 1
+  m_Sprite: {fileID: -3990371613155470165, guid: 2380c2bf226f11e43a52490c7cb71512,
     type: 3}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Color: {r: 0.7075472, g: 0.30971873, b: 0.59980214, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -102,7 +102,7 @@ BoxCollider2D:
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 1.125, y: 1.125}
+    oldSize: {x: 1.0625, y: 1.0625}
     newSize: {x: 1.125, y: 1.125}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
@@ -133,12 +133,16 @@ MonoBehaviour:
   IsBlocking: 1
   IsSelectable: 1
   IsPossibleToAddToActionQueue: 0
+  Replacement: {fileID: 0}
   xScalingFactor: 1.5
   yScalingFactor: 1.5
   rotationFactor: 5
   scalingTime: 0.2
   rotationTime: 0.2
   rotationSpeed: 20
+  OnActivityStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
   CarriedResource:
     itemInfo: {fileID: 0}
     Amount: 0
@@ -159,8 +163,7 @@ MonoBehaviour:
   WanderingRadius: 3
   ChanceToMoveDuringWandering: 10
   inventory:
-  - resource:
-      itemInfo: {fileID: 11400000, guid: 756d6da29aa825645a10985bc585f9d3, type: 2}
-      Amount: 3
+  - item: {fileID: 11400000, guid: e1cf7174a92301942a284f7d41ea53bc, type: 2}
+    minValue: 1
+    maxValue: 10
     chance: 100
-    variationPercentage: 20
