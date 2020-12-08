@@ -749,6 +749,7 @@ GameObject:
   - component: {fileID: 166628867}
   - component: {fileID: 166628868}
   - component: {fileID: 166628869}
+  - component: {fileID: 166628870}
   m_Layer: 0
   m_Name: GameEventControl
   m_TagString: Untagged
@@ -812,7 +813,7 @@ MonoBehaviour:
   OnTimeChanged:
     m_PersistentCalls:
       m_Calls: []
-  dayLength: 10
+  dayLength: 5
 --- !u!114 &166628868
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -853,6 +854,20 @@ MonoBehaviour:
     type: 3}
   DraggedObject: {fileID: 1166482376}
   SelectedFoodIcon: {fileID: 0}
+--- !u!114 &166628870
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 166628864}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 555d53d73e7733c4abda41893a209338, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _persistent: 1
+  ShipRecipe: {fileID: 11400000, guid: d5ee2f124d190054799aa7da8c92cfbe, type: 2}
 --- !u!1 &194182631
 GameObject:
   m_ObjectHideFlags: 0
@@ -8877,6 +8892,9 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+  OnShipPartUpdate:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!1 &1263105301 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 2202285903088345025, guid: f999d7eb78ce35340828317a17e73475,

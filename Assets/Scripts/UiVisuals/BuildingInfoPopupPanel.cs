@@ -24,7 +24,7 @@ public class BuildingInfoPopupPanel : MonoBehaviour
 
     public void Display(string Name, string Description, List<Resource> Cost)
     {
-
+        Debug.LogWarning("BuildingInfoPopupPanel::Display");
         BuildingNameLabel.text = Name;
         BuildingDescriptionLabel.text = Description;
         this.Cost = Cost;
@@ -37,12 +37,14 @@ public class BuildingInfoPopupPanel : MonoBehaviour
     }
     public void Hide()
     {
+        Debug.LogWarning("BuildingInfoPopupPanel::Hide");
         GlobalInventory.Instance.OnInventoryUpdate.RemoveListener(DisplayResourcePanels);
         this.gameObject.SetActive(false);
         //this.gameObject.GetComponent<RectTransform>().anchoredPosition = this.PositionBackup;
     }
     private void DisplayResourcePanels()
     {
+        Debug.LogWarning("BuildingInfoPopupPanel::DisplayResourcePanels");
         for (int i = 0; i < Cost.Count && i < ResourcePanels.Count; i++)
         {
             ResourcePanels[i].GetComponent<BuildingInfoResourcePanel>().Fill(Cost[i]);

@@ -70,7 +70,10 @@ public class BuildingSpecificItemOfferPanel : MonoBehaviour, IPointerClickHandle
 
     public void OnPointerEnter(PointerEventData eventData)
     {
-        SuperPanel.BuildingInfoPopupPanel.GetComponent<BuildingInfoPopupPanel>().Display(Recipe.OutputName(), Recipe.OutputDescription(), Recipe.Input);
+        if (GlobalGameState.Instance.InGameInputAllowed)
+        {
+            SuperPanel.BuildingInfoPopupPanel.GetComponent<BuildingInfoPopupPanel>().Display(Recipe.OutputName(), Recipe.OutputDescription(), Recipe.Input);
+        }
     }
 
     public void OnPointerExit(PointerEventData eventData)

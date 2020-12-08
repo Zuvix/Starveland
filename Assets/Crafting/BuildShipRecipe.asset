@@ -1,0 +1,35 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: be4efd902003c774cbc6df05f300480c, type: 3}
+  m_Name: BuildShipRecipe
+  m_EditorClassIdentifier: 
+  Input:
+  - itemInfo: {fileID: 11400000, guid: 32f9d65a8e2af8a49b6796a532be4255, type: 2}
+    Amount: 10
+  - itemInfo: {fileID: 11400000, guid: 71618c3b0beda6b409fd6b4746fae6a9, type: 2}
+    Amount: 1
+  - itemInfo: {fileID: 11400000, guid: e45e888b4e139a74a9f25c2a3017e34d, type: 2}
+    Amount: 1
+  - itemInfo: {fileID: 11400000, guid: 61696bd499e00b94aa942488ce938dc7, type: 2}
+    Amount: 1
+  - itemInfo: {fileID: 11400000, guid: b8ac74d6b4d0cd8458f992c36c091eba, type: 2}
+    Amount: 1
+  - itemInfo: {fileID: 11400000, guid: f86bbdc6d9ade344c83df1187efb9b5e, type: 2}
+    Amount: 1
+  - itemInfo: {fileID: 11400000, guid: cd8c004694930934ebd56af89cd990a4, type: 2}
+    Amount: 1
+  IsUnlocked: 1
+  CraftingDuration: 10
+  DescriptionInitialized: 0
+  Icon: {fileID: -7758844108519340730, guid: ddf4a4e6ec245864fbfb72f96ebb7d3d, type: 3}
+  ScreenName: Build Ship
+  ScreenDescription: Build the ship and sail back home, to civilization.
