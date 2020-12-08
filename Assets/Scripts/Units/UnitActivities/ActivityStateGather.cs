@@ -27,7 +27,6 @@ class ActivityStateGather : ActivityState
         this.CommandGatherFromResource = new UnitCommandGather(this.Target, Skill, this.originalResourceSource);
         this.CommandMove2Storage = null;
         this.CommandDrop2Storage = null;
-
         return this;
     }
 
@@ -119,6 +118,7 @@ class ActivityStateGather : ActivityState
                     if (NewMoveCommand != null)
                     {
                         this.CommandMove2Storage = NewMoveCommand;
+                        Unit.SetCommand(this.CommandMove2Storage);
                     }
                     else
                     {
@@ -147,7 +147,7 @@ class ActivityStateGather : ActivityState
         if (
             Unit.CarriedResource.IsDepleted()
                 ||
-            (!Unit.InventoryFull() && TargetResourceSource != null && TargetResourceSource is ResourceSource && Unit.CarriedResource.itemInfo.type.Equals(TargetResourceSource.Resources[0].itemInfo.type))
+            (!Unit.InventoryFull() && TargetResourceSource != null  && Unit.CarriedResource.itemInfo == TargetResourceSource.Resources[0].itemInfo)
            )
         {
             Unit.SetCommand(this.CommandMove2Resource);

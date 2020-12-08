@@ -40,7 +40,7 @@ public class TalentDualWielder : Talent
     public override void Execute(Unit Unit, ResourceSource Target, Resource Resource, Func<int, int, bool> Depleted)
     {
         int maximumTargets = this.ExtraTargets;
-        List<MapCell> neighbourFields = Target.CurrentCell.GetNeighbours();
+        List<MapCell> neighbourFields = Target.CurrentCell.GetClosestNeighbours();
         for (int i = 1; i < neighbourFields.Count; i++)
         {
             if (neighbourFields[i].GetTopSelectableObject() is ResourceSource NeighbouringResourceSource)

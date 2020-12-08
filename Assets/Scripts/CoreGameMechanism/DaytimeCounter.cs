@@ -13,7 +13,7 @@ public class DaytimeCounter : Singleton<DaytimeCounter>
     public float dayLength;
     private float dayTimeLeft;
     private int dayCount = 0;
-    private bool dayOver;
+    public bool dayOver { get; private set; }
 
     private void Awake()
     {
@@ -23,6 +23,8 @@ public class DaytimeCounter : Singleton<DaytimeCounter>
     }
     void Start()
     {
+        OnDayStarted.AddListener(BuildingCrafting.RestoreWork);
+        OnDayOver.AddListener(BuildingCrafting.HaltWork);
         StartDay();
     }
     public void StartDay()
@@ -36,7 +38,6 @@ public class DaytimeCounter : Singleton<DaytimeCounter>
     {
         if (!dayOver)
         {
-            
             dayTimeLeft -= Time.deltaTime;
             dayTimeLeft = Mathf.Max(0, dayTimeLeft);
             OnTimeChanged.Invoke(dayTimeLeft);

@@ -30,7 +30,6 @@ public class ActivityStateHunt : ActivityState
 
     public override void InitializeCommand(Unit Unit)
     {
-        base.InitializeCommand(Unit);
         Unit.SetCommand(this.CommandCombat);
     }
 
@@ -44,13 +43,13 @@ public class ActivityStateHunt : ActivityState
             }
             else if (Unit.CurrentCommand == CommandCombat)
             {
-                if (!DayCycleManager.Instance.GameIsWaitingForPlayerUnits2GoEat())
+                if (!DayCycleManager.Instance.TimeOut)
                 {
                     Unit.SetActivity(new ActivityStateGather(this.UnitTarget.CurrentCell).SetCommands(Unit, this.Skill));
                 }
                 else
                 {
-                    Unit.SetActivity(new ActivityStateEndDayRoutine());
+                    Unit.SetActivity(new ActivityStateIdle());
                 }
             }
         }

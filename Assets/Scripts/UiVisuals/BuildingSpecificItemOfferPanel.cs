@@ -20,7 +20,7 @@ public class BuildingSpecificItemOfferPanel : MonoBehaviour, IPointerClickHandle
     {
         this.Recipe = Recipe;
         this.Building = Building;
-        this.gameObject.GetComponent<Image>().sprite = this.Recipe.Output.itemInfo.icon;
+        this.gameObject.GetComponent<Image>().sprite = this.Recipe.OutputIcon();
         UpdateQuantityLabel();
 
         CheckResourceAvailability();
@@ -70,13 +70,10 @@ public class BuildingSpecificItemOfferPanel : MonoBehaviour, IPointerClickHandle
 
     public void OnPointerEnter(PointerEventData eventData)
     {
-        // Fill Popup Panel With info and display it
-        SuperPanel.BuildingInfoPopupPanel.GetComponent<BuildingInfoPopupPanel>().Display(Recipe.Output.itemInfo.name, $"{Recipe.Output.itemInfo.NutritionValue} nv", Recipe.Input);
-        // Change its position to fit our needs.
-        // It will safely restore its position when hidden, so no need to worry it would break anything
-        Vector3 NewPopupPosition = this.gameObject.transform.position;
-        NewPopupPosition.x -= 130;
-        SuperPanel.BuildingInfoPopupPanel.transform.position = NewPopupPosition;
+        if (GlobalGameState.Instance.InGameInputAllowed)
+        {
+            SuperPanel.BuildingInfoPopupPanel.GetComponent<BuildingInfoPopupPanel>().Display(Recipe.OutputName(), Recipe.OutputDescription(), Recipe.Input);
+        }
     }
 
     public void OnPointerExit(PointerEventData eventData)

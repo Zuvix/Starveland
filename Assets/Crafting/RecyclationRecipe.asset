@@ -1,0 +1,51 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2d9f7ed0d303abb469136a5a639852bb, type: 3}
+  m_Name: RecyclationRecipe
+  m_EditorClassIdentifier: 
+  Input:
+  - itemInfo: {fileID: 11400000, guid: adbe6028cc0cb214fa2051f08b7d8f0c, type: 2}
+    Amount: 1
+  IsUnlocked: 1
+  CraftingDuration: 2
+  DescriptionInitialized: 0
+  Output:
+  - Probability: 25
+    OfferedResource:
+      itemInfo: {fileID: 11400000, guid: 5722983080fed344796794c0aafe3131, type: 2}
+      Amount: 0
+  - Probability: 15
+    OfferedResource:
+      itemInfo: {fileID: 11400000, guid: e8182eeb5a384d44bbdda801c49fcd0b, type: 2}
+      Amount: 0
+  - Probability: 10
+    OfferedResource:
+      itemInfo: {fileID: 11400000, guid: 508da25c2dcf82d4c90820e22ecd2a11, type: 2}
+      Amount: 0
+  - Probability: 5
+    OfferedResource:
+      itemInfo: {fileID: 11400000, guid: 3c6bf0124cb4cb949b3d2da92724a714, type: 2}
+      Amount: 0
+  - Probability: 5
+    OfferedResource:
+      itemInfo: {fileID: 11400000, guid: 8041d655803214148bf3272292ae8187, type: 2}
+      Amount: 0
+  - Probability: 3
+    OfferedResource:
+      itemInfo: {fileID: 11400000, guid: 3167aece16db1304d8602e20b6defbf4, type: 2}
+      Amount: 0
+  - Probability: 2
+    OfferedResource:
+      itemInfo: {fileID: 11400000, guid: a4cc2863a35f94c46a84a2cb80a66b5a, type: 2}
+      Amount: 0
+  OutputScreenName: Trash Recyclation
+  Icon: {fileID: -5617167277221101760, guid: ddf4a4e6ec245864fbfb72f96ebb7d3d, type: 3}

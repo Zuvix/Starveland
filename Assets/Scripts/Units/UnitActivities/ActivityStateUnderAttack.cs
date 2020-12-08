@@ -10,7 +10,7 @@ public class ActivityStateUnderAttack : ActivityState
 {
     private UnitCommandMove CommandMoveToTarget;
     private UnitCommandCombatMelee CommandCombat;
-    private Unit UnitTarget;
+    public Unit UnitTarget { get; private set; }
     private readonly int originalX;
     private readonly int originalY;
     private readonly int waderingRadius;
@@ -30,15 +30,18 @@ public class ActivityStateUnderAttack : ActivityState
 
     public override void InitializeCommand(Unit Unit)
     {
-        base.InitializeCommand(Unit);
         Unit.SetCommand(this.CommandCombat);
     }
 
     public override IEnumerator PerformSpecificAction(Unit Unit)
     {
-        if (Unit is UnitAnimal && Unit.CurrentCommand == this.CommandMoveToTarget && DayCycleManager.Instance.GameIsWaitingForPlayerUnits2GoEat())
+        if (
+                (Unit is UnitAnimal && Unit.CurrentCommand == this.CommandMoveToTarget && DayCycleManager.Instance.TimeOut)
+                ||
+                (Unit.CurrentCommand == CommandMoveToTarget && PathFinding.Instance.BlockDistance(Unit.CurrentCell, UnitTarget.CurrentCell) > Unit.TargetDistance2AbortAttackOn)
+            )
         {
-            ((UnitAnimal)Unit).Wander();
+            Unit.SetDefaultActivity();
         }
         else if (Unit.CurrentCommand.IsDone(Unit))
         {
@@ -48,14 +51,7 @@ public class ActivityStateUnderAttack : ActivityState
             }
             else if (Unit.CurrentCommand == CommandCombat)
             {
-                if (this.originalX == -1 || this.originalY == -1)
-                {
-                    Unit.SetActivity(new ActivityStateIdle());
-                }
-                else
-                {
-                    Unit.SetActivity(new ActivityStateWander(this.waderingRadius, MapControl.Instance.map.Grid[originalX][originalY], this.chanceToMove));
-                }
+                Unit.SetDefaultActivity();
             }
         }
         else if (!Unit.CurrentCommand.CanBePerformed(Unit))
@@ -66,14 +62,21 @@ public class ActivityStateUnderAttack : ActivityState
             }
             else if (Unit.CurrentCommand == this.CommandCombat)
             {
-                List<MapCell> path = PathFinding.Instance.FindPath(Unit.CurrentCell, this.UnitTarget.CurrentCell);
-                this.CommandMoveToTarget = new UnitCommandMove(this.UnitTarget.CurrentCell, path);
-                Unit.SetCommand(this.CommandMoveToTarget);
+                if (!UnitTarget.IsInBuilding())
+                {
+                    List<MapCell> path = PathFinding.Instance.FindPath(Unit.CurrentCell, this.UnitTarget.CurrentCell);
+                    this.CommandMoveToTarget = new UnitCommandMove(this.UnitTarget.CurrentCell, path);
+                    Unit.SetCommand(this.CommandMoveToTarget);
+                }
+                else
+                {
+                    Unit.SetDefaultActivity();
+                }
             }
         }
         else
         {
-             yield return Unit.StartCoroutine(Unit.CurrentCommand.PerformAction(Unit));
+            yield return Unit.StartCoroutine(Unit.CurrentCommand.PerformAction(Unit));
         }
     }
     public override bool IsCancellable()

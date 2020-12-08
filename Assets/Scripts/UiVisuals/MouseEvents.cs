@@ -119,7 +119,7 @@ public class MouseEvents : Singleton<MouseEvents>
 
                 if (Input.GetMouseButtonDown(0))
                 {
-                    Debug.Log($"Clicked {x}, {y}. It is in map: {IsInMap}");
+                    //Debug.Log($"Left-clicked {x}, {y}. It is in map: {IsInMap}");
                     if (IsInMap)
                     {
                         //GameObject mapValue = MapControl.Instance.map.GetValue(UtilsClass.GetMouseWorldPosition());
@@ -129,7 +129,7 @@ public class MouseEvents : Singleton<MouseEvents>
                 }
                 else if (Input.GetMouseButtonDown(1))
                 {
-                    Debug.LogWarning($"Right-clicked {x}, {y}. It is in map: {IsInMap}");
+                    //Debug.LogWarning($"Right-clicked {x}, {y}. It is in map: {IsInMap}");
                     if (IsInMap)
                     {
                         if (mapValue != null)

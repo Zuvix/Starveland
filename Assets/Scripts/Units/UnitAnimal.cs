@@ -18,6 +18,10 @@ public class UnitAnimal : Unit
     private int spawnY;
     public List<ResourcePack> inventory;
 
+    public int MaxTravelDistance = 5;
+
+    public MapCell SpawnCell { get; private set; } = null;
+
     protected override void Awake()
     {
         this.Health = this.MaxHealth;
@@ -28,7 +32,7 @@ public class UnitAnimal : Unit
     {
         this.spawnX = this.CurrentCell.x;
         this.spawnY = this.CurrentCell.y;
-        Wander();
+        SetDefaultActivity();
         base.Start();
     }
     public override void RightClickAction()
@@ -106,9 +110,22 @@ public class UnitAnimal : Unit
         }
         CellObjectFactory.Instance.ProduceResourceSource(x, y, RSObjects.DeadAnimal, drops);
     }
-    public void Wander()
+    public override void SetDefaultActivity()
     {
         this.SetActivity(new ActivityStateWander(this.WanderingRadius, this.CurrentCell, this.ChanceToMoveDuringWandering));
+    }
+    public override void SetCurrentCell(MapCell Cell)
+    {
+        base.SetCurrentCell(Cell);
+        if (SpawnCell == null)
+        {
+            SpawnCell = Cell;
+        }
+        if (PathFinding.Instance.BlockDistance(SpawnCell, CurrentCell) > MaxTravelDistance)
+        {
+            //Debug.LogError($"I'm {gameObject} at {CurrentCell.x},{CurrentCell.y}, which is {PathFinding.Instance.BlockDistance(SpawnCell, CurrentCell)} from home, more than {MaxTravelDistance}. Gotta go home to {SpawnCell.x},{SpawnCell.y}.");
+            SetActivity(new ActivityStateMoveToSpawnPosition(SpawnCell));
+        }
     }
 }
 

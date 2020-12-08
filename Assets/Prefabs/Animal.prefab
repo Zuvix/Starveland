@@ -133,12 +133,16 @@ MonoBehaviour:
   IsBlocking: 1
   IsSelectable: 1
   IsPossibleToAddToActionQueue: 0
+  Replacement: {fileID: 0}
   xScalingFactor: 1.5
   yScalingFactor: 1.5
   rotationFactor: 5
   scalingTime: 0.2
   rotationTime: 0.2
   rotationSpeed: 20
+  OnActivityStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
   CarriedResource:
     itemInfo: {fileID: 0}
     Amount: 0
@@ -153,10 +157,11 @@ MonoBehaviour:
   CritChance: 25
   Defence: 50
   TimesCriticalMultiplier: 2
+  TargetDistance2AbortAttackOn: 4
   onDamageRecieved:
     m_PersistentCalls:
       m_Calls: []
-  WanderingRadius: 2
+  WanderingRadius: 4
   ChanceToMoveDuringWandering: 10
   inventory:
   - resource:
@@ -164,3 +169,4 @@ MonoBehaviour:
       Amount: 20
     chance: 100
     variationPercentage: 20
+  MaxTravelDistance: 6
