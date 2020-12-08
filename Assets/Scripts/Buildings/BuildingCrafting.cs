@@ -5,6 +5,7 @@ using UnityEngine.Events;
 using UnityEngine.EventSystems;
 public class BuildingCrafting : Building
 {
+    private static List<BuildingCrafting> CraftingBuildingPool = new List<BuildingCrafting>();
     public List<CraftingRecipe> AvailableRecipes;
     public readonly List<int> CraftingQueue = new List<int>();
     public readonly List<int> ItemQuantities = new List<int>();
@@ -41,12 +42,13 @@ public class BuildingCrafting : Building
         {
             WorkHalted = false;
         }
+
+        CraftingBuildingPool.Add(this);
     }
     void Update()
     {
         if (WorkHalted)
         {
-            ProgressBar.gameObject.SetActive(ProgressBarAllowed);
             return;
         }
 
@@ -130,7 +132,15 @@ public class BuildingCrafting : Building
     }
     public static void ToggleProgressBarVisibility(bool newValue)
     {
+        Debug.LogError($"Setting ProgressBarAllowed {newValue}");
         ProgressBarAllowed = newValue;
+        foreach (BuildingCrafting Building in CraftingBuildingPool)
+        {
+            if ((newValue && Building.CurrentRecipeIndex != -1) || !newValue)
+            {
+                Building.ProgressBar.gameObject.SetActive(newValue);
+            }
+        }
         /*if ((newValue && CurrentRecipeIndex != -1) || !newValue)
         {
             this.ProgressBar.gameObject.SetActive(newValue);
@@ -141,7 +151,7 @@ public class BuildingCrafting : Building
     {
         ToggleWorkHalting(true);
     }
-    public static void RestoreWork(int i = 0)
+    public static void RestoreWork(int _)
     {
         ToggleWorkHalting(false);
     }

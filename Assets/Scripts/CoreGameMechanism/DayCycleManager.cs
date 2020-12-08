@@ -36,6 +36,7 @@ class DayCycleManager : Singleton<DayCycleManager>
         {
             IndicateEndDayRoutineEnd();
         }
+
     }
     public void StartDay()
     {

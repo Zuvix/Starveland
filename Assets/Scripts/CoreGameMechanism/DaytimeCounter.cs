@@ -13,7 +13,7 @@ public class DaytimeCounter : Singleton<DaytimeCounter>
     public float dayLength;
     private float dayTimeLeft;
     private int dayCount = 0;
-    private bool dayOver;
+    public bool dayOver { get; private set; }
 
     private void Awake()
     {

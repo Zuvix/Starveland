@@ -17,15 +17,11 @@ public abstract class CraftingRecipe : ScriptableObject
     public abstract string OutputName();
     public string OutputDescription()
     {
-        Debug.LogWarning(DescriptionInitialized);
         if (!DescriptionInitialized)
         {
-            Debug.LogWarning("Creating Description");
             Description = CreateOutputDescription();
             DescriptionInitialized = true;
         }
-
-        Debug.LogWarning(Description);
         return Description;
     }
     protected abstract string CreateOutputDescription();

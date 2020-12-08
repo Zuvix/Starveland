@@ -37,7 +37,6 @@ class FeedingManager : Singleton<FeedingManager>
     }
     public void InitiateDayEnd()
     {
-        Debug.LogError("FeedingManager::InitiateDayEnd");
         RetrieveAvailableFood();
         PanelControl.Instance.SetActivePanel(6);
         FillGrids();
@@ -145,7 +144,6 @@ class FeedingManager : Singleton<FeedingManager>
     }
     private void FillGrids()
     {
-        Debug.LogError("FeedingManager::FillGrids");
         PrepareFoodLists();
         // https://answers.unity.com/questions/989697/grid-layout-group-scalable-content.html
         RectTransform parentRect = CookedInventoryPanel.GetComponent<RectTransform>();
@@ -193,7 +191,6 @@ class FeedingManager : Singleton<FeedingManager>
     }
     private void PrepareFoodLists()
     {
-        Debug.LogError("FeedingManager::PrepareFoodLists");
         AvailableCookedItems = new List<Resource>();
         AvailableRawItems = new List<Resource>();
         List<Resource> AvailableResources = RetrieveAvailableFood();
