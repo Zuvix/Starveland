@@ -115,6 +115,7 @@ public class ShortInfo : MonoBehaviour
     private void FillVisitorPanels(Building Building)
     {
         List<Unit> Visitors = Building.CurrentVisitors;
+        Debug.LogWarning(Visitors.Count);
         Dictionary<Sprite, int> VisitorImageDict = new Dictionary<Sprite, int>();
         foreach (Unit Unit in Visitors)
         {

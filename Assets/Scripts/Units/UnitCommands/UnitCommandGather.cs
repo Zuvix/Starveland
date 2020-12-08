@@ -43,7 +43,7 @@ public class UnitCommandGather : UnitCommand
         if (this.Target.CurrentObject != null && this.Target.CurrentObject is ResourceSource)
         {
             ResourceSource TargetResourceSource = (ResourceSource)this.Target.CurrentObject;
-            if (Unit.InventoryEmpty() || TargetResourceSource.Resources[0].itemInfo.name == Unit.CarriedResource.itemInfo.name)
+            if (Unit.InventoryEmpty() || TargetResourceSource.resource.itemInfo == Unit.CarriedResource.itemInfo)
             {
                 TargetResourceSource.Flash();
                 Resource GatheredResource;

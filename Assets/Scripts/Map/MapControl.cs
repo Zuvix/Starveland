@@ -18,7 +18,7 @@ public class MapControl : Singleton<MapControl> {
     public GameObject GreenBackground;
 
     public Map map;
-    public List<MapCell> StorageList;
+    public List<MapCell> StorageList=new List<MapCell>();
     public GameObject building_storage;
     public GameObject player;
     public GameObject tombstone;
@@ -54,13 +54,13 @@ public class MapControl : Singleton<MapControl> {
         map = new Map(35, 22, 10f, new Vector3(0, 0));
         Building storage=CreateGameObject(16, 12, building_storage).GetComponent<Building>();
         GameObject unit=CreateGameObject(16, 13, player);
-        storage.Enter(player.GetComponent<Unit>());
+        //storage.Enter(player.GetComponent<Unit>());
         unit=CreateGameObject(16, 11, player);
-        storage.Enter(player.GetComponent<Unit>());
+        //storage.Enter(player.GetComponent<Unit>());
         unit=CreateGameObject(15, 12, player);
-        storage.Enter(player.GetComponent<Unit>());
+        //storage.Enter(player.GetComponent<Unit>());
         unit=CreateGameObject(17, 12, player);
-        storage.Enter(player.GetComponent<Unit>());
+        //storage.Enter(player.GetComponent<Unit>());
 
 
         //Gravel around water
@@ -89,8 +89,8 @@ public class MapControl : Singleton<MapControl> {
         //Create Lake
         CreateLake(map.GetWidth() - 9, map.GetHeight() - 7,3,3);
         //Forest
-        //SpawnForest(12, 18, 2, 2);
-        SpawnForest2(12, 18, 2, 2);
+        SpawnForest(12, 18, 2, 2);
+        //SpawnForest2(12, 18, 2, 2);
 
         //SpawnLeftovers
         //SpawnLeftoverStuff();
