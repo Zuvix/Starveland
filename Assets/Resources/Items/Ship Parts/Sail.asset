@@ -10,12 +10,12 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 4ffc9427acd4e3e4a8fb7a6dc3cb2154, type: 3}
-  m_Name: Iron Ore
+  m_Name: Sail
   m_EditorClassIdentifier: 
   type: Resource
-  icon: {fileID: -4670898731106872059, guid: 6799260d129174a4f8ffee2e2140586a, type: 3}
+  icon: {fileID: 5232081699893429827, guid: ddf4a4e6ec245864fbfb72f96ebb7d3d, type: 3}
   NutritionValue: 0
   storageType: Raw
   foodType: None
-  isHeavy: 1
-  IsShipPart: 0
+  isHeavy: 0
+  IsShipPart: 1

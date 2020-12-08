@@ -32,7 +32,7 @@ class DayCycleManager : Singleton<DayCycleManager>
             }
         }
 
-        if (this.FinishedUnitCounter == 0)
+        if (Unit.PlayerUnitPool.Count == 0)
         {
             IndicateEndDayRoutineEnd();
         }
