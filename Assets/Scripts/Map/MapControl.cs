@@ -50,13 +50,17 @@ public class MapControl : Singleton<MapControl> {
     }
     public void GenerateWorld()
     {
-        StorageList = new List<MapCell>();
+        
         map = new Map(35, 22, 10f, new Vector3(0, 0));
-        CreateGameObject(16, 13, player);
-        CreateGameObject(16, 11, player);
-        CreateGameObject(15, 12, player);
-        CreateGameObject(17, 12, player);
-        CreateGameObject(16, 12, building_storage);
+        Building storage=CreateGameObject(16, 12, building_storage).GetComponent<Building>();
+        GameObject unit=CreateGameObject(16, 13, player);
+        storage.Enter(player.GetComponent<Unit>());
+        unit=CreateGameObject(16, 11, player);
+        storage.Enter(player.GetComponent<Unit>());
+        unit=CreateGameObject(15, 12, player);
+        storage.Enter(player.GetComponent<Unit>());
+        unit=CreateGameObject(17, 12, player);
+        storage.Enter(player.GetComponent<Unit>());
 
 
         //Gravel around water

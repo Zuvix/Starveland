@@ -14,9 +14,14 @@ public class UnitAnimal : Unit
     [Tooltip("Defines the chance of a unit moving to random position if he's wandering around and idling.")]
     [Range(0, 100)]
     public int ChanceToMoveDuringWandering = 10;
+    public int AggroRadius = 1;
     private int spawnX;
     private int spawnY;
     public List<ResourcePack> inventory;
+
+    public int MaxTravelDistance = 5;
+
+    public MapCell SpawnCell { get; private set; } = null;
 
     protected override void Awake()
     {
@@ -28,7 +33,7 @@ public class UnitAnimal : Unit
     {
         this.spawnX = this.CurrentCell.x;
         this.spawnY = this.CurrentCell.y;
-        Wander();
+        SetDefaultActivity();
         base.Start();
     }
     public override void RightClickAction()
@@ -64,7 +69,10 @@ public class UnitAnimal : Unit
         }
         yield return new WaitForSeconds(AttackTime);
         //UnitTarget.DealDamage(this.BaseDamage, this, false);
-        this.Attack(this, UnitTarget);
+        if (UnitTarget != null)
+        {
+            this.Attack(this, UnitTarget);
+        }
         //UnitTarget.Flash(Color.red);
         yield return new WaitForSeconds(0.2f);
     }
@@ -89,7 +97,7 @@ public class UnitAnimal : Unit
     {
         if (!(this.CurrentActivity is ActivityStateUnderAttack))
         {
-            this.SetActivity(new ActivityStateUnderAttack(AttackingUnit, this, this.spawnX, this.spawnY, this.WanderingRadius, this.ChanceToMoveDuringWandering));
+            this.SetActivity(new ActivityStateUnderAttack(AttackingUnit, this));
         }
     }
     public override void SpawnOnDeath(int x, int y)
@@ -106,9 +114,22 @@ public class UnitAnimal : Unit
         }
         CellObjectFactory.Instance.ProduceResourceSource(x, y, RSObjects.DeadAnimal, drops);
     }
-    public void Wander()
+    public override void SetDefaultActivity()
     {
-        this.SetActivity(new ActivityStateWander(this.WanderingRadius, this.CurrentCell, this.ChanceToMoveDuringWandering));
+        this.SetActivity(new ActivityStateWander(this.WanderingRadius, this.CurrentCell, this.ChanceToMoveDuringWandering, this.AggroRadius));
+    }
+    public override void SetCurrentCell(MapCell Cell)
+    {
+        base.SetCurrentCell(Cell);
+        if (SpawnCell == null)
+        {
+            SpawnCell = Cell;
+        }
+        if (PathFinding.Instance.BlockDistance(SpawnCell, CurrentCell) > MaxTravelDistance)
+        {
+            //Debug.LogError($"I'm {gameObject} at {CurrentCell.x},{CurrentCell.y}, which is {PathFinding.Instance.BlockDistance(SpawnCell, CurrentCell)} from home, more than {MaxTravelDistance}. Gotta go home to {SpawnCell.x},{SpawnCell.y}.");
+            SetActivity(new ActivityStateMoveToSpawnPosition(SpawnCell));
+        }
     }
 }
 

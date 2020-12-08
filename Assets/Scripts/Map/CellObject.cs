@@ -18,7 +18,7 @@ public class CellObject : MonoBehaviour
     public GameObject popup;
     public GameObject popupNoIcon;
     public readonly float MultiPopupDelay = 0.5f;
-    public MapCell CurrentCell { get; private set; }
+    public MapCell CurrentCell { get; protected set; }
 
     public bool IsBlocking = false;
     public bool IsSelectable = false;

@@ -64,9 +64,36 @@ public abstract class Unit : CellObject
     public int CritChance = 25;
     public int Defence = 0;
     public int TimesCriticalMultiplier = 2;
+    public int TargetDistance2AbortAttackOn = 4;
     [HideInInspector]
     public UnityEvent<int> onDamageRecieved = new UnityEvent<int>();
 
+    public Building CurrentBuilding { get; protected set; } = null;
+    public readonly UnityEvent OnBuildingEntered = new UnityEvent();
+    /*DO NOT CALL THIS. THIS IS SUPPOSED TO BE CALLED FROM Building::Enter(). USE THAT METHOD TO MAKE UNIT ENTER BUILDING*/
+    public void EnterBuilding(Building Building)
+    {
+        OnBuildingEntered.Invoke();
+        if(this.CurrentCell != null)
+        {
+            this.CurrentCell.EraseUnit();
+            this.CurrentCell = null;
+        }
+        this.CurrentBuilding = Building;
+    }
+    public void LeaveBuilding(MapCell MapCell)
+    {
+        MapCell.SetUnit(this);
+        this.CurrentBuilding = null;
+    }
+    public void LeaveBuildingDead()
+    {
+        this.CurrentBuilding = null;
+    }
+    public bool IsInBuilding()
+    {
+        return CurrentBuilding != null;
+    }
     public override bool EnterCell(MapCell MapCell)
     {
         return MapCell.SetUnit(this);
@@ -101,6 +128,10 @@ public abstract class Unit : CellObject
     public virtual bool InventoryFull(Skill Skill)
     {
         return true;
+    }
+    public virtual bool InventoryEmpty()
+    {
+        return false;
     }
     IEnumerator RotatingAnimation()
     {
@@ -260,11 +291,11 @@ public abstract class Unit : CellObject
         // Debug.Log("Gathering object");
         //itemInHand = target.Gather();
 
-        if (target != null)
+        /*if (target != null)
         {
             target.Flash();
             
-        }
+        }*/
 
         //yield return new WaitForSeconds(0.2f);
         yield return new WaitForFixedUpdate();
@@ -299,6 +330,13 @@ public abstract class Unit : CellObject
     public virtual IEnumerator StoreResource(BuildingStorage target)
     {
         return null;
+    }
+    public IEnumerator EnterBuildingAnimation(Building target)
+    {
+        this.CurrentAction = "Entering Building";
+        yield return new WaitForSeconds(1.0f);
+        target.Flash();
+        yield return new WaitForSeconds(0.2f);
     }
 
     public IEnumerator BeIdle()
@@ -366,14 +404,23 @@ public abstract class Unit : CellObject
     public abstract void DealDamageStateRoutine(Unit AttackingUnit);
     public void Die()
     {
-        int x = this.CurrentCell.x;
-        int y = this.CurrentCell.y;
+        int x = -1, y = -1;
+        if (!this.IsInBuilding())
+        {
+            x = this.CurrentCell.x;
+            y = this.CurrentCell.y;
+        }
         UnitManager.Instance.RemoveFromQueue(this);
-        //this.CurrentCell.SetCellObject(null);
-        this.CurrentCell.EraseUnit();
+        if (!this.IsInBuilding())
+        {
+            this.CurrentCell.EraseUnit();
+        }
         Destroy(this.gameObject);
 
-        SpawnOnDeath(x, y);
+        if (!this.IsInBuilding())
+        {
+            SpawnOnDeath(x, y);
+        }
         ActionOnDeath();
         Unit.UnitPool.Remove(this);
     }
@@ -422,5 +469,12 @@ public abstract class Unit : CellObject
                 break;
         }
         return Result;
+    }
+    public abstract void SetDefaultActivity();
+    public void ToggleVisibility(bool Visible)
+    {
+        Vector4 NewColor = this.gameObject.GetComponent<SpriteRenderer>().color;
+        NewColor.w = Visible ? 1 : 0;
+        this.gameObject.GetComponent<SpriteRenderer>().color = NewColor;
     }
 }

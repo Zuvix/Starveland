@@ -15,7 +15,8 @@ public enum RSObjects
     ToxicMushroom,
     Iron,
     Coal,
-    HardLog
+    HardLog,
+    DeadAnimalArcheologist
 }
 
 public enum CellObjects
@@ -55,6 +56,8 @@ class CellObjectFactory : Singleton<CellObjectFactory>
     public GameObject iron;
     public GameObject coal;
     public GameObject hardLog;
+    public GameObject deadAnimalArcheologist;
+
     // Cell Objects
     [Header ("Cell objects")]
     public GameObject sapling;
@@ -130,6 +133,11 @@ class CellObjectFactory : Singleton<CellObjectFactory>
                     selectedPrefab = hardLog;
                     break;
                 }
+            case RSObjects.DeadAnimalArcheologist:
+            {
+                selectedPrefab = deadAnimalArcheologist;
+                break;
+            }
             default:
                 break;
         }

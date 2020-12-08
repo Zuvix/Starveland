@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 public class MapCell
@@ -16,12 +17,18 @@ public class MapCell
     public Vector3 position;
 
     private CellObject ObjectBackup;
+    private static System.Random Random = null;
     public MapCell(Vector3 position, Map Map, int x, int y)
     {
         this.position = position;
         this.Map = Map;
         this.x = x;
         this.y = y;
+
+        if (Random == null)
+        {
+            Random = new System.Random();
+        }
     }
     public CellObject GetTopSelectableObject()
     {
@@ -136,7 +143,7 @@ public class MapCell
         return new PathSearchNode(this, Map);
     }
 
-    public List<MapCell> GetNeighbours()
+    public List<MapCell> GetClosestNeighbours()
     {
         List<MapCell> Neighbours = new List<MapCell>();
         if (this.x > 0)
@@ -157,5 +164,77 @@ public class MapCell
         }
 
         return Neighbours;
+    }
+    public List<MapCell> GetClosestDiagonalNeighbours()
+    {
+        List<MapCell> Neighbours = new List<MapCell>();
+        if (this.x > 0 && this.y > 0)
+        {
+            Neighbours.Add(this.Map.Grid[this.x - 1][this.y - 1]);
+        }
+        if (this.x < this.Map.Grid.Count - 1 && this.y > 0)
+        {
+            Neighbours.Add(this.Map.Grid[this.x + 1][this.y - 1]);
+        }
+        if (this.x > 0 && this.y < this.Map.Grid[0].Count - 1)
+        {
+            Neighbours.Add(this.Map.Grid[this.x - 1][this.y + 1]);
+        }
+        if (this.x < this.Map.Grid.Count - 1 && this.y < this.Map.Grid[0].Count - 1)
+        {
+            Neighbours.Add(this.Map.Grid[this.x + 1][this.y + 1]);
+        }
+
+        return Neighbours;
+    }
+    public MapCell GetRandomUnitEnterableNeighbour()
+    {
+        MapCell Result = null;
+        List<MapCell> Possibilities = GetClosestNeighbours().Where(x => x.CanBeEnteredByUnit()).ToList();
+        if (Possibilities.Count <= 0)
+        {
+            Possibilities = GetClosestDiagonalNeighbours().Where(x => x.CanBeEnteredByUnit()).ToList();
+            if (Possibilities.Count <= 0)
+            {
+                int UpperBound = new int[] { x, y, Map.Grid.Count, Map.Grid[0].Count}.Max();
+                for (int i = 2; i <= UpperBound; i++)
+                {
+                    for (int j = 0; j < i; j++)
+                    {
+                        List<(int, int)> PotentialCoordinates = new List<(int, int)>(new (int, int)[] {
+                            (x + i, y + j),
+                            (x - i, y + j),
+                            (x + i, y - j),
+                            (x - i, y - j),
+                            (x + j, y + i),
+                            (x - j, y + i),
+                            (x + j, y - i),
+                            (x - j, y - i)
+                        });
+                        foreach ((int, int) Coordinates in PotentialCoordinates)
+                        {
+                            if (Map.IsInBounds(Coordinates.Item1, Coordinates.Item2) && Map.Grid[Coordinates.Item1][Coordinates.Item2].CanBeEnteredByUnit())
+                            {
+                                Result = Map.Grid[Coordinates.Item1][Coordinates.Item2];
+                                break;
+                            }
+                        }
+                        if (Result != null)
+                        {
+                            break;
+                        }
+                    }
+                    if (Result != null)
+                    {
+                        break;
+                    }
+                }
+            }
+        }
+        if (Result == null && Possibilities.Count > 0)
+        {
+            Result = Possibilities[Random.Next(0, Possibilities.Count - 1)];
+        }
+        return Result;
     }
 }

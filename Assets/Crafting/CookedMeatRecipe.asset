@@ -15,10 +15,11 @@ MonoBehaviour:
   Input:
   - itemInfo: {fileID: 11400000, guid: 756d6da29aa825645a10985bc585f9d3, type: 2}
     Amount: 1
-  - itemInfo: {fileID: 11400000, guid: e8182eeb5a384d44bbdda801c49fcd0b, type: 2}
-    Amount: 1
+  - itemInfo: {fileID: 11400000, guid: 7092d47e34caaa344bc94da314a4abc2, type: 2}
+    Amount: 2
+  IsUnlocked: 1
+  CraftingDuration: 8
+  DescriptionInitialized: 0
   Output:
     itemInfo: {fileID: 11400000, guid: d84504986f4f621439cd242915661087, type: 2}
     Amount: 1
-  IsUnlocked: 1
-  CraftingDuration: 2

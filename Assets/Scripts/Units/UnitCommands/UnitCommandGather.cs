@@ -43,9 +43,13 @@ public class UnitCommandGather : UnitCommand
         if (this.Target.CurrentObject != null && this.Target.CurrentObject is ResourceSource)
         {
             ResourceSource TargetResourceSource = (ResourceSource)this.Target.CurrentObject;
-            Resource GatheredResource;
-            Skill.DoAction(Unit, TargetResourceSource, out GatheredResource);
-            Unit.CreatePopup(GatheredResource.itemInfo.icon, GatheredResource.Amount);
+            if (Unit.InventoryEmpty() || TargetResourceSource.Resources[0].itemInfo.name == Unit.CarriedResource.itemInfo.name)
+            {
+                TargetResourceSource.Flash();
+                Resource GatheredResource;
+                Skill.DoAction(Unit, TargetResourceSource, out GatheredResource);
+                Unit.CreatePopup(GatheredResource.itemInfo.icon, GatheredResource.Amount);
+            }
         }
     }
     public override bool CanBePerformed(Unit Unit)
@@ -58,7 +62,18 @@ public class UnitCommandGather : UnitCommand
         }
         else if (TargetResourceSource is ResourceSource)
         {
-            Result = !TargetResourceSource.resource.IsDepleted();
+            if (TargetResourceSource.resource.IsDepleted())
+            {
+                Result = false;
+            }
+            else if (Unit.InventoryEmpty())
+            {
+                Result = true;
+            }
+            else if (TargetResourceSource.resource.itemInfo == Unit.CarriedResource.itemInfo)
+            {
+                Result = true;
+            }
         }
         return Result;
     }

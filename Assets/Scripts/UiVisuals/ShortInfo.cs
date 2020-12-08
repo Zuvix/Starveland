@@ -22,8 +22,12 @@ public class ShortInfo : MonoBehaviour
 
     public GameObject buildingPanel;
     public TMP_Text buildingTxt;
+    public List<Image> VisitorImages;
+    public List<TMP_Text> VisitorCounts;
 
     List<GameObject> contentPanels;
+
+    CellObject visibleObject = null;
     private void Awake()
     {
         contentPanels = new List<GameObject>()
@@ -55,7 +59,12 @@ public class ShortInfo : MonoBehaviour
             HideTopContent();
             return;
         }
-        CellObject visibleObject = go.GetComponent<CellObject>();
+
+        if (visibleObject is Building)
+        {
+            ((Building)visibleObject).OnVisitorsChanged.RemoveListener(FillVisitorPanels);
+        }
+        visibleObject = go.GetComponent<CellObject>();
         if (visibleObject!=null)
         {
             topContent.SetActive(true);
@@ -87,7 +96,7 @@ public class ShortInfo : MonoBehaviour
                 itemAmountTxt.gameObject.SetActive(false);
             }
         }
-        if (visibleObject is ResourceSource)
+        else if (visibleObject is ResourceSource)
         {
             ResourceSource rs = (ResourceSource)visibleObject;
             resourcePanel.SetActive(true);
@@ -95,10 +104,42 @@ public class ShortInfo : MonoBehaviour
             resourceSourcTipTxt.text = visibleObject.tip;
 
         }
-        if(visibleObject is Building)
+        else if(visibleObject is Building)
         {
             buildingPanel.SetActive(true);
             buildingTxt.text = visibleObject.tip;
+            FillVisitorPanels((Building)visibleObject);
+            ((Building)visibleObject).OnVisitorsChanged.AddListener(FillVisitorPanels);
+        }
+    }
+    private void FillVisitorPanels(Building Building)
+    {
+        List<Unit> Visitors = Building.CurrentVisitors;
+        Dictionary<Sprite, int> VisitorImageDict = new Dictionary<Sprite, int>();
+        foreach (Unit Unit in Visitors)
+        {
+            Sprite UnitImage = Unit.GetComponent<SpriteRenderer>().sprite;
+            if (!VisitorImageDict.ContainsKey(UnitImage))
+            {
+                VisitorImageDict.Add(UnitImage, 1);
+            }
+            else
+            {
+                VisitorImageDict[UnitImage]++;
+            }
+        }
+
+        int VisitorTypeCount = 0;
+        foreach (KeyValuePair<Sprite, int> Entry in VisitorImageDict)
+        {
+            VisitorImages[VisitorTypeCount].GetComponent<Image>().sprite = Entry.Key;
+            VisitorCounts[VisitorTypeCount].text = Entry.Value.ToString();
+            VisitorImages[VisitorTypeCount].gameObject.SetActive(true);
+            VisitorTypeCount++;
+        }
+        for (int i = VisitorTypeCount; i < VisitorImages.Count; i++)
+        {
+            VisitorImages[i].gameObject.SetActive(false);
         }
     }
 }

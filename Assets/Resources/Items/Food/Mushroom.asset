@@ -13,8 +13,9 @@ MonoBehaviour:
   m_Name: Mushroom
   m_EditorClassIdentifier: 
   type: Food
-  icon: {fileID: -2343689574573338329, guid: ddf4a4e6ec245864fbfb72f96ebb7d3d, type: 3}
+  icon: {fileID: -8445415046740580943, guid: ddf4a4e6ec245864fbfb72f96ebb7d3d, type: 3}
   NutritionValue: 3
   storageType: Raw
   foodType: Foragable
   isHeavy: 0
+  IsShipPart: 0

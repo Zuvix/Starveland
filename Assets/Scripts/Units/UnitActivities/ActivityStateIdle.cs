@@ -6,6 +6,8 @@ class ActivityStateIdle : ActivityState
 {
     private UnitCommandMove MoveToHouseCommand;
     private UnitCommandIdle IdleCommand;
+    private UnitCommandDrop DropCommand = null;
+    private UnitCommandEnterBuilding EnterBuildingCommand;
 
     public ActivityStateIdle() : base()
     {
@@ -14,7 +16,6 @@ class ActivityStateIdle : ActivityState
     }
     public override void InitializeCommand(Unit Unit)
     {
-        base.InitializeCommand(Unit);
         this.MoveToHouseCommand = this.CommandToMoveToStorage(Unit);
     }
     public override IEnumerator PerformSpecificAction(Unit Unit)
@@ -24,6 +25,25 @@ class ActivityStateIdle : ActivityState
         {
             // If Unit arrived next house, command it to stay idle
             if (Unit.CurrentCommand == this.MoveToHouseCommand)
+            {
+                if (Unit.CarriedResource.IsDepleted())
+                {
+                    EnterBuildingCommand = new UnitCommandEnterBuilding(MoveToHouseCommand.Target);
+                    Unit.SetCommand(EnterBuildingCommand);
+                }
+                else
+                {
+                    this.DropCommand = new UnitCommandDrop(MoveToHouseCommand.Target);
+                    Unit.SetCommand(this.DropCommand);
+                }
+            }
+            else if (Unit.CurrentCommand == this.DropCommand)
+            {
+                //Unit.SetCommand(this.IdleCommand);
+                EnterBuildingCommand = new UnitCommandEnterBuilding(DropCommand.Target);
+                Unit.SetCommand(EnterBuildingCommand);
+            }
+            else if (Unit.CurrentCommand == this.EnterBuildingCommand)
             {
                 Unit.SetCommand(this.IdleCommand);
             }
@@ -48,6 +68,19 @@ class ActivityStateIdle : ActivityState
             {
                 yield return Unit.StartCoroutine(Unit.MovementConflictManager.UnableToMoveRoutine(Unit));
             }
+            else if (Unit.CurrentCommand == this.DropCommand || Unit.CurrentCommand == this.EnterBuildingCommand)
+            {
+                UnitCommandMove NewMoveCommand = this.CommandToMoveToStorage(Unit);
+                if (NewMoveCommand != null)
+                {
+                    this.MoveToHouseCommand = NewMoveCommand;
+                    Unit.SetCommand(this.MoveToHouseCommand);
+                }
+                else
+                {
+                    Unit.SetCommand(new UnitCommandIdle());
+                }
+            }
             // If gathering from resource is not possible
             else if (Unit.CurrentCommand == this.IdleCommand)
             {
@@ -70,4 +103,5 @@ class ActivityStateIdle : ActivityState
     {
         return false;
     }
+    public override void HandleInBuildingAction(Unit Unit) {}
 }

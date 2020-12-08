@@ -66,6 +66,15 @@ public class UnitPlayer : Unit
         return this.CarriedResource.Amount >= this.CarryingCapacity;
     }
 
+    public override bool InventoryEmpty()
+    {
+        if (this.CarriedResource.IsDepleted())
+        {
+            return true;
+        }
+        return false;
+    }
+
     public override IEnumerator StoreResource(BuildingStorage target)
     {
         /*if (itemInHand != null)
@@ -84,26 +93,26 @@ public class UnitPlayer : Unit
         yield return new WaitForSeconds(0.2f);
     }
 
-   /* public override void DealDamage(int Amount, Unit AttackingUnit)
-    {
-        if (!(this.CurrentActivity is ActivityStateUnderAttack) && !(this.CurrentActivity is ActivityStateHunt))
-        {
-            this.SetActivity(new ActivityStateUnderAttack(AttackingUnit, this));
-        }
-        this.Health -= Amount;
-        DisplayReceivedDamage(Amount);
-        if (this.Health <= 0) //handle death
-        {
-            int x = this.CurrentCell.x;
-            int y = this.CurrentCell.y;
-            this.CurrentCell.SetCellObject(null);
-            Destroy(this.gameObject);
-            MapControl.Instance.CreateGameObject(x, y, MapControl.Instance.tombstone);
-        }
-    }*/
+    /* public override void DealDamage(int Amount, Unit AttackingUnit)
+     {
+         if (!(this.CurrentActivity is ActivityStateUnderAttack) && !(this.CurrentActivity is ActivityStateHunt))
+         {
+             this.SetActivity(new ActivityStateUnderAttack(AttackingUnit, this));
+         }
+         this.Health -= Amount;
+         DisplayReceivedDamage(Amount);
+         if (this.Health <= 0) //handle death
+         {
+             int x = this.CurrentCell.x;
+             int y = this.CurrentCell.y;
+             this.CurrentCell.SetCellObject(null);
+             Destroy(this.gameObject);
+             MapControl.Instance.CreateGameObject(x, y, MapControl.Instance.tombstone);
+         }
+     }*/
     public override void DealDamageStateRoutine(Unit AttackingUnit)
     {
-        if (!(this.CurrentActivity is ActivityStateUnderAttack) && !(this.CurrentActivity is ActivityStateHunt) && !DayCycleManager.Instance.GameIsWaitingForPlayerUnits2GoEat())
+        if (!(this.CurrentActivity is ActivityStateUnderAttack) && !(this.CurrentActivity is ActivityStateHunt) && !DayCycleManager.Instance.TimeOut)
         {
             this.SetActivity(new ActivityStateUnderAttack(AttackingUnit, this));
         }
@@ -115,10 +124,20 @@ public class UnitPlayer : Unit
     public override void ActionOnDeath()
     {
         Unit.PlayerUnitPool.Remove(this);
+        UnitManager.Instance.IdleUnits.Remove(this);
         if (DayCycleManager.Instance.GameIsWaitingForPlayerUnits2GoEat())
         {
             DayCycleManager.Instance.IndicateEndDayRoutineEnd();
         }
+        if (IsInBuilding())
+        {
+            this.CurrentBuilding.LeaveDead(this);
+        }
         GameOver.Instance.IndicatePlayerUnitDeath();
+    }
+
+    public override void SetDefaultActivity()
+    {
+        SetActivity(new ActivityStateIdle());
     }
 }

@@ -9,7 +9,7 @@ public class BuildingInfoPopupPanel : MonoBehaviour
     public TMP_Text BuildingDescriptionLabel;
     public List<GameObject> ResourcePanels;
     private List<Resource> Cost;
-    private Vector3 PositionBackup;
+    //private Vector3 PositionBackup;
 
     private static readonly Color DefaultColor = new Color(1, 1, 1, 0.3921f);
     private static readonly Color UnavailableColor = new Color(0.9811f, 0.3831f, 0.3831f, 0.533f);
@@ -17,10 +17,14 @@ public class BuildingInfoPopupPanel : MonoBehaviour
     {
         this.gameObject.SetActive(false);
     }
+    private void Start()
+    {
+        DaytimeCounter.Instance.OnDayOver.AddListener(Hide);
+    }
 
     public void Display(string Name, string Description, List<Resource> Cost)
     {
-
+        Debug.LogWarning("BuildingInfoPopupPanel::Display");
         BuildingNameLabel.text = Name;
         BuildingDescriptionLabel.text = Description;
         this.Cost = Cost;
@@ -28,17 +32,19 @@ public class BuildingInfoPopupPanel : MonoBehaviour
 
         GlobalInventory.Instance.OnInventoryUpdate.AddListener(DisplayResourcePanels);
 
-        this.PositionBackup = this.gameObject.transform.position;
+        //this.PositionBackup = this.gameObject.GetComponent<RectTransform>().anchoredPosition;
         this.gameObject.SetActive(true);
     }
     public void Hide()
     {
+        Debug.LogWarning("BuildingInfoPopupPanel::Hide");
         GlobalInventory.Instance.OnInventoryUpdate.RemoveListener(DisplayResourcePanels);
         this.gameObject.SetActive(false);
-        this.gameObject.transform.position = this.PositionBackup;
+        //this.gameObject.GetComponent<RectTransform>().anchoredPosition = this.PositionBackup;
     }
     private void DisplayResourcePanels()
     {
+        Debug.LogWarning("BuildingInfoPopupPanel::DisplayResourcePanels");
         for (int i = 0; i < Cost.Count && i < ResourcePanels.Count; i++)
         {
             ResourcePanels[i].GetComponent<BuildingInfoResourcePanel>().Fill(Cost[i]);

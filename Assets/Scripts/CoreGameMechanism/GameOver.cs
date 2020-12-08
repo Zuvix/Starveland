@@ -33,4 +33,13 @@ class GameOver : Singleton<GameOver>
 
         Debug.LogError("All player units are dead. Game is over!");
     }
+    public void InitiatePositiveGameOver()
+    {
+        GameIsOver = true;
+        Destroy(DayCycleManager.Instance);
+        FeedingManager.Instance.FeedingPanel.SetActive(false);
+        GlobalGameState.Instance.InGameInputAllowed = false;
+
+        Debug.LogError("Ship is built. Game won!");
+    }
 }

@@ -33,6 +33,7 @@ public class BuildingSpecificPanel : MonoBehaviour, IPointerEnterHandler, IPoint
             i++;
         }
         CraftProgress = CraftProgressBar.GetComponent<ProgressBar>();
+        DaytimeCounter.Instance.OnDayOver.AddListener(Hide);
     }
     public void Display(BuildingCrafting Building)
     {
@@ -45,17 +46,24 @@ public class BuildingSpecificPanel : MonoBehaviour, IPointerEnterHandler, IPoint
         {
             OfferedItemPanels[i].GetComponent<BuildingSpecificItemOfferPanel>().Initialize(Building.AvailableRecipes[i], Building);
             OfferedItemPanels[i].SetActive(true);
+            OfferedItemPanels[i].GetComponent<BuildingSpecificItemOfferPanel>().QueueCountLabel.gameObject.SetActive(true);
         }
         for (int i = Building.AvailableRecipes.Count; i < OfferedItemPanels.Count; i++)
         {
             OfferedItemPanels[i].SetActive(false);
+            OfferedItemPanels[i].GetComponent<BuildingSpecificItemOfferPanel>().QueueCountLabel.gameObject.SetActive(false);
         }
+        if (Building.CurrentRecipeIndex != -1)
+        {
+            UpdateCurrentlyCraftedItemName(Building.AvailableRecipes[Building.CurrentRecipeIndex].OutputName());
+        }
+
         this.BoundBuilding.OnQueueUpdate.AddListener(UpdateQuantityLabel);
         this.BoundBuilding.OnCraftStart.AddListener(UpdateCurrentlyCraftedItemName);
         this.BoundBuilding.OnCraftUpdate.AddListener(UpdateCraftProgress);
         this.BoundBuilding.OnCraftEnd.AddListener(HideCraftProgressBar);
         HideCraftProgressBar();
-        this.BoundBuilding.ToggleProgressBarVisibility(false);
+        /*this.BoundBuilding.*/BuildingCrafting.ToggleProgressBarVisibility(false);
 
         this.gameObject.SetActive(true);
 
@@ -69,13 +77,15 @@ public class BuildingSpecificPanel : MonoBehaviour, IPointerEnterHandler, IPoint
 
         this.gameObject.SetActive(false);
         MouseEvents.Instance.UnregisterVisibleBuildingPanel();
-        this.BoundBuilding.OnQueueUpdate.RemoveListener(UpdateQuantityLabel);
-        this.BoundBuilding.OnCraftStart.RemoveListener(UpdateCurrentlyCraftedItemName);
-        this.BoundBuilding.OnCraftUpdate.RemoveListener(UpdateCraftProgress);
-        this.BoundBuilding.OnCraftEnd.RemoveListener(HideCraftProgressBar);
-        this.BoundBuilding.ToggleProgressBarVisibility(true);
-        this.BoundBuilding = null;
-
+        if (this.BoundBuilding != null)
+        {
+            this.BoundBuilding.OnQueueUpdate.RemoveListener(UpdateQuantityLabel);
+            this.BoundBuilding.OnCraftStart.RemoveListener(UpdateCurrentlyCraftedItemName);
+            this.BoundBuilding.OnCraftUpdate.RemoveListener(UpdateCraftProgress);
+            this.BoundBuilding.OnCraftEnd.RemoveListener(HideCraftProgressBar);
+            /*this.BoundBuilding*/BuildingCrafting.ToggleProgressBarVisibility(!DaytimeCounter.Instance.dayOver);
+            this.BoundBuilding = null;
+        }
     }
     public void OnPointerEnter(PointerEventData eventData)
     {

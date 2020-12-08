@@ -28,12 +28,19 @@ public class ResourceSource : CellObject
         //Debug.LogWarning(Result.itemInfo.name);
         if (this.resource.Amount <= 0)
         {
-            isDepleted = true;
-            Debug.Log("Destroying Resource Source");
-            UnitManager.Instance.RemoveFromQueue(this);
-            //this.CurrentCell.SetCellObject(null);
-            this.CurrentCell.EraseCellObject();
-            Destroy(this.gameObject);
+            if (this.Resources.Count <= 1)
+            {
+                isDepleted = true;
+                Debug.Log("Destroying Resource Source");
+                UnitManager.Instance.RemoveFromQueue(this);
+                //this.CurrentCell.SetCellObject(null);
+                this.CurrentCell.EraseCellObject();
+                Destroy(this.gameObject);
+            }
+            else
+            {
+                this.Resources.RemoveAt(0);
+            }
         }
         if (Result == null)
         {

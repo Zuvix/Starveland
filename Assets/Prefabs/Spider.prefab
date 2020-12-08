@@ -72,7 +72,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 1
+  m_SortingOrder: 0
   m_Sprite: {fileID: -990417508781871988, guid: ddf4a4e6ec245864fbfb72f96ebb7d3d,
     type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -153,17 +153,21 @@ MonoBehaviour:
   MaxHealth: 100
   BaseDamage: 10
   Accuracy: 80
-  Dodge: 80
+  Dodge: 50
   CritChance: 10
   Defence: 0
   TimesCriticalMultiplier: 5
+  TargetDistance2AbortAttackOn: 4
   onDamageRecieved:
     m_PersistentCalls:
       m_Calls: []
-  WanderingRadius: 3
+  WanderingRadius: 6
   ChanceToMoveDuringWandering: 10
+  AggroRadius: 0
   inventory:
-  - item: {fileID: 11400000, guid: a4cc2863a35f94c46a84a2cb80a66b5a, type: 2}
-    minValue: 1
-    maxValue: 10
+  - resource:
+      itemInfo: {fileID: 11400000, guid: a4cc2863a35f94c46a84a2cb80a66b5a, type: 2}
+      Amount: 1
     chance: 15
+    variationPercentage: 0
+  MaxTravelDistance: 4

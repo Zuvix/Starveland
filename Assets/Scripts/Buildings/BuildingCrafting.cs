@@ -5,6 +5,7 @@ using UnityEngine.Events;
 using UnityEngine.EventSystems;
 public class BuildingCrafting : Building
 {
+    private static List<BuildingCrafting> CraftingBuildingPool = new List<BuildingCrafting>();
     public List<CraftingRecipe> AvailableRecipes;
     public readonly List<int> CraftingQueue = new List<int>();
     public readonly List<int> ItemQuantities = new List<int>();
@@ -14,8 +15,10 @@ public class BuildingCrafting : Building
     public readonly UnityEvent OnCraftEnd = new UnityEvent();
     private float CurrentProgress;
     private ProgressBar ProgressBar;
-    private int CurrentRecipeIndex = -1;
+
+    public int CurrentRecipeIndex { get; private set; }  = -1;
     private static bool ProgressBarAllowed;
+    private static bool WorkHalted = false;
     protected override void Awake()
     {
         base.Awake();
@@ -34,9 +37,21 @@ public class BuildingCrafting : Building
         ProgressBarPosition.y += this.gameObject.GetComponent<SpriteRenderer>().bounds.size.y / 2;
         PositionConversion.MoveUIObjectToWorldObjectPosition(ProgressBarPosition, ProgressBar.gameObject, PrefabPallette.Instance.Canvas, PrefabPallette.Instance.Camera);
         ProgressBar.gameObject.SetActive(false);
+
+        if (WorkHalted)
+        {
+            WorkHalted = false;
+        }
+
+        CraftingBuildingPool.Add(this);
     }
     void Update()
     {
+        if (WorkHalted)
+        {
+            return;
+        }
+
         if (CurrentRecipeIndex != -1)
         {
             CurrentProgress += Time.deltaTime / AvailableRecipes[CurrentRecipeIndex].CraftingDuration;
@@ -48,12 +63,12 @@ public class BuildingCrafting : Building
             OnCraftUpdate.Invoke(CurrentProgress);
             if (CurrentProgress >= 1.0f)
             {
-                GlobalInventory.Instance.AddItem(AvailableRecipes[CurrentRecipeIndex].Output.Duplicate());
-                
+                (Sprite, int) PopupInfo = AvailableRecipes[CurrentRecipeIndex].ProduceOutput(this);
+
                 ProgressBar.gameObject.SetActive(false);
                 if(ProgressBarAllowed)
                 {
-                    this.CreatePopup(AvailableRecipes[CurrentRecipeIndex].Output.itemInfo.icon, AvailableRecipes[CurrentRecipeIndex].Output.Amount);
+                    this.CreatePopup(PopupInfo.Item1, PopupInfo.Item2);
                 }
                 CurrentRecipeIndex = -1;
                 OnCraftEnd.Invoke();
@@ -95,13 +110,13 @@ public class BuildingCrafting : Building
         CraftingQueue.RemoveAt(0);
         ItemQuantities[CurrentRecipeIndex]--;
         OnQueueUpdate.Invoke(CurrentRecipeIndex, AvailableRecipes[CurrentRecipeIndex].Input);
-        OnCraftStart.Invoke(AvailableRecipes[CurrentRecipeIndex].Output.itemInfo.name);
+        OnCraftStart.Invoke(AvailableRecipes[CurrentRecipeIndex].OutputName());
     }
     public void CancelQueuedRecipe(int Index)
     {
         if (ItemQuantities[Index] > 0)
         {
-            for (int i = CraftingQueue.Count - 1; i >= 0; i++)
+            for (int i = CraftingQueue.Count - 1; i >= 0; i--)
             {
                 if (CraftingQueue[i] == Index)
                 {
@@ -115,12 +130,33 @@ public class BuildingCrafting : Building
             }
         }
     }
-    public void ToggleProgressBarVisibility(bool newValue)
+    public static void ToggleProgressBarVisibility(bool newValue)
     {
+        Debug.LogError($"Setting ProgressBarAllowed {newValue}");
         ProgressBarAllowed = newValue;
-        if ((newValue && CurrentRecipeIndex != -1) || !newValue)
+        foreach (BuildingCrafting Building in CraftingBuildingPool)
+        {
+            if ((newValue && Building.CurrentRecipeIndex != -1) || !newValue)
+            {
+                Building.ProgressBar.gameObject.SetActive(newValue);
+            }
+        }
+        /*if ((newValue && CurrentRecipeIndex != -1) || !newValue)
         {
             this.ProgressBar.gameObject.SetActive(newValue);
-        }
+        }*/
+    }
+
+    public static void HaltWork()
+    {
+        ToggleWorkHalting(true);
+    }
+    public static void RestoreWork(int _)
+    {
+        ToggleWorkHalting(false);
+    }
+    private static void ToggleWorkHalting(bool value)
+    {
+        WorkHalted = value;
     }
 }

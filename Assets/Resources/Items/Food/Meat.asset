@@ -17,3 +17,5 @@ MonoBehaviour:
   NutritionValue: 6
   storageType: Raw
   foodType: Meat
+  isHeavy: 0
+  IsShipPart: 0

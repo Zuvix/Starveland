@@ -9,16 +9,23 @@ public abstract class ActivityState
         {
             yield return null;
         }
+        else if (Unit.IsInBuilding())
+        {
+            HandleInBuildingAction(Unit);
+        }
         else
         {
             yield return PerformSpecificAction(Unit);
         }
     }
     public abstract IEnumerator PerformSpecificAction(Unit Unit);
-    public virtual void InitializeCommand(Unit Unit)
+    public virtual void HandleInBuildingAction(Unit Unit)
     {
-        Unit.SetCommand(null);
+        Building Building = Unit.CurrentBuilding;
+        Unit.CurrentBuilding.Leave(Unit);
+        Building.CreatePopup(Unit.GetComponent<SpriteRenderer>().sprite, -1);
     }
+    public abstract void InitializeCommand(Unit Unit);
     public virtual ActivityState SetCommands(Unit Unit, Skill Skill)
     {
         return null;

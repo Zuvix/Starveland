@@ -18,3 +18,4 @@ MonoBehaviour:
   storageType: Raw
   foodType: None
   isHeavy: 0
+  IsShipPart: 0

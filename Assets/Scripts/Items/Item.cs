@@ -14,4 +14,5 @@ public class Item : ScriptableObject
     [StringInList("None", "Meat", "Foragable")]
     public string foodType;
     public bool isHeavy;
+    public bool IsShipPart;
 }
