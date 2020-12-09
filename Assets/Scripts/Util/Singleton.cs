@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using UnityEngine.SceneManagement;
 using System.Collections;
 using JetBrains.Annotations;
 /// <summary>
@@ -61,10 +62,20 @@ public abstract class Singleton<T> : Singleton where T : MonoBehaviour
         if (_persistent)
             DontDestroyOnLoad(gameObject);
         OnAwake();
+        SceneManager.activeSceneChanged += DestroyOnMenuScreen;
     }
 
     protected virtual void OnAwake() { }
     #endregion
+
+    void DestroyOnMenuScreen(Scene oldScene, Scene newScene)
+    {
+        if (newScene.buildIndex != 1)
+        {
+            Destroy(this);
+        }
+    }
+    
 }
 
 public abstract class Singleton : MonoBehaviour

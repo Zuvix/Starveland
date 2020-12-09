@@ -32,6 +32,7 @@ public class UnitPlayer : Unit
         };
         this.Health = this.MaxHealth;
         Unit.PlayerUnitPool.Add(this);
+        PlayerPrefs.SetInt("MaxPlayers", PlayerPrefs.GetInt("MaxPlayers")+1);
         base.Awake();
     }
     protected override void Start()
