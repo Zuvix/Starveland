@@ -803,7 +803,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d90446a0bb0f62b438bffbf69d30443c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _persistent: 1
+  _persistent: 0
   OnDayOver:
     m_PersistentCalls:
       m_Calls: []
@@ -826,7 +826,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dc372fa9703d89e499f9b9c3d74b2e23, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _persistent: 1
+  _persistent: 0
 --- !u!114 &166628869
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -839,7 +839,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7240861564ee62d4d82bdc9780ec1479, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _persistent: 1
+  _persistent: 0
   FeedingPanel: {fileID: 8459852605731252831}
   RawInventoryPanel: {fileID: 8459852605878598847}
   CookedInventoryPanel: {fileID: 250648856}
@@ -866,7 +866,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 555d53d73e7733c4abda41893a209338, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _persistent: 1
+  _persistent: 0
   ShipRecipe: {fileID: 11400000, guid: d5ee2f124d190054799aa7da8c92cfbe, type: 2}
 --- !u!1 &194182631
 GameObject:
@@ -1028,7 +1028,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 45f26fb806fd0c84c87c3499e7f39e48, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _persistent: 1
+  _persistent: 0
   Camera: {fileID: 519420031}
   Canvas: {fileID: 1648923962}
   VoidSprite: {fileID: 0}
@@ -1780,7 +1780,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a4e81869612a66644b31eeb9eca98f34, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _persistent: 1
+  _persistent: 0
   GreenBackground: {fileID: 8294826158820469398, guid: 06f757389e6134c41905395e07ba5123,
     type: 3}
   building_storage: {fileID: 5161994218835401504, guid: 17f8e5c93356e8343904c07d6e52001c,
@@ -4334,7 +4334,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a93158a838d9fe444b47f47aceda8138, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _persistent: 1
+  _persistent: 0
   timerTxt: {fileID: 3291120648770696997}
   dayCountTxt: {fileID: 3291120647982189468}
 --- !u!114 &655650596
@@ -4370,7 +4370,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2083f97e38224524c97545787e74d5e0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _persistent: 1
+  _persistent: 0
   Panels:
   - {fileID: 1176228665}
   - {fileID: 1101468807}
@@ -5868,7 +5868,7 @@ PrefabInstance:
     - target: {fileID: 8257016294825542129, guid: 2646b431e7902d446a4de539134e4ac8,
         type: 3}
       propertyPath: _persistent
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8257016294825542130, guid: 2646b431e7902d446a4de539134e4ac8,
         type: 3}
@@ -8852,7 +8852,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4930e2d4d815b8d419482487bbea469f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _persistent: 1
+  _persistent: 0
 --- !u!4 &1254131794
 Transform:
   m_ObjectHideFlags: 0
@@ -8879,7 +8879,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e6ee1a3e10bc4a74684573b9d15ba89b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _persistent: 1
+  _persistent: 0
   OnInventoryUpdate:
     m_PersistentCalls:
       m_Calls:
@@ -11422,6 +11422,11 @@ PrefabInstance:
         type: 3}
     - target: {fileID: 3275805233410246322, guid: ce26828ea09de184f839f032dbfb0368,
         type: 3}
+      propertyPath: _persistent
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3275805233410246322, guid: ce26828ea09de184f839f032dbfb0368,
+        type: 3}
       propertyPath: deadAnimalFur
       value: 
       objectReference: {fileID: 1468059033923470519, guid: cc089cb8014d48a42b48146ce55bb27b,
@@ -12442,7 +12447,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e577c05ca7391b34f8a48c7483bfa875, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _persistent: 1
+  _persistent: 0
 --- !u!4 &2005896439
 Transform:
   m_ObjectHideFlags: 0
@@ -14655,7 +14660,7 @@ PrefabInstance:
     - target: {fileID: 4107545784098619153, guid: dd2c591771077af42946bf200d0fa3cb,
         type: 3}
       propertyPath: m_text
-      value: Block skills by clicking their icon
+      value: Block skills by rclicking their icon
       objectReference: {fileID: 0}
     - target: {fileID: 4107545784098619153, guid: dd2c591771077af42946bf200d0fa3cb,
         type: 3}
@@ -16592,6 +16597,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_RaycastTarget
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8756830605213964418, guid: 040a202f6d8121f4aa06e7b985a7fdad,
+        type: 3}
+      propertyPath: m_text
+      value: Action Queue
       objectReference: {fileID: 0}
     - target: {fileID: 8756830605213964428, guid: 040a202f6d8121f4aa06e7b985a7fdad,
         type: 3}

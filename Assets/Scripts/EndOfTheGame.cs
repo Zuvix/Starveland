@@ -34,6 +34,7 @@ public class EndOfTheGame : MonoBehaviour
     {
         string grade1;
         string grade2;
+        string finalGrade;
 
         switch (Mathf.FloorToInt(Mathf.Abs((PlayerPrefs.GetInt("DaysPassed") - 1)) / 5))
         {
@@ -87,9 +88,61 @@ public class EndOfTheGame : MonoBehaviour
                 grade2 = "E";
                 break;
         }
+        switch ((((float)grade1[0] + (float)grade2[0])/2f)-65f)
+        {
+            case 0f:
+                {
+                    finalGrade = "A";
+                    break;
+                }
+            case 0.5f:
+                {
+                    finalGrade = "A-";
+                    break;
+                }
+            case 1.0f:
+                {
+                    finalGrade = "B";
+                    break;
+                }
+            case 1.5f:
+                {
+                    finalGrade = "B-";
+                    break;
+                }
+            case 2.0f:
+                {
+                    finalGrade = "C";
+                    break;
+                }
+            case 2.5f:
+                {
+                    finalGrade = "C-";
+                    break;
+                }
+            case 3.0f:
+                {
+                    finalGrade = "D";
+                    break;
+                }
+            case 3.5f:
+                {
+                    finalGrade = "D-";
+                    break;
+                }
+            case 4.0f:
+                {
+                    finalGrade = "E";
+                    break;
+                }
+            default:
+                finalGrade = "E";
+                break;
+        }
 
         this.grade1.text = grade1;
         this.grade2.text = grade2;
+        this.finalGrade.text = finalGrade;
     }
 
     public void ButtonBackToMainMenu()
