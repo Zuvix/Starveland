@@ -42,7 +42,7 @@ public class TalentDualWielder : Talent
     {
         int maximumTargets = this.ExtraTargets;
         List<MapCell> neighbourFields = Target.CurrentCell.GetClosestNeighbours();
-        neighbourFields.Union(Target.CurrentCell.GetClosestDiagonalNeighbours());
+        neighbourFields.AddRange(Target.CurrentCell.GetClosestDiagonalNeighbours());
         for (int i = 1; i < neighbourFields.Count; i++)
         {
             if (neighbourFields[i].GetTopSelectableObject() is ResourceSource NeighbouringResourceSource)

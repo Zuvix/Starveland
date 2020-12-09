@@ -241,7 +241,7 @@ public class MapCell
     public List<MapCell> GetRandomNeighbouringResourceSourceSpawnLocation(int resourceSourcesToSpawn)
     {
         List<MapCell> Possibilities = GetClosestNeighbours().Where(x => x.CanBeEnteredByObject(true)).ToList();
-        Possibilities.Union(GetClosestDiagonalNeighbours().Where(x => x.CanBeEnteredByObject(true)).ToList());
+        Possibilities.AddRange(GetClosestDiagonalNeighbours().Where(x => x.CanBeEnteredByObject(true)).ToList());
 
         if (Possibilities.Count <= resourceSourcesToSpawn)
         {

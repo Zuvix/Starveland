@@ -131,7 +131,7 @@ MonoBehaviour:
   popupNoIcon: {fileID: 0}
   IsBlocking: 1
   IsSelectable: 1
-  IsPossibleToAddToActionQueue: 0
+  IsPossibleToAddToActionQueue: 1
   Replacement: {fileID: 0}
   resource:
     itemInfo: {fileID: 0}

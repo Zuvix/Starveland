@@ -112,7 +112,8 @@ public class UnitAnimal : Unit
             }
 
         }
-        List<MapCell> whereToSpawn = this.CurrentCell.GetRandomNeighbouringResourceSourceSpawnLocation(drops.Count);
+        List<MapCell> whereToSpawn = this.CurrentCell.GetRandomNeighbouringResourceSourceSpawnLocation(drops.Count - 1);
+        whereToSpawn.Add(this.CurrentCell);
         int i = 0;
         foreach (var spawn in whereToSpawn)
         {
