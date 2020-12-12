@@ -33,6 +33,8 @@ public enum BGObjects
     Gravel, 
     Lekno,
     Rumble,
+    LongGrass,
+    SeaStone
 }
 public enum AnimalObjects
 {
@@ -73,6 +75,8 @@ class CellObjectFactory : Singleton<CellObjectFactory>
     public GameObject lekno;
     public GameObject gravel;
     public GameObject rumble;
+    public GameObject longGrass;
+    public GameObject seaStone;
 
     [Header("Animals")]
     public GameObject boar;
@@ -221,7 +225,11 @@ class CellObjectFactory : Singleton<CellObjectFactory>
                         selectedPrefab = grass1;
                         break;
                     }
-
+                case BGObjects.LongGrass:
+                    {
+                        selectedPrefab = longGrass;
+                        break;
+                    }
                 case BGObjects.Gravel:
                     {
                         selectedPrefab = gravel;
@@ -235,6 +243,11 @@ class CellObjectFactory : Singleton<CellObjectFactory>
                 case BGObjects.Rumble:
                     {
                         selectedPrefab = rumble;
+                        break;
+                    }
+                case BGObjects.SeaStone:
+                    {
+                        selectedPrefab = seaStone;
                         break;
                     }
                 default:

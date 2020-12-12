@@ -54,26 +54,58 @@ public class MapControl : Singleton<MapControl> {
     {
         
         map = new Map(35, 22, 10f, new Vector3(0, 0));
-        Building storage=CreateGameObject(16, 13, building_storage).GetComponent<Building>();
-        GameObject unit=CreateGameObject(16, 14, player);
+        for (int i = 0; i < 11; i++)
+        {
+            COF.ProduceBGlObject(17, i, BGObjects.Gravel);
+            if (i % 2 == 0)
+            {
+                COF.ProduceBGlObject(16, i, BGObjects.Gravel);
+            }
+            else
+            {
+                COF.ProduceBGlObject(18, i, BGObjects.Gravel);
+            }
+        }
+        for (int i = 5; i < 11; i++)
+        {
+            if (i % 2 == 0)
+            {
+                COF.ProduceBGlObject(19, i, BGObjects.Gravel);
+            }
+            else
+            {
+                COF.ProduceBGlObject(20, i, BGObjects.Gravel);
+            }
+        }
+        COF.ProduceBGlObject(18, 0, BGObjects.Gravel);
+        COF.ProduceBGlObject(21, 8, BGObjects.Gravel);
+        COF.ProduceBGlObject(21, 10, BGObjects.Gravel);
+        COF.ProduceBGlObject(22, 9, BGObjects.Gravel);
+        COF.ProduceBGlObject(23, 10, BGObjects.Gravel);
+        COF.ProduceBGlObject(23, 8, BGObjects.Gravel);
+        COF.ProduceBGlObject(24, 9, BGObjects.Gravel);
+        COF.ProduceBGlObject(25, 10, BGObjects.Gravel);
+        COF.ProduceBGlObject(26, 9, BGObjects.Gravel);
+        COF.ProduceBGlObject(27, 10, BGObjects.Gravel);
+        Building storage=CreateGameObject(18, 8, building_storage).GetComponent<Building>();
+        GameObject unit;
+        unit = CreateGameObject(18, 5, player);
         //storage.Enter(player.GetComponent<Unit>());
-        unit=CreateGameObject(16, 12, player);
+        unit =CreateGameObject(16, 5, player);
         //storage.Enter(player.GetComponent<Unit>());
-        unit=CreateGameObject(15, 13, player);
+        unit=CreateGameObject(18, 3, player);
         //storage.Enter(player.GetComponent<Unit>());
-        unit=CreateGameObject(17, 13, player);
-        //storage.Enter(player.GetComponent<Unit>());
-
-
+        unit=CreateGameObject(16, 1, player);
+        unit = CreateGameObject(17, 3, player);
         //Gravel around water
         SpawnGravelAroundMap();
         //Create Lake
-        CreateLake(map.GetWidth() - 9, map.GetHeight() - 7,3,3);
+        SpawnHuntingZone(15,8,17,12);
         //Forest
         SpawnForest2(12, 18, 2, 2);
-        SpawnMines(18, 9, 15, 2);
+        SpawnMines(15, 10, 17, 1);
         //SpawnLeftovers
-        SpawnLeftoverStuff();
+        //SpawnLeftoverStuff();
     }
     public GameObject CreateGameObject(int x, int y, GameObject toBeCreatedGO)
     {
@@ -120,8 +152,29 @@ public class MapControl : Singleton<MapControl> {
         //Animals
         SpawnAnimalAnywhereInArea(AnimalObjects.Mouse, mouseMaxCount, startx, starty, width, forestySize);
         //Spawn the grass
-        SpawnGrassInArea(startx, starty, width, forestySize);
+        SpawnGrassInArea(startx, starty, width+1, forestySize);
 
+    }
+    public void SpawnHuntingZone( int width, int height, int startx, int starty)
+    {
+        CreateLake(map.GetWidth() - 9, map.GetHeight() - 7, 3, 3);
+        sur[] berryPositions=new sur[5];
+        berryPositions[0] = new sur(map.GetWidth() -3, map.GetHeight() - 4);
+        berryPositions[1] = new sur(map.GetWidth() - 3, map.GetHeight() - 7);
+        berryPositions[2] = new sur(18, 13);
+        berryPositions[3] = new sur(21, 16);
+        berryPositions[4] = new sur(19,18);
+        COF.ProduceAnimal(map.GetWidth() - 3, map.GetHeight() - 5,AnimalObjects.Snake);
+        SpawnBerries(berryPositions);
+        SpawnAnimalAnywhereInArea(AnimalObjects.Boar, boarMaxCount, startx+4, starty, (width / 2)-3, height);
+        SpawnLongGrassInArea(startx, starty, width+1, height);
+    }
+    public void SpawnBerries(sur[] positions)
+    {
+        foreach(sur s in positions)
+        {
+            COF.ProduceResourceSource(s.x, s.y, RSObjects.Bush_Berry_Purple);
+        }
     }
     public void SpawnMines(int width, int height, int startx, int starty)
     {
@@ -157,8 +210,8 @@ public class MapControl : Singleton<MapControl> {
         SpawnRSAnywhereInArea(RSObjects.Stone, Random.Range(2, 3), startx + 4, starty+1, 1, 1);
         SpawnRSAnywhereInArea(RSObjects.Stone, Random.Range(2,4), startx+4, starty+1, 1, 1);
         SpawnRSAnywhereInArea(RSObjects.Stone, Random.Range(2, 4), startx + 5, starty + 3, 1, 1);
-        SpawnRumble(startx, starty, width, height);
-        SpawnAnimalAnywhereInArea(AnimalObjects.Spider, spiderMaxCount, startx + 3, starty + 1, width, height-2);
+        SpawnRumble(startx-1, starty, width+3, height);
+        SpawnAnimalAnywhereInArea(AnimalObjects.Spider, spiderMaxCount, startx+6, starty , width-6, height-5);
     }
     private RSObjects[] FillArray(RSObjects[] inputArray, RSObjects desiredResource)
     {
@@ -240,6 +293,16 @@ public class MapControl : Singleton<MapControl> {
                     }*/
 
                 }
+            }
+            for (int i = x-1; i < x + lakexSize+2; i++)
+            {
+                COF.ProduceBGlObject(i, y - 1, BGObjects.SeaStone);
+                COF.ProduceBGlObject(i, lakeySize+y+1, BGObjects.SeaStone);
+            }
+            for (int i = y - 1; i < y + lakeySize+1; i++)
+            {
+                COF.ProduceBGlObject(x-1, i, BGObjects.SeaStone);
+                COF.ProduceBGlObject(lakexSize + x+1, i, BGObjects.SeaStone);
             }
         }
     }
@@ -401,28 +464,42 @@ public class MapControl : Singleton<MapControl> {
             }
         }
     }
+    public void SpawnLongGrassInArea(int startx, int starty, int width, int height)
+    {
+        for (int i = startx - 1; i < width + startx + 1; i++)
+        {
+            for (int d = starty - 1; d < height + starty + 1; d++)
+            {
+                int r = Random.Range(0, 100);
+                if (r <= 85)
+                {
+                    COF.ProduceBGlObject(i, d, BGObjects.LongGrass);
+                }
+            }
+        }
+    }
     private void SpawnGravelAroundMap()
     {
         for (int i = 0; i < map.GetWidth(); i++)
         {
             int r = Random.Range(0, 3);
             if (r <= 1)
-                COF.ProduceBGlObject(i, 0, BGObjects.Gravel);
+                COF.ProduceBGlObject(i, 0, BGObjects.SeaStone);
             r = Random.Range(0, 3);
             if (r <= 1)
-                COF.ProduceBGlObject(i, map.GetHeight() - 1, BGObjects.Gravel);
+                COF.ProduceBGlObject(i, map.GetHeight() - 1, BGObjects.SeaStone);
         }
         for (int i = 0; i < map.GetHeight(); i++)
         {
             int r = Random.Range(0, 3);
             if (r <= 1)
             {
-                COF.ProduceBGlObject(0, i, BGObjects.Gravel);
+                COF.ProduceBGlObject(0, i, BGObjects.SeaStone);
             }
             r = Random.Range(0, 3);
             if (r <= 1)
             {
-                COF.ProduceBGlObject(map.GetWidth() - 1, i, BGObjects.Gravel);
+                COF.ProduceBGlObject(map.GetWidth() - 1, i, BGObjects.SeaStone);
             }
         }
     }
@@ -454,8 +531,12 @@ public class MapControl : Singleton<MapControl> {
                 {
                     if (!mc.CanBeEnteredByObject(true))
                     {
-                        COF.ProduceBGlObject(i, d, BGObjects.Rumble);
-                        break;
+                        if (mc.CurrentObject is ResourceSource)
+                        {
+                            COF.ProduceBGlObject(i, d, BGObjects.Rumble);
+                            break;
+                        }
+
                     }
                 }
             }

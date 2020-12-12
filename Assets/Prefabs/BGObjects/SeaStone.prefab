@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 2283220006766421677}
   - component: {fileID: 4012934516723589868}
   m_Layer: 0
-  m_Name: LongGrass
+  m_Name: SeaStone
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -27,7 +27,7 @@ Transform:
   m_GameObject: {fileID: 2283220006766421666}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 120.4, y: 71.8, z: 0}
-  m_LocalScale: {x: 9.5, y: 9.5, z: 1}
+  m_LocalScale: {x: 8, y: 8, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
@@ -72,9 +72,9 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: -2
-  m_Sprite: {fileID: 1847429388013392791, guid: ddf4a4e6ec245864fbfb72f96ebb7d3d,
+  m_Sprite: {fileID: 4206541521890412137, guid: ddf4a4e6ec245864fbfb72f96ebb7d3d,
     type: 3}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Color: {r: 0.735849, g: 0.735849, b: 0.735849, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0

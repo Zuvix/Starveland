@@ -1792,7 +1792,7 @@ MonoBehaviour:
   treeMaxCount: 40
   hardLogMaxCount: 5
   mushroomMaxCount: 6
-  maxBerryCount: 8
+  maxBerryCount: 4
   toxicMaxFungiCount: 4
   rockMaxCount: 50
   ironMaxCount: 6
@@ -11666,6 +11666,18 @@ PrefabInstance:
       propertyPath: rumble
       value: 
       objectReference: {fileID: 2283220006766421666, guid: 6274f35ff4ab0ce49a986cc5d527b6bf,
+        type: 3}
+    - target: {fileID: 3275805233410246322, guid: ce26828ea09de184f839f032dbfb0368,
+        type: 3}
+      propertyPath: longGrass
+      value: 
+      objectReference: {fileID: 2283220006766421666, guid: 2874059b1028886448fb5656fe3092cc,
+        type: 3}
+    - target: {fileID: 3275805233410246322, guid: ce26828ea09de184f839f032dbfb0368,
+        type: 3}
+      propertyPath: seaStone
+      value: 
+      objectReference: {fileID: 2283220006766421666, guid: a577af8febeaee74c8696962d8a3bcf0,
         type: 3}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: ce26828ea09de184f839f032dbfb0368, type: 3}
