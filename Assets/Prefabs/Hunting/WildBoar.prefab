@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 6813496909135561650}
   - component: {fileID: 1880159630408921298}
   m_Layer: 0
-  m_Name: Spider
+  m_Name: WildBoar
   m_TagString: Animal
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -73,7 +73,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: -990417508781871988, guid: ddf4a4e6ec245864fbfb72f96ebb7d3d,
+  m_Sprite: {fileID: 3923206052049989027, guid: ddf4a4e6ec245864fbfb72f96ebb7d3d,
     type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -125,8 +125,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   flashTime: 0.2
   sr: {fileID: 0}
-  objectName: Spider
-  tip: Maybe it drops samething valuable?
+  objectName: Wild Boar
+  tip: A beefy and powerfull animal.
   popup: {fileID: 7964957230971447603, guid: 950b028d3cbc148489079960954f13fc, type: 3}
   popupNoIcon: {fileID: 7964957230971447603, guid: 0199f2e141a351545a749764e1a1c83c,
     type: 3}
@@ -148,25 +148,29 @@ MonoBehaviour:
     Amount: 0
   ReceiveDamageIcon: {fileID: 9122268959118044443, guid: b81d09a574bb33a4ea1b7acc8221604e,
     type: 3}
-  MovementSpeed: 10
+  MovementSpeed: 6
   Health: 0
-  MaxHealth: 100
-  BaseDamage: 10
-  Accuracy: 80
-  Dodge: 50
-  CritChance: 10
-  Defence: 0
-  TimesCriticalMultiplier: 5
+  MaxHealth: 200
+  BaseDamage: 20
+  Accuracy: 75
+  Dodge: 10
+  CritChance: 15
+  Defence: 20
+  TimesCriticalMultiplier: 2
   TargetDistance2AbortAttackOn: 4
   onDamageRecieved:
     m_PersistentCalls:
       m_Calls: []
-  AggroRadius: 0
-  WanderingRadius: 6
+  WanderingRadius: 7
   ChanceToMoveDuringWandering: 10
+  AggroRadius: 0
   inventory:
-  - item: {fileID: 11400000, guid: a4cc2863a35f94c46a84a2cb80a66b5a, type: 2}
-    minValue: 1
-    maxValue: 3
-    chance: 15
-  MaxTravelDistance: 4
+  - item: {fileID: 11400000, guid: 756d6da29aa825645a10985bc585f9d3, type: 2}
+    minValue: 5
+    maxValue: 8
+    chance: 100
+  - item: {fileID: 11400000, guid: e1cf7174a92301942a284f7d41ea53bc, type: 2}
+    minValue: 7
+    maxValue: 10
+    chance: 100
+  MaxTravelDistance: 5

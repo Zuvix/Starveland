@@ -111,6 +111,6 @@ MonoBehaviour:
     Amount: 0
   rp:
     item: {fileID: 11400000, guid: 508da25c2dcf82d4c90820e22ecd2a11, type: 2}
-    minValue: 20
-    maxValue: 30
+    minValue: 12
+    maxValue: 16
     chance: 100

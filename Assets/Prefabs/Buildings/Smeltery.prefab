@@ -110,7 +110,11 @@ MonoBehaviour:
   - itemInfo: {fileID: 11400000, guid: 7092d47e34caaa344bc94da314a4abc2, type: 2}
     Amount: 10
   - itemInfo: {fileID: 11400000, guid: e8182eeb5a384d44bbdda801c49fcd0b, type: 2}
-    Amount: 20
+    Amount: 30
+  CurrentVisitors: []
+  OnVisitorsChanged:
+    m_PersistentCalls:
+      m_Calls: []
   AvailableRecipes:
   - {fileID: 11400000, guid: 6a7b29180ac5ec24f8e8b50344f1a2ff, type: 2}
   - {fileID: 11400000, guid: f9cda1b2b6f52de4bbb86e11bf0d6e13, type: 2}

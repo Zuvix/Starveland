@@ -112,7 +112,7 @@ MonoBehaviour:
   rp:
     item: {fileID: 11400000, guid: a4cc2863a35f94c46a84a2cb80a66b5a, type: 2}
     minValue: 1
-    maxValue: 2
+    maxValue: 1
     chance: 100
 --- !u!61 &8841977509073851376
 BoxCollider2D:

@@ -100,9 +100,10 @@ MonoBehaviour:
   objectName: Berry Bush
   tip: If you wait a few days, more berries will come.
   popup: {fileID: 0}
+  popupNoIcon: {fileID: 0}
   IsBlocking: 0
   IsSelectable: 1
   IsPossibleToAddToActionQueue: 0
   Replacement: {fileID: 0}
-  DaysToGrow: 1
+  DaysToGrow: 2
   IncubatedResourceSourceType: 3

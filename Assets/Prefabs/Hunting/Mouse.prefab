@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 6813496909135561650}
   - component: {fileID: 1880159630408921298}
   m_Layer: 0
-  m_Name: Snake
+  m_Name: Mouse
   m_TagString: Animal
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -28,7 +28,7 @@ Transform:
   m_GameObject: {fileID: 1407401077263290619}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 9.4, y: 9.4, z: 1}
+  m_LocalScale: {x: 9.5, y: 9.5, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
@@ -73,9 +73,9 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: -3990371613155470165, guid: 2380c2bf226f11e43a52490c7cb71512,
+  m_Sprite: {fileID: -829009479908464317, guid: ddf4a4e6ec245864fbfb72f96ebb7d3d,
     type: 3}
-  m_Color: {r: 0.7924528, g: 0.38426486, b: 0.7437541, a: 1}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -102,7 +102,7 @@ BoxCollider2D:
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 1.0625, y: 1.0625}
+    oldSize: {x: 1.125, y: 1.125}
     newSize: {x: 1.125, y: 1.125}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
@@ -125,8 +125,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   flashTime: 0.2
   sr: {fileID: 0}
-  objectName: Snake
-  tip: Deadly!
+  objectName: Mouse
+  tip: Annoying, little mouse.
   popup: {fileID: 7964957230971447603, guid: 950b028d3cbc148489079960954f13fc, type: 3}
   popupNoIcon: {fileID: 7964957230971447603, guid: 0199f2e141a351545a749764e1a1c83c,
     type: 3}
@@ -148,29 +148,29 @@ MonoBehaviour:
     Amount: 0
   ReceiveDamageIcon: {fileID: 9122268959118044443, guid: b81d09a574bb33a4ea1b7acc8221604e,
     type: 3}
-  MovementSpeed: 30
+  MovementSpeed: 6
   Health: 0
-  MaxHealth: 150
-  BaseDamage: 50
-  Accuracy: 100
-  Dodge: 50
-  CritChance: 50
+  MaxHealth: 50
+  BaseDamage: 5
+  Accuracy: 90
+  Dodge: 75
+  CritChance: 10
   Defence: 0
-  TimesCriticalMultiplier: 3
+  TimesCriticalMultiplier: 2
   TargetDistance2AbortAttackOn: 4
   onDamageRecieved:
     m_PersistentCalls:
       m_Calls: []
-  AggroRadius: 0
   WanderingRadius: 5
   ChanceToMoveDuringWandering: 10
+  AggroRadius: 0
   inventory:
-  - item: {fileID: 11400000, guid: 756d6da29aa825645a10985bc585f9d3, type: 2}
-    minValue: 3
-    maxValue: 7
-    chance: 100
   - item: {fileID: 11400000, guid: e1cf7174a92301942a284f7d41ea53bc, type: 2}
     minValue: 2
-    maxValue: 4
+    maxValue: 3
     chance: 100
-  MaxTravelDistance: 4
+  - item: {fileID: 11400000, guid: 756d6da29aa825645a10985bc585f9d3, type: 2}
+    minValue: 1
+    maxValue: 2
+    chance: 100
+  MaxTravelDistance: 3

@@ -101,6 +101,7 @@ MonoBehaviour:
   objectName: Gravel
   tip: Rocks from the sea.
   popup: {fileID: 0}
+  popupNoIcon: {fileID: 0}
   IsBlocking: 0
   IsSelectable: 0
   IsPossibleToAddToActionQueue: 0
