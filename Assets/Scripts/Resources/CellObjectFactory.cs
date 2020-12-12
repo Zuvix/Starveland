@@ -15,6 +15,7 @@ public enum RSObjects
     ToxicMushroom,
     Iron,
     Coal,
+    Gold,
     HardLog,
     DeadAnimalArcheologist
 }
@@ -30,7 +31,10 @@ public enum BGObjects
     Grass,
     Grass1,
     Gravel, 
-    lekno,
+    Lekno,
+    Rumble,
+    LongGrass,
+    SeaStone
 }
 public enum AnimalObjects
 {
@@ -55,6 +59,7 @@ class CellObjectFactory : Singleton<CellObjectFactory>
     public GameObject toxicFungi;
     public GameObject iron;
     public GameObject coal;
+    public GameObject gold;
     public GameObject hardLog;
     public GameObject deadAnimalArcheologist;
 
@@ -69,6 +74,9 @@ class CellObjectFactory : Singleton<CellObjectFactory>
     public GameObject grass1;
     public GameObject lekno;
     public GameObject gravel;
+    public GameObject rumble;
+    public GameObject longGrass;
+    public GameObject seaStone;
 
     [Header("Animals")]
     public GameObject boar;
@@ -116,6 +124,11 @@ class CellObjectFactory : Singleton<CellObjectFactory>
             case RSObjects.Iron:
                 {
                     selectedPrefab = iron;
+                    break;
+                }
+            case RSObjects.Gold:
+                {
+                    selectedPrefab = gold;
                     break;
                 }
             case RSObjects.Mushroom:
@@ -212,15 +225,29 @@ class CellObjectFactory : Singleton<CellObjectFactory>
                         selectedPrefab = grass1;
                         break;
                     }
-
+                case BGObjects.LongGrass:
+                    {
+                        selectedPrefab = longGrass;
+                        break;
+                    }
                 case BGObjects.Gravel:
                     {
                         selectedPrefab = gravel;
                         break;
                     }
-                case BGObjects.lekno:
+                case BGObjects.Lekno:
                     {
                         selectedPrefab = lekno;
+                        break;
+                    }
+                case BGObjects.Rumble:
+                    {
+                        selectedPrefab = rumble;
+                        break;
+                    }
+                case BGObjects.SeaStone:
+                    {
+                        selectedPrefab = seaStone;
                         break;
                     }
                 default:

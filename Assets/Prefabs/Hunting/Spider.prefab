@@ -167,6 +167,10 @@ MonoBehaviour:
   inventory:
   - item: {fileID: 11400000, guid: a4cc2863a35f94c46a84a2cb80a66b5a, type: 2}
     minValue: 1
-    maxValue: 10
-    chance: 15
+    maxValue: 1
+    chance: 20
+  - item: {fileID: 11400000, guid: e1cf7174a92301942a284f7d41ea53bc, type: 2}
+    minValue: 2
+    maxValue: 2
+    chance: 80
   MaxTravelDistance: 4

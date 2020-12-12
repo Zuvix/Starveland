@@ -108,9 +108,13 @@ MonoBehaviour:
   Replacement: {fileID: 0}
   ConstructionCost:
   - itemInfo: {fileID: 11400000, guid: 5722983080fed344796794c0aafe3131, type: 2}
-    Amount: 10
-  - itemInfo: {fileID: 11400000, guid: e8182eeb5a384d44bbdda801c49fcd0b, type: 2}
-    Amount: 2
+    Amount: 25
+  - itemInfo: {fileID: 11400000, guid: 508da25c2dcf82d4c90820e22ecd2a11, type: 2}
+    Amount: 5
+  CurrentVisitors: []
+  OnVisitorsChanged:
+    m_PersistentCalls:
+      m_Calls: []
   AvailableRecipes:
   - {fileID: 11400000, guid: 68b528eb4ea0e5b4db6eb03e48158256, type: 2}
   - {fileID: 11400000, guid: 5e3f54dcbd7a01a409cb4205636b501d, type: 2}
