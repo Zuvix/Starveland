@@ -769,7 +769,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 5
+  m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &166628866
 MonoBehaviour:
@@ -1794,9 +1794,10 @@ MonoBehaviour:
   mushroomMaxCount: 6
   maxBerryCount: 8
   toxicMaxFungiCount: 4
-  rockMaxCount: 40
-  ironMaxCount: 12
-  coalMaxCount: 8
+  rockMaxCount: 50
+  ironMaxCount: 6
+  coalMaxCount: 5
+  goldMaxCount: 3
   mouseMaxCount: 6
   boarMaxCount: 4
   snakeMaxCount: 3
@@ -4320,7 +4321,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 6
+  m_RootOrder: 7
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &655650595
 MonoBehaviour:
@@ -5801,7 +5802,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 3
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &813091219
 PrefabInstance:
@@ -5813,7 +5814,7 @@ PrefabInstance:
     - target: {fileID: 8257016294825542128, guid: 2646b431e7902d446a4de539134e4ac8,
         type: 3}
       propertyPath: m_RootOrder
-      value: 4
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 8257016294825542128, guid: 2646b431e7902d446a4de539134e4ac8,
         type: 3}
@@ -11024,7 +11025,7 @@ RectTransform:
   - {fileID: 2022542372}
   - {fileID: 4491944861109268310}
   m_Father: {fileID: 0}
-  m_RootOrder: 2
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
@@ -11417,7 +11418,7 @@ PrefabInstance:
     - target: {fileID: 3275805233410246321, guid: ce26828ea09de184f839f032dbfb0368,
         type: 3}
       propertyPath: m_RootOrder
-      value: 7
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 3275805233410246321, guid: ce26828ea09de184f839f032dbfb0368,
         type: 3}
@@ -11653,6 +11654,18 @@ PrefabInstance:
       propertyPath: water.Array.data[8]
       value: 
       objectReference: {fileID: 8971999135580258473, guid: 32dee5f7da200ee47bd0ed1bacf8905d,
+        type: 3}
+    - target: {fileID: 3275805233410246322, guid: ce26828ea09de184f839f032dbfb0368,
+        type: 3}
+      propertyPath: gold
+      value: 
+      objectReference: {fileID: 2283220006766421666, guid: 605d879e0609ea04fab16fd8d0559218,
+        type: 3}
+    - target: {fileID: 3275805233410246322, guid: ce26828ea09de184f839f032dbfb0368,
+        type: 3}
+      propertyPath: rumble
+      value: 
+      objectReference: {fileID: 2283220006766421666, guid: 6274f35ff4ab0ce49a986cc5d527b6bf,
         type: 3}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: ce26828ea09de184f839f032dbfb0368, type: 3}

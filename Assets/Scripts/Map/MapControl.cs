@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using CodeMonkey.Utils;
 
+
 public struct sur
 {
     public int x;
@@ -34,6 +35,7 @@ public class MapControl : Singleton<MapControl> {
     public int rockMaxCount = 40;
     public int ironMaxCount = 12;
     public int coalMaxCount = 8;
+    public int goldMaxCount = 3;
 
 
 
@@ -52,14 +54,14 @@ public class MapControl : Singleton<MapControl> {
     {
         
         map = new Map(35, 22, 10f, new Vector3(0, 0));
-        Building storage=CreateGameObject(16, 12, building_storage).GetComponent<Building>();
-        GameObject unit=CreateGameObject(16, 13, player);
+        Building storage=CreateGameObject(16, 13, building_storage).GetComponent<Building>();
+        GameObject unit=CreateGameObject(16, 14, player);
         //storage.Enter(player.GetComponent<Unit>());
-        unit=CreateGameObject(16, 11, player);
+        unit=CreateGameObject(16, 12, player);
         //storage.Enter(player.GetComponent<Unit>());
-        unit=CreateGameObject(15, 12, player);
+        unit=CreateGameObject(15, 13, player);
         //storage.Enter(player.GetComponent<Unit>());
-        unit=CreateGameObject(17, 12, player);
+        unit=CreateGameObject(17, 13, player);
         //storage.Enter(player.GetComponent<Unit>());
 
 
@@ -69,9 +71,9 @@ public class MapControl : Singleton<MapControl> {
         CreateLake(map.GetWidth() - 9, map.GetHeight() - 7,3,3);
         //Forest
         SpawnForest2(12, 18, 2, 2);
-
+        SpawnMines(18, 9, 15, 2);
         //SpawnLeftovers
-        //SpawnLeftoverStuff();
+        SpawnLeftoverStuff();
     }
     public GameObject CreateGameObject(int x, int y, GameObject toBeCreatedGO)
     {
@@ -101,25 +103,70 @@ public class MapControl : Singleton<MapControl> {
         map.GetXY(worldPosition, out int x, out int y);
         return CreateGameObject(x, y, toBeCreatedGO);
     }
-    public void SpawnForest2(int forestxSize, int forestySize, int startx, int starty)
+    public void SpawnForest2(int width, int forestySize, int startx, int starty)
     {
         if (startx <0 && starty <0) return;
-        if (forestxSize < 0 && forestySize < 0) return;
-        if (startx + forestxSize > map.GetWidth()-1) return;
+        if (width < 0 && forestySize < 0) return;
+        if (startx + width > map.GetWidth()-1) return;
         if (starty + forestySize > map.GetHeight()-1) return;
         List<sur> usedSpots = new List<sur>();
         
         //Spawn trees
-        SpawnTrees(startx, starty, forestxSize, forestySize, out usedSpots);
+        SpawnTrees(startx, starty, width, forestySize, out usedSpots);
         //Normal mushrooms
         SpawnMushrooms(RSObjects.Mushroom, mushroomMaxCount, usedSpots);
         //Toxic mushrooms
         SpawnMushrooms(RSObjects.ToxicMushroom, toxicMaxFungiCount, usedSpots);
         //Animals
-        SpawnAnimalAnywhereInArea(AnimalObjects.Mouse, mouseMaxCount, startx, starty, forestxSize, forestySize);
+        SpawnAnimalAnywhereInArea(AnimalObjects.Mouse, mouseMaxCount, startx, starty, width, forestySize);
         //Spawn the grass
-        SpawnGrassInArea(startx, starty, forestxSize, forestySize);
+        SpawnGrassInArea(startx, starty, width, forestySize);
 
+    }
+    public void SpawnMines(int width, int height, int startx, int starty)
+    {
+        RSObjects[] rocks;
+        int rocksGold = Mathf.FloorToInt(rockMaxCount/3);
+        int rocksIron = Mathf.FloorToInt(rockMaxCount / 3);
+        int rocksCoal = Mathf.FloorToInt(rockMaxCount / 3);
+        
+        //Spawn Gold
+        MapCell goldCell = map.Grid[Mathf.FloorToInt(3*width / 4 + startx+1)][Mathf.FloorToInt( height / 4 + starty)];
+        RSObjects[] gold = new RSObjects[goldMaxCount];
+        FillArray(gold, RSObjects.Gold);
+        rocks = new RSObjects[rocksGold];
+        FillArray(rocks, RSObjects.Stone);
+        SpawnOres(gold, rocks, goldCell);
+
+        //Spawn iron
+        MapCell ironCell = map.Grid[Mathf.FloorToInt(3 * width / 4 + startx-4)][Mathf.FloorToInt(height / 4 + starty+2)];
+        RSObjects[] iron = new RSObjects[ironMaxCount];
+        FillArray(iron, RSObjects.Iron);
+        rocks = new RSObjects[rocksIron];
+        FillArray(rocks, RSObjects.Stone);
+        SpawnOres(iron, rocks, ironCell);
+
+        //Spawn Coal
+        MapCell coalCell = map.Grid[Mathf.FloorToInt(3 * width / 4 + startx+1)][Mathf.FloorToInt(height / 4 + starty+3)];
+        RSObjects[] coal= new RSObjects[coalMaxCount];
+        FillArray(coal, RSObjects.Coal);
+        rocks = new RSObjects[rocksCoal];
+        FillArray(rocks, RSObjects.Stone);
+        SpawnOres(coal, rocks, coalCell);
+        //Spawn rumble
+        SpawnRSAnywhereInArea(RSObjects.Stone, Random.Range(2, 3), startx + 4, starty+1, 1, 1);
+        SpawnRSAnywhereInArea(RSObjects.Stone, Random.Range(2,4), startx+4, starty+1, 1, 1);
+        SpawnRSAnywhereInArea(RSObjects.Stone, Random.Range(2, 4), startx + 5, starty + 3, 1, 1);
+        SpawnRumble(startx, starty, width, height);
+        SpawnAnimalAnywhereInArea(AnimalObjects.Spider, spiderMaxCount, startx + 3, starty + 1, width, height-2);
+    }
+    private RSObjects[] FillArray(RSObjects[] inputArray, RSObjects desiredResource)
+    {
+        for(int i=0; i < inputArray.Length; i++)
+        {
+            inputArray[i] = desiredResource;
+        }
+        return inputArray;
     }
     public int GetRandomIndex(int max)
     {
@@ -281,15 +328,19 @@ public class MapControl : Singleton<MapControl> {
         {
             int rx;
             int ry;
-            rx = Random.Range(startx,width);
-            ry = Random.Range(starty, height);
-            if (map.Grid[rx][ry].CanBeEnteredByObject(false))
+            rx = Random.Range(startx, width + startx);
+            ry = Random.Range(starty, height+starty);
+            if (!map.Grid[rx][ry].CanBeEnteredByObject(true))
             {
                 MapCell cell=map.Grid[rx][ry].GetRandomUnitEnterableNeighbour();
                 if (cell != null)
                 {
                     CellObjectFactory.Instance.ProduceAnimal(cell.x, cell.y, animal);
                 }
+            }
+            else
+            {
+                CellObjectFactory.Instance.ProduceAnimal(rx, ry, animal);
             }
             count++;
         }
@@ -375,8 +426,71 @@ public class MapControl : Singleton<MapControl> {
             }
         }
     }
-    public void SpawnOre()
+    public void SpawnOres(RSObjects[] treasure, RSObjects[] fodder, MapCell startCell)
     {
+        var allProducts = new List<RSObjects>(treasure.Length+fodder.Length);
+        allProducts.AddRange(treasure);
+        allProducts.AddRange(fodder);
+        RandomizeList<RSObjects>(allProducts,treasure.Length+fodder.Length/3,1);
+        COF.ProduceResourceSource(startCell.x, startCell.y, treasure[0]);
+        for (int i=1;i<allProducts.Count;i++)
+        {
+            MapCell emptyCell = startCell.GetRandomUnitEnterableNeighbour();
+            if (emptyCell != null)
+            {
+                COF.ProduceResourceSource(emptyCell.x, emptyCell.y, allProducts[i]);
+            }
+        }
 
     }
+    public void SpawnRumble(int startx, int starty, int width, int height)
+    {
+        for (int i = startx; i < width + startx; i++)
+        {
+            for (int d = starty; d < height + starty; d++)
+            {
+                List<MapCell> neighbours = map.Grid[i][d].GetClosestNeighbours();
+                foreach(MapCell mc in neighbours)
+                {
+                    if (!mc.CanBeEnteredByObject(true))
+                    {
+                        COF.ProduceBGlObject(i, d, BGObjects.Rumble);
+                        break;
+                    }
+                }
+            }
+        }
+    }
+    private void RandomizeList<T>(List<T> inputArray, int max, int min)
+    {
+        for (int i = max - 1; i > min; i--)
+        {
+            int randomIndex = Random.Range(min, i + 1);
+
+            T temp = inputArray[i];
+            inputArray[i] = inputArray[randomIndex];
+            inputArray[randomIndex] = temp;
+        }
+    }
+    public void SpawnRSAnywhereInArea(RSObjects RStoSpawn,int maxCount,int startx, int starty, int width, int height)
+    {
+        int count = 0;
+        while (count <= maxCount)
+        {
+            int rx;
+            int ry;
+            rx = Random.Range(startx, width+startx);
+            ry = Random.Range(starty, height+starty);
+            if (map.Grid[rx][ry].CanBeEnteredByObject(false))
+            {
+                MapCell cell = map.Grid[rx][ry].GetRandomUnitEnterableNeighbour();
+                if (cell != null)
+                {
+                    CellObjectFactory.Instance.ProduceResourceSource(cell.x, cell.y, RStoSpawn);
+                }
+            }
+            count++;
+        }
+    }
+    
 }
