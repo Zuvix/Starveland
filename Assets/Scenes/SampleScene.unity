@@ -1761,6 +1761,10 @@ GameObject:
   m_Component:
   - component: {fileID: 253511558}
   - component: {fileID: 253511557}
+  - component: {fileID: 253511559}
+  - component: {fileID: 253511560}
+  - component: {fileID: 253511561}
+  - component: {fileID: 253511562}
   m_Layer: 0
   m_Name: World Map
   m_TagString: Untagged
@@ -1788,20 +1792,6 @@ MonoBehaviour:
   player: {fileID: 3607116211974803593, guid: df79acb81629828469018336f4d7d5ed, type: 3}
   tombstone: {fileID: 8294826158820469398, guid: e37469ff022ec4f42b9711f654e34632,
     type: 3}
-  Foragables: 030000000500000006000000
-  treeMaxCount: 40
-  hardLogMaxCount: 5
-  mushroomMaxCount: 6
-  maxBerryCount: 4
-  toxicMaxFungiCount: 4
-  rockMaxCount: 50
-  ironMaxCount: 6
-  coalMaxCount: 5
-  goldMaxCount: 3
-  mouseMaxCount: 6
-  boarMaxCount: 4
-  snakeMaxCount: 3
-  spiderMaxCount: 5
 --- !u!4 &253511558
 Transform:
   m_ObjectHideFlags: 0
@@ -1816,6 +1806,68 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &253511559
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 253511556}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: de7b61a0407eb914e844ba3d0007a30f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Foragables: 03000000
+  treeMaxCount: 40
+  hardLogMaxCount: 5
+  mushroomMaxCount: 6
+  toxicMaxFungiCount: 4
+  mouseMaxCount: 6
+--- !u!114 &253511560
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 253511556}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6288bc73980629f49a55a00ddb2bdc2e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  rockMaxCount: 40
+  ironMaxCount: 6
+  coalMaxCount: 5
+  goldMaxCount: 3
+  spiderMaxCount: 5
+--- !u!114 &253511561
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 253511556}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6ac47ed884b310c42b8110e89eeeb28d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &253511562
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 253511556}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3d77065203bc9c241bb870eaaa03cdcf, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  maxBerryCount: 5
+  boarMaxCount: 4
+  snakeMaxCount: 3
 --- !u!1001 &314707135
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -11413,7 +11465,7 @@ PrefabInstance:
     - target: {fileID: 3275805233410246320, guid: ce26828ea09de184f839f032dbfb0368,
         type: 3}
       propertyPath: m_Name
-      value: WorldGeneration
+      value: CellObjectFactory
       objectReference: {fileID: 0}
     - target: {fileID: 3275805233410246321, guid: ce26828ea09de184f839f032dbfb0368,
         type: 3}
