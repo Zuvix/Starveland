@@ -21,6 +21,8 @@ MonoBehaviour:
   ForagingGatheringTime: 1.5
   ForagingIcon: {fileID: 6566697938281827825, guid: b81d09a574bb33a4ea1b7acc8221604e,
     type: 3}
+  ForagingUnitSprite: {fileID: -8689540323209292100, guid: b81d09a574bb33a4ea1b7acc8221604e,
+    type: 3}
   ForagingTalents:
   - Name: Lumberjack
     Description: Woodcutting speed
@@ -79,6 +81,8 @@ MonoBehaviour:
   MovementSpeedWhileCarryingRock: -50
   MiningIcon: {fileID: -2420062209741622707, guid: ddf4a4e6ec245864fbfb72f96ebb7d3d,
     type: 3}
+  MiningUnitSprite: {fileID: -11423522717338585, guid: b81d09a574bb33a4ea1b7acc8221604e,
+    type: 3}
   MiningTalents:
   - Name: Mining Berserk
     Description: '% chance to mine the rock n-times in a short span of time'
@@ -130,6 +134,8 @@ MonoBehaviour:
   HuntingKillExperience: 30
   HuntingGatheringTime: 3
   HuntingIcon: {fileID: -2267467025370889615, guid: b81d09a574bb33a4ea1b7acc8221604e,
+    type: 3}
+  HuntingUnitSprite: {fileID: 876963450036624205, guid: b81d09a574bb33a4ea1b7acc8221604e,
     type: 3}
   HuntingTalents:
   - Name: Carnivore

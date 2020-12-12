@@ -803,7 +803,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d90446a0bb0f62b438bffbf69d30443c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _persistent: 1
+  _persistent: 0
   OnDayOver:
     m_PersistentCalls:
       m_Calls: []
@@ -813,7 +813,7 @@ MonoBehaviour:
   OnTimeChanged:
     m_PersistentCalls:
       m_Calls: []
-  dayLength: 120
+  dayLength: 10
 --- !u!114 &166628868
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -826,7 +826,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dc372fa9703d89e499f9b9c3d74b2e23, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _persistent: 1
+  _persistent: 0
 --- !u!114 &166628869
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -839,7 +839,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7240861564ee62d4d82bdc9780ec1479, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _persistent: 1
+  _persistent: 0
   FeedingPanel: {fileID: 8459852605731252831}
   RawInventoryPanel: {fileID: 8459852605878598847}
   CookedInventoryPanel: {fileID: 250648856}
@@ -866,7 +866,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 555d53d73e7733c4abda41893a209338, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _persistent: 1
+  _persistent: 0
   ShipRecipe: {fileID: 11400000, guid: d5ee2f124d190054799aa7da8c92cfbe, type: 2}
 --- !u!1 &194182631
 GameObject:
@@ -1028,7 +1028,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 45f26fb806fd0c84c87c3499e7f39e48, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _persistent: 1
+  _persistent: 0
   Camera: {fileID: 519420031}
   Canvas: {fileID: 1648923962}
   VoidSprite: {fileID: 0}
@@ -1784,7 +1784,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a4e81869612a66644b31eeb9eca98f34, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _persistent: 1
+  _persistent: 0
   GreenBackground: {fileID: 8294826158820469398, guid: 06f757389e6134c41905395e07ba5123,
     type: 3}
   building_storage: {fileID: 5161994218835401504, guid: 17f8e5c93356e8343904c07d6e52001c,
@@ -4387,7 +4387,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a93158a838d9fe444b47f47aceda8138, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _persistent: 1
+  _persistent: 0
   timerTxt: {fileID: 3291120648770696997}
   dayCountTxt: {fileID: 3291120647982189468}
 --- !u!114 &655650596
@@ -4423,7 +4423,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2083f97e38224524c97545787e74d5e0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _persistent: 1
+  _persistent: 0
   Panels:
   - {fileID: 1176228665}
   - {fileID: 1101468807}
@@ -5921,7 +5921,7 @@ PrefabInstance:
     - target: {fileID: 8257016294825542129, guid: 2646b431e7902d446a4de539134e4ac8,
         type: 3}
       propertyPath: _persistent
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8257016294825542130, guid: 2646b431e7902d446a4de539134e4ac8,
         type: 3}
@@ -6523,6 +6523,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4981526306538883999, guid: 0460d3d8a969b4f4b8751438e519eda6,
         type: 3}
+      propertyPath: m_RootOrder
+      value: 13
+      objectReference: {fileID: 0}
+    - target: {fileID: 4981526306538883999, guid: 0460d3d8a969b4f4b8751438e519eda6,
+        type: 3}
       propertyPath: m_LocalPosition.x
       value: 491.8
       objectReference: {fileID: 0}
@@ -6538,6 +6543,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4981526306538883999, guid: 0460d3d8a969b4f4b8751438e519eda6,
         type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4981526306538883999, guid: 0460d3d8a969b4f4b8751438e519eda6,
+        type: 3}
       propertyPath: m_LocalRotation.x
       value: -0
       objectReference: {fileID: 0}
@@ -6550,16 +6560,6 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalRotation.z
       value: -0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4981526306538883999, guid: 0460d3d8a969b4f4b8751438e519eda6,
-        type: 3}
-      propertyPath: m_LocalRotation.w
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 4981526306538883999, guid: 0460d3d8a969b4f4b8751438e519eda6,
-        type: 3}
-      propertyPath: m_RootOrder
-      value: 13
       objectReference: {fileID: 0}
     - target: {fileID: 4981526306538883999, guid: 0460d3d8a969b4f4b8751438e519eda6,
         type: 3}
@@ -8974,7 +8974,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4930e2d4d815b8d419482487bbea469f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _persistent: 1
+  _persistent: 0
 --- !u!4 &1254131794
 Transform:
   m_ObjectHideFlags: 0
@@ -9001,7 +9001,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e6ee1a3e10bc4a74684573b9d15ba89b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _persistent: 1
+  _persistent: 0
   OnInventoryUpdate:
     m_PersistentCalls:
       m_Calls:
@@ -11524,62 +11524,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3275805233410246322, guid: ce26828ea09de184f839f032dbfb0368,
         type: 3}
-      propertyPath: water.Array.size
-      value: 9
-      objectReference: {fileID: 0}
+      propertyPath: boar
+      value: 
+      objectReference: {fileID: 1407401077263290619, guid: 086d143166f420a4c9e9a41e327e008f,
+        type: 3}
     - target: {fileID: 3275805233410246322, guid: ce26828ea09de184f839f032dbfb0368,
         type: 3}
       propertyPath: bush
       value: 
       objectReference: {fileID: 2283220006766421666, guid: bc3a6439918b4c64a922e116ae9b506f,
-        type: 3}
-    - target: {fileID: 3275805233410246322, guid: ce26828ea09de184f839f032dbfb0368,
-        type: 3}
-      propertyPath: stone
-      value: 
-      objectReference: {fileID: 2283220006766421666, guid: f13b2c2b4832bf546a02ae9f6330dca0,
-        type: 3}
-    - target: {fileID: 3275805233410246322, guid: ce26828ea09de184f839f032dbfb0368,
-        type: 3}
-      propertyPath: diamond
-      value: 
-      objectReference: {fileID: 2283220006766421666, guid: 44d950dc99eb3c543b5a7d6026706cef,
-        type: 3}
-    - target: {fileID: 3275805233410246322, guid: ce26828ea09de184f839f032dbfb0368,
-        type: 3}
-      propertyPath: sapling
-      value: 
-      objectReference: {fileID: 2283220006766421666, guid: 5d02c3b32c089034687246cb500a497e,
-        type: 3}
-    - target: {fileID: 3275805233410246322, guid: ce26828ea09de184f839f032dbfb0368,
-        type: 3}
-      propertyPath: berryless_bush
-      value: 
-      objectReference: {fileID: 2283220006766421666, guid: bc3a6439918b4c64a922e116ae9b506f,
-        type: 3}
-    - target: {fileID: 3275805233410246322, guid: ce26828ea09de184f839f032dbfb0368,
-        type: 3}
-      propertyPath: bush_berry_red
-      value: 
-      objectReference: {fileID: 2283220006766421666, guid: 7637602e43b5c13448646f2afe20763e,
-        type: 3}
-    - target: {fileID: 3275805233410246322, guid: ce26828ea09de184f839f032dbfb0368,
-        type: 3}
-      propertyPath: bush_berry_purple
-      value: 
-      objectReference: {fileID: 2283220006766421666, guid: 71472869ee9d50a4fa5cb67e0c7766c2,
-        type: 3}
-    - target: {fileID: 3275805233410246322, guid: ce26828ea09de184f839f032dbfb0368,
-        type: 3}
-      propertyPath: toxicFungi
-      value: 
-      objectReference: {fileID: 2283220006766421666, guid: 54b726138bdfa8540a89875855d0789e,
-        type: 3}
-    - target: {fileID: 3275805233410246322, guid: ce26828ea09de184f839f032dbfb0368,
-        type: 3}
-      propertyPath: mushroom
-      value: 
-      objectReference: {fileID: 2283220006766421666, guid: 973f5dc7fbfc60b4ab7e0c653fbb5ac9,
         type: 3}
     - target: {fileID: 3275805233410246322, guid: ce26828ea09de184f839f032dbfb0368,
         type: 3}
@@ -11589,27 +11542,15 @@ PrefabInstance:
         type: 3}
     - target: {fileID: 3275805233410246322, guid: ce26828ea09de184f839f032dbfb0368,
         type: 3}
+      propertyPath: gold
+      value: 
+      objectReference: {fileID: 2283220006766421666, guid: 605d879e0609ea04fab16fd8d0559218,
+        type: 3}
+    - target: {fileID: 3275805233410246322, guid: ce26828ea09de184f839f032dbfb0368,
+        type: 3}
       propertyPath: iron
       value: 
       objectReference: {fileID: 2283220006766421666, guid: 39f5be832ecd4a64e97f49bf51ee068b,
-        type: 3}
-    - target: {fileID: 3275805233410246322, guid: ce26828ea09de184f839f032dbfb0368,
-        type: 3}
-      propertyPath: hardLog
-      value: 
-      objectReference: {fileID: 2283220006766421666, guid: 6fb3d81f6483d2a4eacfdb9675c83e92,
-        type: 3}
-    - target: {fileID: 3275805233410246322, guid: ce26828ea09de184f839f032dbfb0368,
-        type: 3}
-      propertyPath: deadAnimalArcheologist
-      value: 
-      objectReference: {fileID: 1468059033923470519, guid: 27a7a1a7563f01f4ca50c96086811374,
-        type: 3}
-    - target: {fileID: 3275805233410246322, guid: ce26828ea09de184f839f032dbfb0368,
-        type: 3}
-      propertyPath: grass1
-      value: 
-      objectReference: {fileID: 2283220006766421666, guid: c1107de33bd2ab946a48b98675d237b1,
         type: 3}
     - target: {fileID: 3275805233410246322, guid: ce26828ea09de184f839f032dbfb0368,
         type: 3}
@@ -11625,18 +11566,6 @@ PrefabInstance:
         type: 3}
     - target: {fileID: 3275805233410246322, guid: ce26828ea09de184f839f032dbfb0368,
         type: 3}
-      propertyPath: gravel
-      value: 
-      objectReference: {fileID: 2283220006766421666, guid: 0a4d54e4c7f496f4c9acce1a33f0081f,
-        type: 3}
-    - target: {fileID: 3275805233410246322, guid: ce26828ea09de184f839f032dbfb0368,
-        type: 3}
-      propertyPath: spider
-      value: 
-      objectReference: {fileID: 1407401077263290619, guid: 60d756f7b77957c44965f4834c09b538,
-        type: 3}
-    - target: {fileID: 3275805233410246322, guid: ce26828ea09de184f839f032dbfb0368,
-        type: 3}
       propertyPath: mouse
       value: 
       objectReference: {fileID: 1407401077263290619, guid: 84e4acc0303f19d4db4a22768d8547eb,
@@ -11649,9 +11578,121 @@ PrefabInstance:
         type: 3}
     - target: {fileID: 3275805233410246322, guid: ce26828ea09de184f839f032dbfb0368,
         type: 3}
-      propertyPath: boar
+      propertyPath: stone
       value: 
-      objectReference: {fileID: 1407401077263290619, guid: 086d143166f420a4c9e9a41e327e008f,
+      objectReference: {fileID: 2283220006766421666, guid: f13b2c2b4832bf546a02ae9f6330dca0,
+        type: 3}
+    - target: {fileID: 3275805233410246322, guid: ce26828ea09de184f839f032dbfb0368,
+        type: 3}
+      propertyPath: grass1
+      value: 
+      objectReference: {fileID: 2283220006766421666, guid: c1107de33bd2ab946a48b98675d237b1,
+        type: 3}
+    - target: {fileID: 3275805233410246322, guid: ce26828ea09de184f839f032dbfb0368,
+        type: 3}
+      propertyPath: gravel
+      value: 
+      objectReference: {fileID: 2283220006766421666, guid: 0a4d54e4c7f496f4c9acce1a33f0081f,
+        type: 3}
+    - target: {fileID: 3275805233410246322, guid: ce26828ea09de184f839f032dbfb0368,
+        type: 3}
+      propertyPath: rumble
+      value: 
+      objectReference: {fileID: 2283220006766421666, guid: 6274f35ff4ab0ce49a986cc5d527b6bf,
+        type: 3}
+    - target: {fileID: 3275805233410246322, guid: ce26828ea09de184f839f032dbfb0368,
+        type: 3}
+      propertyPath: scroll
+      value: 
+      objectReference: {fileID: 1468059033923470519, guid: ce0d2b1c6f8bc9a41a73e660a3101a89,
+        type: 3}
+    - target: {fileID: 3275805233410246322, guid: ce26828ea09de184f839f032dbfb0368,
+        type: 3}
+      propertyPath: spider
+      value: 
+      objectReference: {fileID: 1407401077263290619, guid: 60d756f7b77957c44965f4834c09b538,
+        type: 3}
+    - target: {fileID: 3275805233410246322, guid: ce26828ea09de184f839f032dbfb0368,
+        type: 3}
+      propertyPath: diamond
+      value: 
+      objectReference: {fileID: 2283220006766421666, guid: 44d950dc99eb3c543b5a7d6026706cef,
+        type: 3}
+    - target: {fileID: 3275805233410246322, guid: ce26828ea09de184f839f032dbfb0368,
+        type: 3}
+      propertyPath: hardLog
+      value: 
+      objectReference: {fileID: 2283220006766421666, guid: 6fb3d81f6483d2a4eacfdb9675c83e92,
+        type: 3}
+    - target: {fileID: 3275805233410246322, guid: ce26828ea09de184f839f032dbfb0368,
+        type: 3}
+      propertyPath: sapling
+      value: 
+      objectReference: {fileID: 2283220006766421666, guid: 5d02c3b32c089034687246cb500a497e,
+        type: 3}
+    - target: {fileID: 3275805233410246322, guid: ce26828ea09de184f839f032dbfb0368,
+        type: 3}
+      propertyPath: mushroom
+      value: 
+      objectReference: {fileID: 2283220006766421666, guid: 973f5dc7fbfc60b4ab7e0c653fbb5ac9,
+        type: 3}
+    - target: {fileID: 3275805233410246322, guid: ce26828ea09de184f839f032dbfb0368,
+        type: 3}
+      propertyPath: seaStone
+      value: 
+      objectReference: {fileID: 2283220006766421666, guid: a577af8febeaee74c8696962d8a3bcf0,
+        type: 3}
+    - target: {fileID: 3275805233410246322, guid: ce26828ea09de184f839f032dbfb0368,
+        type: 3}
+      propertyPath: longGrass
+      value: 
+      objectReference: {fileID: 2283220006766421666, guid: 2874059b1028886448fb5656fe3092cc,
+        type: 3}
+    - target: {fileID: 3275805233410246322, guid: ce26828ea09de184f839f032dbfb0368,
+        type: 3}
+      propertyPath: toxicFungi
+      value: 
+      objectReference: {fileID: 2283220006766421666, guid: 54b726138bdfa8540a89875855d0789e,
+        type: 3}
+    - target: {fileID: 3275805233410246322, guid: ce26828ea09de184f839f032dbfb0368,
+        type: 3}
+      propertyPath: _persistent
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3275805233410246322, guid: ce26828ea09de184f839f032dbfb0368,
+        type: 3}
+      propertyPath: deadAnimalFur
+      value: 
+      objectReference: {fileID: 1468059033923470519, guid: cc089cb8014d48a42b48146ce55bb27b,
+        type: 3}
+    - target: {fileID: 3275805233410246322, guid: ce26828ea09de184f839f032dbfb0368,
+        type: 3}
+      propertyPath: berryless_bush
+      value: 
+      objectReference: {fileID: 2283220006766421666, guid: bc3a6439918b4c64a922e116ae9b506f,
+        type: 3}
+    - target: {fileID: 3275805233410246322, guid: ce26828ea09de184f839f032dbfb0368,
+        type: 3}
+      propertyPath: bush_berry_red
+      value: 
+      objectReference: {fileID: 2283220006766421666, guid: 7637602e43b5c13448646f2afe20763e,
+        type: 3}
+    - target: {fileID: 3275805233410246322, guid: ce26828ea09de184f839f032dbfb0368,
+        type: 3}
+      propertyPath: deadAnimalMeat
+      value: 
+      objectReference: {fileID: 1468059033923470519, guid: 304421dfea88f024696532745427d45f,
+        type: 3}
+    - target: {fileID: 3275805233410246322, guid: ce26828ea09de184f839f032dbfb0368,
+        type: 3}
+      propertyPath: water.Array.size
+      value: 9
+      objectReference: {fileID: 0}
+    - target: {fileID: 3275805233410246322, guid: ce26828ea09de184f839f032dbfb0368,
+        type: 3}
+      propertyPath: bush_berry_purple
+      value: 
+      objectReference: {fileID: 2283220006766421666, guid: 71472869ee9d50a4fa5cb67e0c7766c2,
         type: 3}
     - target: {fileID: 3275805233410246322, guid: ce26828ea09de184f839f032dbfb0368,
         type: 3}
@@ -11709,27 +11750,9 @@ PrefabInstance:
         type: 3}
     - target: {fileID: 3275805233410246322, guid: ce26828ea09de184f839f032dbfb0368,
         type: 3}
-      propertyPath: gold
+      propertyPath: deadAnimalArcheologist
       value: 
-      objectReference: {fileID: 2283220006766421666, guid: 605d879e0609ea04fab16fd8d0559218,
-        type: 3}
-    - target: {fileID: 3275805233410246322, guid: ce26828ea09de184f839f032dbfb0368,
-        type: 3}
-      propertyPath: rumble
-      value: 
-      objectReference: {fileID: 2283220006766421666, guid: 6274f35ff4ab0ce49a986cc5d527b6bf,
-        type: 3}
-    - target: {fileID: 3275805233410246322, guid: ce26828ea09de184f839f032dbfb0368,
-        type: 3}
-      propertyPath: longGrass
-      value: 
-      objectReference: {fileID: 2283220006766421666, guid: 2874059b1028886448fb5656fe3092cc,
-        type: 3}
-    - target: {fileID: 3275805233410246322, guid: ce26828ea09de184f839f032dbfb0368,
-        type: 3}
-      propertyPath: seaStone
-      value: 
-      objectReference: {fileID: 2283220006766421666, guid: a577af8febeaee74c8696962d8a3bcf0,
+      objectReference: {fileID: 1468059033923470519, guid: 27a7a1a7563f01f4ca50c96086811374,
         type: 3}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: ce26828ea09de184f839f032dbfb0368, type: 3}
@@ -12658,7 +12681,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e577c05ca7391b34f8a48c7483bfa875, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _persistent: 1
+  _persistent: 0
 --- !u!4 &2005896439
 Transform:
   m_ObjectHideFlags: 0
@@ -16808,6 +16831,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_RaycastTarget
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8756830605213964418, guid: 040a202f6d8121f4aa06e7b985a7fdad,
+        type: 3}
+      propertyPath: m_text
+      value: Action Queue
       objectReference: {fileID: 0}
     - target: {fileID: 8756830605213964428, guid: 040a202f6d8121f4aa06e7b985a7fdad,
         type: 3}

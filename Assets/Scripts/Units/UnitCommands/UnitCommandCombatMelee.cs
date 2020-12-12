@@ -27,6 +27,7 @@ public class UnitCommandCombatMelee : UnitCommand
         yield return Unit.StartCoroutine(Unit.Fight(this.TargetUnit));
         if (TargetUnit != null && Skill != null && PathFinding.Instance.BlockDistance(Unit.CurrentCell, TargetUnit.CurrentCell) <= 2)
         {
+            Unit.SetSprite(Skill.unitSprite);
             Skill.DoAction(Unit, TargetUnit);
         }
     }

@@ -15,6 +15,7 @@ public class SkillHunting : Skill
         this.ExperiencePerKill = GameConfigManager.Instance.GameConfig.HuntingKillExperience;
         this.GatheringTime = GameConfigManager.Instance.GameConfig.HuntingGatheringTime;
         this.icon = GameConfigManager.Instance.GameConfig.HuntingIcon;
+        this.unitSprite = GameConfigManager.Instance.GameConfig.HuntingUnitSprite;
         this.type = SkillType.Hunting;
 
         this.SkillTalents = new Dictionary<TalentType, Talent>()

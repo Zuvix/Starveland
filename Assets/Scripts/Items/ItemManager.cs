@@ -16,7 +16,8 @@ public class ItemManager : Singleton<ItemManager>
         {
             { GetItem("Meat"), RSObjects.DeadAnimalMeat },
             { GetItem("Fur"), RSObjects.DeadAnimalFur },
-            { GetItem("Diamond"), RSObjects.Diamond }
+            { GetItem("Diamond"), RSObjects.Diamond },
+            { GetItem("Magic Scroll"), RSObjects.Scroll }
         };
     }
     void LoadItemsFromDirectory(string path)

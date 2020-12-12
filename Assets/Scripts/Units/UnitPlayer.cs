@@ -9,6 +9,7 @@ public class UnitPlayer : Unit
     [Header("Player unit specific")]
     [Min(1)]
     public int CarryingCapacity = 3;
+    public Sprite defaultSprite;
 
     public override void SetActivity(ActivityState Activity)
     {
@@ -115,7 +116,7 @@ public class UnitPlayer : Unit
     {
         if (!(this.CurrentActivity is ActivityStateUnderAttack) && !(this.CurrentActivity is ActivityStateHunt) && !DayCycleManager.Instance.TimeOut)
         {
-            this.SetActivity(new ActivityStateUnderAttack(AttackingUnit, this));
+            this.SetActivity(new ActivityStateUnderAttack(AttackingUnit, this, this.Skills[SkillType.Hunting]));
         }
     }
     public override void SpawnOnDeath(int x, int y)
@@ -140,5 +141,17 @@ public class UnitPlayer : Unit
     public override void SetDefaultActivity()
     {
         SetActivity(new ActivityStateIdle());
+    }
+
+    public override void SetSprite(Sprite sprite = null)
+    {
+        if (sprite != null)
+        {
+            this.sr.sprite = sprite;
+        }
+        else
+        {
+            this.sr.sprite = this.defaultSprite;
+        }
     }
 }

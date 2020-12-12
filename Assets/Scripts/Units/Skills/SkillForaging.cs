@@ -15,6 +15,7 @@ public class SkillForaging : Skill
         this.ExperiencePerAction = GameConfigManager.Instance.GameConfig.ForagingExperiencePerAction;
         this.GatheringTime = GameConfigManager.Instance.GameConfig.ForagingGatheringTime;
         this.icon = GameConfigManager.Instance.GameConfig.ForagingIcon;
+        this.unitSprite = GameConfigManager.Instance.GameConfig.ForagingUnitSprite;
         this.type = SkillType.Foraging;
         this.WoodcuttingTime = this.GatheringTime;
         this.WoodcuttingTimeIncrease = 0;

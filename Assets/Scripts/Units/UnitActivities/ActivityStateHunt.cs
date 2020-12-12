@@ -24,7 +24,7 @@ public class ActivityStateHunt : ActivityState
         this.CommandMoveToTarget = new UnitCommandMove(this.UnitTarget.CurrentCell, path);
         this.CommandCombat = new UnitCommandCombatMelee(this.UnitTarget, Skill);
         this.Skill = Skill;
-
+        Unit.SetSprite(Skill?.unitSprite);
         return this;
     }
 

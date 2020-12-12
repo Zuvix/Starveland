@@ -47,7 +47,7 @@ public class TalentDualWielder : Talent
         {
             if (neighbourFields[i].GetTopSelectableObject() is ResourceSource NeighbouringResourceSource)
             {
-                if (NeighbouringResourceSource.tag.Equals(Target.tag) && maximumTargets-- > 0 && !Unit.InventoryFull())
+                if (NeighbouringResourceSource.resource.itemInfo.name.Equals(Target.resource.itemInfo.name) && maximumTargets-- > 0 && !Unit.InventoryFull())
                 {
                     int nx = NeighbouringResourceSource.CurrentCell.x;
                     int ny = NeighbouringResourceSource.CurrentCell.y;

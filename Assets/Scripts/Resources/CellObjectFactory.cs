@@ -18,7 +18,8 @@ public enum RSObjects
     Coal,
     Gold,
     HardLog,
-    DeadAnimalArcheologist
+    DeadAnimalArcheologist,
+    Scroll
 }
 
 public enum CellObjects
@@ -64,6 +65,7 @@ class CellObjectFactory : Singleton<CellObjectFactory>
     public GameObject gold;
     public GameObject hardLog;
     public GameObject deadAnimalArcheologist;
+    public GameObject scroll;
 
     // Cell Objects
     [Header ("Cell objects")]
@@ -156,6 +158,11 @@ class CellObjectFactory : Singleton<CellObjectFactory>
             case RSObjects.DeadAnimalArcheologist:
             {
                 selectedPrefab = deadAnimalArcheologist;
+                break;
+            }
+            case RSObjects.Scroll:
+            {
+                selectedPrefab = scroll;
                 break;
             }
             default:
