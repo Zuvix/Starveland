@@ -108,8 +108,12 @@ MonoBehaviour:
   Replacement: {fileID: 0}
   ConstructionCost:
   - itemInfo: {fileID: 11400000, guid: 3c6bf0124cb4cb949b3d2da92724a714, type: 2}
-    Amount: 20
+    Amount: 10
   - itemInfo: {fileID: 11400000, guid: 8041d655803214148bf3272292ae8187, type: 2}
     Amount: 5
+  CurrentVisitors: []
+  OnVisitorsChanged:
+    m_PersistentCalls:
+      m_Calls: []
   AvailableRecipes:
   - {fileID: 11400000, guid: 9c427cc35ce1aee43b4b46f907467bcc, type: 2}
