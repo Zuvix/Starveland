@@ -54,6 +54,29 @@ public class MapControl : Singleton<MapControl> {
     {
         
         map = new Map(35, 22, 10f, new Vector3(0, 0));
+        ProduceSpecificRoad();
+        Building storage=CreateGameObject(18, 8, building_storage).GetComponent<Building>();
+        GameObject unit;
+        unit = CreateGameObject(18, 5, player);
+        //storage.Enter(player.GetComponent<Unit>());
+        unit =CreateGameObject(16, 5, player);
+        //storage.Enter(player.GetComponent<Unit>());
+        unit=CreateGameObject(18, 3, player);
+        //storage.Enter(player.GetComponent<Unit>());
+        unit=CreateGameObject(16, 1, player);
+        unit = CreateGameObject(17, 3, player);
+        //Gravel around water
+        SpawnGravelAroundMap();
+        //Create Lake
+        SpawnHuntingZone(15,8,17,12);
+        //Forest
+        SpawnForest2(12, 18, 2, 2);
+        SpawnMines(15, 10, 17, 1);
+        //SpawnLeftovers
+        //SpawnLeftoverStuff();
+    }
+    private void ProduceSpecificRoad()
+    {
         for (int i = 0; i < 11; i++)
         {
             COF.ProduceBGlObject(17, i, BGObjects.Gravel);
@@ -87,25 +110,6 @@ public class MapControl : Singleton<MapControl> {
         COF.ProduceBGlObject(25, 10, BGObjects.Gravel);
         COF.ProduceBGlObject(26, 9, BGObjects.Gravel);
         COF.ProduceBGlObject(27, 10, BGObjects.Gravel);
-        Building storage=CreateGameObject(18, 8, building_storage).GetComponent<Building>();
-        GameObject unit;
-        unit = CreateGameObject(18, 5, player);
-        //storage.Enter(player.GetComponent<Unit>());
-        unit =CreateGameObject(16, 5, player);
-        //storage.Enter(player.GetComponent<Unit>());
-        unit=CreateGameObject(18, 3, player);
-        //storage.Enter(player.GetComponent<Unit>());
-        unit=CreateGameObject(16, 1, player);
-        unit = CreateGameObject(17, 3, player);
-        //Gravel around water
-        SpawnGravelAroundMap();
-        //Create Lake
-        SpawnHuntingZone(15,8,17,12);
-        //Forest
-        SpawnForest2(12, 18, 2, 2);
-        SpawnMines(15, 10, 17, 1);
-        //SpawnLeftovers
-        //SpawnLeftoverStuff();
     }
     public GameObject CreateGameObject(int x, int y, GameObject toBeCreatedGO)
     {
