@@ -53,11 +53,12 @@ public class SkillHunting : Skill
     
     private bool Attack(Unit Unit, Unit TargetUnit)
     {
+        bool lethal = false;
         if (SkillTalents[TalentType.LethalBlow] != null)
         {
-            SkillTalents[TalentType.LethalBlow]?.Execute(Unit, TargetUnit);
+            lethal = SkillTalents[TalentType.LethalBlow].Execute(Unit, TargetUnit);
         }
-        else
+        else if (!lethal)
         {
             Unit.Attack(Unit, TargetUnit, SkillTalents[TalentType.Opportunist] != null ? true : false);
         }

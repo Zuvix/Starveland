@@ -91,7 +91,10 @@ public class UnitPlayer : Unit
         yield return new WaitForSeconds(1.0f);
         //Debug.Log("Dropping resources");
         //itemInHand = target.Gather();
-        target.Flash();
+        if (target != null)
+        {
+            target.Flash();
+        }
         yield return new WaitForSeconds(0.2f);
     }
 

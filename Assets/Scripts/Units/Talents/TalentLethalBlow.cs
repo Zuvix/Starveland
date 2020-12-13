@@ -36,13 +36,15 @@ public class TalentLethalBlow : Talent
         throw new NotImplementedException();
     }
 
-    public override void Execute(Unit Unit, Unit Target)
+    public override bool Execute(Unit Unit, Unit Target)
     {
         if (UnityEngine.Random.Range(1, 100) <= this.InstaKillChance)
         {
             Unit.CreatePopup("Lethal Blow!", Color.red);
             Target.Die();
+            return true;
         }
+        return false;
     }
 }
 
