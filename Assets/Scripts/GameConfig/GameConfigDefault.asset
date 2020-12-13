@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   StartingLevelOfSkills: 1
   MaximumLevelOfSkills: 10
-  ExperienceToLevelUpForEachLevel: 1e0000001e0000001e0000001e0000001e0000001e0000001e0000001e0000001e0000001e000000
+  ExperienceToLevelUpForEachLevel: 1e0000003c0000005a0000007800000096000000b4000000d2000000f00000000e0100002c010000
   MaximumTalentsPerSkill: 3
   RecieveTalentLevels: 03000000060000000a000000
   ForagingExperiencePerAction: 10
@@ -212,6 +212,6 @@ MonoBehaviour:
     Description: Ignore enemy defences
     icon: {fileID: 1914097269958853597, guid: ddf4a4e6ec245864fbfb72f96ebb7d3d, type: 3}
     EffectList: []
-  MaxQueueActions: 20
+  MaxQueueActions: 28
   QueueFrame: {fileID: 3575314171218851561, guid: 95a0c3fb8c9150d44bf16cc794a1ea82,
     type: 3}
