@@ -112,14 +112,17 @@ public class UnitAnimal : Unit
             }
 
         }
-        List<MapCell> whereToSpawn = this.CurrentCell.GetRandomNeighbouringResourceSourceSpawnLocation(drops.Count - 1);
-        whereToSpawn.Add(this.CurrentCell);
-        int i = 0;
-        foreach (var spawn in whereToSpawn)
+        if (drops.Count > 0)
         {
-            Debug.LogWarning($"Spawning Resource Source! {drops[i].itemInfo.name}, {spawn.x},{spawn.y}");
-            CellObjectFactory.Instance.ProduceResourceSource(spawn.x, spawn.y, ItemManager.Instance.resourceToResourceSource[drops[i].itemInfo], new List<Resource>() { drops[i] });
-            i++;
+            List<MapCell> whereToSpawn = this.CurrentCell.GetRandomNeighbouringResourceSourceSpawnLocation(drops.Count - 1);
+            whereToSpawn.Add(this.CurrentCell);
+            int i = 0;
+            foreach (var spawn in whereToSpawn)
+            {
+                Debug.LogWarning($"Spawning Resource Source! {drops[i].itemInfo.name}, {spawn.x},{spawn.y}");
+                CellObjectFactory.Instance.ProduceResourceSource(spawn.x, spawn.y, ItemManager.Instance.resourceToResourceSource[drops[i].itemInfo], new List<Resource>() { drops[i] });
+                i++;
+            }
         }
         //CellObjectFactory.Instance.ProduceResourceSource(x, y, RSObjects.DeadAnimalMeat, drops);
     }
