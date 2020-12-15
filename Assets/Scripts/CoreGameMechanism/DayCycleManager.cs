@@ -53,12 +53,9 @@ class DayCycleManager : Singleton<DayCycleManager>
     public void IndicateEndDayRoutineEnd()
     {
         this.FinishedUnitCounter--;
-        Debug.LogWarning($"Unit finishedCounter decremented to {this.FinishedUnitCounter}");
 
         if (this.FinishedUnitCounter <= 0)
         {
-            //TODO visualise GUI for feeding
-            Debug.Log("Units are done preparing for night");
             FeedingManager.Instance.InitiateDayEnd();
         }
     }
