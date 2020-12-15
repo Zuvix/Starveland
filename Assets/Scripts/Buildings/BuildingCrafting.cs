@@ -132,7 +132,6 @@ public class BuildingCrafting : Building
     }
     public static void ToggleProgressBarVisibility(bool newValue)
     {
-        Debug.LogError($"Setting ProgressBarAllowed {newValue}");
         ProgressBarAllowed = newValue;
         foreach (BuildingCrafting Building in CraftingBuildingPool)
         {

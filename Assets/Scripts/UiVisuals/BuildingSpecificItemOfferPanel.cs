@@ -93,7 +93,7 @@ public class BuildingSpecificItemOfferPanel : MonoBehaviour, IPointerClickHandle
     public void CheckResourceAvailability()
     {
         ResourcesAvailable = true;
-        foreach (Resource Resource in Building.ConstructionCost)
+        foreach (Resource Resource in Recipe.Input)
         {
             ResourcesAvailable &= GlobalInventory.Instance.CheckAvaliableItem(Resource.itemInfo.name, Resource.Amount);
             if (!ResourcesAvailable)
