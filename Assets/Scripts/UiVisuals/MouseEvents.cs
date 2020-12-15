@@ -178,4 +178,9 @@ public class MouseEvents : Singleton<MouseEvents>
         this.ActiveBuildingMenuPanel = null;
         this.DragEnabled = true;
     }
+
+    public void SimulateClickOnObject(GameObject go)
+    {
+        this.selectedObject = go;
+    }
 }

@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 
 public class UnitPlayer : Unit
 {
@@ -10,6 +11,8 @@ public class UnitPlayer : Unit
     [Min(1)]
     public int CarryingCapacity = 3;
     public Sprite defaultSprite;
+    public UnityEvent onPlayerDeath = new UnityEvent();
+    public UnityEvent<Sprite> onSpriteChange = new UnityEvent<Sprite>();
 
     public override void SetActivity(ActivityState Activity)
     {
@@ -130,6 +133,7 @@ public class UnitPlayer : Unit
     {
         Unit.PlayerUnitPool.Remove(this);
         UnitManager.Instance.IdleUnits.Remove(this);
+        onPlayerDeath.Invoke();
         if (DayCycleManager.Instance.GameIsWaitingForPlayerUnits2GoEat())
         {
             DayCycleManager.Instance.IndicateEndDayRoutineEnd();
@@ -151,10 +155,12 @@ public class UnitPlayer : Unit
         if (sprite != null)
         {
             this.sr.sprite = sprite;
+            onSpriteChange.Invoke(sprite);
         }
         else
         {
             this.sr.sprite = this.defaultSprite;
+            onSpriteChange.Invoke(this.defaultSprite);
         }
     }
 }

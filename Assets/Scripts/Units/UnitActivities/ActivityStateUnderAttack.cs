@@ -30,6 +30,8 @@ public class ActivityStateUnderAttack : ActivityState
         if (
                 (Unit is UnitAnimal && Unit.CurrentCommand == this.CommandMoveToTarget && DayCycleManager.Instance.TimeOut)
                 ||
+                (this.UnitTarget.IsInBuilding())
+                ||
                 (Unit.CurrentCommand == CommandMoveToTarget && PathFinding.Instance.BlockDistance(Unit.CurrentCell, UnitTarget.CurrentCell) > Unit.TargetDistance2AbortAttackOn)
             )
         {
@@ -74,6 +76,11 @@ public class ActivityStateUnderAttack : ActivityState
     public override bool IsCancellable()
     {
         return true;
+    }
+
+    public override bool IsInterruptibleByAttack()
+    {
+        return false;
     }
 }
 

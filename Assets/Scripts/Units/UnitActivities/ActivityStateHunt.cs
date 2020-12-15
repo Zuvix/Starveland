@@ -85,5 +85,10 @@ public class ActivityStateHunt : ActivityState
     {
         return true;
     }
+
+    public override bool IsInterruptibleByAttack()
+    {
+        return false;
+    }
 }
 

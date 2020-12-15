@@ -104,5 +104,9 @@ class ActivityStateIdle : ActivityState
     {
         return false;
     }
+    public override bool IsInterruptibleByAttack()
+    {
+        return false;
+    }
     public override void HandleInBuildingAction(Unit Unit) {}
 }

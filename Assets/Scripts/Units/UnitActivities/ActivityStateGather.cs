@@ -164,4 +164,9 @@ class ActivityStateGather : ActivityState
     {
         return true;
     }
+
+    public override bool IsInterruptibleByAttack()
+    {
+        return true;
+    }
 }

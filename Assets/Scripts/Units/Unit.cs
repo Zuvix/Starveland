@@ -215,6 +215,10 @@ public abstract class Unit : CellObject
         bool Result = false; 
         if (this.NextActivity != null)
         {
+            if (NextActivity is ActivityStateUnderAttack && !CurrentActivity.IsInterruptibleByAttack())
+            {
+                return Result;
+            }
             this.CurrentActivity = this.NextActivity;
             this.NextActivity = null;
             this.CurrentActivity.InitializeCommand(this);

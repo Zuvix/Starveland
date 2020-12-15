@@ -55,4 +55,8 @@ public class ActivityStateMoveToSpawnPosition : ActivityState
     {
         return false;
     }
+    public override bool IsInterruptibleByAttack()
+    {
+        return true;
+    }
 }
