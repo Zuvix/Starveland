@@ -135,3 +135,5 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   CarryingCapacity: 3
+  defaultSprite: {fileID: -7858541106361481556, guid: ddf4a4e6ec245864fbfb72f96ebb7d3d,
+    type: 3}

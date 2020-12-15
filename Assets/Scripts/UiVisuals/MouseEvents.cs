@@ -153,7 +153,7 @@ public class MouseEvents : Singleton<MouseEvents>
         {
             HandleMouseMove();
         }
-        HandleMouseClick();
+        HandleMouseClick();        
     }
 
     private GameObject GetSelectedGameObject(Vector3 MousePosition)

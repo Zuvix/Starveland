@@ -477,4 +477,9 @@ public abstract class Unit : CellObject
         NewColor.w = Visible ? 1 : 0;
         this.gameObject.GetComponent<SpriteRenderer>().color = NewColor;
     }
+
+    public virtual void SetSprite(Sprite sprite = null)
+    {
+
+    }
 }

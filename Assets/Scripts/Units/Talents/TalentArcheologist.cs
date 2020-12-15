@@ -1,4 +1,8 @@
-﻿using UnityEngine;
+﻿using System;
+using System.Collections;
+using System.Collections.Generic;
+using System.Linq;
+using UnityEngine;
 
 public class TalentArcheologist : Talent
 {
@@ -30,6 +34,8 @@ public class TalentArcheologist : Talent
 
     public override void Execute(int x, int y)
     {
-        CellObjectFactory.Instance.ProduceResourceSource(x, y, RSObjects.DeadAnimalArcheologist);
+        AnimalObjects choosenAnimal = (AnimalObjects)UnityEngine.Random.Range(0, Enum.GetNames(typeof(AnimalObjects)).Length - 1);
+        UnitAnimal animal = (CellObjectFactory.Instance.ProduceAnimal(x, y, choosenAnimal)).GetComponent<UnitAnimal>();
+        animal.Die();
     }
 }

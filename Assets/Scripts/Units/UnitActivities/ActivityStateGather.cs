@@ -20,6 +20,8 @@ class ActivityStateGather : ActivityState
 
     public override ActivityState SetCommands(Unit Unit, Skill Skill)
     {
+        Unit.SetSprite(Skill.unitSprite);
+
         List<MapCell> Path2Resource = PathFinding.Instance.FindPath(Unit.CurrentCell, this.Target, PathFinding.EXCLUDE_LAST);
 
         this.CommandMove2Resource = new UnitCommandMove(this.Target, Path2Resource);

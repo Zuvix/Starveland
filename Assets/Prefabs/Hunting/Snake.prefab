@@ -161,9 +161,9 @@ MonoBehaviour:
   onDamageRecieved:
     m_PersistentCalls:
       m_Calls: []
+  AggroRadius: 10
   WanderingRadius: 5
   ChanceToMoveDuringWandering: 10
-  AggroRadius: 10
   inventory:
   - item: {fileID: 11400000, guid: 756d6da29aa825645a10985bc585f9d3, type: 2}
     minValue: 5

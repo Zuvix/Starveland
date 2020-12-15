@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using UnityEngine.SceneManagement;
 using System.Collections;
 using JetBrains.Annotations;
 /// <summary>
@@ -16,7 +17,7 @@ public abstract class Singleton<T> : Singleton where T : MonoBehaviour
     private static readonly object Lock = new object();
 
     [SerializeField]
-    private bool _persistent = true;
+    private bool _persistent = false;
     #endregion
 
     #region  Properties
@@ -25,7 +26,7 @@ public abstract class Singleton<T> : Singleton where T : MonoBehaviour
     {
         get
         {
-            if (Quitting)
+            if (Quitting || GameEnded)
             {
                 Debug.LogWarning($"[{nameof(Singleton)}<{typeof(T)}>] Instance will not be returned because the application is quitting.");
                 // ReSharper disable once AssignNullToNotNullAttribute
@@ -61,22 +62,38 @@ public abstract class Singleton<T> : Singleton where T : MonoBehaviour
         if (_persistent)
             DontDestroyOnLoad(gameObject);
         OnAwake();
+        GameEnded = false;
+        SceneManager.activeSceneChanged += DestroyOnMenuScreen;
     }
 
     protected virtual void OnAwake() { }
     #endregion
+
+    void DestroyOnMenuScreen(Scene oldScene, Scene newScene)
+    {
+        if (newScene.buildIndex != 1 && this._persistent)
+        {
+            Destroy(this);
+        }
+    }
+    
 }
 
 public abstract class Singleton : MonoBehaviour
 {
     #region  Properties
     public static bool Quitting { get; private set; }
+    public static bool GameEnded = false;
     #endregion
 
     #region  Methods
     private void OnApplicationQuit()
     {
         Quitting = true;
+    }
+    private void OnDestroy()
+    {
+        GameEnded = true;
     }
     #endregion
 }

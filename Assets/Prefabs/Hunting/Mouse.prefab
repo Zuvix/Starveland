@@ -153,7 +153,7 @@ MonoBehaviour:
   MaxHealth: 50
   BaseDamage: 5
   Accuracy: 90
-  Dodge: 75
+  Dodge: 50
   CritChance: 10
   Defence: 0
   TimesCriticalMultiplier: 2
@@ -161,9 +161,9 @@ MonoBehaviour:
   onDamageRecieved:
     m_PersistentCalls:
       m_Calls: []
+  AggroRadius: 0
   WanderingRadius: 5
   ChanceToMoveDuringWandering: 10
-  AggroRadius: 0
   inventory:
   - item: {fileID: 11400000, guid: e1cf7174a92301942a284f7d41ea53bc, type: 2}
     minValue: 2

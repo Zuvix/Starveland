@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 422818186283922562}
   - component: {fileID: -2647990642881357952}
   m_Layer: 0
-  m_Name: Animal_Dead
+  m_Name: Animal_Dead_Meat
   m_TagString: Animal_Dead
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -128,9 +128,10 @@ MonoBehaviour:
   objectName: Dead Animal
   tip: Dead animal
   popup: {fileID: 0}
+  popupNoIcon: {fileID: 0}
   IsBlocking: 1
   IsSelectable: 1
-  IsPossibleToAddToActionQueue: 0
+  IsPossibleToAddToActionQueue: 1
   Replacement: {fileID: 0}
   resource:
     itemInfo: {fileID: 0}
@@ -138,5 +139,5 @@ MonoBehaviour:
   rp:
     item: {fileID: 11400000, guid: 756d6da29aa825645a10985bc585f9d3, type: 2}
     minValue: 1
-    maxValue: 10
+    maxValue: 1
     chance: 100

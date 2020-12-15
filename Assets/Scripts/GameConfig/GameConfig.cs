@@ -8,24 +8,6 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "newGameConfig", menuName = "Game Configuration")]
 public class GameConfig : ScriptableObject
 {
-    /*[Header("Player Unit")]
-    [Tooltip("Maximum health of the player units, default value is 100")]
-    [Min(1)]
-    public int MaxHealthPlayer = 100;
-    [Range(0f, 50f)]
-    public float MovementSpeedPlayer = 20f;
-    [Min(1)]
-    public int BaseDamagePlayer = 10;
-
-    [Header("Animal Unit")]
-    [Space(10)]
-    [Min(1)]
-    public int MaxHealthAnimal = 100;
-    [Range(0f, 50f)]
-    public float MovementSpeedAnimal = 5f;
-    [Min(1)]
-    public int BaseDamageAnimal = 10;*/
-
     [Header("Skills")]
     [Space(10)]
     [Tooltip("Defines the starting level of all skills. Beware: setting it higher doesn't automatically add any talents!")]
@@ -46,6 +28,7 @@ public class GameConfig : ScriptableObject
     [Min(0)]
     public float ForagingGatheringTime = 1.5f;
     public Sprite ForagingIcon;
+    public Sprite ForagingUnitSprite;
     public List<TalentSerializable> ForagingTalents;
 
     [Header("Mining skill")]
@@ -57,6 +40,7 @@ public class GameConfig : ScriptableObject
     public int BasicDiamondUnderRockChance = 25;
     public int MovementSpeedWhileCarryingRock = -50;
     public Sprite MiningIcon;
+    public Sprite MiningUnitSprite;
     public List<TalentSerializable> MiningTalents;
 
     [Header("Hunting skill")]
@@ -67,6 +51,7 @@ public class GameConfig : ScriptableObject
     [Min(0)]
     public float HuntingGatheringTime = 3.0f;
     public Sprite HuntingIcon;
+    public Sprite HuntingUnitSprite;
     public List<TalentSerializable> HuntingTalents;
 
     [Header("Other")]

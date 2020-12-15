@@ -18,6 +18,7 @@ public class SkillMining : Skill
         this.DiamondChance = GameConfigManager.Instance.GameConfig.BasicDiamondUnderRockChance;
         this.MovementSpeedModifier = GameConfigManager.Instance.GameConfig.MovementSpeedWhileCarryingRock;
         this.icon = GameConfigManager.Instance.GameConfig.MiningIcon;
+        this.unitSprite = GameConfigManager.Instance.GameConfig.MiningUnitSprite;
         this.type = SkillType.Mining;
         this.MininigTime = this.GatheringTime;
         this.MiningTimeIncrease = 0;
@@ -80,7 +81,7 @@ public class SkillMining : Skill
     private bool TargetDepleted(int x, int y)
     {
         // basic chance to spawn diamond under rock
-        if (UnityEngine.Random.Range(1, 100) <= 1)
+        if (UnityEngine.Random.Range(1, 100) <= this.DiamondChance)
         {
             CellObjectFactory.Instance.ProduceResourceSource(x, y, RSObjects.Diamond);
         }

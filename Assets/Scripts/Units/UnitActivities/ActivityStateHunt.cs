@@ -24,7 +24,7 @@ public class ActivityStateHunt : ActivityState
         this.CommandMoveToTarget = new UnitCommandMove(this.UnitTarget.CurrentCell, path);
         this.CommandCombat = new UnitCommandCombatMelee(this.UnitTarget, Skill);
         this.Skill = Skill;
-
+        Unit.SetSprite(Skill?.unitSprite);
         return this;
     }
 
@@ -43,7 +43,7 @@ public class ActivityStateHunt : ActivityState
             }
             else if (Unit.CurrentCommand == CommandCombat)
             {
-                if (!DayCycleManager.Instance.TimeOut)
+                /*if (!DayCycleManager.Instance.TimeOut)
                 {
                     if (Unit is UnitPlayer)
                     {
@@ -56,17 +56,9 @@ public class ActivityStateHunt : ActivityState
                 }
                 else
                 {
-                    /*if (Unit is UnitPlayer)
-                    {
-                        //Unit.SetActivity(new ActivityStateEndDayRoutine());
-						Unit.SetActivity(new ActivityStateIdle());
-                    }
-                    else if (Unit is UnitAnimal)
-                    {
-                        ((UnitAnimal)Unit).Wander();
-                    }*/
 					Unit.SetDefaultActivity();
-                }
+                }*/
+                Unit.SetDefaultActivity();
             }
         }
         else if (!Unit.CurrentCommand.CanBePerformed(Unit))

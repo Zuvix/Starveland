@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using UnityEngine;
 using UnityEngine.Events;
+using UnityEngine.SceneManagement;
 
 class GameOver : Singleton<GameOver>
 {
@@ -32,6 +33,10 @@ class GameOver : Singleton<GameOver>
         Unit.UnitPool.Clear();*/
 
         Debug.LogError("All player units are dead. Game is over!");
+
+        PlayerPrefs.SetInt("PlayersSurvived", 0);
+        PlayerPrefs.SetInt("GameOver", 0);
+        SceneManager.LoadScene(2);
     }
     public void InitiatePositiveGameOver()
     {
@@ -41,5 +46,9 @@ class GameOver : Singleton<GameOver>
         GlobalGameState.Instance.InGameInputAllowed = false;
 
         Debug.LogError("Ship is built. Game won!");
+
+        PlayerPrefs.SetInt("PlayersSurvived", Unit.PlayerUnitPool.Count);
+        PlayerPrefs.SetInt("GameOver", 1);
+        SceneManager.LoadScene(2);
     }
 }
