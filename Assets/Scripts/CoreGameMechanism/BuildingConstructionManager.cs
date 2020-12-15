@@ -64,8 +64,6 @@ public class BuildingConstructionManager : Singleton<BuildingConstructionManager
     public void SelectBuilding(GameObject Building)
     {
         this.CurrentlySelectedBuilding = Building;
-        Debug.LogWarning(Building);
-        Debug.LogWarning(PrefabPallette.Instance.GenericBuildingMock);
         PrefabPallette.Instance.GenericBuildingMock.GetComponent<SpriteRenderer>().sprite = this.CurrentlySelectedBuilding.GetComponent<SpriteRenderer>().sprite;
         this.gameObject.SetActive(true);
     }
