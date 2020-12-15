@@ -115,7 +115,6 @@ public class GlobalInventory : Singleton<GlobalInventory>
         return false;
     }
     public bool AttemptRemoveItems(List<Resource> Items)
-    public bool AttemptRemoveItems(List<Resource> Items)
     {
         bool Success = true;
         List<Resource> BackedUpResources = new List<Resource>();
