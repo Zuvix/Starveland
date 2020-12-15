@@ -106,4 +106,4 @@ MonoBehaviour:
   IsPossibleToAddToActionQueue: 0
   Replacement: {fileID: 0}
   DaysToGrow: 2
-  IncubatedResourceSourceType: 3
+  IncubatedResourceSourceType: 4
