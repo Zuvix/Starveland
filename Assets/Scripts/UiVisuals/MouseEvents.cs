@@ -181,6 +181,7 @@ public class MouseEvents : Singleton<MouseEvents>
 
     public void SimulateClickOnObject(GameObject go)
     {
+        this.viewedObject = go;
         this.selectedObject = go;
     }
 }
