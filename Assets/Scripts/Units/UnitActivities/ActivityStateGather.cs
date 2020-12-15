@@ -80,7 +80,7 @@ class ActivityStateGather : ActivityState
             else
             {
                 //TODO
-                throw new Exception("Unit's current command is something unexpected");
+                throw new Exception($"Unit's current command is done, but is something unexpected: {Unit.CurrentCommand}");
             }
             // If Unit is done doing something, we set new command to queue.
             // However, we were expected to do something because PerformAction was called, so we need to retry
@@ -120,7 +120,6 @@ class ActivityStateGather : ActivityState
                     if (NewMoveCommand != null)
                     {
                         this.CommandMove2Storage = NewMoveCommand;
-                        Unit.SetCommand(this.CommandMove2Storage);
                     }
                     else
                     {
@@ -135,7 +134,7 @@ class ActivityStateGather : ActivityState
             else
             {
                 //TODO
-                throw new Exception("Unit's current command is something unexpected");
+                throw new Exception($"Unit's current command cannot be performed and something unexpected: {Unit.CurrentCommand}");
             }
         }
         else
