@@ -215,6 +215,10 @@ public abstract class Unit : CellObject
         bool Result = false; 
         if (this.NextActivity != null)
         {
+            if (NextActivity is ActivityStateUnderAttack && !CurrentActivity.IsInterruptibleByAttack())
+            {
+                return Result;
+            }
             this.CurrentActivity = this.NextActivity;
             this.NextActivity = null;
             this.CurrentActivity.InitializeCommand(this);
@@ -476,5 +480,10 @@ public abstract class Unit : CellObject
         Vector4 NewColor = this.gameObject.GetComponent<SpriteRenderer>().color;
         NewColor.w = Visible ? 1 : 0;
         this.gameObject.GetComponent<SpriteRenderer>().color = NewColor;
+    }
+
+    public virtual void SetSprite(Sprite sprite = null)
+    {
+
     }
 }

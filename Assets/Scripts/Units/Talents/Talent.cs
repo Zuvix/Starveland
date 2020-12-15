@@ -39,7 +39,7 @@ public abstract class Talent
         isDepleted = false;
         return null; 
     }
-    public virtual void Execute(Unit Unit, Unit Target) { }
+    public virtual bool Execute(Unit Unit, Unit Target) { return false; }
 }
 
 public enum TalentType

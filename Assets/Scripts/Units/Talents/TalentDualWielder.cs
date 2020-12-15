@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 public class TalentDualWielder : Talent
@@ -39,24 +40,31 @@ public class TalentDualWielder : Talent
 
     public override void Execute(Unit Unit, ResourceSource Target, Resource Resource, Func<int, int, bool> Depleted)
     {
-        int maximumTargets = this.ExtraTargets;
-        List<MapCell> neighbourFields = Target.CurrentCell.GetClosestNeighbours();
-        for (int i = 1; i < neighbourFields.Count; i++)
+        if (Target != null)
         {
-            if (neighbourFields[i].GetTopSelectableObject() is ResourceSource NeighbouringResourceSource)
+            int maximumTargets = this.ExtraTargets;
+            List<MapCell> neighbourFields = Target.CurrentCell.GetClosestNeighbours();
+            neighbourFields.AddRange(Target.CurrentCell.GetClosestDiagonalNeighbours());
+            for (int i = 1; i < neighbourFields.Count; i++)
             {
-                if (NeighbouringResourceSource.tag.Equals(Target.tag) && maximumTargets-- > 0 && !Unit.InventoryFull())
+                if (neighbourFields[i].GetTopSelectableObject() is ResourceSource NeighbouringResourceSource)
                 {
-                    int nx = NeighbouringResourceSource.CurrentCell.x;
-                    int ny = NeighbouringResourceSource.CurrentCell.y;
-                    Resource NeightbouringResource = NeighbouringResourceSource.GatherResource(1, out bool isDepletedNeighbouring);
-                    NeighbouringResourceSource.Flash();
-                    if (isDepletedNeighbouring && !Target.tag.Equals("Diamond"))
+                    if (Target.resource.itemInfo != null && NeighbouringResourceSource.resource.itemInfo != null)
                     {
-                        Depleted(nx, ny);
+                        if (NeighbouringResourceSource.resource.itemInfo.name.Equals(Target.resource.itemInfo.name) && maximumTargets-- > 0 && !Unit.InventoryFull())
+                        {
+                            int nx = NeighbouringResourceSource.CurrentCell.x;
+                            int ny = NeighbouringResourceSource.CurrentCell.y;
+                            Resource NeightbouringResource = NeighbouringResourceSource.GatherResource(1, out bool isDepletedNeighbouring);
+                            NeighbouringResourceSource.Flash();
+                            if (isDepletedNeighbouring && !Target.tag.Equals("Diamond"))
+                            {
+                                Depleted(nx, ny);
+                            }
+                            Resource.Amount++;
+                            Unit.CarriedResource.AddDestructive(NeightbouringResource);
+                        }
                     }
-                    Resource.Amount++;
-                    Unit.CarriedResource.AddDestructive(NeightbouringResource);
                 }
             }
         }

@@ -126,5 +126,9 @@ public class ActivityStateWander : ActivityState
     {
         return false;
     }
+    public override bool IsInterruptibleByAttack()
+    {
+        return true;
+    }
 }
 

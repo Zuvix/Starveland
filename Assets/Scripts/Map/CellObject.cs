@@ -24,7 +24,7 @@ public class CellObject : MonoBehaviour
     public bool IsSelectable = false;
     public bool IsPossibleToAddToActionQueue = false;
 
-    private SpriteRenderer SpriteRendererComponent;
+    //private SpriteRenderer SpriteRendererComponent;
 
     public GameObject Replacement;
 
@@ -37,15 +37,15 @@ public class CellObject : MonoBehaviour
     }
     private void Start()
     {
-        this.SpriteRendererComponent = this.gameObject.GetComponent<SpriteRenderer>();
+        //this.SpriteRendererComponent = this.gameObject.GetComponent<SpriteRenderer>();
     }
     public void MakeTransparent(float Value)
     {
-        if (SpriteRendererComponent != null)
+        if (sr != null)
         {
-            Color NewColour = this.SpriteRendererComponent.color;
+            Color NewColour = this.sr.color;
             NewColour.a = Value;
-            this.SpriteRendererComponent.color = NewColour;
+            this.sr.color = NewColour;
         }
     }
     public void MakeOpaque()

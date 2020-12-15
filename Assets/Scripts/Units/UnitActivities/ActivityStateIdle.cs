@@ -17,6 +17,7 @@ class ActivityStateIdle : ActivityState
     public override void InitializeCommand(Unit Unit)
     {
         this.MoveToHouseCommand = this.CommandToMoveToStorage(Unit);
+        Unit.SetSprite();
     }
     public override IEnumerator PerformSpecificAction(Unit Unit)
     {
@@ -100,6 +101,10 @@ class ActivityStateIdle : ActivityState
         }
     }
     public override bool IsCancellable()
+    {
+        return false;
+    }
+    public override bool IsInterruptibleByAttack()
     {
         return false;
     }

@@ -48,6 +48,7 @@ class DayCycleManager : Singleton<DayCycleManager>
         DaytimeCounter.Instance.StartDay();
         GlobalGameState.Instance.InGameInputAllowed = true;
         TimeOut = false;
+        PlayerPrefs.SetInt("DaysPassed", PlayerPrefs.GetInt("DaysPassed") + 1);
     }
     public void IndicateEndDayRoutineEnd()
     {

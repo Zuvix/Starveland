@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 
 public class UnitPlayer : Unit
 {
@@ -9,6 +10,9 @@ public class UnitPlayer : Unit
     [Header("Player unit specific")]
     [Min(1)]
     public int CarryingCapacity = 3;
+    public Sprite defaultSprite;
+    public UnityEvent onPlayerDeath = new UnityEvent();
+    public UnityEvent<Sprite> onSpriteChange = new UnityEvent<Sprite>();
 
     public override void SetActivity(ActivityState Activity)
     {
@@ -32,6 +36,7 @@ public class UnitPlayer : Unit
         };
         this.Health = this.MaxHealth;
         Unit.PlayerUnitPool.Add(this);
+        PlayerPrefs.SetInt("MaxPlayers", PlayerPrefs.GetInt("MaxPlayers")+1);
         base.Awake();
     }
     protected override void Start()
@@ -89,7 +94,10 @@ public class UnitPlayer : Unit
         yield return new WaitForSeconds(1.0f);
         //Debug.Log("Dropping resources");
         //itemInHand = target.Gather();
-        target.Flash();
+        if (target != null)
+        {
+            target.Flash();
+        }
         yield return new WaitForSeconds(0.2f);
     }
 
@@ -114,7 +122,7 @@ public class UnitPlayer : Unit
     {
         if (!(this.CurrentActivity is ActivityStateUnderAttack) && !(this.CurrentActivity is ActivityStateHunt) && !DayCycleManager.Instance.TimeOut)
         {
-            this.SetActivity(new ActivityStateUnderAttack(AttackingUnit, this));
+            this.SetActivity(new ActivityStateUnderAttack(AttackingUnit, this, this.Skills[SkillType.Hunting]));
         }
     }
     public override void SpawnOnDeath(int x, int y)
@@ -125,6 +133,7 @@ public class UnitPlayer : Unit
     {
         Unit.PlayerUnitPool.Remove(this);
         UnitManager.Instance.IdleUnits.Remove(this);
+        onPlayerDeath.Invoke();
         if (DayCycleManager.Instance.GameIsWaitingForPlayerUnits2GoEat())
         {
             DayCycleManager.Instance.IndicateEndDayRoutineEnd();
@@ -139,5 +148,19 @@ public class UnitPlayer : Unit
     public override void SetDefaultActivity()
     {
         SetActivity(new ActivityStateIdle());
+    }
+
+    public override void SetSprite(Sprite sprite = null)
+    {
+        if (sprite != null)
+        {
+            this.sr.sprite = sprite;
+            onSpriteChange.Invoke(sprite);
+        }
+        else
+        {
+            this.sr.sprite = this.defaultSprite;
+            onSpriteChange.Invoke(this.defaultSprite);
+        }
     }
 }

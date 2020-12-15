@@ -15,6 +15,7 @@ public abstract class Skill
     protected Dictionary<TalentType, Talent> SkillTalents;
     public List<Talent> AppliedTalents;
     public Sprite icon;
+    public Sprite unitSprite;
     public bool Allowed { get; private set; }
     public SkillType type;
     public int MovementSpeedModifier;

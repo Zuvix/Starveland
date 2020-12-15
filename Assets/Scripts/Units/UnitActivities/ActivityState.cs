@@ -53,4 +53,5 @@ public abstract class ActivityState
         return Result;
     }
     public abstract bool IsCancellable();
+    public abstract bool IsInterruptibleByAttack();
 }

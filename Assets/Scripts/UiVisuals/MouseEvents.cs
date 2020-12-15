@@ -153,7 +153,7 @@ public class MouseEvents : Singleton<MouseEvents>
         {
             HandleMouseMove();
         }
-        HandleMouseClick();
+        HandleMouseClick();        
     }
 
     private GameObject GetSelectedGameObject(Vector3 MousePosition)
@@ -177,5 +177,10 @@ public class MouseEvents : Singleton<MouseEvents>
     {
         this.ActiveBuildingMenuPanel = null;
         this.DragEnabled = true;
+    }
+
+    public void SimulateClickOnObject(GameObject go)
+    {
+        this.selectedObject = go;
     }
 }

@@ -237,4 +237,55 @@ public class MapCell
         }
         return Result;
     }
+
+    public List<MapCell> GetRandomNeighbouringResourceSourceSpawnLocation(int resourceSourcesToSpawn)
+    {
+        List<MapCell> Possibilities = GetClosestNeighbours().Where(x => x.CanBeEnteredByObject(true)).ToList();
+        Possibilities.AddRange(GetClosestDiagonalNeighbours().Where(x => x.CanBeEnteredByObject(true)).ToList());
+
+        if (Possibilities.Count <= resourceSourcesToSpawn)
+        {
+            int UpperBound = new int[] { x, y, Map.Grid.Count, Map.Grid[0].Count }.Max();
+            for (int i = 2; i <= UpperBound; i++)
+            {
+                for (int j = 0; j < i; j++)
+                {
+                    List<(int, int)> PotentialCoordinates = new List<(int, int)>(new (int, int)[] {
+                        (x + i, y + j),
+                        (x - i, y + j),
+                        (x + i, y - j),
+                        (x - i, y - j),
+                        (x + j, y + i),
+                        (x - j, y + i),
+                        (x + j, y - i),
+                        (x - j, y - i)
+                    });
+                    foreach ((int, int) Coordinates in PotentialCoordinates)
+                    {
+                        if (Map.IsInBounds(Coordinates.Item1, Coordinates.Item2) && Map.Grid[Coordinates.Item1][Coordinates.Item2].CanBeEnteredByObject(true))
+                        {
+                            Possibilities.Add(Map.Grid[Coordinates.Item1][Coordinates.Item2]);
+                            break;
+                        }
+                    }
+                    if (Possibilities.Count >= resourceSourcesToSpawn)
+                    {
+                        break;
+                    }
+                }
+                if (Possibilities.Count >= resourceSourcesToSpawn)
+                {
+                    break;
+                }
+            }
+        }       
+        if (Possibilities.Count > resourceSourcesToSpawn)
+        {
+            while (Possibilities.Count > resourceSourcesToSpawn)
+            {
+                Possibilities.RemoveAt(UnityEngine.Random.Range(0, Possibilities.Count - 1));
+            }
+        }
+        return Possibilities;
+    }
 }
