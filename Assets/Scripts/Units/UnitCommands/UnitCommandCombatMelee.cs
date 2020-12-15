@@ -38,11 +38,11 @@ public class UnitCommandCombatMelee : UnitCommand
         {
             return false;
         }
-        else if (Vector2.Distance(new Vector2(Unit.CurrentCell.x, Unit.CurrentCell.y), new Vector2(TargetUnit.CurrentCell.x, TargetUnit.CurrentCell.y)) > 1)
+        else if (TargetUnit.IsInBuilding())
         {
             return false;
         }
-        else if (TargetUnit.IsInBuilding())
+        else if (Vector2.Distance(new Vector2(Unit.CurrentCell.x, Unit.CurrentCell.y), new Vector2(TargetUnit.CurrentCell.x, TargetUnit.CurrentCell.y)) > 1)
         {
             return false;
         }
