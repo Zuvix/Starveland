@@ -31,6 +31,7 @@ public class UnitManager : Singleton<UnitManager>
     // main scheduling algorithm TODO
     public void ActionSchedulingLoop()
     {
+        int i = 0;
         foreach (var action in ActionQueue.ToList())
         {
             if (IdleUnits.Count > 0)
@@ -61,7 +62,7 @@ public class UnitManager : Singleton<UnitManager>
                     bestUnit.GetComponent<UnitPlayer>().SetActivity(action.Item2.SetCommands(bestUnit, bestUnit.Skills[action.Item1]));
 
                     Debug.Log("Pocet idle unitov: " + IdleUnits.Count());
-                    ActionQueue.RemoveAt(0);
+                    ActionQueue.RemoveAt(i);
                     onActionQueueChanged.Invoke();
 
                     IdleUnitsFiltered.Clear();
@@ -70,7 +71,8 @@ public class UnitManager : Singleton<UnitManager>
             else
             {
                 break;
-            }             
+            }
+            i++;
         }
 
     }
