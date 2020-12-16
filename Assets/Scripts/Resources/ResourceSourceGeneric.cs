@@ -31,8 +31,4 @@ public abstract class ResourceSourceGeneric : CellObject
         return Result;
     }
     protected abstract Resource RetrieveResource(int amount, out bool isDepleted);
-
-    public ResourcePack rp;
-
-
 }

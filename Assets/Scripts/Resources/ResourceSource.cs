@@ -2,6 +2,7 @@
 
 public class ResourceSource : ResourceSourceGeneric
 {
+    public ResourcePack rp;
     [HideInInspector]
     public Resource resource = null;
     protected override Resource RetrieveResource(int amount, out bool isDepleted)

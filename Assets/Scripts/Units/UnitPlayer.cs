@@ -68,6 +68,10 @@ public class UnitPlayer : Unit
         {
             return false;
         }
+        else if (this.CurrentCommand is UnitCommandGather && this.CurrentCommand.Target.CurrentObject is ResourceSourceFishing)
+        {
+            return true;
+        }
         return this.CarriedResource.Amount >= this.CarryingCapacity;
     }
 

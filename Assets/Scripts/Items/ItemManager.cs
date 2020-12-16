@@ -49,5 +49,8 @@ public class ItemManager : Singleton<ItemManager>
             return null;
         }
     }
-
+    public List<string> GetItemTypeNames()
+    {
+        return new List<string>(items.Keys);
+    }
 }

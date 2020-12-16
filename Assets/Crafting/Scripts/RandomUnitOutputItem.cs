@@ -5,4 +5,8 @@ using UnityEngine;
 public class RandomUnitOutputItem : RandomOutputItem
 {
     public GameObject OfferedUnit;
+    public override object GetStoredItem()
+    {
+        return OfferedUnit;
+    }
 }
