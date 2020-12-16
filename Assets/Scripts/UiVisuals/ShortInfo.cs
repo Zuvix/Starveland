@@ -112,6 +112,7 @@ public class ShortInfo : MonoBehaviour
             ((Building)visibleObject).OnVisitorsChanged.AddListener(FillVisitorPanels);
         }
     }
+    
     private void FillVisitorPanels(Building Building)
     {
         List<Unit> Visitors = Building.CurrentVisitors;
@@ -142,4 +143,5 @@ public class ShortInfo : MonoBehaviour
             VisitorImages[i].gameObject.SetActive(false);
         }
     }
+    
 }
