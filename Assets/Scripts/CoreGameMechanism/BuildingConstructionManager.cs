@@ -56,6 +56,7 @@ public class BuildingConstructionManager : Singleton<BuildingConstructionManager
                     MapControl.Instance.map.CenterObject(x, y, CurrentBackground);
 
                     BuildingMock = MapControl.Instance.CreateGameObject(x, y, PrefabPallette.Instance.GenericBuildingMock);
+                    BuildingMock.GetComponent<SpriteRenderer>().sprite = this.CurrentlySelectedBuilding.GetComponent<SpriteRenderer>().sprite;
                     LastCellHasBuildingMock = true;
                 }
             }
@@ -64,7 +65,6 @@ public class BuildingConstructionManager : Singleton<BuildingConstructionManager
     public void SelectBuilding(GameObject Building)
     {
         this.CurrentlySelectedBuilding = Building;
-        PrefabPallette.Instance.GenericBuildingMock.GetComponent<SpriteRenderer>().sprite = this.CurrentlySelectedBuilding.GetComponent<SpriteRenderer>().sprite;
         this.gameObject.SetActive(true);
     }
     public void DeselectBuilding()
