@@ -20,6 +20,10 @@ public class ResourceSource : ResourceSourceGeneric
         }
         return Result;
     }
+    public override bool IsDepleted()
+    {
+        return this.resource.IsDepleted();
+    }
     public void GenerateResources()
     {
 

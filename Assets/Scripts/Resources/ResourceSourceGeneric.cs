@@ -31,4 +31,8 @@ public abstract class ResourceSourceGeneric : CellObject
         return Result;
     }
     protected abstract Resource RetrieveResource(int amount, out bool isDepleted);
+    public virtual bool IsDepleted()
+    {
+        return false;
+    }
 }

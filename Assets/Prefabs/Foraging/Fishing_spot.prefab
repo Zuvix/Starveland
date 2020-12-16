@@ -133,9 +133,32 @@ MonoBehaviour:
   IsSelectable: 1
   IsPossibleToAddToActionQueue: 0
   Replacement: {fileID: 0}
-  rp:
-    item: {fileID: 0}
-    minValue: 1
-    maxValue: 10
-    chance: 100
-  Output: []
+  Output:
+  - Probability: 15
+    OfferedResource:
+      itemInfo: {fileID: 11400000, guid: 2aa84915032c16d48a4bae33c2cba2d4, type: 2}
+      Amount: 1
+  - Probability: 15
+    OfferedResource:
+      itemInfo: {fileID: 11400000, guid: adbe6028cc0cb214fa2051f08b7d8f0c, type: 2}
+      Amount: 1
+  - Probability: 5
+    OfferedResource:
+      itemInfo: {fileID: 11400000, guid: 5722983080fed344796794c0aafe3131, type: 2}
+      Amount: 1
+  - Probability: 3
+    OfferedResource:
+      itemInfo: {fileID: 11400000, guid: e8182eeb5a384d44bbdda801c49fcd0b, type: 2}
+      Amount: 1
+  - Probability: 1
+    OfferedResource:
+      itemInfo: {fileID: 11400000, guid: 3c6bf0124cb4cb949b3d2da92724a714, type: 2}
+      Amount: 1
+  - Probability: 1
+    OfferedResource:
+      itemInfo: {fileID: 11400000, guid: 8041d655803214148bf3272292ae8187, type: 2}
+      Amount: 1
+  - Probability: 1
+    OfferedResource:
+      itemInfo: {fileID: 11400000, guid: a4cc2863a35f94c46a84a2cb80a66b5a, type: 2}
+      Amount: 1

@@ -9,7 +9,7 @@ public class ResourceSourceFishing : ResourceSourceGeneric
     protected override Resource RetrieveResource(int _, out bool isDepleted)
     {
         isDepleted = false;
-        throw new NotImplementedException();
-        return null;
+        Resource Result = RandomItemChoice.SelectRandomOutputItem<Resource>(Output);
+        return Result;
     }
 }

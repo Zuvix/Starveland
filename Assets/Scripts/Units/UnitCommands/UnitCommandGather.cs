@@ -8,8 +8,8 @@ using UnityEngine;
 public class UnitCommandGather : UnitCommand
 {
     public Skill Skill;
-    private ResourceSource originalCellObject;
-    public UnitCommandGather(MapCell Target, Skill Skill, ResourceSource CellObject) : base(Target)
+    private ResourceSourceGeneric originalCellObject;
+    public UnitCommandGather(MapCell Target, Skill Skill, ResourceSourceGeneric CellObject) : base(Target)
     {
         this.Skill = Skill;
         this.originalCellObject = CellObject;
@@ -55,14 +55,14 @@ public class UnitCommandGather : UnitCommand
     public override bool CanBePerformed(Unit Unit)
     {
         bool Result = false;
-        ResourceSource TargetResourceSource = (ResourceSource)this.Target.CurrentObject;
+        ResourceSourceGeneric TargetResourceSource = (ResourceSourceGeneric)this.Target.CurrentObject;
         if (TargetResourceSource == null)
         {
             Result = false;
         }
-        else if (TargetResourceSource is ResourceSource)
+        else
         {
-            if (TargetResourceSource.resource.IsDepleted())
+            if (TargetResourceSource.IsDepleted())
             {
                 Result = false;
             }
@@ -70,7 +70,7 @@ public class UnitCommandGather : UnitCommand
             {
                 Result = true;
             }
-            else if (TargetResourceSource.resource.itemInfo == Unit.CarriedResource.itemInfo)
+            else if (TargetResourceSource is ResourceSource && ((ResourceSource)TargetResourceSource).resource.itemInfo == Unit.CarriedResource.itemInfo)
             {
                 Result = true;
             }
