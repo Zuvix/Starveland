@@ -10,4 +10,6 @@ public class PrefabPallette : Singleton<PrefabPallette>
     public Sprite VoidSprite;
 
     public GameObject CellObjectSliderPrefab;
+
+    public GameObject GenericBuildingMock;
 }

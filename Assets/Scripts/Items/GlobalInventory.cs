@@ -68,7 +68,7 @@ public class GlobalInventory : Singleton<GlobalInventory>
         int Result = CheckAvailabilityAmount(Ingredients[0]);
         for (int i = 1; i < Ingredients.Count; i++)
         {
-            Result = Math.Min(Result, CheckAvailabilityAmount(Ingredients[0]));
+            Result = Math.Min(Result, CheckAvailabilityAmount(Ingredients[i]));
         }
         return Result;
     }

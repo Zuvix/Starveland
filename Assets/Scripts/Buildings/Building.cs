@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using UnityEngine.Events;
 
-public abstract class Building : CellObject
+public class Building : CellObject
 {
     public List<Resource> ConstructionCost;
     public List<Unit> CurrentVisitors = new List<Unit>();

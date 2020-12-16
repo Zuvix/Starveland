@@ -1034,6 +1034,8 @@ MonoBehaviour:
   VoidSprite: {fileID: 0}
   CellObjectSliderPrefab: {fileID: 6172188947088778834, guid: b3c9edfcc8ba2c840a4857b86a98969f,
     type: 3}
+  GenericBuildingMock: {fileID: 5161994218835401504, guid: bfcf0a0406133aa4e852ad7408f9f18e,
+    type: 3}
 --- !u!4 &197670087
 Transform:
   m_ObjectHideFlags: 0
