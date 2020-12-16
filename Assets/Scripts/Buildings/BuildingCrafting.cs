@@ -29,8 +29,7 @@ public class BuildingCrafting : Building
     }
     void Start()
     {
-        ProgressBar = Instantiate(PrefabPallette.Instance.CellObjectSliderPrefab).GetComponent<ProgressBar>();
-        ProgressBar.gameObject.transform.SetParent(PrefabPallette.Instance.Canvas.transform);
+        ProgressBar = Instantiate(PrefabPallette.Instance.CellObjectSliderPrefab, PrefabPallette.Instance.Canvas.transform).GetComponent<ProgressBar>();
         // Move Progress Bar to position of building and adjust it a little
         Vector3 ProgressBarPosition = this.gameObject.transform.position;
         ProgressBarPosition.x -= 1;
@@ -132,7 +131,6 @@ public class BuildingCrafting : Building
     }
     public static void ToggleProgressBarVisibility(bool newValue)
     {
-        Debug.LogError($"Setting ProgressBarAllowed {newValue}");
         ProgressBarAllowed = newValue;
         foreach (BuildingCrafting Building in CraftingBuildingPool)
         {

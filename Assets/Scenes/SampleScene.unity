@@ -1034,6 +1034,8 @@ MonoBehaviour:
   VoidSprite: {fileID: 0}
   CellObjectSliderPrefab: {fileID: 6172188947088778834, guid: b3c9edfcc8ba2c840a4857b86a98969f,
     type: 3}
+  GenericBuildingMock: {fileID: 5161994218835401504, guid: bfcf0a0406133aa4e852ad7408f9f18e,
+    type: 3}
 --- !u!4 &197670087
 Transform:
   m_ObjectHideFlags: 0
@@ -4536,14 +4538,14 @@ MonoBehaviour:
   buildingTxt: {fileID: 1530792735}
   VisitorImages:
   - {fileID: 1654403332}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
+  - {fileID: 1562254479}
+  - {fileID: 1835562107}
+  - {fileID: 685060241}
   VisitorCounts:
   - {fileID: 1171131589}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
+  - {fileID: 1550708653}
+  - {fileID: 508817681}
+  - {fileID: 2046212263}
 --- !u!4 &655650594
 Transform:
   m_ObjectHideFlags: 0

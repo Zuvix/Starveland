@@ -21,7 +21,7 @@ MonoBehaviour:
   ForagingGatheringTime: 1.5
   ForagingIcon: {fileID: 6566697938281827825, guid: b81d09a574bb33a4ea1b7acc8221604e,
     type: 3}
-  ForagingUnitSprite: {fileID: -8689540323209292100, guid: b81d09a574bb33a4ea1b7acc8221604e,
+  ForagingUnitSprite: {fileID: -1345865999764586206, guid: b81d09a574bb33a4ea1b7acc8221604e,
     type: 3}
   ForagingTalents:
   - Name: Lumberjack

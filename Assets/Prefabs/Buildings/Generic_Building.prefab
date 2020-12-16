@@ -1,6 +1,6 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1 &2283220006766421666
+--- !u!1 &5161994218835401504
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -8,37 +8,37 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 2283220006766421676}
-  - component: {fileID: 2283220006766421677}
-  - component: {fileID: 968870588263553653}
+  - component: {fileID: 8971180969650932110}
+  - component: {fileID: 2343807109050575822}
+  - component: {fileID: -18086574651702724}
   m_Layer: 0
-  m_Name: Bush
-  m_TagString: Forest
+  m_Name: Generic_Building
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &2283220006766421676
+--- !u!4 &8971180969650932110
 Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2283220006766421666}
+  m_GameObject: {fileID: 5161994218835401504}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 120.4, y: 71.8, z: 0}
-  m_LocalScale: {x: 9.5, y: 9.5, z: 1}
+  m_LocalPosition: {x: 2.17, y: -1.51, z: 0}
+  m_LocalScale: {x: 9.4, y: 9.4, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!212 &2283220006766421677
+--- !u!212 &2343807109050575822
 SpriteRenderer:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2283220006766421666}
+  m_GameObject: {fileID: 5161994218835401504}
   m_Enabled: 1
   m_CastShadows: 0
   m_ReceiveShadows: 0
@@ -71,39 +71,43 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: -2
-  m_Sprite: {fileID: 21300000, guid: 14a3614094c9f384e8d81e0b73281d52, type: 3}
+  m_SortingOrder: 0
+  m_Sprite: {fileID: -5837769854586528439, guid: ddf4a4e6ec245864fbfb72f96ebb7d3d,
+    type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
-  m_Size: {x: 1.125, y: 1.125}
+  m_Size: {x: 0.28125, y: 0.3125}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!114 &968870588263553653
+--- !u!114 &-18086574651702724
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2283220006766421666}
+  m_GameObject: {fileID: 5161994218835401504}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 049b71571c1f4f645a2a67a78e310a8b, type: 3}
+  m_Script: {fileID: 11500000, guid: bf63edb86faa9ae4bae3f0b5bd179c7d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   flashTime: 0.2
   sr: {fileID: 0}
-  objectName: Berry Bush
-  tip: If you wait a few days, more berries will come.
+  objectName: Building
+  tip: Just here to fill space.
   popup: {fileID: 0}
   popupNoIcon: {fileID: 0}
-  IsBlocking: 0
-  IsSelectable: 1
+  IsBlocking: 1
+  IsSelectable: 0
   IsPossibleToAddToActionQueue: 0
   Replacement: {fileID: 0}
-  DaysToGrow: 2
-  IncubatedResourceSourceType: 4
+  ConstructionCost: []
+  CurrentVisitors: []
+  OnVisitorsChanged:
+    m_PersistentCalls:
+      m_Calls: []

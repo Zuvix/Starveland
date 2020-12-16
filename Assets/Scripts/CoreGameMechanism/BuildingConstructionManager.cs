@@ -6,6 +6,7 @@ using UnityEngine;
 
 public class BuildingConstructionManager : Singleton<BuildingConstructionManager>
 {
+
     private GameObject CurrentlySelectedBuilding = null;
 
     private GameObject CurrentBackground;
@@ -54,7 +55,7 @@ public class BuildingConstructionManager : Singleton<BuildingConstructionManager
                     CurrentBackground = Instantiate(MapControl.Instance.GreenBackground);
                     MapControl.Instance.map.CenterObject(x, y, CurrentBackground);
 
-                    BuildingMock = MapControl.Instance.CreateGameObject(x, y, CurrentlySelectedBuilding);
+                    BuildingMock = MapControl.Instance.CreateGameObject(x, y, PrefabPallette.Instance.GenericBuildingMock);
                     LastCellHasBuildingMock = true;
                 }
             }
@@ -63,6 +64,7 @@ public class BuildingConstructionManager : Singleton<BuildingConstructionManager
     public void SelectBuilding(GameObject Building)
     {
         this.CurrentlySelectedBuilding = Building;
+        PrefabPallette.Instance.GenericBuildingMock.GetComponent<SpriteRenderer>().sprite = this.CurrentlySelectedBuilding.GetComponent<SpriteRenderer>().sprite;
         this.gameObject.SetActive(true);
     }
     public void DeselectBuilding()
