@@ -37,12 +37,13 @@ public class TalentCriticalHarvest : Talent
         return value * (float)this.WoodcuttingTimeSlowed;
     }
 
-    public override Resource Execute(ResourceSource Target, out bool isDepleted)
+    public override Resource Execute(ResourceSourceGeneric Target, out bool isDepleted)
     {
-        if (Target.resource.itemInfo.type.Equals("Resource"))
+        ResourceSource CastTarget = (ResourceSource)Target;
+        if (CastTarget.resource.itemInfo.type.Equals("Resource"))
         {
-            return Target.GatherResource(Target.resource.Amount, out isDepleted);
+            return CastTarget.GatherResource(CastTarget.resource.Amount, out isDepleted);
         }
-        return Target.GatherResource(1, out isDepleted);
+        return CastTarget.GatherResource(1, out isDepleted);
     }
 }

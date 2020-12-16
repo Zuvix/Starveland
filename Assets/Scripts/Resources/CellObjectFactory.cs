@@ -19,7 +19,8 @@ public enum RSObjects
     Gold,
     HardLog,
     DeadAnimalArcheologist,
-    Scroll
+    Scroll,
+    FishingSport
 }
 
 public enum CellObjects
@@ -66,6 +67,7 @@ class CellObjectFactory : Singleton<CellObjectFactory>
     public GameObject hardLog;
     public GameObject deadAnimalArcheologist;
     public GameObject scroll;
+    public GameObject fishingSpot;
 
     // Cell Objects
     [Header ("Cell objects")]
@@ -92,7 +94,7 @@ class CellObjectFactory : Singleton<CellObjectFactory>
     {
         GameObject Result = null;
         GameObject selectedPrefab = null;
-        ResourceSource createdResourceSource = null;
+        ResourceSourceGeneric createdResourceSource = null;
         switch (type)
         {
             case RSObjects.Forest:
@@ -165,6 +167,11 @@ class CellObjectFactory : Singleton<CellObjectFactory>
                 selectedPrefab = scroll;
                 break;
             }
+            case RSObjects.FishingSport:
+            {
+                selectedPrefab = fishingSpot;
+                break;
+            }
             default:
                 break;
         }
@@ -172,18 +179,18 @@ class CellObjectFactory : Singleton<CellObjectFactory>
         if (Result != null)
         {
             createdResourceSource = Result.GetComponent<ResourceSource>();
-            createdResourceSource?.GenerateResources();
+            ((ResourceSource)createdResourceSource)?.GenerateResources();
         }
-        if (additionalResources != null)
+        if (additionalResources != null && createdResourceSource is ResourceSource)
         {
             foreach(Resource newResource in additionalResources)
             {
-                createdResourceSource.AddResource(newResource);
+                ((ResourceSource)createdResourceSource).AddResource(newResource);
             }
         }
-        if (createdResourceSource!=null)
+        if (createdResourceSource!=null && createdResourceSource is ResourceSource)
         {
-            if (createdResourceSource.resource==null)
+            if (((ResourceSource)createdResourceSource).resource==null)
             {
                 Destroy(Result);
                 Debug.LogWarning("Destroyed ResourceSource because it had no resources.");

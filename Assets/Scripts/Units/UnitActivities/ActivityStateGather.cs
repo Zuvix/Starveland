@@ -146,11 +146,11 @@ class ActivityStateGather : ActivityState
     }
     public override void InitializeCommand(Unit Unit)
     {
-        ResourceSource TargetResourceSource = (ResourceSource)this.Target.CurrentObject;
+        ResourceSourceGeneric TargetResourceSource = (ResourceSourceGeneric)this.Target.CurrentObject;
         if (
             Unit.CarriedResource.IsDepleted()
                 ||
-            (!Unit.InventoryFull() && TargetResourceSource != null  && Unit.CarriedResource.itemInfo == TargetResourceSource.resource.itemInfo)
+            (!Unit.InventoryFull() && TargetResourceSource != null  && (!(TargetResourceSource is ResourceSource) || (TargetResourceSource is ResourceSource && Unit.CarriedResource.itemInfo == ((ResourceSource)TargetResourceSource).resource.itemInfo)))
            )
         {
             Unit.SetCommand(this.CommandMove2Resource);

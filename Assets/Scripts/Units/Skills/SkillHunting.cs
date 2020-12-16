@@ -72,7 +72,7 @@ public class SkillHunting : Skill
         return true;
     }
 
-    public override bool DoAction(Unit Unit, ResourceSource Target, out Resource Resource)
+    public override bool DoAction(Unit Unit, ResourceSourceGeneric Target, out Resource Resource)
     {
         if (Target == null)
         {

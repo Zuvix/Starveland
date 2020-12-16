@@ -32,13 +32,15 @@ public class SkillMining : Skill
         };
     }
 
-    public override bool DoAction(Unit Unit, ResourceSource Target, out Resource Resource)
+    public override bool DoAction(Unit Unit, ResourceSourceGeneric Target, out Resource Resource)
     {
         if (Target == null)
         {
             Resource = null;
             return false;
         }
+
+        ResourceSource CastTarget = (ResourceSource)Target;
 
         int x = Target.CurrentCell.x;
         int y = Target.CurrentCell.y;
@@ -50,7 +52,7 @@ public class SkillMining : Skill
         Unit.CarriedResource.AddDestructive(Resource);
 
         // dual wielder talent
-        this.SkillTalents[TalentType.DualWielder]?.Execute(Unit, Target, Resource, this.TargetDepleted);
+        this.SkillTalents[TalentType.DualWielder]?.Execute(Unit, CastTarget, Resource, this.TargetDepleted);
      
         if (isDepleted && !Target.tag.Equals("Diamond"))
         {
@@ -73,7 +75,7 @@ public class SkillMining : Skill
         return 0;
     }
 
-    public override float GetGatheringSpeed(ResourceSource resourceSource)
+    public override float GetGatheringSpeed(ResourceSourceGeneric resourceSource)
     {
         return SkillTalents[TalentType.MiningBerserk] == null ? MininigTime : SkillTalents[TalentType.MiningBerserk].Execute(MininigTime);
     }

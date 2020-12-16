@@ -38,17 +38,24 @@ public class UnitCommandGather : UnitCommand
         // TODO Animation might be here
 
         //Console.WriteLine("I'm cutting wood {0}/{1}", Unit.CarriedResource.Amount, Skill.CarryingCapacity);
-        yield return Unit.StartCoroutine(Unit.GatherResource((ResourceSource)this.Target.CurrentObject, Skill.GetGatheringSpeed((ResourceSource)this.Target.CurrentObject)));
+        yield return Unit.StartCoroutine(Unit.GatherResource((ResourceSourceGeneric)this.Target.CurrentObject, Skill.GetGatheringSpeed((ResourceSourceGeneric)this.Target.CurrentObject)));
 
-        if (this.Target.CurrentObject != null && this.Target.CurrentObject is ResourceSource)
+        if (this.Target.CurrentObject != null && this.Target.CurrentObject is ResourceSourceGeneric)
         {
-            ResourceSource TargetResourceSource = (ResourceSource)this.Target.CurrentObject;
-            if (Unit.InventoryEmpty() || TargetResourceSource.resource.itemInfo == Unit.CarriedResource.itemInfo)
+            ResourceSourceGeneric TargetResourceSource = (ResourceSourceGeneric)this.Target.CurrentObject;
+            if (Unit.InventoryEmpty() || (TargetResourceSource is ResourceSource && ((ResourceSource)TargetResourceSource).resource.itemInfo == Unit.CarriedResource.itemInfo))
             {
                 TargetResourceSource.Flash();
                 Resource GatheredResource;
                 Skill.DoAction(Unit, TargetResourceSource, out GatheredResource);
-                Unit.CreatePopup(GatheredResource.itemInfo.icon, GatheredResource.Amount);
+                if (GatheredResource != null)
+                {
+                    Unit.CreatePopup(GatheredResource.itemInfo.icon, GatheredResource.Amount);
+                }
+                else
+                {
+                    Unit.CreatePopup(PrefabPallette.Instance.VoidSprite, 0);
+                }
             }
         }
     }
