@@ -1,32 +1,14 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
-public class ResourceSource : CellObject
+public class ResourceSource : ResourceSourceGeneric
 {
     [HideInInspector]
     public Resource resource = null;
-
-    override protected  void Awake()
+    protected override Resource RetrieveResource(int amount, out bool isDepleted)
     {
-        base.Awake();
-        this.IsPossibleToAddToActionQueue = true;
-    }
-    public override void RightClickAction()
-    {
-        AddToActionQueueSimple();
-    }
-    public override ActivityState CreateActivityState()
-    {
-        return new ActivityStateGather(this.CurrentCell);
-    }
-	
-    public Resource GatherResource(int amount, out bool depleted)
-    {
-        bool isDepleted = false;
         Resource Result = this.resource.Subtract(amount);
-        //Debug.LogWarning(Result.itemInfo.name);
-        if (this.resource.Amount <= 0)
+        isDepleted = false;
+        if (this.resource.IsDepleted())
         {
             isDepleted = true;
             Debug.Log("Destroying Resource Source");
@@ -35,18 +17,10 @@ public class ResourceSource : CellObject
             this.CurrentCell.EraseCellObject();
             Destroy(this.gameObject);
         }
-        if (Result == null)
-        {
-            Debug.LogWarning("Result=null v Gather resource");
-        }
-        depleted = isDepleted;
         return Result;
     }
-
-    public ResourcePack rp;
-
     public void GenerateResources()
-    {   
+    {
 
         this.resource = rp.UnpackPack();
     }
