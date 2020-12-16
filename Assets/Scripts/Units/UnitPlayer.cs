@@ -127,6 +127,7 @@ public class UnitPlayer : Unit
     }
     public override void SpawnOnDeath(int x, int y)
     {
+        MapControl.Instance.map.Grid[x][y].EraseCellObject();
         MapControl.Instance.CreateGameObject(x, y, MapControl.Instance.tombstone);
     }
     public override void ActionOnDeath()
