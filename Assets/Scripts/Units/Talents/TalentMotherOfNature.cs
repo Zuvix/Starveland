@@ -32,7 +32,7 @@ public class TalentMotherOfNature : Talent
         return this.Description;
     }
 
-    public override void Execute(int x, int y, Resource Resource, ResourceSourceGeneric Target)
+    public override void Execute(int x, int y, Resource Resource, ResourceSource Target)
     {
         if (Resource.itemInfo.type.Equals("Resource"))
         {

@@ -129,7 +129,7 @@ MonoBehaviour:
   tip: Treasures of the sea can be found here
   popup: {fileID: 0}
   popupNoIcon: {fileID: 0}
-  IsBlocking: 0
+  IsBlocking: 1
   IsSelectable: 1
   IsPossibleToAddToActionQueue: 0
   Replacement: {fileID: 0}

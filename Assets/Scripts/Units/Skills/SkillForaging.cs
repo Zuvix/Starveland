@@ -43,23 +43,25 @@ public class SkillForaging : Skill
         int x = Target.CurrentCell.x;
         int y = Target.CurrentCell.y;
 
-       
+
         // Critical harvest talent
-        Resource = SkillTalents[TalentType.CriticalHarvest] == null ? Target.GatherResource(1, out isDepleted) :
-            SkillTalents[TalentType.CriticalHarvest].Execute(Target, out isDepleted);
+        Resource = SkillTalents[TalentType.CriticalHarvest] != null && Target is ResourceSource ? SkillTalents[TalentType.CriticalHarvest].Execute((ResourceSource)Target, out isDepleted) : Target.GatherResource(1, out isDepleted);
 
         if (Resource != null)
         {
-            // Gatherer talent
-            Resource = this.SkillTalents[TalentType.Gatherer] != null ? this.SkillTalents[TalentType.Gatherer].Execute(Resource) : Resource;
-
-            if (isDepleted)
+            if (Target is ResourceSource)
             {
-                // Friend of the Forest talent
-                this.SkillTalents[TalentType.FriendOfTheForest]?.Execute(x, y, Resource);
+                // Gatherer talent
+                Resource = this.SkillTalents[TalentType.Gatherer] != null ? this.SkillTalents[TalentType.Gatherer].Execute(Resource) : Resource;
 
-                // Mother of Nature talent, todo z foragable listu prefabov random vybrat, nenechat bush berry purple
-                this.SkillTalents[TalentType.MotherOfNature]?.Execute(x, y, Resource, Target);
+                if (isDepleted)
+                {
+                    // Friend of the Forest talent
+                    this.SkillTalents[TalentType.FriendOfTheForest]?.Execute(x, y, Resource);
+
+                    // Mother of Nature talent, todo z foragable listu prefabov random vybrat, nenechat bush berry purple
+                    this.SkillTalents[TalentType.MotherOfNature]?.Execute(x, y, Resource, (ResourceSource)Target);
+                }
             }
 
             Unit.CarriedResource.AddDestructive(Resource);
