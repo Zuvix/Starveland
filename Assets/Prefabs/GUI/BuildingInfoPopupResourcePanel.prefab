@@ -34,8 +34,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: -152, y: 32}
-  m_SizeDelta: {x: -1429.2542, y: -324.03473}
+  m_AnchoredPosition: {x: -207.1, y: 32}
+  m_SizeDelta: {x: -1466.6083, y: -326.1223}
   m_Pivot: {x: 1, y: 1}
 --- !u!222 &8795571140758279505
 CanvasRenderer:
@@ -100,7 +100,7 @@ MonoBehaviour:
   m_fontSizeMin: 10
   m_fontSizeMax: 24
   m_fontStyle: 2
-  m_HorizontalAlignment: 1
+  m_HorizontalAlignment: 2
   m_VerticalAlignment: 512
   m_textAlignment: 65535
   m_characterSpacing: 0
@@ -169,7 +169,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -676, y: -13}
+  m_AnchoredPosition: {x: -528, y: 0.000061989}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &8795571140786809056
@@ -224,7 +224,7 @@ GameObject:
   - component: {fileID: 8795571142749123383}
   - component: {fileID: 6359989997985744114}
   m_Layer: 5
-  m_Name: BuildingInfoPopupResourcePanel1
+  m_Name: BuildingInfoPopupResourcePanel
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -272,7 +272,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 0.39215687}
+  m_Color: {r: 0.08627451, g: 0.08627451, b: 0.08627451, a: 0.7058824}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1

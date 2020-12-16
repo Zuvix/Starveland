@@ -26,6 +26,8 @@ public class GlobalInventory : Singleton<GlobalInventory>
     private void Start()
     {
         AddItem(new Resource(ItemManager.Instance.GetItem("Perfect Can"), 5));
+        AddItem(new Resource(ItemManager.Instance.GetItem("Stone"), 20));
+        AddItem(new Resource(ItemManager.Instance.GetItem("Wood"), 20));
     }
     public bool AddItem(Resource itemToAdd)
     {

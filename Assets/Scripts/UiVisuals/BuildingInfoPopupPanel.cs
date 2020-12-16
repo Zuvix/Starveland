@@ -11,7 +11,7 @@ public class BuildingInfoPopupPanel : MonoBehaviour
     private List<Resource> Cost;
     //private Vector3 PositionBackup;
 
-    private static readonly Color DefaultColor = new Color(1, 1, 1, 0.3921f);
+    private static readonly Color DefaultColor = new Color32(45, 60, 91, 180);
     private static readonly Color UnavailableColor = new Color(0.9811f, 0.3831f, 0.3831f, 0.533f);
     void Awake()
     {

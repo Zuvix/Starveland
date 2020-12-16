@@ -49,7 +49,8 @@ public class HuntingField : MonoBehaviour
         int y = starty;
         if (x != -1 && y != -1)
         {
-            MapControl.Instance.CreateGameObject(x, y, COF.water[4]);
+            GameObject go=MapControl.Instance.CreateGameObject(x, y, COF.water[4]);
+            Debug.Log(go.transform.position);
             MapControl.Instance.CreateGameObject(x + lakexSize, y, COF.water[5]);
             MapControl.Instance.CreateGameObject(x + lakexSize, y + lakeySize, COF.water[6]);
             MapControl.Instance.CreateGameObject(x, y + lakeySize, COF.water[7]);
