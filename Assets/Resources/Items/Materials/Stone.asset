@@ -17,5 +17,7 @@ MonoBehaviour:
   NutritionValue: 0
   storageType: Raw
   foodType: None
+  rarity: Basic
+  description: Used to build most of the buildings.
   isHeavy: 1
   IsShipPart: 0

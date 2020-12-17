@@ -17,5 +17,7 @@ MonoBehaviour:
   NutritionValue: 6
   storageType: Cooked
   foodType: Meat
+  rarity: Basic
+  description: Tasty cooked fish, they all taste the same.
   isHeavy: 0
   IsShipPart: 0

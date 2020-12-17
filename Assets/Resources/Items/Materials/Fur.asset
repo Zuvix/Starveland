@@ -17,5 +17,8 @@ MonoBehaviour:
   NutritionValue: 0
   storageType: Raw
   foodType: None
+  rarity: Basic
+  description: Fur can be processed into Leather or Scrolls and used to upgrade inventory
+    or in alchemy.
   isHeavy: 0
   IsShipPart: 0

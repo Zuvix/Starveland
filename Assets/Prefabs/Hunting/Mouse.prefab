@@ -173,4 +173,5 @@ MonoBehaviour:
     minValue: 1
     maxValue: 2
     chance: 100
+  difficulty: easy
   MaxTravelDistance: 3

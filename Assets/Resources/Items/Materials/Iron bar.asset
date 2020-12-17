@@ -17,5 +17,8 @@ MonoBehaviour:
   NutritionValue: 0
   storageType: Raw
   foodType: None
+  rarity: Processed
+  description: Used to build parts of the Ship or to build more advanced buildings
+    and tools.
   isHeavy: 0
   IsShipPart: 0

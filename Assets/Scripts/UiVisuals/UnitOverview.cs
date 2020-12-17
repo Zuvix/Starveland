@@ -4,23 +4,36 @@ using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 
-public class UnitOverview : MonoBehaviour
+public class UnitOverview : Singleton<UnitOverview>
 {
     public GameObject UnitOverviewPanel;
     public GameObject UnitPanel;
+    private List<Image> UnitPanels;
 
     private void Awake()
     {
         this.UnitOverviewPanel.SetActive(true);
+        UnitPanels=new List<Image>();
     }
 
+    public void HidePanelHighlights()
+    {
+        foreach(Image img in UnitPanels)
+        {
+            img.enabled = false;
+        }
+    }
     private void Start()
     {
         foreach (UnitPlayer unit in Unit.PlayerUnitPool)
         {
             var go = Instantiate(UnitPanel, UnitOverviewPanel.gameObject.transform);
             go.SetActive(true);
-            go.GetComponentInChildren<UnitOverviewShow>().SetUnit(unit);
+            UnitOverviewShow UOS;
+            UOS = go.GetComponentInChildren<UnitOverviewShow>();
+            UOS.SetUnit(unit);
+            UnitPanels.Add(UOS.SelectedImg);
         }
+
     }
 }

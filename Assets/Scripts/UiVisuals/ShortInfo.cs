@@ -9,6 +9,7 @@ public class ShortInfo : MonoBehaviour
     public TMP_Text nameTxt;
     public Image img;
     public TMP_Text tipTxt;
+    public TMP_Text surTxt;
 
     public GameObject unitContent;
     public TMP_Text unitHP;
@@ -25,6 +26,13 @@ public class ShortInfo : MonoBehaviour
     public List<Image> VisitorImages;
     public List<TMP_Text> VisitorCounts;
 
+    public GameObject animalPanel;
+    public TMP_Text animalHP;
+    public TMP_Text animalDiff;
+    public TMP_Text animalTip;
+    public Image[] animalResources;
+
+
     List<GameObject> contentPanels;
 
     CellObject visibleObject = null;
@@ -35,7 +43,8 @@ public class ShortInfo : MonoBehaviour
             topContent,
             unitContent,
             resourcePanel,
-            buildingPanel
+            buildingPanel,
+            animalPanel
         };
         HideTopContent();
         resourcePanelItemsInfo = resourcePanel.GetComponent<ResourceShortInfo>();
@@ -70,8 +79,12 @@ public class ShortInfo : MonoBehaviour
             topContent.SetActive(true);
             img.sprite = visibleObject.sr.sprite;
             nameTxt.text = visibleObject.objectName;
+            if (visibleObject.CurrentCell != null)
+            {
+                surTxt.text = "X:" + visibleObject.CurrentCell.x +"\n"+ "Y:" + visibleObject.CurrentCell.y;
+            }
         }
-        if (visibleObject is Unit)
+        if (visibleObject is UnitPlayer)
         {
             unitContent.SetActive(true);
             Unit unit = (Unit)visibleObject;
@@ -107,15 +120,39 @@ public class ShortInfo : MonoBehaviour
         else if(visibleObject is Building)
         {
             buildingPanel.SetActive(true);
-            buildingTxt.text = visibleObject.tip;
+            //buildingTxt.text = visibleObject.tip;
             FillVisitorPanels((Building)visibleObject);
             ((Building)visibleObject).OnVisitorsChanged.AddListener(FillVisitorPanels);
+        }
+        else if(visibleObject is UnitAnimal)
+        {
+            animalPanel.SetActive(true);
+            UnitAnimal animal = (UnitAnimal)visibleObject;
+            animalDiff.text = animal.difficulty;
+            animalHP.text = animal.Health+"/"+animal.MaxHealth;
+            animalTip.text = animal.tip;
+            int i;
+            for (i = 0; i < animalResources.Length; i++)
+            {
+                animalResources[i].gameObject.SetActive(false);
+            }
+            i = 0;
+            foreach(ResourcePack rp in animal.inventory)
+            {
+                if (i < animalResources.Length)
+                {
+                    animalResources[i].gameObject.SetActive(true);
+                    animalResources[i].sprite = rp.item.icon;
+                    i++;
+                }
+            }
         }
     }
     
     private void FillVisitorPanels(Building Building)
     {
         List<Unit> Visitors = Building.CurrentVisitors;
+        Debug.LogWarning(Visitors.Count);
         Dictionary<Sprite, int> VisitorImageDict = new Dictionary<Sprite, int>();
         foreach (Unit Unit in Visitors)
         {
