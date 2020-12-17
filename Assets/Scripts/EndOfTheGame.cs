@@ -14,7 +14,7 @@ public class EndOfTheGame : MonoBehaviour
 
     private void Awake()
     {
-        if (PlayerPrefs.GetInt("GameOver") == 0)
+        if (PlayerPrefs.GetInt(GameOver.INTERSCENE_VARIABLE_NAME_GAME_OVER_RESULT) == 0)
         {
             this.gameWonText.gameObject.SetActive(false);
             this.finalGrade.text = "FX";
@@ -27,7 +27,7 @@ public class EndOfTheGame : MonoBehaviour
             CalculateGrades();
         }
         totalDaysNumber.text = PlayerPrefs.GetInt("DaysPassed").ToString();
-        humansSavedNumber.text = $"{PlayerPrefs.GetInt("PlayersSurvived")}/{PlayerPrefs.GetInt("MaxPlayers")}";
+        humansSavedNumber.text = $"{PlayerPrefs.GetInt(GameOver.INTERSCENE_VARIABLE_NAME_PLAYER_COUNT)}/{PlayerPrefs.GetInt("MaxPlayers")}";
     }
 
     private void CalculateGrades()
@@ -62,7 +62,7 @@ public class EndOfTheGame : MonoBehaviour
                 grade1 = "E";
                 break;
         }
-        switch (PlayerPrefs.GetInt("MaxPlayers")-PlayerPrefs.GetInt("PlayersSurvived"))
+        switch (PlayerPrefs.GetInt("MaxPlayers")-PlayerPrefs.GetInt(GameOver.INTERSCENE_VARIABLE_NAME_PLAYER_COUNT))
         {
             case 0:
                 {

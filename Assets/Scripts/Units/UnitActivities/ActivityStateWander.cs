@@ -104,7 +104,7 @@ public class ActivityStateWander : ActivityState
     private UnitPlayer CheckEnemiesAround(Unit Unit)
     {
         List<UnitPlayer> TargetList = new List<UnitPlayer>();
-        foreach (UnitPlayer player in Unit.PlayerUnitPool)
+        foreach (UnitPlayer player in UnitManager.Instance.PlayerUnitPool)
         {
             //Debug.LogWarning(Vector2.Distance(new Vector2(Unit.CurrentCell.x, Unit.CurrentCell.y), new Vector2(player.CurrentCell.x, player.CurrentCell.y)));
             if (!player.IsInBuilding() && Vector2.Distance(new Vector2(Unit.CurrentCell.x, Unit.CurrentCell.y), new Vector2(player.CurrentCell.x, player.CurrentCell.y)) <= this.AggroRadius)

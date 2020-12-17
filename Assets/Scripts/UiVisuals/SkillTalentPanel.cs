@@ -37,11 +37,11 @@ public class SkillTalentPanel : MonoBehaviour
 
     private void Start()
     {
-        foreach (var player in Unit.PlayerUnitPool)
+        foreach (UnitPlayer player in UnitManager.Instance.PlayerUnitPool)
         {
-            foreach (var skill in player.Skills)
+            foreach (Skill skill in player.Skills.Values)
             {
-                skill.Value.onExperienceChanged.AddListener(this.UpdatePlayer);
+                skill.onExperienceChanged.AddListener(this.UpdatePlayer);
             }
         }
         MouseEvents.Instance.OnSelectedObjectChanged.AddListener(UpdateSkillTalentPanel);

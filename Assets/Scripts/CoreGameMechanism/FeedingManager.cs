@@ -41,7 +41,7 @@ class FeedingManager : Singleton<FeedingManager>
         PanelControl.Instance.SetActivePanel(6);
         FillGrids();
 
-        PlayerUnits = Unit.PlayerUnitPool.Select(unit => new UnitHungry(unit)).ToList();
+        PlayerUnits = UnitManager.Instance.PlayerUnitPool.Select(unit => new UnitHungry(unit)).ToList();
         FillUnitPanels();
         BuildingCrafting.ToggleProgressBarVisibility(false);
     }

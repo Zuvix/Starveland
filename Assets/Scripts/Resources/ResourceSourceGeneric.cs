@@ -4,11 +4,6 @@ using UnityEngine;
 
 public abstract class ResourceSourceGeneric : CellObject
 {
-    override protected void Awake()
-    {
-        base.Awake();
-        this.IsPossibleToAddToActionQueue = true;
-    }
     public override void RightClickAction()
     {
         AddToActionQueueSimple();

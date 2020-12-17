@@ -25,7 +25,7 @@ public class UnitOverview : Singleton<UnitOverview>
     }
     private void Start()
     {
-        foreach (UnitPlayer unit in Unit.PlayerUnitPool)
+        foreach (UnitPlayer unit in UnitManager.Instance.PlayerUnitPool)
         {
             var go = Instantiate(UnitPanel, UnitOverviewPanel.gameObject.transform);
             go.SetActive(true);

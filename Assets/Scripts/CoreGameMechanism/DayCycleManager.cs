@@ -16,9 +16,9 @@ class DayCycleManager : Singleton<DayCycleManager>
 
         UnitManager.Instance.ActionQueue.Clear();
         //UnitManager.Instance.IdleUnits.Clear();
-        this.FinishedUnitCounter = Unit.PlayerUnitPool.Count;
+        this.FinishedUnitCounter = UnitManager.Instance.UnitPool.Count;
 
-        foreach (Unit Unit in Unit.PlayerUnitPool)
+        foreach (Unit Unit in UnitManager.Instance.PlayerUnitPool)
         {
             //Unit.SetActivity(new ActivityStateEndDayRoutine());
             if (Unit.IsInBuilding())
@@ -32,7 +32,7 @@ class DayCycleManager : Singleton<DayCycleManager>
             }
         }
 
-        if (Unit.PlayerUnitPool.Count == 0)
+        if (UnitManager.Instance.PlayerUnitPool.Count == 0)
         {
             IndicateEndDayRoutineEnd();
         }
@@ -40,10 +40,9 @@ class DayCycleManager : Singleton<DayCycleManager>
     }
     public void StartDay()
     {
-        foreach (Unit Unit in Unit.PlayerUnitPool)
+        foreach (Unit Unit in UnitManager.Instance.PlayerUnitPool)
         {
             Unit.OnBuildingEntered.RemoveListener(IndicateEndDayRoutineEnd);
-            //Unit.SetActivity(new ActivityStateIdle());
         }
         DaytimeCounter.Instance.StartDay();
         GlobalGameState.Instance.InGameInputAllowed = true;

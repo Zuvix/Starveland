@@ -1,13 +1,18 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
 [RequireComponent(typeof(SpriteRenderer))]
 public class CellObject : MonoBehaviour
 {
-    [SerializeField]
-    float flashTime=0.2f;
+    protected enum FlipSide
+    {
+        LEFT,
+        RIGHT
+    }
 
+    // Visual representation params
+    [SerializeField]
+    private float flashTime=0.2f;
     Color originalColor;
     public SpriteRenderer sr;
     protected Vector3 basicScale;
@@ -15,17 +20,21 @@ public class CellObject : MonoBehaviour
     public string objectName;
     public string tip;
 
+    private static readonly float OPAQUE_COLOR = 1.0f;
+
+    // Popup-related params
     public GameObject popup;
     public GameObject popupNoIcon;
-    public readonly float MultiPopupDelay = 0.5f;
-    public MapCell CurrentCell { get; protected set; }
-
+    public static readonly float MultiPopupDelay = 0.5f;
+    
+    // Important common properties of objects
     public bool IsBlocking = false;
     public bool IsSelectable = false;
-    public bool IsPossibleToAddToActionQueue = false;
 
-    //private SpriteRenderer SpriteRendererComponent;
+    // Map cell that CellObject is located on
+    public MapCell CurrentCell { get; protected set; }
 
+    // Game object to be spawned when this CellObject dies
     public GameObject Replacement;
 
     virtual protected void Awake()
@@ -35,22 +44,14 @@ public class CellObject : MonoBehaviour
         basicRotation = transform.rotation;
         originalColor = sr.color;
     }
-    private void Start()
+    public virtual void RightClickAction() { }
+    public void AddToActionQueueSimple()
     {
-        //this.SpriteRendererComponent = this.gameObject.GetComponent<SpriteRenderer>();
+        UnitManager.Instance.AddActionToQueue(this);
     }
-    public void MakeTransparent(float Value)
+    public virtual ActivityState CreateActivityState()
     {
-        if (sr != null)
-        {
-            Color NewColour = this.sr.color;
-            NewColour.a = Value;
-            this.sr.color = NewColour;
-        }
-    }
-    public void MakeOpaque()
-    {
-        MakeTransparent(1.0f);
+        return null;
     }
     public virtual bool EnterCell(MapCell MapCell)
     {
@@ -64,27 +65,30 @@ public class CellObject : MonoBehaviour
     {
         this.CurrentCell = Cell;
     }
-    public virtual void RightClickAction() {}
-    public void AddToActionQueueSimple()
+    public void MakeTransparent(float Value)
     {
-        UnitManager.Instance.AddActionToQueue(this);
+        if (sr != null)
+        {
+            Color NewColour = this.sr.color;
+            NewColour.a = Value;
+            this.sr.color = NewColour;
+        }
     }
-    public virtual ActivityState CreateActivityState()
+    public void MakeOpaque()
     {
-        return null;
+        MakeTransparent(OPAQUE_COLOR);
     }
-    public virtual void Flip(string side)
+    protected virtual void Flip(FlipSide Side)
     {
-        if (side.Equals("right"))
+        if (Side == FlipSide.RIGHT)
         {
             sr.flipX = false;
         }
-        if (side.Equals("left"))
+        if (Side == FlipSide.LEFT)
         {
             sr.flipX = true;
         }
     }
-
     public void Flash()
     {
         Flash(Color.black);
@@ -157,10 +161,9 @@ public class CellObject : MonoBehaviour
         {
             if (i > 0)
             {
-                yield return new WaitForSeconds(3f);
+                yield return new WaitForSeconds(MultiPopupDelay);
             }
             this.CreatePopup(Entries[i].Item1, Entries[i].Item2);
         }
     }
-
 }

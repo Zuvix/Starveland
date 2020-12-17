@@ -10,6 +10,8 @@ public class UnitManager : Singleton<UnitManager>
 {
     public List<Tuple<SkillType, ActivityState, CellObject>> ActionQueue;
     public List<UnitPlayer> IdleUnits;
+    public readonly List<UnitPlayer> PlayerUnitPool = new List<UnitPlayer>();
+    public readonly List<Unit> UnitPool = new List<Unit>();
     public Dictionary<string, SkillType> GetSkillDictionary;
     public UnityEvent onActionQueueChanged;
 
@@ -61,7 +63,6 @@ public class UnitManager : Singleton<UnitManager>
 
                     bestUnit.GetComponent<UnitPlayer>().SetActivity(action.Item2.SetCommands(bestUnit, bestUnit.Skills[action.Item1]));
 
-                    Debug.Log("Pocet idle unitov: " + IdleUnits.Count());
                     ActionQueue.RemoveAt(i);
                     onActionQueueChanged.Invoke();
 
@@ -112,7 +113,6 @@ public class UnitManager : Singleton<UnitManager>
 
             if (newAction != null)
             {
-                Debug.Log("Adding to queue");
                 ActionQueue.Add(newAction);
 
                 onActionQueueChanged.Invoke();

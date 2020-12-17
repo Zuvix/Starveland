@@ -8,47 +8,38 @@ using UnityEngine.SceneManagement;
 
 class GameOver : Singleton<GameOver>
 {
-    public bool GameIsOver { get; private set; }
-    public void Awake()
-    {
-        GameIsOver = false;
-    }
+    [HideInInspector]
+    public bool GameIsOver { get; private set; } = false;
+    public static readonly string INTERSCENE_VARIABLE_NAME_PLAYER_COUNT = "PlayersSurvived";
+    public static readonly string INTERSCENE_VARIABLE_NAME_GAME_OVER_RESULT = "GameOver";
     public void IndicatePlayerUnitDeath()
     {
-        if (Unit.PlayerUnitPool.Count <= 0)
+        if (UnitManager.Instance.PlayerUnitPool.Count <= 0)
         {
             InitiateNegativeGameOver();
         }
     }
     public void InitiateNegativeGameOver()
     {
-        GameIsOver = true;
-        Destroy(DayCycleManager.Instance);
-        FeedingManager.Instance.FeedingPanel.SetActive(false);
-        GlobalGameState.Instance.InGameInputAllowed = false;
-        /*foreach (Unit Unit in Unit.UnitPool)
-        {
-            Destroy(Unit);
-        }
-        Unit.UnitPool.Clear();*/
+        ClearOnGameEnd();
 
-        Debug.LogError("All player units are dead. Game is over!");
-
-        PlayerPrefs.SetInt("PlayersSurvived", 0);
-        PlayerPrefs.SetInt("GameOver", 0);
-        SceneManager.LoadScene(2);
+        PlayerPrefs.SetInt(INTERSCENE_VARIABLE_NAME_PLAYER_COUNT, 0);
+        PlayerPrefs.SetInt(INTERSCENE_VARIABLE_NAME_GAME_OVER_RESULT, 0);
+        SceneManager.LoadScene(GUIReference.Instance.SCENE_INDEX_GAMEOVER);
     }
     public void InitiatePositiveGameOver()
+    {
+        ClearOnGameEnd();
+
+        PlayerPrefs.SetInt(INTERSCENE_VARIABLE_NAME_PLAYER_COUNT, UnitManager.Instance.PlayerUnitPool.Count);
+        PlayerPrefs.SetInt(INTERSCENE_VARIABLE_NAME_GAME_OVER_RESULT, 1);
+        SceneManager.LoadScene(GUIReference.Instance.SCENE_INDEX_GAMEOVER);
+    }
+    private void ClearOnGameEnd()
     {
         GameIsOver = true;
         Destroy(DayCycleManager.Instance);
         FeedingManager.Instance.FeedingPanel.SetActive(false);
         GlobalGameState.Instance.InGameInputAllowed = false;
-
-        Debug.LogError("Ship is built. Game won!");
-
-        PlayerPrefs.SetInt("PlayersSurvived", Unit.PlayerUnitPool.Count);
-        PlayerPrefs.SetInt("GameOver", 1);
-        SceneManager.LoadScene(2);
     }
 }

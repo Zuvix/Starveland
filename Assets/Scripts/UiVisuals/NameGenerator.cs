@@ -1,10 +1,10 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using UnityEngine;
 
 public static class NameGenerator
 {
-    static List<string> names = new List<string>()
+    private static readonly string DefaultName = "John Doe";
+    private static readonly List<string> NamePool = new List<string>()
     {
         "Syrin",
         "Ptorik",
@@ -91,14 +91,14 @@ public static class NameGenerator
         "Gentar",
         "Feston"
     };
-    public static string GetRandomName()
+    public static string GenerateName()
     {
-        if (names.Count < 1)
+        if (NamePool.Count < 1)
         {
-            return "nudne meno";
+            return DefaultName;
         }
-        string meno = names[Random.Range(0, names.Count)];
-        names.Remove(meno);
-        return meno;
+        string GeneratedName = NamePool[Random.Range(0, NamePool.Count)];
+        NamePool.Remove(GeneratedName);
+        return GeneratedName;
     }
 }

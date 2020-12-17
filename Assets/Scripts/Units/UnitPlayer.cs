@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
-
 public class UnitPlayer : Unit
 {
     [HideInInspector]
@@ -14,6 +13,25 @@ public class UnitPlayer : Unit
     public UnityEvent onPlayerDeath = new UnityEvent();
     public UnityEvent<Sprite> onSpriteChange = new UnityEvent<Sprite>();
 
+    protected override void Awake()
+    {
+        this.Skills = new Dictionary<SkillType, Skill>
+        {
+            { SkillType.Foraging, new SkillForaging() },
+            { SkillType.Hunting, new SkillHunting() },
+            { SkillType.Mining, new SkillMining() }
+        };
+        this.Health = this.MaxHealth;
+        UnitManager.Instance.PlayerUnitPool.Add(this);
+        PlayerPrefs.SetInt("MaxPlayers", PlayerPrefs.GetInt("MaxPlayers") + 1);
+        base.Awake();
+    }
+    protected override void Start()
+    {
+        objectName = NameGenerator.GenerateName();
+        this.SetActivity(new ActivityStateIdle());
+        base.Start();
+    }
     public override void SetActivity(ActivityState Activity)
     {
         base.SetActivity(Activity);
@@ -26,42 +44,10 @@ public class UnitPlayer : Unit
             UnitManager.Instance.IdleUnits.Remove(this);
         }
     }
-    protected override void Awake()
+    public override void SetDefaultActivity()
     {
-        this.Skills = new Dictionary<SkillType, Skill> 
-        {
-            { SkillType.Foraging, new SkillForaging() },
-            { SkillType.Hunting, new SkillHunting() },
-            { SkillType.Mining, new SkillMining() } 
-        };
-        this.Health = this.MaxHealth;
-        Unit.PlayerUnitPool.Add(this);
-        PlayerPrefs.SetInt("MaxPlayers", PlayerPrefs.GetInt("MaxPlayers")+1);
-        base.Awake();
+        SetActivity(new ActivityStateIdle());
     }
-    protected override void Start()
-    {       
-        objectName = NameGenerator.GetRandomName();
-        this.SetActivity(new ActivityStateIdle());
-        base.Start();
-    }
-
-    /*public override bool InventoryFull()
-    {
-         if (this.CarriedResource.IsDepleted())
-         {
-             return false;
-         }
-
-         SkillType CurrentResourceSkill = Unit.ResourceType2SkillType(this.CarriedResource.itemInfo);
-         return this.InventoryFull(this.Skills[CurrentResourceSkill]);
-    }*/
-
-    /*public override bool InventoryFull(Skill Skill)
-    {
-        return this.CarriedResource.Amount >= this.CarryingCapacity;
-    }*/
-
     public override bool InventoryFull()
     {
         if (this.CarriedResource.IsDepleted())
@@ -74,54 +60,15 @@ public class UnitPlayer : Unit
         }
         return this.CarriedResource.Amount >= this.CarryingCapacity;
     }
-
     public override bool InventoryEmpty()
     {
+        bool Result = false;
         if (this.CarriedResource.IsDepleted())
         {
-            return true;
+            Result = true;
         }
-        return false;
+        return Result;
     }
-
-    public override IEnumerator StoreResource(BuildingStorage target)
-    {
-        /*if (itemInHand != null)
-    {
-    Debug.Log("Storing resource with name:" + itemInHand.name);
-    Resource storedResource=itemInHand;
-    itemInHand = null;
-    return storedResource;
-    }*/
-        this.CurrentAction = "Dropping resources";
-        //Debug.Log("About to drop");
-        yield return new WaitForSeconds(1.0f);
-        //Debug.Log("Dropping resources");
-        //itemInHand = target.Gather();
-        if (target != null)
-        {
-            target.Flash();
-        }
-        yield return new WaitForSeconds(0.2f);
-    }
-
-    /* public override void DealDamage(int Amount, Unit AttackingUnit)
-     {
-         if (!(this.CurrentActivity is ActivityStateUnderAttack) && !(this.CurrentActivity is ActivityStateHunt))
-         {
-             this.SetActivity(new ActivityStateUnderAttack(AttackingUnit, this));
-         }
-         this.Health -= Amount;
-         DisplayReceivedDamage(Amount);
-         if (this.Health <= 0) //handle death
-         {
-             int x = this.CurrentCell.x;
-             int y = this.CurrentCell.y;
-             this.CurrentCell.SetCellObject(null);
-             Destroy(this.gameObject);
-             MapControl.Instance.CreateGameObject(x, y, MapControl.Instance.tombstone);
-         }
-     }*/
     public override void DealDamageStateRoutine(Unit AttackingUnit)
     {
         if (!(this.CurrentActivity is ActivityStateUnderAttack) && !(this.CurrentActivity is ActivityStateHunt) && !DayCycleManager.Instance.TimeOut)
@@ -136,7 +83,7 @@ public class UnitPlayer : Unit
     }
     public override void ActionOnDeath()
     {
-        Unit.PlayerUnitPool.Remove(this);
+        UnitManager.Instance.PlayerUnitPool.Remove(this);
         UnitManager.Instance.IdleUnits.Remove(this);
         onPlayerDeath.Invoke();
         if (DayCycleManager.Instance.GameIsWaitingForPlayerUnits2GoEat())
@@ -149,23 +96,20 @@ public class UnitPlayer : Unit
         }
         GameOver.Instance.IndicatePlayerUnitDeath();
     }
-
-    public override void SetDefaultActivity()
+    public override IEnumerator StoreResource(BuildingStorage target)
     {
-        SetActivity(new ActivityStateIdle());
+        this.CurrentAction = "Dropping resources";
+        yield return new WaitForSeconds(1.0f);
+        if (target != null)
+        {
+            target.Flash();
+        }
+        yield return new WaitForSeconds(0.2f);
     }
-
     public override void SetSprite(Sprite sprite = null)
     {
-        if (sprite != null)
-        {
-            this.sr.sprite = sprite;
-            onSpriteChange.Invoke(sprite);
-        }
-        else
-        {
-            this.sr.sprite = this.defaultSprite;
-            onSpriteChange.Invoke(this.defaultSprite);
-        }
+        sprite = sprite == null ? this.defaultSprite : sprite;
+        this.sr.sprite = sprite;
+        onSpriteChange.Invoke(sprite);
     }
 }

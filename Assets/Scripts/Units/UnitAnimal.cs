@@ -28,7 +28,6 @@ public class UnitAnimal : Unit
     {
         this.Health = this.MaxHealth;
         base.Awake();
-        this.IsPossibleToAddToActionQueue = true;
     }
     protected override void Start()
     {
@@ -45,13 +44,13 @@ public class UnitAnimal : Unit
     {
         return new ActivityStateHunt(this);
     }
-    public override void Flip(string side)
+    protected override void Flip(FlipSide Side)
     {
-        if (side.Equals("right"))
+        if (Side == FlipSide.RIGHT)
         {
             sr.flipX = true;
         }
-        if (side.Equals("left"))
+        if (Side == FlipSide.LEFT)
         {
             sr.flipX = false;
         }
@@ -62,11 +61,11 @@ public class UnitAnimal : Unit
         this.CurrentAction = "In combat!";
         if (UnitTarget.CurrentCell.position.x > transform.position.x)
         {
-            Flip("right");
+            Flip(FlipSide.RIGHT);
         }
         else if (UnitTarget.CurrentCell.position.x < transform.position.x)
         {
-            Flip("left");
+            Flip(FlipSide.LEFT);
         }
         yield return new WaitForSeconds(AttackTime);
         //UnitTarget.DealDamage(this.BaseDamage, this, false);
