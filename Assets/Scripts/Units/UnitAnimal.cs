@@ -18,7 +18,8 @@ public class UnitAnimal : Unit
     private int spawnX;
     private int spawnY;
     public List<ResourcePack> inventory;
-
+    [Tooltip("Defines difficulty for player to kill this Animal.")]
+    public string difficulty;
     public int MaxTravelDistance = 5;
 
     public MapCell SpawnCell { get; private set; } = null;

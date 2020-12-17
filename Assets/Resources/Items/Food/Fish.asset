@@ -17,5 +17,7 @@ MonoBehaviour:
   NutritionValue: 4
   storageType: Raw
   foodType: Meat
+  rarity: Basic
+  description: Tasty salmon, or maybe Kapor?
   isHeavy: 0
   IsShipPart: 0

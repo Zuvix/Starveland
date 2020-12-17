@@ -17,5 +17,7 @@ MonoBehaviour:
   NutritionValue: 0
   storageType: Raw
   foodType: None
+  rarity: Basic
+  description: Hard wood has abilities usefull for fruit perservation.
   isHeavy: 0
   IsShipPart: 0

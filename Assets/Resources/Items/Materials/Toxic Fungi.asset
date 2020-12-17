@@ -17,5 +17,7 @@ MonoBehaviour:
   NutritionValue: 0
   storageType: Raw
   foodType: None
+  rarity: Basic
+  description: Used in alchemical experiments.
   isHeavy: 0
   IsShipPart: 0

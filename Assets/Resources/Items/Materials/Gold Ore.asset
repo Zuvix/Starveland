@@ -17,5 +17,7 @@ MonoBehaviour:
   NutritionValue: 0
   storageType: Raw
   foodType: None
+  rarity: Basic
+  description: Gold ore is used to create gold bars in Smeltery.
   isHeavy: 0
   IsShipPart: 0

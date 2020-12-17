@@ -17,5 +17,7 @@ MonoBehaviour:
   NutritionValue: 6
   storageType: Raw
   foodType: Meat
+  rarity: Basic
+  description: A fine chunk of bloody biftek.
   isHeavy: 0
   IsShipPart: 0

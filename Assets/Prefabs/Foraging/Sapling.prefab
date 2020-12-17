@@ -98,11 +98,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   flashTime: 0.2
   sr: {fileID: 0}
-  objectName: Tree Sapling
+  objectName: Tree Sapling(talent)
   tip: Will grow into a tree eventually.
   popup: {fileID: 0}
+  popupNoIcon: {fileID: 0}
   IsBlocking: 0
   IsSelectable: 1
   IsPossibleToAddToActionQueue: 0
+  Replacement: {fileID: 0}
   DaysToGrow: 1
   IncubatedResourceSourceType: 0

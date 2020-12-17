@@ -17,5 +17,7 @@ MonoBehaviour:
   NutritionValue: 8
   storageType: Cooked
   foodType: Meat
+  rarity: Basic
+  description: Tasty medium steak, best after long day in mines.
   isHeavy: 0
   IsShipPart: 0

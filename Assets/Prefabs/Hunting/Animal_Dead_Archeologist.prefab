@@ -73,7 +73,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: -3298766565060276698, guid: ddf4a4e6ec245864fbfb72f96ebb7d3d,
+  m_Sprite: {fileID: 1151519788647489800, guid: ddf4a4e6ec245864fbfb72f96ebb7d3d,
     type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -125,8 +125,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   flashTime: 0.2
   sr: {fileID: 0}
-  objectName: Dead Animal
-  tip: Dead animal
+  objectName: Dead Animal(talent)
+  tip: Animal corpse found under the rocks.
   popup: {fileID: 0}
   popupNoIcon: {fileID: 0}
   IsBlocking: 1
