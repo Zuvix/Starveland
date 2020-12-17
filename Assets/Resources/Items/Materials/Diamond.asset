@@ -17,5 +17,7 @@ MonoBehaviour:
   NutritionValue: 0
   storageType: Raw
   foodType: None
+  rarity: Legendary item
+  description: Diamond is in alchemic experiments or to ask gods for their aid.
   isHeavy: 1
   IsShipPart: 0

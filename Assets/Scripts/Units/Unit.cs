@@ -210,7 +210,12 @@ public abstract class Unit : CellObject
         StartCoroutine(ScalingAnimation());
         StartCoroutine(RotatingAnimation());
     }
-    public bool ChangeActivity()
+    void OnMouseDown()
+    {
+        MouseEvents.Instance.SimulateClickOnObject(this.gameObject);
+    }
+
+        public bool ChangeActivity()
     {
         bool Result = false; 
         if (this.NextActivity != null)
@@ -486,4 +491,5 @@ public abstract class Unit : CellObject
     {
 
     }
+    
 }

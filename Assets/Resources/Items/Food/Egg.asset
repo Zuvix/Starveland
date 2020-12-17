@@ -17,5 +17,7 @@ MonoBehaviour:
   NutritionValue: 3
   storageType: Raw
   foodType: None
+  rarity: Basic
+  description: 'A gift from our chicken. '
   isHeavy: 0
   IsShipPart: 0

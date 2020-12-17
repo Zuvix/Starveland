@@ -17,5 +17,7 @@ MonoBehaviour:
   NutritionValue: 0
   storageType: Raw
   foodType: None
+  rarity: Basic
+  description: Coal is used for cooking meat or to smelt iron and gold ore into bars.
   isHeavy: 1
   IsShipPart: 0

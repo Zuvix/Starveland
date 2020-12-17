@@ -17,5 +17,7 @@ MonoBehaviour:
   NutritionValue: 0
   storageType: Raw
   foodType: None
+  rarity: Processed
+  description: Gold is used to build premium buildings or in alchemy.
   isHeavy: 0
   IsShipPart: 0

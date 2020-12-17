@@ -17,5 +17,7 @@ MonoBehaviour:
   NutritionValue: 10
   storageType: Cooked
   foodType: None
+  rarity: Basic
+  description: The perfect food for any and every opportunity.
   isHeavy: 0
   IsShipPart: 0

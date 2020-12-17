@@ -17,5 +17,7 @@ MonoBehaviour:
   NutritionValue: 0
   storageType: Raw
   foodType: None
+  rarity: Processed
+  description: Leather is used in upgrades or as a ship part.
   isHeavy: 0
   IsShipPart: 0

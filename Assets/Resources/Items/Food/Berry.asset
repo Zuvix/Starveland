@@ -17,5 +17,7 @@ MonoBehaviour:
   NutritionValue: 2
   storageType: Raw
   foodType: Foragable
+  rarity: Basic
+  description: Sweat berry from the forest.
   isHeavy: 0
   IsShipPart: 0

@@ -17,5 +17,7 @@ MonoBehaviour:
   NutritionValue: 3
   storageType: Raw
   foodType: Foragable
+  rarity: Basic
+  description: Fresh green apple fallen from the tree.
   isHeavy: 0
   IsShipPart: 0
