@@ -10,12 +10,12 @@ class ActivityStateGather : ActivityState
     private UnitCommandMove CommandMove2Storage;
     private UnitCommandDrop CommandDrop2Storage;
     private MapCell Target;
-    private ResourceSource originalResourceSource;
+    private ResourceSourceGeneric originalResourceSource;
 
     public ActivityStateGather(MapCell Target) : base()
     {
         this.Target = Target;
-        this.originalResourceSource = (ResourceSource)this.Target.CurrentObject;
+        this.originalResourceSource = (ResourceSourceGeneric)this.Target.CurrentObject;
     }
 
     public override ActivityState SetCommands(Unit Unit, Skill Skill)
@@ -65,7 +65,7 @@ class ActivityStateGather : ActivityState
             {
                 // If target resource is depleted, there is no reason to move to it
                 CellObject TargetResourceSource = (CellObject)this.Target.CurrentObject;
-                if (TargetResourceSource == null || (TargetResourceSource is ResourceSource && ((ResourceSource)TargetResourceSource).resource.IsDepleted()))
+                if (TargetResourceSource == null || (TargetResourceSource is ResourceSourceGeneric && ((ResourceSourceGeneric)TargetResourceSource).IsDepleted()))
                 {
                     Unit.SetActivity(new ActivityStateIdle());
                 }
@@ -146,11 +146,11 @@ class ActivityStateGather : ActivityState
     }
     public override void InitializeCommand(Unit Unit)
     {
-        ResourceSource TargetResourceSource = (ResourceSource)this.Target.CurrentObject;
+        ResourceSourceGeneric TargetResourceSource = (ResourceSourceGeneric)this.Target.CurrentObject;
         if (
             Unit.CarriedResource.IsDepleted()
                 ||
-            (!Unit.InventoryFull() && TargetResourceSource != null  && Unit.CarriedResource.itemInfo == TargetResourceSource.resource.itemInfo)
+            (!Unit.InventoryFull() && TargetResourceSource != null  && (!(TargetResourceSource is ResourceSource) || (TargetResourceSource is ResourceSource && Unit.CarriedResource.itemInfo == ((ResourceSource)TargetResourceSource).resource.itemInfo)))
            )
         {
             Unit.SetCommand(this.CommandMove2Resource);

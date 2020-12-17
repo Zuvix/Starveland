@@ -280,7 +280,7 @@ public abstract class Unit : CellObject
         //center units position to cells position
         transform.position = TargetCell.position;
     }
-    public IEnumerator GatherResource(ResourceSource target, float GatheringTime)
+    public IEnumerator GatherResource(ResourceSourceGeneric target, float GatheringTime)
     {
         /* if (itemInHand == null)
          {*/

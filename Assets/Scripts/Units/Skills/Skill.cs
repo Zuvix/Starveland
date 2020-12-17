@@ -76,7 +76,7 @@ public abstract class Skill
         UnitManager.Instance.ActionSchedulingLoop();
     }
 
-    public virtual bool DoAction(Unit Unit, ResourceSource Target, out Resource Resource)
+    public virtual bool DoAction(Unit Unit, ResourceSourceGeneric Target, out Resource Resource)
     {
         if (Target == null)
         {
@@ -100,7 +100,7 @@ public abstract class Skill
         return 0;
     }
 
-    public virtual float GetGatheringSpeed(ResourceSource resourceSource)
+    public virtual float GetGatheringSpeed(ResourceSourceGeneric resourceSource)
     {
         return this.GatheringTime;
     }

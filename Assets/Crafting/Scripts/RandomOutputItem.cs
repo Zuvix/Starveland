@@ -1,8 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
-using UnityEngine;
 [Serializable]
-public class RandomOutputItem
+public abstract class RandomOutputItem
 {
     public int Probability;
+    public abstract object GetStoredItem();
 }

@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class Areal : MonoBehaviour
 {
+    public int FishingSpotCount;
+
     Map map;
     CellObjectFactory COF;
     private void Awake()
@@ -16,6 +18,7 @@ public class Areal : MonoBehaviour
         //SpawnWaterAroundIsland();
         ProduceSpecificRoad();
         SpawnGravelAroundMap();
+        ProduceFishingSpots();
     }
     private void SpawnWaterAroundIsland()
     {
@@ -94,5 +97,22 @@ public class Areal : MonoBehaviour
         COF.ProduceBGlObject(25, 10, BGObjects.Gravel);
         COF.ProduceBGlObject(26, 9, BGObjects.Gravel);
         COF.ProduceBGlObject(27, 10, BGObjects.Gravel);
+    }
+    private void ProduceFishingSpots()
+    {
+        if (FishingSpotCount < 1) { return; }
+        PlaceFishingSpot(0, Random.Range(1, map.GetHeight() - 2));
+        if (FishingSpotCount < 2) { return; }
+        PlaceFishingSpot(map.GetWidth() - 1, Random.Range(1, map.GetHeight() - 2));
+        if (FishingSpotCount < 3) { return; }
+        PlaceFishingSpot(Random.Range(1, map.GetWidth() - 2), 0);
+        if (FishingSpotCount < 4) { return; }
+        PlaceFishingSpot(Random.Range(1, map.GetWidth() - 2), map.GetHeight() - 1);
+        if (FishingSpotCount < 5) { return; }
+    }
+    private void PlaceFishingSpot(int x, int y)
+    {
+        MapControl.Instance.map.Grid[x][y].EraseCellObject();
+        COF.ProduceResourceSource(x, y, RSObjects.FishingSport);
     }
 }

@@ -10,19 +10,10 @@ public class CraftingRecipeRandomUnitlOutput : CraftingRecipe
 
     public override (Sprite, int) ProduceOutput(BuildingCrafting ProducingBuilding)
     {
-        int SelectedValue = Random.Range(0, 100);
-        int SelectedOutputIndex;
-        int Accumulator = 0;
-        for (SelectedOutputIndex = 0; SelectedOutputIndex < Output.Count; SelectedOutputIndex++)
-        {
-            Accumulator += Output[SelectedOutputIndex].Probability;
-            if (Accumulator >= SelectedValue)
-            {
-                break;
-            }
-        }
         (Sprite, int) Result;
-        if (SelectedOutputIndex >= Output.Count)
+        GameObject SelectedUnit = RandomItemChoice.SelectRandomOutputItem<GameObject>(Output);
+
+        if (SelectedUnit == null)
         {
             Result = (PrefabPallette.Instance.VoidSprite, 0);
         }
@@ -31,15 +22,14 @@ public class CraftingRecipeRandomUnitlOutput : CraftingRecipe
             MapCell SpawnMapCell = ProducingBuilding.CurrentCell.GetRandomUnitEnterableNeighbour();
             if (SpawnMapCell != null)
             {
-                MapControl.Instance.CreateGameObject(SpawnMapCell.x, SpawnMapCell.y, Output[SelectedOutputIndex].OfferedUnit);
-                Result = (Output[SelectedOutputIndex].OfferedUnit.GetComponent<SpriteRenderer>().sprite, 1);
+                MapControl.Instance.CreateGameObject(SpawnMapCell.x, SpawnMapCell.y, SelectedUnit);
+                Result = (SelectedUnit.GetComponent<SpriteRenderer>().sprite, 1);
             }
             else
             {
                 Result = (PrefabPallette.Instance.VoidSprite, 0);
             }
         }
-
 
         return Result;
     }

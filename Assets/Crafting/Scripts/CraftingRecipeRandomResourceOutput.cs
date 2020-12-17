@@ -13,29 +13,19 @@ public class CraftingRecipeRandomResourceOutput : CraftingRecipe
 
     public override (Sprite, int) ProduceOutput(BuildingCrafting ProducingBuilding)
     {
-        int SelectedValue = Random.Range(0, 100);
-        int SelectedOutputIndex;
-        int Accumulator = 0;
-        for (SelectedOutputIndex = 0; SelectedOutputIndex < Output.Count; SelectedOutputIndex++)
-        {
-            Accumulator += Output[SelectedOutputIndex].Probability;
-            if (Accumulator >= SelectedValue)
-            {
-                break;
-            }
-        }
         (Sprite, int) Result;
-        if (SelectedOutputIndex >= Output.Count)
+        Resource SelectedResource = RandomItemChoice.SelectRandomOutputItem<Resource>(Output);
+        
+        if (SelectedResource == null)
         {
             Result = (PrefabPallette.Instance.VoidSprite, 0);
         }
         else
         {
-            GlobalInventory.Instance.AddItem(Output[SelectedOutputIndex].OfferedResource.Duplicate());
-            Result = (Output[SelectedOutputIndex].OfferedResource.itemInfo.icon, Output[SelectedOutputIndex].OfferedResource.Amount);
+            GlobalInventory.Instance.AddItem(SelectedResource.Duplicate());
+            Result = (SelectedResource.itemInfo.icon, SelectedResource.Amount);
         }
         
-
         return Result;
     }
     public override string OutputName()

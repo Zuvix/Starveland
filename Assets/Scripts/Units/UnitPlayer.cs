@@ -68,6 +68,10 @@ public class UnitPlayer : Unit
         {
             return false;
         }
+        else if (this.CurrentCommand is UnitCommandGather && this.CurrentCommand.Target.CurrentObject is ResourceSourceFishing)
+        {
+            return true;
+        }
         return this.CarriedResource.Amount >= this.CarryingCapacity;
     }
 
@@ -127,6 +131,7 @@ public class UnitPlayer : Unit
     }
     public override void SpawnOnDeath(int x, int y)
     {
+        MapControl.Instance.map.Grid[x][y].EraseCellObject();
         MapControl.Instance.CreateGameObject(x, y, MapControl.Instance.tombstone);
     }
     public override void ActionOnDeath()

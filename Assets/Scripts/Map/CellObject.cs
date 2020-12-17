@@ -87,17 +87,20 @@ public class CellObject : MonoBehaviour
 
     public void Flash()
     {
-        sr.color = Color.black;
-        Invoke("ResetColor", flashTime);
+        Flash(Color.black);
     }
     public void Flash(Color color)
     {
-        sr.color = color;
+        Color NewColor = color;
+        NewColor.a = sr.color.a;
+        sr.color = NewColor;
         Invoke("ResetColor", flashTime);
     }
     private void ResetColor()
     {
-        sr.color = originalColor;
+        Color NewColor = originalColor;
+        NewColor.a = sr.color.a;
+        sr.color = NewColor;
     }
     public void CreatePopup(string value)
     {

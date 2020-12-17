@@ -26,9 +26,14 @@ public class GlobalInventory : Singleton<GlobalInventory>
     private void Start()
     {
         AddItem(new Resource(ItemManager.Instance.GetItem("Perfect Can"), 5));
-        AddItem(new Resource(ItemManager.Instance.GetItem("Stone"), 20));
+        /*AddItem(new Resource(ItemManager.Instance.GetItem("Stone"), 20));
         AddItem(new Resource(ItemManager.Instance.GetItem("Fur"), 20));
-        AddItem(new Resource(ItemManager.Instance.GetItem("Wood"), 20));
+        AddItem(new Resource(ItemManager.Instance.GetItem("Wood"), 20));*/
+
+        foreach (string ResType in ItemManager.Instance.GetItemTypeNames())
+        {
+            AddItem(new Resource(ItemManager.Instance.GetItem(ResType), 200));
+        }
     }
     public bool AddItem(Resource itemToAdd)
     {
