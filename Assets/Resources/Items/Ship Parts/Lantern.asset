@@ -16,8 +16,9 @@ MonoBehaviour:
   icon: {fileID: -588206189146635576, guid: b81d09a574bb33a4ea1b7acc8221604e, type: 3}
   NutritionValue: 0
   storageType: 0
-  foodType: None
+  FoodType: 0
   rarity: Basic
+  Rarity: 2
   description: 
   isHeavy: 0
   IsShipPart: 1

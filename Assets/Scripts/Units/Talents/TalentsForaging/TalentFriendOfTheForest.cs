@@ -1,5 +1,4 @@
-﻿using System;
-using UnityEngine;
+﻿using UnityEngine;
 
 public class TalentFriendOfTheForest : Talent
 {
@@ -16,7 +15,6 @@ public class TalentFriendOfTheForest : Talent
     {
         return true;
     }
-
 
     public override bool Remove(Unit Unit, Skill Skill)
     {
@@ -35,10 +33,9 @@ public class TalentFriendOfTheForest : Talent
 
     public override void Execute(int x, int y, Resource Resource)
     {
-        if (Resource.itemInfo.type.Equals("Resource") && UnityEngine.Random.Range(1, 100) <= this.SpawnSaplingChance)
+        if (Resource.itemInfo.ItemType == ItemType.Material && Random.Range(1, 100) <= this.SpawnSaplingChance)
         {
             CellObjectFactory.Instance.ProduceCellObject(x, y, CellObjects.Sapling);
         }
     }
 }
-

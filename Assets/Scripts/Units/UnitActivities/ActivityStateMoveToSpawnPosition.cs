@@ -1,6 +1,4 @@
-﻿using System;
-using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections;
 using UnityEngine;
 
 public class ActivityStateMoveToSpawnPosition : ActivityState
@@ -24,8 +22,7 @@ public class ActivityStateMoveToSpawnPosition : ActivityState
             }
             else
             {
-                //TODO
-                throw new Exception("Unit's current command is something unexpected");
+                Debug.LogError($"Unit's current command is done, but is something unexpected: {Unit.CurrentCommand}. Its current activity is: {Unit.CurrentActivity}");
             }
         }
         else if (!Unit.CurrentCommand.CanBePerformed(Unit))
@@ -37,8 +34,7 @@ public class ActivityStateMoveToSpawnPosition : ActivityState
             }
             else
             {
-                //TODO
-                throw new Exception("Unit's current command is something unexpected when it was idle");
+                Debug.LogError($"Unit's current command is done, but is something unexpected: {Unit.CurrentCommand}. Its current activity is: {Unit.CurrentActivity}");
             }
         }
         else

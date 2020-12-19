@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
 using UnityEngine;
 
 public class TalentMotherOfNature : Talent
@@ -34,14 +30,14 @@ public class TalentMotherOfNature : Talent
 
     public override void Execute(int x, int y, Resource Resource, ResourceSource Target)
     {
-        if (Resource.itemInfo.type.Equals("Resource"))
+        if (Resource.itemInfo.ItemType == ItemType.Material)
         {
             List<MapCell> neighbouringFields = Target.CurrentCell.GetClosestNeighbours();
             neighbouringFields.AddRange(Target.CurrentCell.GetClosestDiagonalNeighbours());
-            MapCell randomCell = neighbouringFields[UnityEngine.Random.Range(0, neighbouringFields.Count)];
+            MapCell randomCell = neighbouringFields[Random.Range(0, neighbouringFields.Count)];
             while (CellObjectFactory.Instance.ProduceResourceSource(randomCell.x, randomCell.y, RSObjects.Bush_Berry_Purple) == null)
             {
-                randomCell = neighbouringFields[UnityEngine.Random.Range(0, neighbouringFields.Count)];
+                randomCell = neighbouringFields[Random.Range(0, neighbouringFields.Count)];
             }
         }
     }

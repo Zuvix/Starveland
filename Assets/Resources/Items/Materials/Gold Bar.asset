@@ -12,12 +12,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4ffc9427acd4e3e4a8fb7a6dc3cb2154, type: 3}
   m_Name: Gold Bar
   m_EditorClassIdentifier: 
-  type: Resource
+  type: 0
   icon: {fileID: -3051280713233839526, guid: 6799260d129174a4f8ffee2e2140586a, type: 3}
   NutritionValue: 0
-  storageType: Raw
-  foodType: None
+  storageType: 0
+  FoodType: 0
   rarity: Processed
+  Rarity: 1
   description: Gold is used to build premium buildings or in alchemy.
   isHeavy: 0
   IsShipPart: 0

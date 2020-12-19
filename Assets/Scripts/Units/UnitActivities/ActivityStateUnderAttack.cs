@@ -47,6 +47,10 @@ public class ActivityStateUnderAttack : ActivityState
             {
                 Unit.SetDefaultActivity();
             }
+            else
+            {
+                Debug.LogError($"Unit's current command is done, but is something unexpected: {Unit.CurrentCommand}. Its current activity is: {Unit.CurrentActivity}");
+            }
         }
         else if (!Unit.CurrentCommand.CanBePerformed(Unit))
         {
@@ -67,6 +71,10 @@ public class ActivityStateUnderAttack : ActivityState
                     Unit.SetDefaultActivity();
                 }
             }
+            else
+            {
+                Debug.LogError($"Unit's current command is done, but is something unexpected: {Unit.CurrentCommand}. Its current activity is: {Unit.CurrentActivity}");
+            }
         }
         else
         {
@@ -83,4 +91,3 @@ public class ActivityStateUnderAttack : ActivityState
         return false;
     }
 }
-

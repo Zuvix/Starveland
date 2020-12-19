@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
@@ -20,6 +21,8 @@ public abstract class Unit : CellObject
     float rotationTime = 0.5f;
     [SerializeField]
     float rotationSpeed = 1f;
+    private static readonly float roatatingIntesity = 0.02f;
+    private static readonly float scalingIntesity = 0.015f;
     protected bool animateMovement = false;
 
     public static readonly List<UnitPlayer> PlayerUnitPool = new List<UnitPlayer>();
@@ -70,6 +73,26 @@ public abstract class Unit : CellObject
 
     public Building CurrentBuilding { get; protected set; } = null;
     public readonly UnityEvent OnBuildingEntered = new UnityEvent();
+
+    private static readonly string ScreenTextMiss = "Miss";
+    protected override void Awake()
+    {
+        base.Awake();
+        this.NextActivity = null;
+        Unit.UnitPool.Add(this);
+    }
+    protected virtual void Start()
+    {
+        this.MovementConflictManager = new UnitMovementConflictManager();
+        this.ChangeActivity();
+        StartCoroutine(ControlUnit());
+        StartCoroutine(ScalingAnimation());
+        StartCoroutine(RotatingAnimation());
+    }
+    void OnMouseDown()
+    {
+        MouseEvents.Instance.SimulateClickOnObject(this.gameObject);
+    }
     /*DO NOT CALL THIS. THIS IS SUPPOSED TO BE CALLED FROM Building::Enter(). USE THAT METHOD TO MAKE UNIT ENTER BUILDING*/
     public void EnterBuilding(Building Building)
     {
@@ -110,12 +133,10 @@ public abstract class Unit : CellObject
             this.MovementConflictManager.RefreshRemainingRetryCounts();
         }
     }
-
     public virtual void SetActivity(ActivityState Activity)
     {
         this.NextActivity = Activity;
     }
-
     public virtual bool InventoryFull()
     {
         return true;
@@ -130,7 +151,6 @@ public abstract class Unit : CellObject
     }
     IEnumerator RotatingAnimation()
     {
-        float roatatingIntesity = 0.02f;
         float dR = rotationSpeed * roatatingIntesity;
         float timeRotated = 0f;
         while (true)
@@ -166,7 +186,6 @@ public abstract class Unit : CellObject
     }
     IEnumerator ScalingAnimation()
     {
-        float scalingIntesity = 0.015f;
         float dX = xScalingFactor * scalingIntesity / scalingTime;
         float dY = yScalingFactor * scalingIntesity / scalingTime;
         while (true)
@@ -188,29 +207,7 @@ public abstract class Unit : CellObject
             yield return new WaitForFixedUpdate();
         }
     }
-
-    protected override void Awake()
-    {
-
-        //Debug.LogError("Unit instantiated");
-        base.Awake();
-        this.NextActivity = null;
-        Unit.UnitPool.Add(this);
-    }
-    protected virtual void Start()
-    {
-        this.MovementConflictManager = new UnitMovementConflictManager();
-        this.ChangeActivity();
-        StartCoroutine(ControlUnit());
-        StartCoroutine(ScalingAnimation());
-        StartCoroutine(RotatingAnimation());
-    }
-    void OnMouseDown()
-    {
-        MouseEvents.Instance.SimulateClickOnObject(this.gameObject);
-    }
-
-        public bool ChangeActivity()
+    public bool ChangeActivity()
     {
         bool Result = false; 
         if (this.NextActivity != null)
@@ -223,7 +220,6 @@ public abstract class Unit : CellObject
             this.NextActivity = null;
             this.CurrentActivity.InitializeCommand(this);
             Result = true;
-            //Debug.LogWarning($"Unit {this} setting activity to " + this.CurrentActivity.GetType().Name);
         }
         return Result;
     }
@@ -239,28 +235,17 @@ public abstract class Unit : CellObject
     {
         this.CurrentAction = "Moving";
         animateMovement = true;
-        // TODO - Will have to be more sophisticated
-        //set cell to be used by unit, free the old cell
-        MapCell PreviousCell = this.CurrentCell;
-        //this.CurrentCell.SetCellObject(null);
         this.CurrentCell.EraseUnit();
         TargetCell.SetUnit(this);
 
-        //calculate distance and movement vector
+        // Calculate distance and movement vector
         float distance;
         distance = Vector3.Distance(transform.position, TargetCell.position);
         Vector3 movementVector = TargetCell.position - transform.position;
         movementVector = movementVector.normalized;
 
-        //Flip unit towards position
-        if (TargetCell.position.x > transform.position.x)
-        {
-            Flip("right");
-        }
-        else if (TargetCell.position.x < transform.position.x)
-        {
-            Flip("left");
-        }
+        // Flip unit towards position
+        Flip(TargetCell);
 
         //initiate ingame movement process
         while (distance > 0.5f)
@@ -277,60 +262,30 @@ public abstract class Unit : CellObject
     }
     public IEnumerator GatherResource(ResourceSourceGeneric target, float GatheringTime)
     {
-        /* if (itemInHand == null)
-         {*/
         this.CurrentAction = "Gathering";
-        // Debug.Log("Preparing the axe");
-
-        if (target.CurrentCell.position.x > transform.position.x)
-        {
-            Flip("right");
-        }
-        else if (target.CurrentCell.position.x < transform.position.x)
-        {
-            Flip("left");
-        }
-
+        Flip(target.CurrentCell);
         yield return new WaitForSeconds(GatheringTime);
-        // Debug.Log("Gathering object");
-        //itemInHand = target.Gather();
-
-        /*if (target != null)
-        {
-            target.Flash();
-            
-        }*/
-
-        //yield return new WaitForSeconds(0.2f);
         yield return new WaitForFixedUpdate();
-        /* }
-         else
-         {
-             Debug.Log("my hand is full");
-         }*/
     }
 
     public virtual IEnumerator Fight(Unit UnitTarget, float AttackTime = 2f)
     {
         this.CurrentAction = "In combat!";
-
-        if (UnitTarget.CurrentCell.position.x > transform.position.x)
-        {
-            Flip("right");
-        }
-        else if (UnitTarget.CurrentCell.position.x < transform.position.x)
-        {
-            Flip("left");
-        }
-
+        Flip(UnitTarget.CurrentCell);
         yield return new WaitForSeconds(AttackTime);
-        /*if (UnitTarget != null)
-        {
-            UnitTarget.Flash(Color.red);
-        }*/
         yield return new WaitForSeconds(0.2f);
     }
-
+    protected void Flip(MapCell MapCell)
+    {
+        if (MapCell.position.x > transform.position.x)
+        {
+            Flip(FlipDirection.Right);
+        }
+        else if (MapCell.position.x < transform.position.x)
+        {
+            Flip(FlipDirection.Left);
+        }
+    }
     public virtual IEnumerator StoreResource(BuildingStorage target)
     {
         return null;
@@ -346,45 +301,30 @@ public abstract class Unit : CellObject
     public IEnumerator BeIdle()
     {
         this.CurrentAction = "Idling";
-        /*if (itemInHand != null)
-        {
-            Debug.Log("Storing resource with name:" + itemInHand.name);
-            Resource storedResource=itemInHand;
-            itemInHand = null;
-            return storedResource;
-        }*/
-        //Debug.Log("About to do idle fun");
         yield return new WaitForSeconds(1.0f);
-        // Debug.Log("I'm idling");
-        //itemInHand = target.Gather();
         yield return new WaitForSeconds(0.2f);
     }
     public IEnumerator WaitToRetryMove()
     {
         yield return new WaitForSeconds((float)(MinWaitTime + WaitTimeGenerator.NextDouble() * WaitTimeRange));
     }
-
     public void Attack(Unit Unit, Unit TargetUnit, bool pierce = false)
     {
         int chanceToHit = Unit.Accuracy - TargetUnit.Dodge;
 
-        if (Random.Range(1, 100) <= chanceToHit)
+        if (UnityEngine.Random.Range(1, 100) <= chanceToHit)
         {
-            if (Random.Range(1, 100) <= Unit.CritChance)
+            bool CriticalHit = UnityEngine.Random.Range(1, 100) <= Unit.CritChance;
+            int CausedDamage = Unit.BaseDamage * (CriticalHit ? this.TimesCriticalMultiplier : 1);
             {
-                TargetUnit.DealDamage(Unit.BaseDamage * this.TimesCriticalMultiplier, Unit, true, pierce);
-            }
-            else
-            {
-                TargetUnit.DealDamage(Unit.BaseDamage, Unit, false, pierce);
+                TargetUnit.DealDamage(CausedDamage, Unit, CriticalHit, pierce);
             }
         }
         else
         {
-            Unit.CreatePopup("Miss");
+            Unit.CreatePopup(ScreenTextMiss);
         }
     }
-
     protected void DealDamage(int Amount, Unit AttackingUnit, bool crit, bool pierce = false)
     {
         DealDamageStateRoutine(AttackingUnit);
@@ -392,7 +332,7 @@ public abstract class Unit : CellObject
         if (!pierce)
         {
             Amount -= this.Defence;
-            Amount = Amount < 0 ? 0 : Amount;
+            Amount = Math.Max(0, Amount);
         }
 
         this.Health -= Amount;
@@ -400,10 +340,13 @@ public abstract class Unit : CellObject
         this.onDamageRecieved.Invoke(Amount);
 
         if (this.Health <= 0) //handle death
-        {          
+        {
             Die();
         }
-        this.Flash(Color.red);
+        else
+        {
+            this.Flash(Color.red);
+        }
     }
     public abstract void DealDamageStateRoutine(Unit AttackingUnit);
     public void Die()
@@ -430,8 +373,6 @@ public abstract class Unit : CellObject
     }
     public void ForcedDie()
     {
-        int x = this.CurrentCell.x;
-        int y = this.CurrentCell.y;
         UnitManager.Instance.RemoveFromQueue(this);
         Destroy(this.gameObject);
         ActionOnDeath();
@@ -450,12 +391,6 @@ public abstract class Unit : CellObject
             CreatePopup(ReceiveDamageIcon, -Amount);
         }
     }
-
-    public IEnumerator WaitEmpty()
-    {
-        yield return new WaitForSeconds(1f);
-    }
-
     public static SkillType ResourceType2SkillType(Item itemInfo)
     {
         SkillType Result;
@@ -481,10 +416,5 @@ public abstract class Unit : CellObject
         NewColor.w = Visible ? 1 : 0;
         this.gameObject.GetComponent<SpriteRenderer>().color = NewColor;
     }
-
-    public virtual void SetSprite(Sprite sprite = null)
-    {
-
-    }
-    
+    public virtual void SetSprite(Sprite sprite = null) {}
 }

@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
 
 public class TalentHeavyLifter : Talent
 {
@@ -36,7 +37,7 @@ public class TalentHeavyLifter : Talent
 
     public override int Execute(int value)
     {
-        return value < 0 ? 0 : value;
+        return Math.Max(0, value);
     }
 }
 

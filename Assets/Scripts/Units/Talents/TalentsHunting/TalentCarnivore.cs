@@ -37,7 +37,7 @@ public class TalentCarnivore : Talent
 
     public override int Execute(Item item)
     {
-        if (item.foodType.Equals("Meat"))
+        if (item.FoodType == FoodType.Meat)
         {
             this.Parent.MaxHealth += this.BonusMaxHealth;
             this.Parent.Health = this.Parent.MaxHealth;

@@ -1,9 +1,6 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-using TMPro;
+﻿using UnityEngine;
 using UnityEngine.UI;
-
+using TMPro;
 public class ItemInfo : Singleton<ItemInfo>
 {
     public TMP_Text foodName;
@@ -19,7 +16,7 @@ public class ItemInfo : Singleton<ItemInfo>
 
     public void SetFoodInfo(Item item)
     {
-        if (item.type.Equals("Food"))
+        if (item.ItemType == ItemType.Food)
         {
             labelNut.text = "Nutrition Value:";
             labelPerv.text = "Perservation:";
@@ -38,7 +35,7 @@ public class ItemInfo : Singleton<ItemInfo>
             FoodPanel.SetActive(true);
             foodName.text = item.name;
             itemType.text = "Material";
-            nutritionValue.text = item.rarity;
+            nutritionValue.text = item.Rarity.ToString().Replace('_', ' ');
             desc.text = item.description;
             icon.sprite = item.icon;
             perservable.text = item.isHeavy.ToString();

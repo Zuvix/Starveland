@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using UnityEngine;
+﻿using System.Collections.Generic;
 
 public class SkillForaging : Skill
 {
@@ -39,17 +34,16 @@ public class SkillForaging : Skill
             return false;
         }
 
-        bool isDepleted;
         int x = Target.CurrentCell.x;
         int y = Target.CurrentCell.y;
 
 
         // Critical harvest talent
-        Resource = SkillTalents[TalentType.CriticalHarvest] != null && Target is ResourceSource ? SkillTalents[TalentType.CriticalHarvest].Execute((ResourceSource)Target, out isDepleted) : Target.GatherResource(1, out isDepleted);
+        Resource = SkillTalents[TalentType.CriticalHarvest] != null && Target is ResourceSource source1 ? SkillTalents[TalentType.CriticalHarvest].Execute(source1, out bool isDepleted) : Target.GatherResource(1, out isDepleted);
 
         if (Resource != null)
         {
-            if (Target is ResourceSource)
+            if (Target is ResourceSource source2)
             {
                 // Gatherer talent
                 Resource = this.SkillTalents[TalentType.Gatherer] != null ? this.SkillTalents[TalentType.Gatherer].Execute(Resource) : Resource;
@@ -60,7 +54,7 @@ public class SkillForaging : Skill
                     this.SkillTalents[TalentType.FriendOfTheForest]?.Execute(x, y, Resource);
 
                     // Mother of Nature talent, todo z foragable listu prefabov random vybrat, nenechat bush berry purple
-                    this.SkillTalents[TalentType.MotherOfNature]?.Execute(x, y, Resource, (ResourceSource)Target);
+                    this.SkillTalents[TalentType.MotherOfNature]?.Execute(x, y, Resource, source2);
                 }
             }
 
@@ -79,7 +73,7 @@ public class SkillForaging : Skill
 
     public override float GetGatheringSpeed(ResourceSourceGeneric resourceSource)
     {
-        if (resourceSource is ResourceSource && ((ResourceSource)resourceSource).resource.itemInfo.type.Equals("Resource"))
+        if (resourceSource is ResourceSource resSource && resSource.resource.itemInfo.ItemType == ItemType.Material)
         {
             return SkillTalents[TalentType.CriticalHarvest] == null ? WoodcuttingTime : SkillTalents[TalentType.CriticalHarvest].Execute(WoodcuttingTime);
         }

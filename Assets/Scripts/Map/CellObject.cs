@@ -1,7 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
 [RequireComponent(typeof(SpriteRenderer))]
 public class CellObject : MonoBehaviour
 {
@@ -24,8 +23,6 @@ public class CellObject : MonoBehaviour
     public bool IsSelectable = false;
     public bool IsPossibleToAddToActionQueue = false;
 
-    //private SpriteRenderer SpriteRendererComponent;
-
     public GameObject Replacement;
 
     virtual protected void Awake()
@@ -34,10 +31,6 @@ public class CellObject : MonoBehaviour
         basicScale = transform.localScale;
         basicRotation = transform.rotation;
         originalColor = sr.color;
-    }
-    private void Start()
-    {
-        //this.SpriteRendererComponent = this.gameObject.GetComponent<SpriteRenderer>();
     }
     public void MakeTransparent(float Value)
     {
@@ -73,13 +66,13 @@ public class CellObject : MonoBehaviour
     {
         return null;
     }
-    public virtual void Flip(string side)
+    public virtual void Flip(FlipDirection Side)
     {
-        if (side.Equals("right"))
+        if (Side == FlipDirection.Right)
         {
             sr.flipX = false;
         }
-        if (side.Equals("left"))
+        if (Side == FlipDirection.Left)
         {
             sr.flipX = true;
         }
@@ -94,7 +87,7 @@ public class CellObject : MonoBehaviour
         Color NewColor = color;
         NewColor.a = sr.color.a;
         sr.color = NewColor;
-        Invoke("ResetColor", flashTime);
+        Invoke(nameof(ResetColor), flashTime);
     }
     private void ResetColor()
     {
@@ -162,5 +155,4 @@ public class CellObject : MonoBehaviour
             this.CreatePopup(Entries[i].Item1, Entries[i].Item2);
         }
     }
-
 }

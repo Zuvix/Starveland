@@ -1,10 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using UnityEngine;
-
 public class UnitAnimal : Unit
 {
     public int AggroRadius = 1;
@@ -15,8 +11,6 @@ public class UnitAnimal : Unit
     [Tooltip("Defines the chance of a unit moving to random position if he's wandering around and idling.")]
     [Range(0, 100)]
     public int ChanceToMoveDuringWandering = 10;
-    private int spawnX;
-    private int spawnY;
     public List<ResourcePack> inventory;
     [Tooltip("Defines difficulty for player to kill this Animal.")]
     public string difficulty;
@@ -32,8 +26,6 @@ public class UnitAnimal : Unit
     }
     protected override void Start()
     {
-        this.spawnX = this.CurrentCell.x;
-        this.spawnY = this.CurrentCell.y;
         SetDefaultActivity();
         base.Start();
     }
@@ -45,36 +37,26 @@ public class UnitAnimal : Unit
     {
         return new ActivityStateHunt(this);
     }
-    public override void Flip(string side)
+    public override void Flip(FlipDirection Direction)
     {
-        if (side.Equals("right"))
+        if (Direction == FlipDirection.Right)
         {
             sr.flipX = true;
         }
-        if (side.Equals("left"))
+        if (Direction == FlipDirection.Left)
         {
             sr.flipX = false;
         }
     }
-
     public override IEnumerator Fight(Unit UnitTarget, float AttackTime = 1.0f)
     {
         this.CurrentAction = "In combat!";
-        if (UnitTarget.CurrentCell.position.x > transform.position.x)
-        {
-            Flip("right");
-        }
-        else if (UnitTarget.CurrentCell.position.x < transform.position.x)
-        {
-            Flip("left");
-        }
+        Flip(UnitTarget.CurrentCell);
         yield return new WaitForSeconds(AttackTime);
-        //UnitTarget.DealDamage(this.BaseDamage, this, false);
         if (UnitTarget != null)
         {
             this.Attack(this, UnitTarget);
         }
-        //UnitTarget.Flash(Color.red);
         yield return new WaitForSeconds(0.2f);
     }
     public override void DealDamageStateRoutine(Unit AttackingUnit)

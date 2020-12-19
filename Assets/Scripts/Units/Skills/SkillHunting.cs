@@ -1,14 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using UnityEngine;
+﻿using System.Collections.Generic;
 
 public class SkillHunting : Skill
 {
     private int ExperiencePerKill;
-
+    private static readonly int DefenceBonus = 5;
+    private static readonly int DamageBonusFrequency = 3;
+    private static readonly int DamageBonus = 5;
     public SkillHunting() : base()
     {
         this.ExperiencePerAction = GameConfigManager.Instance.GameConfig.HuntingExperiencePerAction;
@@ -33,24 +30,23 @@ public class SkillHunting : Skill
 
     protected override void LevelUp(Unit Unit)
     {
-        Unit.Defence += 5;
-        if ((this.Level + 1) % 3 == 0) 
+        Unit.Defence += DefenceBonus;
+        if ((this.Level + 1) % DamageBonusFrequency == 0) 
         {
-            Unit.BaseDamage += 5;
+            Unit.BaseDamage += DamageBonus;
         }
         base.LevelUp(Unit);
     }
-
     public override bool DoAction(Unit Unit, Unit TargetUnit)
     {
-        if (TargetUnit == null)
+        bool Result = false;
+        if (TargetUnit != null)
         {
-            return false;
+            this.Attack(Unit, TargetUnit);
+            Result = true;
         }
-        this.Attack(Unit, TargetUnit);
-        return true;
+        return Result;
     }
-    
     private bool Attack(Unit Unit, Unit TargetUnit)
     {
         bool lethal = false;
@@ -60,18 +56,16 @@ public class SkillHunting : Skill
         }
         if (!lethal)
         {
-            Unit.Attack(Unit, TargetUnit, SkillTalents[TalentType.Opportunist] != null ? true : false);
+            Unit.Attack(Unit, TargetUnit, SkillTalents[TalentType.Opportunist] != null);
         }
 
         //check if dead?
         if (TargetUnit.Health <= 0)
         {
-            Debug.Log("Target killed! Getting experience!");
             this.AddExperience(this.ExperiencePerKill, Unit);
         }
         return true;
     }
-
     public override bool DoAction(Unit Unit, ResourceSourceGeneric Target, out Resource Resource)
     {
         if (Target == null)
@@ -85,12 +79,9 @@ public class SkillHunting : Skill
         this.AddExperience(this.ExperiencePerAction, Unit);
         return true;
     }
-
     public override int GetExtraNutritionValue(Item item)
     {
         // Carnivore talent
         return SkillTalents[TalentType.Carnivore] == null ? 0 : SkillTalents[TalentType.Carnivore].Execute(item);
     }
-
 }
-

@@ -1,11 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using UnityEngine;
 using UnityEngine.Events;
-
 public class UnitManager : Singleton<UnitManager>
 {
     public List<Tuple<SkillType, ActivityState, CellObject>> ActionQueue;
@@ -27,8 +24,7 @@ public class UnitManager : Singleton<UnitManager>
             {"Diamond", SkillType.Mining }
         };
     }
-
-    // main scheduling algorithm TODO
+    // Main action scheduling algorithm
     public void ActionSchedulingLoop()
     {
         int i = 0;
@@ -61,7 +57,6 @@ public class UnitManager : Singleton<UnitManager>
 
                     bestUnit.GetComponent<UnitPlayer>().SetActivity(action.Item2.SetCommands(bestUnit, bestUnit.Skills[action.Item1]));
 
-                    Debug.Log("Pocet idle unitov: " + IdleUnits.Count());
                     ActionQueue.RemoveAt(i);
                     onActionQueueChanged.Invoke();
 
@@ -76,7 +71,6 @@ public class UnitManager : Singleton<UnitManager>
         }
 
     }
-
     public bool AddActionToQueue(CellObject CellObject)
     {
         if (this.ActionQueue.Count >= GameConfigManager.Instance.GameConfig.MaxQueueActions)
@@ -112,7 +106,6 @@ public class UnitManager : Singleton<UnitManager>
 
             if (newAction != null)
             {
-                Debug.Log("Adding to queue");
                 ActionQueue.Add(newAction);
 
                 onActionQueueChanged.Invoke();
@@ -123,16 +116,15 @@ public class UnitManager : Singleton<UnitManager>
             }
             else
             {
-                throw new Exception("Unknown CellObject type tried to be added to the queue!");
+                Debug.LogError("Unknown CellObject type tried to be added to the queue!");
+                return false;
             }
         }
         else
         {
             return false;
         }
-
     }
-
     public bool AddUnitToIdleList(UnitPlayer Unit)
     {
         if (!IdleUnits.Contains(Unit))
@@ -156,6 +148,4 @@ public class UnitManager : Singleton<UnitManager>
         }
         return true;
     }
-
 }
-

@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using UnityEngine;
+﻿using System.Collections.Generic;
 
 public class SkillMining : Skill
 {
@@ -54,7 +49,7 @@ public class SkillMining : Skill
         // dual wielder talent
         this.SkillTalents[TalentType.DualWielder]?.Execute(Unit, CastTarget, Resource, this.TargetDepleted);
      
-        if (isDepleted && !Target.tag.Equals("Diamond"))
+        if (isDepleted && !Target.CompareTag("Diamond"))
         {
             this.TargetDepleted(x, y);
         }
@@ -100,5 +95,4 @@ public class SkillMining : Skill
         this.MiningTimeIncrease += valuePercent;
         this.MininigTime = this.GatheringTime / (this.GatheringTime * (float)(this.MiningTimeIncrease + 100f) / 100f);
     }
-
 }

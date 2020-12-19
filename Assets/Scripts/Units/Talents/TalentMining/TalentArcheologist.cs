@@ -1,7 +1,4 @@
 ﻿using System;
-using System.Collections;
-using System.Collections.Generic;
-using System.Linq;
 using UnityEngine;
 
 public class TalentArcheologist : Talent
@@ -15,7 +12,6 @@ public class TalentArcheologist : Talent
     {
         return true;
     }
-
 
     public override bool Remove(Unit Unit, Skill Skill)
     {

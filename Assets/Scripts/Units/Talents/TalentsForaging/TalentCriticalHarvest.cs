@@ -1,5 +1,4 @@
-﻿using System;
-using UnityEngine;
+﻿using UnityEngine;
 
 public class TalentCriticalHarvest : Talent
 {
@@ -39,10 +38,6 @@ public class TalentCriticalHarvest : Talent
 
     public override Resource Execute(ResourceSource Target, out bool isDepleted)
     {
-        if (Target.resource.itemInfo.type.Equals("Resource"))
-        {
-            return Target.GatherResource(Target.resource.Amount, out isDepleted);
-        }
-        return Target.GatherResource(1, out isDepleted);
+        return Target.GatherResource(Target.resource.itemInfo.ItemType == ItemType.Material ? Target.resource.Amount : 1, out isDepleted);
     }
 }

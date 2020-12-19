@@ -12,12 +12,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4ffc9427acd4e3e4a8fb7a6dc3cb2154, type: 3}
   m_Name: Magic Scroll
   m_EditorClassIdentifier: 
-  type: Resource
+  type: 0
   icon: {fileID: 2078057815148490773, guid: b81d09a574bb33a4ea1b7acc8221604e, type: 3}
   NutritionValue: 0
-  storageType: Raw
-  foodType: None
+  storageType: 0
+  FoodType: 0
   rarity: Processed
+  Rarity: 1
   description: Used for alchemical experiments.
   isHeavy: 0
   IsShipPart: 0

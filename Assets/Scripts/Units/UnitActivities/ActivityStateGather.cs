@@ -79,13 +79,9 @@ class ActivityStateGather : ActivityState
             }
             else
             {
-                //TODO
                 Debug.LogError($"Unit's current command is done, but is something unexpected: {Unit.CurrentCommand}. Its current activity is: {Unit.CurrentActivity}");
                 Unit.SetDefaultActivity();
             }
-            // If Unit is done doing something, we set new command to queue.
-            // However, we were expected to do something because PerformAction was called, so we need to retry
-            //this.PerformAction(Unit);
         }
         else if (!Unit.CurrentCommand.CanBePerformed(Unit))
         {
@@ -97,7 +93,6 @@ class ActivityStateGather : ActivityState
             // If gathering from resource is not possible
             else if (Unit.CurrentCommand == this.CommandGatherFromResource)
             {
-                Debug.Log("Gathering from this Resource Source is not possible because it is depleted");
                 if (Unit.CarriedResource.IsDepleted())
                 {
                     Unit.SetActivity(new ActivityStateIdle());
@@ -134,7 +129,6 @@ class ActivityStateGather : ActivityState
             }
             else
             {
-                //TODO
                 Debug.LogError($"Unit's current command cannot be performed and something unexpected: {Unit.CurrentCommand}. Its current activity is: {Unit.CurrentActivity}");
                 Unit.SetDefaultActivity();
             }

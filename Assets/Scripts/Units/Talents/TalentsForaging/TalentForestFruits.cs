@@ -16,7 +16,6 @@ public class TalentForestFruits : Talent
         return true;
     }
 
-
     public override bool Remove(Unit Unit, Skill Skill)
     {
         return true;
@@ -34,6 +33,6 @@ public class TalentForestFruits : Talent
 
     public override int Execute(Item item)
     {
-        return item.foodType.Equals("Foragable") ? this.ExtraNutritionValue : 0;
+        return item.FoodType == FoodType.Foragable ? this.ExtraNutritionValue : 0;
     }
 }

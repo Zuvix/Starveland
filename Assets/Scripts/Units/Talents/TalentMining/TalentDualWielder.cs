@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 using UnityEngine;
 
 public class TalentDualWielder : Talent
@@ -57,7 +56,7 @@ public class TalentDualWielder : Talent
                             int ny = NeighbouringResourceSource.CurrentCell.y;
                             Resource NeightbouringResource = NeighbouringResourceSource.GatherResource(1, out bool isDepletedNeighbouring);
                             NeighbouringResourceSource.Flash();
-                            if (isDepletedNeighbouring && !Target.tag.Equals("Diamond"))
+                            if (isDepletedNeighbouring && !Target.CompareTag("Diamond"))
                             {
                                 Depleted(nx, ny);
                             }

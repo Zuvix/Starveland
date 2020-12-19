@@ -22,6 +22,8 @@ public abstract class Skill
     public float GatheringTime;
     public UnityEvent<UnitPlayer> onExperienceChanged = new UnityEvent<UnitPlayer>();
 
+    private static readonly string LevelUpText = "Level Up!";
+    private static readonly string TalentSuffixText = " talent!";
     public Skill()
     {
         this.CurrentExperience = 0;
@@ -59,14 +61,11 @@ public abstract class Skill
             NewTalent.Apply(Unit, this);
             this.AppliedTalents.Add(NewTalent);
             this.SkillTalents[NewTalent.TalentType] = NewTalent;
-            Debug.Log("Getting new talent: " + NewTalent.Name);
-            //Unit.CreatePopup(NewTalent.icon, $"New talent {NewTalent.Name}");
-            //Unit.CreatePopup(this.icon, $"Level Up! New Talent!");
-            Unit.CreatePopups(new List<(Sprite, string)>() { (this.icon, "Level Up!"), (NewTalent.icon, NewTalent.Name+" talent!")});
+            Unit.CreatePopups(new List<(Sprite, string)>() { (this.icon, LevelUpText), (NewTalent.icon, NewTalent.Name + TalentSuffixText)});
         }
         else
         {
-            Unit.CreatePopup(this.icon, $"Level Up!");
+            Unit.CreatePopup(this.icon, LevelUpText);
         }
     }
 

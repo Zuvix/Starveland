@@ -1,11 +1,6 @@
-﻿using System;
-using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using UnityEngine;
-
 public class ActivityStateHunt : ActivityState
 {
     private UnitCommandMove CommandMoveToTarget;
@@ -43,22 +38,11 @@ public class ActivityStateHunt : ActivityState
             }
             else if (Unit.CurrentCommand == CommandCombat)
             {
-                /*if (!DayCycleManager.Instance.TimeOut)
-                {
-                    if (Unit is UnitPlayer)
-                    {
-                        Unit.SetActivity(new ActivityStateGather(this.UnitTarget.CurrentCell).SetCommands(Unit, this.Skill));
-                    }
-                    else if (Unit is UnitAnimal)
-                    {
-                        Unit.SetDefaultActivity();
-                    }
-                }
-                else
-                {
-					Unit.SetDefaultActivity();
-                }*/
                 Unit.SetDefaultActivity();
+            }
+            else
+            {
+                Debug.LogError($"Unit's current command is done, but is something unexpected: {Unit.CurrentCommand}. Its current activity is: {Unit.CurrentActivity}");
             }
         }
         else if (!Unit.CurrentCommand.CanBePerformed(Unit))
@@ -73,12 +57,15 @@ public class ActivityStateHunt : ActivityState
                 this.CommandMoveToTarget = new UnitCommandMove(this.UnitTarget.CurrentCell, path);
                 Unit.SetCommand(this.CommandMoveToTarget);
             }
+            else
+            {
+                Debug.LogError($"Unit's current command is done, but is something unexpected: {Unit.CurrentCommand}. Its current activity is: {Unit.CurrentActivity}");
+            }
         }
         else
         {
             yield return Unit.StartCoroutine(Unit.CurrentCommand.PerformAction(Unit));
         }
-        
     }
 
     public override bool IsCancellable()

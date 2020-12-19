@@ -1,11 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using UnityEngine.Events;
-using UnityEngine;
-
+﻿using UnityEngine.Events;
 public class UnitHungry
 {
     private readonly int MaxSatiety;
@@ -23,11 +16,11 @@ public class UnitHungry
     public void Eat(Item itemInfo)
     {
         int BonusNutritionValue = 0;
-        if (this.Unit is UnitPlayer)
+        if (Unit is UnitPlayer PlayerUnit)
         {
-            foreach (var skill in ((UnitPlayer)this.Unit).Skills)
+            foreach (Skill Skill in PlayerUnit.Skills.Values)
             {
-                BonusNutritionValue += skill.Value.GetExtraNutritionValue(itemInfo);
+                BonusNutritionValue += Skill.GetExtraNutritionValue(itemInfo);
             }
         }
         this.CurrentSatiety += itemInfo.NutritionValue + BonusNutritionValue;

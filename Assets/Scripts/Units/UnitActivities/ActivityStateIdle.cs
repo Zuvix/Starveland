@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
+
 class ActivityStateIdle : ActivityState
 {
     private UnitCommandMove MoveToHouseCommand;
@@ -40,7 +40,6 @@ class ActivityStateIdle : ActivityState
             }
             else if (Unit.CurrentCommand == this.DropCommand)
             {
-                //Unit.SetCommand(this.IdleCommand);
                 EnterBuildingCommand = new UnitCommandEnterBuilding(DropCommand.Target);
                 Unit.SetCommand(EnterBuildingCommand);
             }
@@ -55,12 +54,8 @@ class ActivityStateIdle : ActivityState
             }
             else
             {
-                //TODO
-                throw new Exception("Unit's current command is something unexpected");
+                Debug.LogError($"Unit's current command is done, but is something unexpected: {Unit.CurrentCommand}. Its current activity is: {Unit.CurrentActivity}");
             }
-            // If Unit is done doing something, we set new command to queue.
-            // However, we were expected to do something because PerformAction was called, so we need to retry
-            //this.PerformSpecificAction(Unit);
         }
         else if (!Unit.CurrentCommand.CanBePerformed(Unit))
         {
@@ -82,17 +77,13 @@ class ActivityStateIdle : ActivityState
                     Unit.SetCommand(new UnitCommandIdle());
                 }
             }
-            // If gathering from resource is not possible
             else if (Unit.CurrentCommand == this.IdleCommand)
             {
-                // TODO
-                throw new Exception("Unit's current command is something unexpected");
+                Debug.LogError($"Unit's current Idle command is done, but is something unexpected: {Unit.CurrentCommand}. Its current activity is: {Unit.CurrentActivity}");
             }
-            // If moving to storage is not possible
             else
             {
-                //TODO
-                throw new Exception("Unit's current command is something unexpected when it was idle");
+                Debug.LogError($"Unit's current command is something unexpected: {Unit.CurrentCommand}. Its current activity is: {Unit.CurrentActivity}");
             }
         }
         else

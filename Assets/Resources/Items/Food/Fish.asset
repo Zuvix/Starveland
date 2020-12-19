@@ -12,12 +12,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4ffc9427acd4e3e4a8fb7a6dc3cb2154, type: 3}
   m_Name: Fish
   m_EditorClassIdentifier: 
-  type: 1
+  ItemType: 1
   icon: {fileID: 30041296195775007, guid: 3715bf9b0c12f8244b785d254c6653c9, type: 3}
   NutritionValue: 4
   storageType: 0
-  foodType: Meat
-  rarity: Basic
+  FoodType: 2
+  Rarity: 0
   description: Tasty salmon, or maybe Kapor?
   isHeavy: 0
-  IsShipPart: 0

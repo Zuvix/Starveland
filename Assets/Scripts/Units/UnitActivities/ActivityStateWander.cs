@@ -49,7 +49,7 @@ public class ActivityStateWander : ActivityState
             }
             else
             {
-                throw new Exception("Unit's current command is something unexpected");
+                Debug.LogError($"Unit's current command is done, but is something unexpected: {Unit.CurrentCommand}. Its current activity is: {Unit.CurrentActivity}");
             }
             this.PerformAction(Unit);
         }
@@ -106,7 +106,6 @@ public class ActivityStateWander : ActivityState
         List<UnitPlayer> TargetList = new List<UnitPlayer>();
         foreach (UnitPlayer player in Unit.PlayerUnitPool)
         {
-            //Debug.LogWarning(Vector2.Distance(new Vector2(Unit.CurrentCell.x, Unit.CurrentCell.y), new Vector2(player.CurrentCell.x, player.CurrentCell.y)));
             if (!player.IsInBuilding() && Vector2.Distance(new Vector2(Unit.CurrentCell.x, Unit.CurrentCell.y), new Vector2(player.CurrentCell.x, player.CurrentCell.y)) <= this.AggroRadius)
             {
                 TargetList.Add(player);

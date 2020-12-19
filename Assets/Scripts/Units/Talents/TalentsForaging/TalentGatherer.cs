@@ -16,7 +16,6 @@ public class TalentGatherer : Talent
         return true;
     }
 
-
     public override bool Remove(Unit Unit, Skill Skill)
     {
         return true;
@@ -34,7 +33,7 @@ public class TalentGatherer : Talent
 
     public override Resource Execute(Resource Resource)
     {
-        if (Resource.itemInfo.foodType.Equals("Foragable") && Random.Range(1, 100) <= this.ExtraForagableFoodChance)
+        if (Resource.itemInfo.FoodType == FoodType.Foragable && Random.Range(1, 100) <= this.ExtraForagableFoodChance)
         {
             Resource.Amount++;
         }

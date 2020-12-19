@@ -12,12 +12,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4ffc9427acd4e3e4a8fb7a6dc3cb2154, type: 3}
   m_Name: Cooked Meat
   m_EditorClassIdentifier: 
-  type: 1
+  ItemType: 1
   icon: {fileID: 1914097269958853597, guid: ddf4a4e6ec245864fbfb72f96ebb7d3d, type: 3}
   NutritionValue: 8
   storageType: 1
-  foodType: Meat
-  rarity: Basic
+  FoodType: 2
+  Rarity: 0
   description: Tasty medium steak, best after long day in mines.
   isHeavy: 0
-  IsShipPart: 0

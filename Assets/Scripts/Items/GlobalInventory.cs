@@ -9,7 +9,7 @@ public class GlobalInventory : Singleton<GlobalInventory>
     private void ActionOnInventoryUpdate(Item ChangedItemInfo)
     {
         OnInventoryUpdate.Invoke();
-        if (ChangedItemInfo.IsShipPart)
+        if (ChangedItemInfo.Rarity == ItemRarity.Ship_Part)
         {
             OnShipPartUpdate.Invoke();
         }
@@ -145,7 +145,7 @@ public class GlobalInventory : Singleton<GlobalInventory>
         List<Resource> Result = new List<Resource>();
         foreach (KeyValuePair<string, Resource> entry in playerInventory)
         {
-            if (entry.Value.itemInfo.type == ItemType.Food)
+            if (entry.Value.itemInfo.ItemType == ItemType.Food)
             {
                 Result.Add(entry.Value.Duplicate());
             }
@@ -154,14 +154,14 @@ public class GlobalInventory : Singleton<GlobalInventory>
     }
     public List<Resource> OwnedShipParts()
     {
-        return playerInventory.Values.Where(x => x.itemInfo.IsShipPart).ToList();
+        return playerInventory.Values.Where(x => x.itemInfo.Rarity == ItemRarity.Ship_Part).ToList();
     }
     public void RemoveUneatenFood()
     {
         Dictionary<string, Resource> newDict =new Dictionary<string, Resource>();
         foreach (KeyValuePair<string, Resource> entry in playerInventory)
         {
-            if (entry.Value.itemInfo.type != ItemType.Food || entry.Value.itemInfo.storageType != FoodStorageType.Raw)
+            if (entry.Value.itemInfo.ItemType != ItemType.Food || entry.Value.itemInfo.storageType != FoodStorageType.Raw)
             {
                 newDict.Add(entry.Key, entry.Value);
             }
