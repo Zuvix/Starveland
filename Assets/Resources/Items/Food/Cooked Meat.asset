@@ -15,7 +15,7 @@ MonoBehaviour:
   type: Food
   icon: {fileID: 1914097269958853597, guid: ddf4a4e6ec245864fbfb72f96ebb7d3d, type: 3}
   NutritionValue: 8
-  storageType: Cooked
+  storageType: 1
   foodType: Meat
   rarity: Basic
   description: Tasty medium steak, best after long day in mines.

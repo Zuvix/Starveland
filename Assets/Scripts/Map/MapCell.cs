@@ -189,14 +189,17 @@ public class MapCell
     }
     public MapCell GetRandomUnitEnterableNeighbour()
     {
-        MapCell Result = null;
+        return GetRandomUnitEnterableNeighbour(1)[0];
+    }
+    public List<MapCell> GetRandomUnitEnterableNeighbour(int RequiredCount)
+    {
         List<MapCell> Possibilities = GetClosestNeighbours().Where(x => x.CanBeEnteredByUnit()).ToList();
-        if (Possibilities.Count <= 0)
+        if (Possibilities.Count < RequiredCount)
         {
-            Possibilities = GetClosestDiagonalNeighbours().Where(x => x.CanBeEnteredByUnit()).ToList();
-            if (Possibilities.Count <= 0)
+            Possibilities.AddRange(GetClosestDiagonalNeighbours().Where(x => x.CanBeEnteredByUnit()).ToList());
+            if (Possibilities.Count < RequiredCount)
             {
-                int UpperBound = new int[] { x, y, Map.Grid.Count, Map.Grid[0].Count}.Max();
+                int UpperBound = new int[] { x, y, Map.Grid.Count, Map.Grid[0].Count }.Max();
                 for (int i = 2; i <= UpperBound; i++)
                 {
                     for (int j = 0; j < i; j++)
@@ -215,76 +218,28 @@ public class MapCell
                         {
                             if (Map.IsInBounds(Coordinates.Item1, Coordinates.Item2) && Map.Grid[Coordinates.Item1][Coordinates.Item2].CanBeEnteredByUnit())
                             {
-                                Result = Map.Grid[Coordinates.Item1][Coordinates.Item2];
-                                break;
+                                Possibilities.Add(Map.Grid[Coordinates.Item1][Coordinates.Item2]);
+                                if (Possibilities.Count >= RequiredCount)
+                                {
+                                    break;
+                                }
                             }
                         }
-                        if (Result != null)
+                        if (Possibilities.Count >= RequiredCount)
                         {
                             break;
                         }
                     }
-                    if (Result != null)
+                    if (Possibilities.Count >= RequiredCount)
                     {
                         break;
                     }
                 }
             }
         }
-        if (Result == null && Possibilities.Count > 0)
+        if (Possibilities.Count > RequiredCount)
         {
-            Result = Possibilities[Random.Next(0, Possibilities.Count - 1)];
-        }
-        return Result;
-    }
-
-    public List<MapCell> GetRandomNeighbouringResourceSourceSpawnLocation(int resourceSourcesToSpawn)
-    {
-        List<MapCell> Possibilities = GetClosestNeighbours().Where(x => x.CanBeEnteredByObject(true)).ToList();
-        Possibilities.AddRange(GetClosestDiagonalNeighbours().Where(x => x.CanBeEnteredByObject(true)).ToList());
-
-        if (Possibilities.Count <= resourceSourcesToSpawn)
-        {
-            int UpperBound = new int[] { x, y, Map.Grid.Count, Map.Grid[0].Count }.Max();
-            for (int i = 2; i <= UpperBound; i++)
-            {
-                for (int j = 0; j < i; j++)
-                {
-                    List<(int, int)> PotentialCoordinates = new List<(int, int)>(new (int, int)[] {
-                        (x + i, y + j),
-                        (x - i, y + j),
-                        (x + i, y - j),
-                        (x - i, y - j),
-                        (x + j, y + i),
-                        (x - j, y + i),
-                        (x + j, y - i),
-                        (x - j, y - i)
-                    });
-                    foreach ((int, int) Coordinates in PotentialCoordinates)
-                    {
-                        if (Map.IsInBounds(Coordinates.Item1, Coordinates.Item2) && Map.Grid[Coordinates.Item1][Coordinates.Item2].CanBeEnteredByObject(true))
-                        {
-                            Possibilities.Add(Map.Grid[Coordinates.Item1][Coordinates.Item2]);
-                            break;
-                        }
-                    }
-                    if (Possibilities.Count >= resourceSourcesToSpawn)
-                    {
-                        break;
-                    }
-                }
-                if (Possibilities.Count >= resourceSourcesToSpawn)
-                {
-                    break;
-                }
-            }
-        }       
-        if (Possibilities.Count > resourceSourcesToSpawn)
-        {
-            while (Possibilities.Count > resourceSourcesToSpawn)
-            {
-                Possibilities.RemoveAt(UnityEngine.Random.Range(0, Possibilities.Count - 1));
-            }
+            Possibilities = Possibilities.GetRange(0, RequiredCount);
         }
         return Possibilities;
     }

@@ -115,13 +115,14 @@ public class UnitAnimal : Unit
         }
         if (drops.Count > 0)
         {
-            List<MapCell> whereToSpawn = this.CurrentCell.GetRandomNeighbouringResourceSourceSpawnLocation(drops.Count - 1);
-            whereToSpawn.Add(this.CurrentCell);
+            List<MapCell> SpawnCells = this.CurrentCell.GetRandomUnitEnterableNeighbour(drops.Count - 1);
+            SpawnCells.Add(this.CurrentCell);
             int i = 0;
-            foreach (var spawn in whereToSpawn)
+            foreach (MapCell SpawnCell in SpawnCells)
             {
-                Debug.LogWarning($"Spawning Resource Source! {drops[i].itemInfo.name}, {spawn.x},{spawn.y}");
-                CellObjectFactory.Instance.ProduceResourceSource(spawn.x, spawn.y, ItemManager.Instance.resourceToResourceSource[drops[i].itemInfo], new List<Resource>() { drops[i] });
+                Debug.LogWarning($"Spawning Resource Source! {drops[i].itemInfo.name}, {SpawnCell.x},{SpawnCell.y}");
+                SpawnCell.EraseCellObject();
+                CellObjectFactory.Instance.ProduceResourceSource(SpawnCell.x, SpawnCell.y, ItemManager.Instance.resourceToResourceSource[drops[i].itemInfo], new List<Resource>() { drops[i] });
                 i++;
             }
         }

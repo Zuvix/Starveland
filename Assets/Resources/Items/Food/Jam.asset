@@ -15,7 +15,7 @@ MonoBehaviour:
   type: Food
   icon: {fileID: 8311199010538100381, guid: 3715bf9b0c12f8244b785d254c6653c9, type: 3}
   NutritionValue: 5
-  storageType: Cooked
+  storageType: 1
   foodType: None
   rarity: Basic
   description: 
