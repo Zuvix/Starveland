@@ -1,15 +1,12 @@
-﻿using System;
-using System.Collections;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Collections;
 using UnityEngine;
 
 public class UnitCommandCombatMelee : UnitCommand
 {
     public Skill Skill;
     public Unit TargetUnit;
+
+    private static readonly int CombatDistanceCap = 2;
 
     public UnitCommandCombatMelee(Unit TargetUnit, Skill Skill = null) : base(null)
     {
@@ -25,7 +22,7 @@ public class UnitCommandCombatMelee : UnitCommand
     public override IEnumerator PerformAction(Unit Unit)
     {
         yield return Unit.StartCoroutine(Unit.Fight(this.TargetUnit));
-        if (TargetUnit != null && Skill != null && PathFinding.Instance.BlockDistance(Unit.CurrentCell, TargetUnit.CurrentCell) <= 2)
+        if (TargetUnit != null && Skill != null && PathFinding.Instance.BlockDistance(Unit.CurrentCell, TargetUnit.CurrentCell) <= CombatDistanceCap)
         {
             Unit.SetSprite(Skill.unitSprite);
             Skill.DoAction(Unit, TargetUnit);
