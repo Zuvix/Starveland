@@ -1,6 +1,4 @@
 ﻿using CodeMonkey.Utils;
-using System.Collections;
-using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 
@@ -11,6 +9,7 @@ public class BuildingConstructionManager : Singleton<BuildingConstructionManager
 
     private GameObject CurrentBackground;
     private GameObject BuildingMock = null;
+
     private MapCell LastCellPointedOn = null;
     private bool LastCellHasBuildingMock = false;
     void Awake()
@@ -21,14 +20,13 @@ public class BuildingConstructionManager : Singleton<BuildingConstructionManager
     {
         DaytimeCounter.Instance.OnDayOver.AddListener(DeselectBuilding);
     }
-    // Update is called once per frame
     void Update()
     {
-        if (Input.GetMouseButtonDown(0))
+        if (Input.GetMouseButtonDown(MouseButton.Left))
         {
             PlaceBuilding();
         }
-        else if (Input.GetMouseButtonDown(1))
+        else if (Input.GetMouseButtonDown(MouseButton.Right))
         {
             DeselectBuilding();
         }
@@ -51,7 +49,6 @@ public class BuildingConstructionManager : Singleton<BuildingConstructionManager
                 {
                     LastCellPointedOn.BackupCellObject();
 
-                    //Debug.LogError(MapControl.Instance.GreenBackground);
                     CurrentBackground = Instantiate(MapControl.Instance.GreenBackground);
                     MapControl.Instance.map.CenterObject(x, y, CurrentBackground);
 

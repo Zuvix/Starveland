@@ -1,6 +1,5 @@
 ﻿using System.Collections.Generic;
 using UnityEngine.Events;
-
 public class Building : CellObject
 {
     public List<Resource> ConstructionCost;

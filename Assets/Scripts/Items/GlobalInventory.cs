@@ -1,15 +1,11 @@
 ﻿using System;
-using System.Collections;
 using System.Collections.Generic;
-using UnityEngine;
 using UnityEngine.Events;
 using System.Linq;
-
 public class GlobalInventory : Singleton<GlobalInventory>
 {
     public UnityEvent OnInventoryUpdate = new UnityEvent();
     public UnityEvent OnShipPartUpdate = new UnityEvent();
-
     private void ActionOnInventoryUpdate(Item ChangedItemInfo)
     {
         OnInventoryUpdate.Invoke();
@@ -26,9 +22,6 @@ public class GlobalInventory : Singleton<GlobalInventory>
     private void Start()
     {
         AddItem(new Resource(ItemManager.Instance.GetItem("Perfect Can"), 5));
-        /*AddItem(new Resource(ItemManager.Instance.GetItem("Stone"), 20));
-        AddItem(new Resource(ItemManager.Instance.GetItem("Fur"), 20));
-        AddItem(new Resource(ItemManager.Instance.GetItem("Wood"), 20));*/
 
         foreach (string ResType in ItemManager.Instance.GetItemTypeNames())
         {
@@ -152,7 +145,7 @@ public class GlobalInventory : Singleton<GlobalInventory>
         List<Resource> Result = new List<Resource>();
         foreach (KeyValuePair<string, Resource> entry in playerInventory)
         {
-            if (entry.Value.itemInfo.type == "Food")
+            if (entry.Value.itemInfo.type == ItemType.Food)
             {
                 Result.Add(entry.Value.Duplicate());
             }
@@ -168,7 +161,7 @@ public class GlobalInventory : Singleton<GlobalInventory>
         Dictionary<string, Resource> newDict =new Dictionary<string, Resource>();
         foreach (KeyValuePair<string, Resource> entry in playerInventory)
         {
-            if (!entry.Value.itemInfo.type.Equals("Food") || !entry.Value.itemInfo.storageType.Equals("Raw"))
+            if (entry.Value.itemInfo.type != ItemType.Food || entry.Value.itemInfo.storageType != FoodStorageType.Raw)
             {
                 newDict.Add(entry.Key, entry.Value);
             }

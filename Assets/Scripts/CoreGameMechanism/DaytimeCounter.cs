@@ -1,26 +1,15 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.Events;
-using TMPro;
-
 public class DaytimeCounter : Singleton<DaytimeCounter>
 {
-    public UnityEvent OnDayOver;
-    public UnityEvent<int> OnDayStarted;
-    public UnityEvent<float> OnTimeChanged;
+    public UnityEvent OnDayOver = new UnityEvent();
+    public UnityEvent<int> OnDayStarted = new UnityEvent<int>();
+    public UnityEvent<float> OnTimeChanged = new UnityEvent<float>();
 
-    public float dayLength;
-    private float dayTimeLeft;
-    private int dayCount = 0;
-    public bool dayOver { get; private set; }
-
-    private void Awake()
-    {
-        OnDayOver = new UnityEvent();
-        OnDayStarted = new UnityEvent<int>();
-        OnTimeChanged = new UnityEvent<float>();
-    }
+    public float DayLength;
+    private float DayTimeLeft;
+    private int DayCount = 0;
+    public bool DayOver { get; private set; }
     void Start()
     {
         OnDayStarted.AddListener(BuildingCrafting.RestoreWork);
@@ -29,21 +18,21 @@ public class DaytimeCounter : Singleton<DaytimeCounter>
     }
     public void StartDay()
     {
-        dayCount++;
-        dayTimeLeft = dayLength;
-        OnDayStarted.Invoke(dayCount);
-        dayOver = false;
+        DayCount++;
+        DayTimeLeft = DayLength;
+        OnDayStarted.Invoke(DayCount);
+        DayOver = false;
     }
     private void Update()
     {
-        if (!dayOver)
+        if (!DayOver)
         {
-            dayTimeLeft -= Time.deltaTime;
-            dayTimeLeft = Mathf.Max(0, dayTimeLeft);
-            OnTimeChanged.Invoke(dayTimeLeft);
-            if (dayTimeLeft <= 0)
+            DayTimeLeft -= Time.deltaTime;
+            DayTimeLeft = Mathf.Max(0, DayTimeLeft);
+            OnTimeChanged.Invoke(DayTimeLeft);
+            if (DayTimeLeft <= 0)
             {
-                dayOver = true;
+                DayOver = true;
                 OnDayOver.Invoke();
             }
         }

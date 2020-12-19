@@ -12,10 +12,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4ffc9427acd4e3e4a8fb7a6dc3cb2154, type: 3}
   m_Name: Egg
   m_EditorClassIdentifier: 
-  type: Food
+  type: 1
   icon: {fileID: 8498603496096261007, guid: ddf4a4e6ec245864fbfb72f96ebb7d3d, type: 3}
   NutritionValue: 3
-  storageType: Raw
+  storageType: 0
   foodType: None
   rarity: Basic
   description: 'A gift from our chicken. '

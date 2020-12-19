@@ -4,7 +4,6 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.UIElements;
-
 class FeedingManager : Singleton<FeedingManager>
 {
     public GameObject FeedingPanel;
@@ -13,23 +12,32 @@ class FeedingManager : Singleton<FeedingManager>
     private List<GameObject> FoodInventoryItemPanels = new List<GameObject>();
     public GameObject UnitListPanel;
     public List<GameObject> UnitPanels;
-    private List<Resource> AvailableRawItems = null;
-    private List<Resource> AvailableCookedItems = null;
+
     public GameObject InventoryItem;
     public GameObject DraggedObject;
     public GameObject SelectedFoodIcon; 
-
     
     public readonly int InventoryGridSizeRows = 6;
     public readonly int InventoryGridSizeColumns = 12;
 
     private List<UnitHungry> PlayerUnits;
+    private List<Resource> AvailableRawItems = null;
+    private List<Resource> AvailableCookedItems = null;
 
+    private static readonly string LabelUnitName = "UnitName";
+    private static readonly string LabelFeedingProgress = "FillTxt";
+    private static Color DefaultItemColor
+    {
+        get
+        {
+            return new Color(1, 1, 1, 1);
+        }
+    }
     private void Awake()
     {
         FeedingPanel.SetActive(false);
         DraggedObject.SetActive(false);
-        DraggedObject.GetComponent<UnityEngine.UI.Image>().color = new Color(1, 1, 1, 1);
+        DraggedObject.GetComponent<UnityEngine.UI.Image>().color = DefaultItemColor;
         foreach (GameObject UnitPanel in UnitPanels)
         {
             UnitPanel.GetComponent<DroppableArea>().DroppedInArea.AddListener(DroppedInConsumationArea);
@@ -96,11 +104,11 @@ class FeedingManager : Singleton<FeedingManager>
             for (int j = 0; j < UnitPanels[i].transform.childCount; j++)
             {
                 Child = UnitPanels[i].transform.GetChild(j).gameObject;
-                if (Child.name == "UnitName")
+                if (Child.name == LabelUnitName)
                 {
                     Child.GetComponent<TextMeshProUGUI>().text = PlayerUnits[i].Unit.objectName;
                 }
-                if (Child.name == "FillTxt")
+                if (Child.name == LabelFeedingProgress)
                 {
                     Child.GetComponent<TextMeshProUGUI>().text = "0/10";
                 }
@@ -124,7 +132,7 @@ class FeedingManager : Singleton<FeedingManager>
         {
             GameObject InventoryItem = Instantiate(this.InventoryItem);
             InventoryItem.GetComponent<UnityEngine.UI.Image>().sprite = AvailableItems[0].itemInfo.icon;
-            InventoryItem.GetComponent<UnityEngine.UI.Image>().color = new Color(1, 1, 1, 1);
+            InventoryItem.GetComponent<UnityEngine.UI.Image>().color = DefaultItemColor;
             InventoryItem.GetComponent<DraggableIcon>().Resource = AvailableItems[0];
             InventoryItem.GetComponentInChildren<TMP_Text>().SetText(AvailableItems[0].itemInfo.NutritionValue + " nv");
 
@@ -176,8 +184,6 @@ class FeedingManager : Singleton<FeedingManager>
                 AddToGrid(AvailableRawItems, false);
             }
         }
-
-
     }
     private void ClearGrid()
     {
@@ -197,23 +203,17 @@ class FeedingManager : Singleton<FeedingManager>
         //Cannot deplete resources
         foreach (Resource Resource in AvailableResources)
         {
-            if (Resource.itemInfo.storageType == "Raw")
-            {
-                while (!Resource.IsDepleted())
-                {
-                    AvailableRawItems.Add(Resource.Subtract(1));
-                }
-            }
-            else if(Resource.itemInfo.storageType == "Cooked")
-            {
-                while (!Resource.IsDepleted())
-                {
-                    AvailableCookedItems.Add(Resource.Subtract(1));
-                }
-            }
+            FillFoodList(Resource, Resource.itemInfo.storageType == FoodStorageType.Raw ? AvailableRawItems : AvailableCookedItems);
         }
         ListShuffling.Shuffle<Resource>(AvailableCookedItems);
         ListShuffling.Shuffle<Resource>(AvailableRawItems);
+    }
+    private void FillFoodList(Resource Resource, List<Resource> OfferList)
+    {
+        while (!Resource.IsDepleted())
+        {
+            OfferList.Add(Resource.Subtract(1));
+        }
     }
     private List<Resource> RetrieveAvailableFood()
     {

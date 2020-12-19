@@ -1,8 +1,6 @@
 ﻿using System;
 using System.Linq;
 using System.Collections.Generic;
-using UnityEngine;
-
 public class ShipBuildingManagement : Singleton<ShipBuildingManagement>
 {
     public CraftingRecipeBuildShip ShipRecipe;
@@ -17,7 +15,6 @@ public class ShipBuildingManagement : Singleton<ShipBuildingManagement>
     {
         int OwnedParts = GlobalInventory.Instance.OwnedShipParts().Select(x => Math.Min(x.Amount, RequiredAmount(x.itemInfo))).Sum();
         float Progress = (float)Math.Floor((float)OwnedParts / RequiredShipPartCount * 100);
-        // Debug.LogError($"Owned {OwnedParts} ship parts out of {RequiredShipPartCount}, which makes it {(int)(Progress*100)}%.");
         PrefabPallette.Instance.ShipProgressPerecentLabel.text = $"{Progress} %";
 
         int VisibleItemCount = Math.Min(Math.Min(ShipRecipe.Input.Count, GUIReference.Instance.ShipProgressMaterialIcons.Count), GUIReference.Instance.ShipProgressMaterialLabels.Count);
