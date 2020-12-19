@@ -16,8 +16,25 @@ public class ShipBuildingManagement : Singleton<ShipBuildingManagement>
     private void RefreshShipState()
     {
         int OwnedParts = GlobalInventory.Instance.OwnedShipParts().Select(x => Math.Min(x.Amount, RequiredAmount(x.itemInfo))).Sum();
-        float Progress = (float)OwnedParts / RequiredShipPartCount;
-       // Debug.LogError($"Owned {OwnedParts} ship parts out of {RequiredShipPartCount}, which makes it {(int)(Progress*100)}%.");
+        float Progress = (float)Math.Floor((float)OwnedParts / RequiredShipPartCount * 100);
+        // Debug.LogError($"Owned {OwnedParts} ship parts out of {RequiredShipPartCount}, which makes it {(int)(Progress*100)}%.");
+        PrefabPallette.Instance.ShipProgressPerecentLabel.text = $"{Progress} %";
+
+        int VisibleItemCount = Math.Min(Math.Min(ShipRecipe.Input.Count, GUIReference.Instance.ShipProgressMaterialIcons.Count), GUIReference.Instance.ShipProgressMaterialLabels.Count);
+        for (int i = 0; i < VisibleItemCount; i++)
+        {
+            GUIReference.Instance.ShipProgressMaterialIcons[i].sprite = ShipRecipe.Input[i].itemInfo.icon;
+            int CurrentItemCount = GlobalInventory.Instance.GetInventory().ContainsKey(ShipRecipe.Input[i].itemInfo.name) ? GlobalInventory.Instance.GetInventory()[ShipRecipe.Input[i].itemInfo.name].Amount : 0;
+            GUIReference.Instance.ShipProgressMaterialLabels[i].text = $"{CurrentItemCount}/{ShipRecipe.Input[i].Amount}";
+
+            GUIReference.Instance.ShipProgressMaterialIcons[i].gameObject.SetActive(true);
+            GUIReference.Instance.ShipProgressMaterialLabels[i].gameObject.SetActive(true);
+        }
+        for (int i = VisibleItemCount; i < Math.Min(GUIReference.Instance.ShipProgressMaterialIcons.Count, GUIReference.Instance.ShipProgressMaterialLabels.Count) ; i++)
+        {
+            GUIReference.Instance.ShipProgressMaterialIcons[i].gameObject.SetActive(false);
+            GUIReference.Instance.ShipProgressMaterialLabels[i].gameObject.SetActive(false);
+        }
     }
     private int RequiredAmount(Item ItemInfo)
     {
