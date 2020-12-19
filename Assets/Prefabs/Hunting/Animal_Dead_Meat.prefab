@@ -129,15 +129,15 @@ MonoBehaviour:
   tip: Dead animal
   popup: {fileID: 0}
   popupNoIcon: {fileID: 0}
-  IsBlocking: 1
+  IsBlocking: 0
   IsSelectable: 1
   IsPossibleToAddToActionQueue: 1
   Replacement: {fileID: 0}
-  resource:
-    itemInfo: {fileID: 0}
-    Amount: 0
   rp:
     item: {fileID: 11400000, guid: 756d6da29aa825645a10985bc585f9d3, type: 2}
     minValue: 1
     maxValue: 1
     chance: 100
+  resource:
+    itemInfo: {fileID: 0}
+    Amount: 0

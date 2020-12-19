@@ -1,10 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
 using UnityEngine;
-
 [CreateAssetMenu(fileName = "newGameConfig", menuName = "Game Configuration")]
 public class GameConfig : ScriptableObject
 {
@@ -59,6 +54,4 @@ public class GameConfig : ScriptableObject
     [Min(1)]
     public int MaxQueueActions = 20;
     public GameObject QueueFrame;
-
 }
-

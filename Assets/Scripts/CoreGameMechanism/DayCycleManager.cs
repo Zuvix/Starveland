@@ -15,12 +15,10 @@ class DayCycleManager : Singleton<DayCycleManager>
         TimeOut = true;
 
         UnitManager.Instance.ActionQueue.Clear();
-        //UnitManager.Instance.IdleUnits.Clear();
         this.FinishedUnitCounter = Unit.PlayerUnitPool.Count;
 
         foreach (Unit Unit in Unit.PlayerUnitPool)
         {
-            //Unit.SetActivity(new ActivityStateEndDayRoutine());
             if (Unit.IsInBuilding())
             {
                 IndicateEndDayRoutineEnd();
@@ -43,12 +41,11 @@ class DayCycleManager : Singleton<DayCycleManager>
         foreach (Unit Unit in Unit.PlayerUnitPool)
         {
             Unit.OnBuildingEntered.RemoveListener(IndicateEndDayRoutineEnd);
-            //Unit.SetActivity(new ActivityStateIdle());
         }
         DaytimeCounter.Instance.StartDay();
         GlobalGameState.Instance.InGameInputAllowed = true;
         TimeOut = false;
-        PlayerPrefs.SetInt("DaysPassed", PlayerPrefs.GetInt("DaysPassed") + 1);
+        PlayerPrefs.SetInt(InterSceneVariables.DayCount, PlayerPrefs.GetInt(InterSceneVariables.DayCount) + 1);
     }
     public void IndicateEndDayRoutineEnd()
     {

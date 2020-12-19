@@ -2,22 +2,24 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
-using UnityEngine.EventSystems;
 public class BuildingCrafting : Building
 {
     private static List<BuildingCrafting> CraftingBuildingPool = new List<BuildingCrafting>();
     public List<CraftingRecipe> AvailableRecipes;
     public readonly List<int> CraftingQueue = new List<int>();
     public readonly List<int> ItemQuantities = new List<int>();
+
     public readonly UnityEvent<int, List<Resource>> OnQueueUpdate = new UnityEvent<int, List<Resource>>();
     public readonly UnityEvent<string> OnCraftStart = new UnityEvent<string>();
     public readonly UnityEvent<float> OnCraftUpdate = new UnityEvent<float>();
     public readonly UnityEvent OnCraftEnd = new UnityEvent();
+
     private float CurrentProgress;
     private ProgressBar ProgressBar;
-
-    public int CurrentRecipeIndex { get; private set; }  = -1;
     private static bool ProgressBarAllowed;
+
+    private static readonly int NoRecipeIndex = -1;
+    public int CurrentRecipeIndex { get; private set; }  = NoRecipeIndex;
     private static bool WorkHalted = false;
     protected override void Awake()
     {
@@ -51,7 +53,7 @@ public class BuildingCrafting : Building
             return;
         }
 
-        if (CurrentRecipeIndex != -1)
+        if (CurrentRecipeIndex != NoRecipeIndex)
         {
             CurrentProgress += Time.deltaTime / AvailableRecipes[CurrentRecipeIndex].CraftingDuration;
             if (ProgressBarAllowed)
@@ -69,7 +71,7 @@ public class BuildingCrafting : Building
                 {
                     this.CreatePopup(PopupInfo.Item1, PopupInfo.Item2);
                 }
-                CurrentRecipeIndex = -1;
+                CurrentRecipeIndex = NoRecipeIndex;
                 OnCraftEnd.Invoke();
             }
         }
@@ -134,17 +136,12 @@ public class BuildingCrafting : Building
         ProgressBarAllowed = newValue;
         foreach (BuildingCrafting Building in CraftingBuildingPool)
         {
-            if ((newValue && Building.CurrentRecipeIndex != -1) || !newValue)
+            if ((newValue && Building.CurrentRecipeIndex != NoRecipeIndex) || !newValue)
             {
                 Building.ProgressBar.gameObject.SetActive(newValue);
             }
         }
-        /*if ((newValue && CurrentRecipeIndex != -1) || !newValue)
-        {
-            this.ProgressBar.gameObject.SetActive(newValue);
-        }*/
     }
-
     public static void HaltWork()
     {
         ToggleWorkHalting(true);

@@ -29,7 +29,7 @@ public class ItemInfo : Singleton<ItemInfo>
             nutritionValue.text = item.NutritionValue + "nv";
             desc.text = item.description;
             icon.sprite = item.icon;
-            perservable.text = item.storageType;
+            perservable.text = item.storageType.ToString();
         }
         else
         {

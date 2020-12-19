@@ -77,23 +77,6 @@ public class UnitAnimal : Unit
         //UnitTarget.Flash(Color.red);
         yield return new WaitForSeconds(0.2f);
     }
-
-    /*public override void DealDamage(int Amount, Unit AttackingUnit)
-    {
-        if (!(this.CurrentActivity is ActivityStateUnderAttack))
-        {
-            this.SetActivity(new ActivityStateUnderAttack(AttackingUnit, this, this.spawnX, this.spawnY, this.WanderingRadius));
-        }
-        this.Health -= Amount;
-        DisplayReceivedDamage(Amount);
-        if (this.Health <= 0) //handle death
-        {
-            int x = this.CurrentCell.x;
-            int y = this.CurrentCell.y;
-            this.CurrentCell.SetCellObject(null);
-            Die();
-        }
-    }*/
     public override void DealDamageStateRoutine(Unit AttackingUnit)
     {
         if (!(this.CurrentActivity is ActivityStateUnderAttack))
@@ -115,17 +98,20 @@ public class UnitAnimal : Unit
         }
         if (drops.Count > 0)
         {
-            List<MapCell> whereToSpawn = this.CurrentCell.GetRandomNeighbouringResourceSourceSpawnLocation(drops.Count - 1);
-            whereToSpawn.Add(this.CurrentCell);
+            List<MapCell> SpawnCells = this.CurrentCell.GetRandomUnitEnterableNeighbour(drops.Count - 1);
+            SpawnCells.Add(this.CurrentCell);
             int i = 0;
-            foreach (var spawn in whereToSpawn)
+            foreach (MapCell SpawnCell in SpawnCells)
             {
-                Debug.LogWarning($"Spawning Resource Source! {drops[i].itemInfo.name}, {spawn.x},{spawn.y}");
-                CellObjectFactory.Instance.ProduceResourceSource(spawn.x, spawn.y, ItemManager.Instance.resourceToResourceSource[drops[i].itemInfo], new List<Resource>() { drops[i] });
+                SpawnCell.EraseCellObject();
+                CellObjectFactory.Instance.ProduceResourceSource(SpawnCell.x, SpawnCell.y, ItemManager.Instance.resourceToResourceSource[drops[i].itemInfo], new List<Resource>() { drops[i] });
                 i++;
             }
+            if (i < drops.Count)
+            {
+                Debug.LogError($"Failed to spawn {drops.Count - 1} items from {this.gameObject}");
+            }
         }
-        //CellObjectFactory.Instance.ProduceResourceSource(x, y, RSObjects.DeadAnimalMeat, drops);
     }
     public override void SetDefaultActivity()
     {
@@ -140,7 +126,6 @@ public class UnitAnimal : Unit
         }
         if (PathFinding.Instance.BlockDistance(SpawnCell, CurrentCell) > MaxTravelDistance)
         {
-            //Debug.LogError($"I'm {gameObject} at {CurrentCell.x},{CurrentCell.y}, which is {PathFinding.Instance.BlockDistance(SpawnCell, CurrentCell)} from home, more than {MaxTravelDistance}. Gotta go home to {SpawnCell.x},{SpawnCell.y}.");
             SetActivity(new ActivityStateMoveToSpawnPosition(SpawnCell));
         }
     }

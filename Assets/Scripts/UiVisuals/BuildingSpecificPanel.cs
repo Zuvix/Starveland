@@ -83,7 +83,7 @@ public class BuildingSpecificPanel : MonoBehaviour, IPointerEnterHandler, IPoint
             this.BoundBuilding.OnCraftStart.RemoveListener(UpdateCurrentlyCraftedItemName);
             this.BoundBuilding.OnCraftUpdate.RemoveListener(UpdateCraftProgress);
             this.BoundBuilding.OnCraftEnd.RemoveListener(HideCraftProgressBar);
-            /*this.BoundBuilding*/BuildingCrafting.ToggleProgressBarVisibility(!DaytimeCounter.Instance.dayOver);
+            /*this.BoundBuilding*/BuildingCrafting.ToggleProgressBarVisibility(!DaytimeCounter.Instance.DayOver);
             this.BoundBuilding = null;
         }
     }
