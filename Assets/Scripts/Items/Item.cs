@@ -5,8 +5,7 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "newItem", menuName= "Item")] 
 public class Item : ScriptableObject
 {
-    [StringInList("Resource","Food")]
-    public string type;
+    public ItemType type;
     public Sprite icon;
     public int NutritionValue;
     public FoodStorageType storageType;
