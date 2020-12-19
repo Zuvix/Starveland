@@ -51,11 +51,11 @@ public class InventoryMenu : MonoBehaviour
 
             foreach (Resource r in resources)
             {
-                if (r.itemInfo.type.Equals("Food") && !showFoodEnabled)
+                if (r.itemInfo.type.Equals(ItemType.Food) && !showFoodEnabled)
                 {
                     continue;
                 }
-                if (r.itemInfo.type.Equals("Resource") && !showItemsEnabled)
+                if (r.itemInfo.type.Equals(ItemType.Material) && !showItemsEnabled)
                 {
                     continue;
                 }
