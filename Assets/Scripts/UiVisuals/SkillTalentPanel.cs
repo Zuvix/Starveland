@@ -55,6 +55,10 @@ public class SkillTalentPanel : MonoBehaviour
             PanelControl.Instance.SetActivePanel(0);
             return;
         }
+        else if (PanelControl.Instance.GetActivePanelID() == 6)
+        {
+            return;
+        }
 
         CellObject visibleObject = go.GetComponent<CellObject>();
 
