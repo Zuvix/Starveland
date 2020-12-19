@@ -1,11 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using UnityEngine;
-using UnityEngine.Events;
+﻿using UnityEngine;
 using UnityEngine.SceneManagement;
-
 class GameOver : Singleton<GameOver>
 {
     public bool GameIsOver { get; private set; }
@@ -26,16 +20,9 @@ class GameOver : Singleton<GameOver>
         Destroy(DayCycleManager.Instance);
         FeedingManager.Instance.FeedingPanel.SetActive(false);
         GlobalGameState.Instance.InGameInputAllowed = false;
-        /*foreach (Unit Unit in Unit.UnitPool)
-        {
-            Destroy(Unit);
-        }
-        Unit.UnitPool.Clear();*/
 
-        Debug.LogError("All player units are dead. Game is over!");
-
-        PlayerPrefs.SetInt("PlayersSurvived", 0);
-        PlayerPrefs.SetInt("GameOver", 0);
+        PlayerPrefs.SetInt(InterSceneVariables.PlayerUnitsSurvivedCount, 0);
+        PlayerPrefs.SetInt(InterSceneVariables.GameFinishState, GameFinishState.Loss);
         SceneManager.LoadScene(2);
     }
     public void InitiatePositiveGameOver()
@@ -45,10 +32,8 @@ class GameOver : Singleton<GameOver>
         FeedingManager.Instance.FeedingPanel.SetActive(false);
         GlobalGameState.Instance.InGameInputAllowed = false;
 
-        Debug.LogError("Ship is built. Game won!");
-
-        PlayerPrefs.SetInt("PlayersSurvived", Unit.PlayerUnitPool.Count);
-        PlayerPrefs.SetInt("GameOver", 1);
+        PlayerPrefs.SetInt(InterSceneVariables.PlayerUnitsSurvivedCount, Unit.PlayerUnitPool.Count);
+        PlayerPrefs.SetInt(InterSceneVariables.GameFinishState, GameFinishState.Victory);
         SceneManager.LoadScene(2);
     }
 }
