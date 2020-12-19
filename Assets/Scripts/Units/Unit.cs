@@ -113,12 +113,7 @@ public abstract class Unit : CellObject
 
     public virtual void SetActivity(ActivityState Activity)
     {
-        /*this.CurrentActivity = Activity;
-        Activity.InitializeCommand(this);*/
         this.NextActivity = Activity;
-
-
-        //Debug.LogWarning("Unit enqueueing activity " + this.NextActivity.GetType().Name);
     }
 
     public virtual bool InventoryFull()

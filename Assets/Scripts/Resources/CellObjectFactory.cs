@@ -181,16 +181,16 @@ class CellObjectFactory : Singleton<CellObjectFactory>
             createdResourceSource = Result.GetComponent<ResourceSource>();
             ((ResourceSource)createdResourceSource)?.GenerateResources();
         }
-        if (additionalResources != null && createdResourceSource is ResourceSource)
+        if (additionalResources != null && createdResourceSource is ResourceSource source1)
         {
             foreach(Resource newResource in additionalResources)
             {
-                ((ResourceSource)createdResourceSource).AddResource(newResource);
+                source1.AddResource(newResource);
             }
         }
-        if (createdResourceSource!=null && createdResourceSource is ResourceSource)
+        if (createdResourceSource!=null && createdResourceSource is ResourceSource source2)
         {
-            if (((ResourceSource)createdResourceSource).resource==null)
+            if (source2.resource==null)
             {
                 Destroy(Result);
                 Debug.LogWarning("Destroyed ResourceSource because it had no resources.");
@@ -327,4 +327,3 @@ class CellObjectFactory : Singleton<CellObjectFactory>
         return Result;
     }
 }
-

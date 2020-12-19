@@ -1,8 +1,5 @@
 ﻿using System;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-
 [Serializable]
 public class Resource
 {
@@ -13,7 +10,6 @@ public class Resource
         this.Amount = Amount;
         itemInfo = item;
     }
-
     public Resource Duplicate()
     {
         return new Resource(this.itemInfo, this.Amount);
@@ -31,11 +27,8 @@ public class Resource
         }
         else
         {
-            throw new Exception("Tried to add different resource types");
+            Debug.LogError($"Tried to add different resource types: {Resource.itemInfo.name} and {this.itemInfo}");
         }
-        // Let's neutralize the added Resource
-        //Resource.itemInfo = null;
-        //Resource.Amount = 0;
     }
     public Resource Deplete()
     {
@@ -46,15 +39,14 @@ public class Resource
         Resource Result = null;
         if (Amount < 0)
         {
-            //TODO
-            throw new Exception("Tried to subtract negative resource amount");
+            Debug.LogError("Tried to subtract from negative resource amount");
         }
-        if(Amount>=this.Amount)
+        else if(Amount>=this.Amount)
         {
             Result= new Resource(this.itemInfo,this.Amount);
             this.Amount = 0;
         }
-        if (Amount<this.Amount)
+        else if (Amount<this.Amount)
         {
             this.Amount -= Amount;
             Result = new Resource(this.itemInfo, Amount);

@@ -1,17 +1,11 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-
-public class IncubatedResourceSource : CellObject
+﻿public class IncubatedResourceSource : CellObject
 {
     public int DaysToGrow;
     public RSObjects IncubatedResourceSourceType;
-
     void Start()
     {
         DaytimeCounter.Instance.OnDayOver.AddListener(Grow);
     }
-
     private void Grow()
     {
         this.DaysToGrow--;

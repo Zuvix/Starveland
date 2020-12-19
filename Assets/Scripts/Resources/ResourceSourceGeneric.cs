@@ -1,7 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-
+﻿using UnityEngine;
 public abstract class ResourceSourceGeneric : CellObject
 {
     override protected void Awake()
@@ -17,15 +14,12 @@ public abstract class ResourceSourceGeneric : CellObject
     {
         return new ActivityStateGather(this.CurrentCell);
     }
-
     public Resource GatherResource(int amount, out bool depleted)
     {
         Resource Result = this.RetrieveResource(amount, out bool isDepleted);
-        //Debug.LogWarning(Result.itemInfo.name);
-
         if (Result == null)
         {
-            Debug.LogWarning("Result=null v Gather resource");
+            Debug.LogError("Result=null v ResourceSourceGeneric::GatherResource");
         }
         depleted = isDepleted;
         return Result;
