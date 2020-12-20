@@ -12,9 +12,7 @@ public class ResourceSource : ResourceSourceGeneric
         if (this.resource.IsDepleted())
         {
             isDepleted = true;
-            Debug.Log("Destroying Resource Source");
             UnitManager.Instance.RemoveFromQueue(this);
-            //this.CurrentCell.SetCellObject(null);
             this.CurrentCell.EraseCellObject();
             Destroy(this.gameObject);
         }
@@ -39,7 +37,7 @@ public class ResourceSource : ResourceSourceGeneric
         }
         else if (!resource.itemInfo.name.Equals(toAddResource.itemInfo.name))
         {
-            Debug.Log("Trying to add resources of different type");
+            Debug.LogError("Trying to add resources of different type");
             return false;
         }
         else

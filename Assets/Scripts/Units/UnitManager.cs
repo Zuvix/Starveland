@@ -61,7 +61,6 @@ public class UnitManager : Singleton<UnitManager>
 
                     bestUnit.GetComponent<UnitPlayer>().SetActivity(action.Item2.SetCommands(bestUnit, bestUnit.Skills[action.Item1]));
 
-                    Debug.Log("Pocet idle unitov: " + IdleUnits.Count());
                     ActionQueue.RemoveAt(i);
                     onActionQueueChanged.Invoke();
 
@@ -74,7 +73,6 @@ public class UnitManager : Singleton<UnitManager>
             }
             i++;
         }
-
     }
 
     public bool AddActionToQueue(CellObject CellObject)
@@ -112,7 +110,6 @@ public class UnitManager : Singleton<UnitManager>
 
             if (newAction != null)
             {
-                Debug.Log("Adding to queue");
                 ActionQueue.Add(newAction);
 
                 onActionQueueChanged.Invoke();
@@ -123,14 +120,14 @@ public class UnitManager : Singleton<UnitManager>
             }
             else
             {
-                throw new Exception("Unknown CellObject type tried to be added to the queue!");
+                Debug.LogError("Unknown CellObject type tried to be added to the queue!");
+                return false;
             }
         }
         else
         {
             return false;
         }
-
     }
 
     public bool AddUnitToIdleList(UnitPlayer Unit)
@@ -158,4 +155,3 @@ public class UnitManager : Singleton<UnitManager>
     }
 
 }
-

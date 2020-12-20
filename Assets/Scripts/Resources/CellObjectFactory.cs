@@ -278,7 +278,7 @@ class CellObjectFactory : Singleton<CellObjectFactory>
             }
         else
         {
-            Debug.Log("Dont need to create a BGOBJECT under unit at x:" + x + " y:" + y);
+            //Debug.Log("Dont need to create a BGOBJECT under unit at x:" + x + " y:" + y);
         }
         if (selectedPrefab != null)
         {

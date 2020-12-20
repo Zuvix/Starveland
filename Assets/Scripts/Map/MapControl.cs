@@ -44,14 +44,11 @@ public class MapControl : Singleton<MapControl> {
         //storage.Enter(player.GetComponent<Unit>());
         unit=CreateGameObject(16, 1, player);
         unit = CreateGameObject(17, 3, player);
-        //Gravel around water
         //Create Lake
         GetComponent<HuntingField>().SpawnHuntingZone(15,8,17,12);
         //Forest
         GetComponent<Forest>().SpawnForest2(12, 18, 2, 2);
         GetComponent<Mines>().SpawnMines(15, 10, 17, 1);
-        //SpawnLeftovers
-        //SpawnLeftoverStuff();
     }
     public GameObject CreateGameObject(int x, int y, GameObject toBeCreatedGO)
     {
@@ -68,7 +65,6 @@ public class MapControl : Singleton<MapControl> {
             }
             else
             {
-                Debug.LogWarning("Space x: " + x + " y: " + y + " is already occupied!");
                 return null;
             }
         }

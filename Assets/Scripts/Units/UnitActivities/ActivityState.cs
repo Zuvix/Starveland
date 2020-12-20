@@ -41,7 +41,6 @@ public abstract class ActivityState
         // Oh no, it's not possible to get to any Storage?
         if (Path == null)
         {
-            Debug.Log("Neviem najst cestu nastavujem sa na idle!");
             Unit.SetActivity(new ActivityStateIdle());
         }
         // We found a path to Storage
