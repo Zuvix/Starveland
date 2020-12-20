@@ -40,7 +40,6 @@ public class DraggableIcon : MonoBehaviour, IDragHandler, IBeginDragHandler, IEn
         foreach (RaycastResult raycastResult in raycastResults)
         {
             GameObject newTarget = raycastResult.gameObject; //Array item 1 should be the one next underneath, handy to implement for-loop with check here if necessary.
-            //print($"Passing on click to {newTarget}"); //Just make sure you caught the right object
             if (FeedingManager.Instance.UnitPanels.Contains(newTarget))
             {
                 ExecuteEvents.Execute(newTarget, eventData, ExecuteEvents.pointerUpHandler);

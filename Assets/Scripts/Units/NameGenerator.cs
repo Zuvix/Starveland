@@ -95,10 +95,10 @@ public static class NameGenerator
     {
         if (names.Count < 1)
         {
-            return "nudne meno";
+            return "No Name Norbert";
         }
-        string meno = names[Random.Range(0, names.Count)];
-        names.Remove(meno);
-        return meno;
+        string SelectedName = names[Random.Range(0, names.Count)];
+        names.Remove(SelectedName);
+        return SelectedName;
     }
 }

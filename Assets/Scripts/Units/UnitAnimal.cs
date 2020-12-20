@@ -69,12 +69,10 @@ public class UnitAnimal : Unit
             Flip("left");
         }
         yield return new WaitForSeconds(AttackTime);
-        //UnitTarget.DealDamage(this.BaseDamage, this, false);
         if (UnitTarget != null)
         {
             this.Attack(this, UnitTarget);
         }
-        //UnitTarget.Flash(Color.red);
         yield return new WaitForSeconds(0.2f);
     }
     public override void DealDamageStateRoutine(Unit AttackingUnit)

@@ -113,12 +113,7 @@ public abstract class Unit : CellObject
 
     public virtual void SetActivity(ActivityState Activity)
     {
-        /*this.CurrentActivity = Activity;
-        Activity.InitializeCommand(this);*/
         this.NextActivity = Activity;
-
-
-        //Debug.LogWarning("Unit enqueueing activity " + this.NextActivity.GetType().Name);
     }
 
     public virtual bool InventoryFull()
@@ -196,8 +191,6 @@ public abstract class Unit : CellObject
 
     protected override void Awake()
     {
-
-        //Debug.LogError("Unit instantiated");
         base.Awake();
         this.NextActivity = null;
         Unit.UnitPool.Add(this);
@@ -228,7 +221,6 @@ public abstract class Unit : CellObject
             this.NextActivity = null;
             this.CurrentActivity.InitializeCommand(this);
             Result = true;
-            //Debug.LogWarning($"Unit {this} setting activity to " + this.CurrentActivity.GetType().Name);
         }
         return Result;
     }
@@ -244,10 +236,6 @@ public abstract class Unit : CellObject
     {
         this.CurrentAction = "Moving";
         animateMovement = true;
-        // TODO - Will have to be more sophisticated
-        //set cell to be used by unit, free the old cell
-        MapCell PreviousCell = this.CurrentCell;
-        //this.CurrentCell.SetCellObject(null);
         this.CurrentCell.EraseUnit();
         TargetCell.SetUnit(this);
 
@@ -282,10 +270,7 @@ public abstract class Unit : CellObject
     }
     public IEnumerator GatherResource(ResourceSourceGeneric target, float GatheringTime)
     {
-        /* if (itemInHand == null)
-         {*/
         this.CurrentAction = "Gathering";
-        // Debug.Log("Preparing the axe");
 
         if (target.CurrentCell.position.x > transform.position.x)
         {
@@ -297,22 +282,7 @@ public abstract class Unit : CellObject
         }
 
         yield return new WaitForSeconds(GatheringTime);
-        // Debug.Log("Gathering object");
-        //itemInHand = target.Gather();
-
-        /*if (target != null)
-        {
-            target.Flash();
-            
-        }*/
-
-        //yield return new WaitForSeconds(0.2f);
         yield return new WaitForFixedUpdate();
-        /* }
-         else
-         {
-             Debug.Log("my hand is full");
-         }*/
     }
 
     public virtual IEnumerator Fight(Unit UnitTarget, float AttackTime = 2f)
@@ -329,10 +299,6 @@ public abstract class Unit : CellObject
         }
 
         yield return new WaitForSeconds(AttackTime);
-        /*if (UnitTarget != null)
-        {
-            UnitTarget.Flash(Color.red);
-        }*/
         yield return new WaitForSeconds(0.2f);
     }
 
@@ -351,17 +317,7 @@ public abstract class Unit : CellObject
     public IEnumerator BeIdle()
     {
         this.CurrentAction = "Idling";
-        /*if (itemInHand != null)
-        {
-            Debug.Log("Storing resource with name:" + itemInHand.name);
-            Resource storedResource=itemInHand;
-            itemInHand = null;
-            return storedResource;
-        }*/
-        //Debug.Log("About to do idle fun");
         yield return new WaitForSeconds(1.0f);
-        // Debug.Log("I'm idling");
-        //itemInHand = target.Gather();
         yield return new WaitForSeconds(0.2f);
     }
     public IEnumerator WaitToRetryMove()
@@ -491,5 +447,4 @@ public abstract class Unit : CellObject
     {
 
     }
-    
 }

@@ -70,13 +70,6 @@ public class HuntingField : MonoBehaviour
                 {
 
                     MapControl.Instance.CreateGameObject(i, d, COF.water[8]);
-
-                    /*int r = Random.Range(0, 3);
-                    if (r >= 0)
-                    {
-                        COF.ProduceBGlObject(i, d, BGObjects.lekno);
-                    }*/
-
                 }
             }
             for (int i = x - 1; i < x + lakexSize + 2; i++)

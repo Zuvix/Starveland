@@ -28,7 +28,7 @@ public class UnitManager : Singleton<UnitManager>
         };
     }
 
-    // main scheduling algorithm TODO
+    // main scheduling algorithm
     public void ActionSchedulingLoop()
     {
         int i = 0;

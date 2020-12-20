@@ -66,7 +66,6 @@ public class SkillHunting : Skill
         //check if dead?
         if (TargetUnit.Health <= 0)
         {
-            Debug.Log("Target killed! Getting experience!");
             this.AddExperience(this.ExperiencePerKill, Unit);
         }
         return true;
@@ -91,6 +90,4 @@ public class SkillHunting : Skill
         // Carnivore talent
         return SkillTalents[TalentType.Carnivore] == null ? 0 : SkillTalents[TalentType.Carnivore].Execute(item);
     }
-
 }
-

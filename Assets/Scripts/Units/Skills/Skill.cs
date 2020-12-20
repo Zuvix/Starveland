@@ -60,8 +60,6 @@ public abstract class Skill
             this.AppliedTalents.Add(NewTalent);
             this.SkillTalents[NewTalent.TalentType] = NewTalent;
             Debug.Log("Getting new talent: " + NewTalent.Name);
-            //Unit.CreatePopup(NewTalent.icon, $"New talent {NewTalent.Name}");
-            //Unit.CreatePopup(this.icon, $"Level Up! New Talent!");
             Unit.CreatePopups(new List<(Sprite, string)>() { (this.icon, "Level Up!"), (NewTalent.icon, NewTalent.Name+" talent!")});
         }
         else

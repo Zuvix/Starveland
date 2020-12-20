@@ -129,8 +129,7 @@ class ActivityStateGather : ActivityState
             }
             else
             {
-                //TODO
-                Debug.LogError($"Unit's current command cannot be performed and something unexpected: {Unit.CurrentCommand}. Its current activity is: {Unit.CurrentActivity}");
+                Debug.LogError($"Unit's current command cannot be performed and is something unexpected: {Unit.CurrentCommand}. Its current activity is: {Unit.CurrentActivity}");
                 Unit.SetDefaultActivity();
             }
         }

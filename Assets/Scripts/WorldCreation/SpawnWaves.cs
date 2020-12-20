@@ -16,10 +16,4 @@ public class SpawnWaves : MonoBehaviour
             newWave.transform.position = new Vector3(Random.Range(0, maxX), Random.Range(0, maxY), 0);
         }
     }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
 }

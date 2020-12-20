@@ -46,22 +46,6 @@ public class UnitPlayer : Unit
         base.Start();
     }
 
-    /*public override bool InventoryFull()
-    {
-         if (this.CarriedResource.IsDepleted())
-         {
-             return false;
-         }
-
-         SkillType CurrentResourceSkill = Unit.ResourceType2SkillType(this.CarriedResource.itemInfo);
-         return this.InventoryFull(this.Skills[CurrentResourceSkill]);
-    }*/
-
-    /*public override bool InventoryFull(Skill Skill)
-    {
-        return this.CarriedResource.Amount >= this.CarryingCapacity;
-    }*/
-
     public override bool InventoryFull()
     {
         if (this.CarriedResource.IsDepleted())
@@ -86,42 +70,14 @@ public class UnitPlayer : Unit
 
     public override IEnumerator StoreResource(BuildingStorage target)
     {
-        /*if (itemInHand != null)
-    {
-    Debug.Log("Storing resource with name:" + itemInHand.name);
-    Resource storedResource=itemInHand;
-    itemInHand = null;
-    return storedResource;
-    }*/
         this.CurrentAction = "Dropping resources";
-        //Debug.Log("About to drop");
         yield return new WaitForSeconds(1.0f);
-        //Debug.Log("Dropping resources");
-        //itemInHand = target.Gather();
         if (target != null)
         {
             target.Flash();
         }
         yield return new WaitForSeconds(0.2f);
     }
-
-    /* public override void DealDamage(int Amount, Unit AttackingUnit)
-     {
-         if (!(this.CurrentActivity is ActivityStateUnderAttack) && !(this.CurrentActivity is ActivityStateHunt))
-         {
-             this.SetActivity(new ActivityStateUnderAttack(AttackingUnit, this));
-         }
-         this.Health -= Amount;
-         DisplayReceivedDamage(Amount);
-         if (this.Health <= 0) //handle death
-         {
-             int x = this.CurrentCell.x;
-             int y = this.CurrentCell.y;
-             this.CurrentCell.SetCellObject(null);
-             Destroy(this.gameObject);
-             MapControl.Instance.CreateGameObject(x, y, MapControl.Instance.tombstone);
-         }
-     }*/
     public override void DealDamageStateRoutine(Unit AttackingUnit)
     {
         if (!(this.CurrentActivity is ActivityStateUnderAttack) && !(this.CurrentActivity is ActivityStateHunt) && !DayCycleManager.Instance.TimeOut)
