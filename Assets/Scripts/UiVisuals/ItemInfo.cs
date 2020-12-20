@@ -16,7 +16,7 @@ public class ItemInfo : Singleton<ItemInfo>
 
     public void SetFoodInfo(Item item)
     {
-        if (item.type.Equals(ItemType.Food))
+        if (item.ItemType.Equals(ItemType.Food))
         {
             labelNut.text = "Nutrition Value:";
             labelPerv.text = "Perservation:";
