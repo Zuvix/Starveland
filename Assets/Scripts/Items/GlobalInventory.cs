@@ -21,7 +21,7 @@ public class GlobalInventory : Singleton<GlobalInventory>
     }
     private void Start()
     {
-        AddItem(new Resource(ItemManager.Instance.GetItem("Perfect Can"), 5));
+        AddItem(new Resource(ItemManager.Instance.GetItem("Can of perfection"), 5));
 
         foreach (string ResType in ItemManager.Instance.GetItemTypeNames())
         {

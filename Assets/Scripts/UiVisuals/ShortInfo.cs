@@ -32,6 +32,8 @@ public class ShortInfo : MonoBehaviour
     public TMP_Text animalTip;
     public Image[] animalResources;
 
+    public GameObject fishPanel;
+    public FishItemUi[] fishItems; 
 
     List<GameObject> contentPanels;
 
@@ -44,7 +46,8 @@ public class ShortInfo : MonoBehaviour
             unitContent,
             resourcePanel,
             buildingPanel,
-            animalPanel
+            animalPanel,
+            fishPanel
         };
         HideTopContent();
         resourcePanelItemsInfo = resourcePanel.GetComponent<ResourceShortInfo>();
@@ -143,6 +146,26 @@ public class ShortInfo : MonoBehaviour
                 {
                     animalResources[i].gameObject.SetActive(true);
                     animalResources[i].sprite = rp.item.icon;
+                    i++;
+                }
+            }
+        }
+        else if (visibleObject is ResourceSourceFishing)
+        {
+            fishPanel.SetActive(true);
+            ResourceSourceFishing fish = (ResourceSourceFishing)visibleObject;
+            int i;
+            for (i = 0; i < fishItems.Length; i++)
+            {
+                fishItems[i].gameObject.SetActive(false);
+            }
+            i = 0;
+            foreach (RandomResourceOutputItem RRO in fish.Output)
+            {
+                if (i < animalResources.Length)
+                {
+                    fishItems[i].gameObject.SetActive(true);
+                    fishItems[i].SetStats(RRO.OfferedResource.itemInfo.icon, RRO.Probability) ;
                     i++;
                 }
             }
