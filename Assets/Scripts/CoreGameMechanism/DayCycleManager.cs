@@ -7,13 +7,15 @@ class DayCycleManager : Singleton<DayCycleManager>
     private void Start()
     {
         DaytimeCounter.Instance.OnDayOver.AddListener(EndDay);
+        AudioManager.Instance.PlayBackground();
     }
 
     public void EndDay()
     {
         GlobalGameState.Instance.InGameInputAllowed = false;
         TimeOut = true;
-
+        AudioManager.Instance.StopAll();
+        AudioManager.Instance.Play("night");
         UnitManager.Instance.ActionQueue.Clear();
         this.FinishedUnitCounter = Unit.PlayerUnitPool.Count;
 
@@ -38,6 +40,7 @@ class DayCycleManager : Singleton<DayCycleManager>
     }
     public void StartDay()
     {
+        AudioManager.Instance.PlayBackground();
         foreach (Unit Unit in Unit.PlayerUnitPool)
         {
             Unit.OnBuildingEntered.RemoveListener(IndicateEndDayRoutineEnd);

@@ -307,6 +307,14 @@ public abstract class Unit : CellObject
         }*/
 
         //yield return new WaitForSeconds(0.2f);
+        if (target.tag.Equals("Forest"))
+        {
+            AudioManager.Instance.Play("cut");
+        }
+        if (target.tag.Equals("Stone"))
+        {
+            AudioManager.Instance.Play("mine");
+        }
         yield return new WaitForFixedUpdate();
         /* }
          else
