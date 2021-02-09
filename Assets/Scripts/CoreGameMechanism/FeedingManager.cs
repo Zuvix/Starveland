@@ -45,6 +45,7 @@ class FeedingManager : Singleton<FeedingManager>
     }
     public void InitiateDayEnd()
     {
+        AudioManager.Instance.Play("bg2");
         RetrieveAvailableFood();
         PanelControl.Instance.SetActivePanel(6);
         FillGrids();

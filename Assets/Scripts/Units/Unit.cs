@@ -407,7 +407,7 @@ public abstract class Unit : CellObject
             Amount -= this.Defence;
             Amount = Amount < 0 ? 0 : Amount;
         }
-
+        AudioManager.Instance.Play("combat1");
         this.Health -= Amount;
         DisplayReceivedDamage(Amount, crit);
         this.onDamageRecieved.Invoke(Amount);

@@ -23,10 +23,10 @@ public class GlobalInventory : Singleton<GlobalInventory>
     {
         AddItem(new Resource(ItemManager.Instance.GetItem("Can of perfection"), 5));
 
-        foreach (string ResType in ItemManager.Instance.GetItemTypeNames())
+        /*foreach (string ResType in ItemManager.Instance.GetItemTypeNames())
         {
             AddItem(new Resource(ItemManager.Instance.GetItem(ResType), 200));
-        }
+        }*/
     }
     public bool AddItem(Resource itemToAdd)
     {

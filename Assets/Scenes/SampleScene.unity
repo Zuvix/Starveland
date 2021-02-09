@@ -1603,7 +1603,7 @@ MonoBehaviour:
   OnTimeChanged:
     m_PersistentCalls:
       m_Calls: []
-  DayLength: 180
+  DayLength: 150
 --- !u!114 &166628868
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -17631,14 +17631,14 @@ MonoBehaviour:
   _persistent: 0
   sounds:
   - name: bg0
-    clip: {fileID: 8300000, guid: 037b254059489c8498089ba7151ca1db, type: 3}
-    volume: 0.5
+    clip: {fileID: 8300000, guid: 10eabb04ad9c6f94189c5cabc9f6d445, type: 3}
+    volume: 0.3
     pitch: 1
     loop: 1
     source: {fileID: 0}
   - name: bg1
-    clip: {fileID: 8300000, guid: 19dc3ce083edb1e4c8ee9221cfa78d79, type: 3}
-    volume: 0.5
+    clip: {fileID: 8300000, guid: 037b254059489c8498089ba7151ca1db, type: 3}
+    volume: 0.15
     pitch: 1
     loop: 1
     source: {fileID: 0}
@@ -17649,15 +17649,15 @@ MonoBehaviour:
     loop: 1
     source: {fileID: 0}
   - name: combat1
-    clip: {fileID: 8300000, guid: 469c3140e4d3915409215d26721613b4, type: 3}
-    volume: 0.5
-    pitch: 1
+    clip: {fileID: 8300000, guid: 311d6b3bdfe2f1b44ae5a4eb100edb3c, type: 3}
+    volume: 0.3
+    pitch: 0.6
     loop: 0
     source: {fileID: 0}
   - name: combat2
-    clip: {fileID: 8300000, guid: 311d6b3bdfe2f1b44ae5a4eb100edb3c, type: 3}
-    volume: 0.5
-    pitch: 0
+    clip: {fileID: 8300000, guid: 469c3140e4d3915409215d26721613b4, type: 3}
+    volume: 0.3
+    pitch: 0.6
     loop: 0
     source: {fileID: 0}
   - name: mine
@@ -17678,22 +17678,22 @@ MonoBehaviour:
     pitch: 0.75
     loop: 0
     source: {fileID: 0}
-  - name: 
-    clip: {fileID: 0}
-    volume: 0
-    pitch: 0
+  - name: lvlup
+    clip: {fileID: 8300000, guid: 187d642d87747394b837e68c8a6ca036, type: 3}
+    volume: 0.5
+    pitch: 1
     loop: 0
     source: {fileID: 0}
-  - name: 
-    clip: {fileID: 0}
-    volume: 0
-    pitch: 0
+  - name: item
+    clip: {fileID: 8300000, guid: 6330f690d237af84c819a20528211b3a, type: 3}
+    volume: 0.25
+    pitch: 0.5
     loop: 0
     source: {fileID: 0}
-  - name: 
-    clip: {fileID: 0}
-    volume: 0
-    pitch: 0
+  - name: que
+    clip: {fileID: 8300000, guid: 0994c12e202f342459a4212e7287f7e8, type: 3}
+    volume: 0.6
+    pitch: 0.8
     loop: 0
     source: {fileID: 0}
   - name: 

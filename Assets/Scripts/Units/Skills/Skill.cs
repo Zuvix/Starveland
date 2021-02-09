@@ -53,6 +53,7 @@ public abstract class Skill
     protected virtual void  LevelUp(Unit Unit)
     {
         this.Level++;
+        AudioManager.Instance.Play("lvlup");
         Talent NewTalent = TalentPool.Instance.RecieveNewTalent(this.AppliedTalents, this.Level, this.type);
         if (NewTalent != null)
         {

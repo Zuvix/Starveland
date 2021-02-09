@@ -96,6 +96,7 @@ public class UnitPlayer : Unit
         this.CurrentAction = "Dropping resources";
         //Debug.Log("About to drop");
         yield return new WaitForSeconds(1.0f);
+        AudioManager.Instance.Play("item");
         //Debug.Log("Dropping resources");
         //itemInHand = target.Gather();
         if (target != null)

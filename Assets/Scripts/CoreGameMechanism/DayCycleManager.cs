@@ -40,6 +40,7 @@ class DayCycleManager : Singleton<DayCycleManager>
     }
     public void StartDay()
     {
+        AudioManager.Instance.StopAll();
         AudioManager.Instance.PlayBackground();
         foreach (Unit Unit in Unit.PlayerUnitPool)
         {
