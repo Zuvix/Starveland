@@ -17686,7 +17686,7 @@ MonoBehaviour:
     source: {fileID: 0}
   - name: item
     clip: {fileID: 8300000, guid: 6330f690d237af84c819a20528211b3a, type: 3}
-    volume: 0.25
+    volume: 0.2
     pitch: 0.5
     loop: 0
     source: {fileID: 0}
